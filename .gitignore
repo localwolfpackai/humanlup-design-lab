@@ -26,3 +26,5 @@ STATUS.md
 _social/lab-01-wise-guys.jpg
 # clips before sound went on
 *.silent.mp4
+.vercel
+.env*
