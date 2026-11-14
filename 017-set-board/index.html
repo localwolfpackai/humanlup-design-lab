@@ -1,0 +1,676 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Setline · Set plan</title>
+<!-- humanlup:meta -->
+<!-- HumanLup Design Lab 17 · Anthony Lupo · humanlup.com · X @humanlup · IG humanlup.ai · anthony@humanlup.com -->
+<meta name="author" content="Anthony Lupo">
+<meta name="creator" content="Anthony Lupo">
+<meta name="publisher" content="HumanLup">
+<meta name="copyright" content="© 2026 Anthony Lupo, HumanLup">
+<link rel="author" href="https://humanlup.com">
+<link rel="me" href="https://x.com/humanlup">
+<link rel="me" href="https://www.instagram.com/humanlup.ai">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HumanLup Design Lab 17">
+<meta property="og:title" content="Setline · Set plan">
+<meta property="og:description" content="A weekly route-setting plan for a bouldering gym, on one board: walls across, grades up.">
+<meta property="og:image" content="preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@humanlup">
+<meta name="twitter:creator" content="@humanlup">
+<meta name="twitter:title" content="Setline · Set plan">
+<meta name="twitter:description" content="A weekly route-setting plan for a bouldering gym, on one board: walls across, grades up.">
+<meta name="twitter:image" content="preview.jpg">
+<!-- /humanlup:meta -->
+<meta name="description" content="A weekly route-setting plan for a bouldering gym, on one board: walls across, grades up.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Semi+Condensed:wght@400;500;600&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ground:#f1f0ec; --paper:#fbfaf7; --ink:#1b1a18; --soft:#5f5b53; --line:#d9d5cb; --faint:#e9e6de;
+  --disp:"Barlow Condensed","Arial Narrow","Helvetica Neue",sans-serif;
+  --body:"Barlow","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --row:44px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--ground);color:var(--ink);font:400 15px/1.4 var(--body);-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+button:focus-visible{outline:2px solid var(--ink);outline-offset:2px;border-radius:4px}
+h1,h2,h3,p,ul,ol{margin:0;padding:0}
+ul,ol{list-style:none}
+svg.i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+.page{max-width:1440px;margin:0 auto;padding:26px 28px 0}
+
+/* ---------- top ---------- */
+.top{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:28px;align-items:end;margin-bottom:18px}
+.kicker{font:700 15px/1 var(--disp);letter-spacing:.14em;text-transform:uppercase}
+.kicker span{color:var(--soft);font-weight:600;margin-left:10px}
+h1{font:800 clamp(38px,5.2vw,74px)/.92 var(--disp);letter-spacing:-.012em;text-transform:uppercase;margin-top:10px;text-wrap:balance}
+h1 b{font-weight:800;color:var(--soft)}
+.sub{margin-top:10px;color:var(--soft);max-width:60ch}
+.key{display:grid;gap:7px;font-size:14px;color:var(--soft)}
+.key li{display:flex;align-items:center;gap:9px}
+.key svg{flex:none}
+
+/* ---------- layout ---------- */
+.work{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:28px;align-items:start}
+.bar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin-bottom:10px;min-height:40px}
+.btn{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 14px;border:1.5px solid var(--ink);border-radius:6px;font-weight:600;font-size:15px;background:var(--paper);transition:background .15s,color .15s,transform .1s}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn:active{transform:translateY(1px)}
+.btn.pri{background:var(--ink);color:var(--paper)}
+.btn.pri:hover{background:#000}
+.btn[disabled]{opacity:.38;pointer-events:none}
+.say{flex:1 1 240px;color:var(--soft);font-size:14px;min-width:0}
+.say.hot{color:var(--ink);font-weight:500}
+
+/* ---------- board ---------- */
+.scroller{background:var(--paper);border:1.5px solid var(--ink);border-radius:8px;overflow:hidden}
+.board{display:grid;grid-template-columns:128px 50px repeat(5,minmax(0,1fr))}
+.board>*{border-left:1px solid var(--line);border-top:1px solid var(--line);min-width:0}
+.board>.c0{border-left:0}
+.board>.r0{border-top:0}
+.board>.bt{border-top:1.5px solid var(--ink)}
+
+.whead{padding:11px 12px 10px;display:grid;grid-template-columns:1fr auto;gap:2px 8px;align-items:start}
+.whead h2{font:700 21px/1 var(--disp);text-transform:uppercase;letter-spacing:.01em}
+.whead p{grid-column:1;color:var(--soft);font-size:14px;line-height:1.25}
+.whead svg{grid-row:1/3;grid-column:2;width:30px;height:34px}
+.corner{display:flex;align-items:flex-end;padding:10px 12px;color:var(--soft);font-size:14px}
+
+.band{padding:10px 12px;display:flex;flex-direction:column;gap:6px}
+.band h3{font:700 19px/1 var(--disp);letter-spacing:.01em}
+.band p{font-size:14px;line-height:1.25;color:var(--soft)}
+.band p strong{color:var(--ink);font-weight:600}
+.sq{display:flex;flex-wrap:wrap;gap:3px;max-width:104px}
+.sq i{width:11px;height:11px;border:1.5px solid var(--ink);border-radius:2px;display:block;transition:background .25s,border-color .25s}
+.sq i.f{background:var(--ink)}
+.sq i.n{background:repeating-linear-gradient(135deg,var(--ink) 0 1.5px,transparent 1.5px 3.5px)}
+.sq i.e{border-style:dashed;border-color:#8d887d}
+.sq i.o{outline:1.5px solid var(--ink);outline-offset:1px;border-radius:50%}
+
+.grade{display:flex;align-items:center;justify-content:center;font:700 21px/1 var(--disp);font-variant-numeric:tabular-nums}
+.cell{position:relative;min-height:var(--row);padding:5px 6px;display:flex;flex-direction:column;gap:3px;justify-content:center}
+.cell.has-room:hover,.cell.drop{background:var(--faint)}
+.cell.drop{box-shadow:inset 0 0 0 2px var(--ink)}
+.add{position:absolute;inset:0;z-index:0;display:flex;align-items:center;justify-content:flex-end;padding-right:9px;color:var(--soft);border-radius:0}
+.add svg{opacity:0;transition:opacity .12s;width:16px;height:16px}
+.cell:hover .add svg,.add:focus-visible svg{opacity:1}
+.cell:empty{}
+.add:focus-visible{outline-offset:-3px}
+.add[disabled]{cursor:default}
+.add[disabled] svg{display:none}
+
+.chip{position:relative;z-index:1;display:flex;align-items:center;min-width:0;min-height:28px;border-radius:14px;align-self:flex-start;max-width:100%}
+.chip-b{display:flex;align-items:center;gap:6px;min-width:0;min-height:28px;padding:1px 8px 1px 2px;border-radius:14px;text-align:left;transition:background .12s}
+.chip-b:hover{background:var(--faint)}
+.cell:hover .chip-b:hover{background:#dedad0}
+.chip svg.d{width:24px;height:24px;flex:none;overflow:visible}
+.nm{font:500 15px/1.08 "Barlow Semi Condensed",var(--body);min-width:0;text-wrap:balance}
+.dy{font:400 14px/1 "Barlow Semi Condensed",var(--body);color:var(--soft);font-variant-numeric:tabular-nums;flex:none}
+.is-over .dy{color:var(--ink);font-weight:600}
+.is-down .nm{text-decoration:line-through;text-decoration-thickness:1.5px;color:var(--soft)}
+.is-new .nm{font-weight:400}
+.is-new .nm b{font-weight:600}
+.is-new{cursor:grab}
+.x{width:24px;height:24px;display:grid;place-items:center;border-radius:50%;color:var(--soft);flex:none;opacity:0;transition:opacity .12s,background .12s}
+.x svg{width:14px;height:14px}
+.chip:hover .x,.x:focus-visible{opacity:1}
+.x:hover{background:var(--ink);color:var(--paper)}
+@keyframes land{from{opacity:0;transform:translateY(-16px) scale(.7)}60%{opacity:1;transform:translateY(2px) scale(1.03)}to{transform:none}}
+.fresh{animation:land .42s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--k,0) * 42ms)}
+@keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.intro .chip{animation:rise .5s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--k,0) * 22ms + 80ms)}
+.ghost{position:fixed;z-index:50;pointer-events:none;background:var(--paper);border:1.5px solid var(--ink);box-shadow:0 10px 24px rgba(0,0,0,.18);padding-right:10px;left:0;top:0}
+body.dragging{cursor:grabbing;user-select:none}
+body.dragging .chip-b:hover{background:none}
+.lifted{opacity:.3}
+
+.wfoot{padding:10px 12px 12px;display:flex;flex-direction:column;gap:8px}
+.wfoot p{font-size:14px;line-height:1.25;color:var(--soft)}
+.wfoot p strong{color:var(--ink);font-weight:600}
+.days{display:flex;gap:4px}
+.days button{height:30px;min-width:38px;padding:0 8px;border:1.5px solid var(--line);border-radius:5px;font:600 15px/1 var(--disp);letter-spacing:.04em;text-transform:uppercase;color:var(--soft);background:var(--paper)}
+.days button:hover{border-color:var(--ink);color:var(--ink)}
+.days button[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.days button[disabled]{opacity:.35;pointer-events:none;text-decoration:line-through}
+.days.none button:not([disabled]){border-color:var(--ink);color:var(--ink);border-style:dashed}
+
+.bands-m{display:none}
+
+/* ---------- week ---------- */
+.week{display:flex;flex-direction:column;gap:14px}
+.week>h2{font:700 15px/1 var(--disp);letter-spacing:.14em;text-transform:uppercase;height:40px;display:flex;align-items:center;margin-bottom:-4px}
+.day{background:var(--paper);border:1.5px solid var(--ink);border-radius:8px;overflow:hidden}
+.day header{display:flex;align-items:baseline;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line)}
+.day header h3{font:800 26px/1 var(--disp);text-transform:uppercase}
+.day header span{color:var(--soft);font-size:14px}
+.day header em{font-style:normal;margin-left:auto;font-weight:600;font-size:14px;text-align:right}
+.job{padding:10px 14px}
+.job+.job{border-top:1px solid var(--line)}
+.job h4{margin:0 0 5px;font:600 15px/1.25 var(--body)}
+.job p{font-size:14.5px;color:var(--soft);line-height:1.4}
+.sets{display:grid;grid-template-columns:1fr 1fr;gap:3px 10px}
+.sets li{display:flex;align-items:center;gap:6px;font-size:14px;white-space:nowrap;min-width:0}
+.sets li b{font:700 16px/1 var(--disp);min-width:25px}
+.sets li span{color:var(--soft);overflow:hidden;text-overflow:ellipsis}
+.sets svg{width:14px;height:14px;flex:none}
+.open{border:1.5px dashed var(--ink);border-radius:8px;padding:12px 14px}
+.open h3{font:700 15px/1 var(--disp);letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px}
+.open li{display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.35;padding:3px 0}
+.open li svg{margin-top:1px}
+.open.clear{border-style:solid;background:var(--ink);color:var(--paper)}
+.outs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.outs .btn{justify-content:center;padding:0 8px}
+.outs .wide{grid-column:1/-1}
+
+/* ---------- foot ---------- */
+.foot{margin-top:34px;padding:16px 0 20px;border-top:1px solid var(--line);color:var(--soft);font-size:14px;display:flex;flex-wrap:wrap;gap:6px 28px;justify-content:space-between}
+.foot code{font-family:ui-monospace,Menlo,monospace;font-size:13px;color:var(--ink)}
+.checker{height:12px;background:
+  conic-gradient(var(--ink) 25%,transparent 0 50%,var(--ink) 0 75%,transparent 0) 0 0/12px 12px}
+
+/* ---------- narrower desktop ---------- */
+@media (max-width:1180px){
+  .top,.work{grid-template-columns:minmax(0,1fr)}
+  .key{grid-auto-flow:column;justify-content:start;gap:18px}
+  .week{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:start}
+  .week>h2,.open,.outs{grid-column:1/-1}
+  .outs{grid-template-columns:repeat(4,1fr)}
+  .outs .wide{grid-column:auto}
+}
+
+/* ---------- phone ---------- */
+@media (max-width:760px){
+  body{font-size:16px}
+  .page{padding:18px 16px 0}
+  h1{font-size:40px}
+  .key{grid-auto-flow:row;gap:6px;font-size:16px;margin-top:4px}
+  .bar{position:static}
+  .btn{height:48px;font-size:16px;flex:1 1 auto;justify-content:center}
+  .say{flex-basis:100%;font-size:16px}
+  .bands-m{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:sticky;top:0;z-index:20;background:var(--ground);padding:8px 0;margin:0 -16px 8px;padding-inline:16px;border-bottom:1px solid var(--line)}
+  .bands-m div{padding-right:6px}
+  .bands-m h3{font:700 17px/1 var(--disp)}
+  .bands-m p{font-size:14px;color:var(--soft);margin:3px 0 5px}
+  .bands-m p strong{color:var(--ink)}
+  .bands-m .sq i{width:8px;height:8px;border-width:1.25px}
+  .bands-m .sq{gap:2px;max-width:70px}
+  :root{--row:52px}
+  .scroller{overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-left:46px;-webkit-overflow-scrolling:touch}
+  .board{grid-template-columns:46px repeat(5,calc(100vw - 32px - 46px - 44px));width:max-content}
+  .band{display:none}
+  .corner{grid-column:1 !important;padding:6px;font-size:0}
+  .grade{grid-column:1 !important;position:sticky;left:0;z-index:5;background:var(--paper);border-left:0;border-right:1px solid var(--ink)}
+  .corner{position:sticky;left:0;z-index:5;background:var(--paper);border-right:1px solid var(--ink)}
+  .whead,.cell,.wfoot{scroll-snap-align:start}
+  .cell{padding:6px 8px}
+  .chip,.chip-b{min-height:40px;border-radius:20px}
+  .nm{font-size:17px}.dy{font-size:15px}
+  .x{opacity:1;width:40px;height:40px}
+  .x svg{width:18px;height:18px}
+  .add svg{opacity:.55}
+  .days button{height:44px;min-width:52px;font-size:17px}
+  .wfoot p{font-size:15px}
+  .week{display:flex}
+  .outs{grid-template-columns:1fr 1fr}
+  .outs .wide{grid-column:1/-1}
+  .sets li{font-size:15px}
+  .job p,.open li{font-size:16px}
+  .is-new{cursor:pointer}
+}
+
+@media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
+
+@media print{
+  @page{margin:12mm}
+  body{background:#fff;font-size:11pt}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .chip{animation:none !important;opacity:1 !important;transform:none !important}
+  .bar,.outs,.key,.x,.add,.foot,.checker,.bands-m,.days button:not([aria-pressed=true]){display:none !important}
+  .page{padding:0;max-width:none}
+  .top,.work{display:block}
+  h1{font-size:30pt}
+  .week{display:grid;grid-template-columns:repeat(3,1fr);gap:8pt;margin-bottom:12pt}
+  .week>h2,.open{grid-column:1/-1}
+  .work{display:flex;flex-direction:column-reverse}
+  .scroller{break-inside:avoid}
+  .day,.open{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="top">
+    <div>
+      <p class="kicker">Setline <span>Week of July 20</span></p>
+      <h1 id="h1" aria-live="polite">Set plan</h1>
+      <p class="sub">Walls across, grades up. Six weeks on the wall, then it comes down unless you keep it.</p>
+    </div>
+    <ul class="key" aria-label="Key">
+      <li><svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10.5" fill="none" stroke="#d9d5cb" stroke-width="2"/><circle cx="12" cy="12" r="10.5" fill="none" stroke="#1b1a18" stroke-width="2" pathLength="100" stroke-dasharray="60 100" transform="rotate(-90 12 12)"/><circle cx="12" cy="12" r="7" fill="#2b6cb0"/></svg>The ring fills over six weeks</li>
+      <li><svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7" fill="none" stroke="#c93a2a" stroke-width="2.2"/><path d="M4 20 20 4" stroke="#1b1a18" stroke-width="2"/></svg>Coming down Thursday</li>
+      <li><svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10.5" fill="none" stroke="#1b1a18" stroke-width="1.5" stroke-dasharray="3 3"/><circle cx="12" cy="12" r="7" fill="#3e7a4e"/></svg>New this week</li>
+    </ul>
+  </header>
+
+  <div class="work">
+    <section aria-label="Board">
+      <div class="bar">
+        <button class="btn pri" id="fill"><svg class="i" viewBox="0 0 24 24"><path d="M16 5H3"/><path d="M11 12H3"/><path d="M16 19H3"/><path d="M18 9v6"/><path d="M21 12h-6"/></svg>Fill open lines</button>
+        <button class="btn" id="clear"><svg class="i" viewBox="0 0 24 24"><path d="M21 21H8a2 2 0 0 1-1.42-.587l-3.994-3.999a2 2 0 0 1 0-2.828l10-10a2 2 0 0 1 2.829 0l5.999 6a2 2 0 0 1 0 2.828L12.834 21"/><path d="m5.082 11.09 8.828 8.828"/></svg>Clear new</button>
+        <p class="say" id="say" role="status"></p>
+      </div>
+      <div class="bands-m" id="bandsm" aria-hidden="true"></div>
+      <div class="scroller"><div class="board intro" id="board"></div></div>
+    </section>
+
+    <aside class="week" id="week" aria-label="The week"></aside>
+  </div>
+
+  <footer class="foot">
+    <p>The plan lives in the link. Copy it to share this board.</p>
+    <p>Built by Lupo</p>
+  </footer>
+</div>
+<div class="checker" aria-hidden="true"></div>
+
+<script>
+(() => {
+"use strict";
+/* ---- data, as in the source's data.js ---- */
+const STRIP_AFTER = 42;
+const WALLS = [
+  {id:"cave", name:"The Cave", detail:"45° overhang", ang:45, routes:[
+    ["c1","Roof Rat","black",8,51,"Maya"],["c2","Full Send Friday","red",6,44,"Jonas"],["c3","Pinch Point","yellow",7,44,"Jonas"],
+    ["c4","Sea Legs","blue",4,38,"Maya"],["c5","Gravity Tax","purple",5,29,"Jonas"],["c6","Big Country","green",3,21,"Priya"],["c7","Soft Serve","pink",2,12,"Priya"]]},
+  {id:"slab", name:"Slab Alley", detail:"5° slab", ang:-5, routes:[
+    ["s1","Tip Toe","white",1,47,"Priya"],["s2","Trust the Feet","teal",3,47,"Priya"],["s3","Glass Dance","blue",5,33,"Jonas"],
+    ["s4","No Hands Land","purple",4,26,"Priya"],["s5","Mantle Practice","orange",2,18,"Maya"],["s6","Patience","green",0,9,"Maya"]]},
+  {id:"prow", name:"The Prow", detail:"30° prow. Stripped Friday.", ang:30, lines:8, routes:[]},
+  {id:"front", name:"Front Face", detail:"Vertical", ang:0, routes:[
+    ["f1","The Long Reach","black",6,49,"Maya"],["f2","Crimp Camp","red",5,40,"Maya"],["f3","Sidewinder","orange",4,35,"Jonas"],
+    ["f4","Edge Case","teal",3,22,"Priya"],["f5","Jug Haul","green",0,15,"Priya"],["f6","Ladder Logic","blue",1,15,"Priya"],["f7","Warm Up Lap","yellow",0,8,"Jonas"]]},
+  {id:"comp", name:"Comp Wall", detail:"Adjustable", ang:null, routes:[
+    ["k1","Low Ball","red",9,30,"Maya"],["k2","Finals Sim 1","black",7,30,"Jonas"],["k3","Finals Sim 2","black",8,30,"Jonas"],
+    ["k4","Paddle Dyno","pink",6,30,"Maya"],["k5","Comp Slab","white",4,30,"Priya"]]},
+].map(w => ({...w, cap:w.lines || w.routes.length,
+  routes:w.routes.map(([id,name,color,grade,days,setter]) => ({id,name,color,grade,days,setter,wall:w.id}))}));
+const BANDS = [
+  {id:"proj", label:"V9+", min:9, max:99, target:3},
+  {id:"hard", label:"V6–V8", min:6, max:8, target:8},
+  {id:"mid",  label:"V3–V5", min:3, max:5, target:13},
+  {id:"easy", label:"V0–V2", min:0, max:2, target:9},
+];
+const DAYS = [
+  {id:"tue", day:"Tue", date:"Jul 21", crew:["Maya","Jonas"], who:"Maya + Jonas"},
+  {id:"thu", day:"Thu", date:"Jul 23", crew:["Priya"], who:"Priya"},
+  {id:"fri", day:"Fri", date:"Jul 24", crew:["Maya","Jonas","Priya"], who:"All setters"},
+];
+const COLORS = {red:"#c93a2a",blue:"#2b6cb0",yellow:"#e3b229",green:"#3e7a4e",purple:"#6b4fa0",black:"#26221d",pink:"#d95f98",orange:"#dd7028",white:"#f2efe7",teal:"#2e8a86"};
+const CNAMES = Object.keys(COLORS);
+const ROUTES = WALLS.flatMap(w => w.routes);
+const RBY = Object.fromEntries(ROUTES.map(r => [r.id,r]));
+const WBY = Object.fromEntries(WALLS.map(w => [w.id,w]));
+const GRADES = [9,8,7,6,5,4,3,2,1,0];
+const gl = g => g >= 9 ? "V9+" : "V"+g;
+const bandOf = g => BANDS.find(b => g >= b.min && g <= b.max);
+const HARDEST = {};
+ROUTES.forEach(r => HARDEST[r.setter] = Math.max(HARDEST[r.setter] ?? 0, r.grade));
+
+/* ---- state ---- */
+let S, seq = 0, fresh = new Map(), sayT = 0;
+const defaults = () => ({
+  marked:new Set(ROUTES.filter(r => r.days > STRIP_AFTER).map(r => r.id)),
+  news:[], days:{prow:"tue", cave:"thu"}
+});
+function load(){
+  S = defaults();
+  const h = location.hash.slice(1);
+  if(!h) return;
+  try{
+    const q = new URLSearchParams(h);
+    if(q.has("m")) S.marked = new Set(q.get("m").split(".").filter(id => RBY[id]));
+    if(q.has("n")) S.news = q.get("n").split(".").filter(Boolean).map(t => {
+      const [w,g,c] = t.split("-"); return {id:"n"+(seq++), wall:w, grade:+g, color:CNAMES[+c]};
+    }).filter(n => WBY[n.wall] && n.grade >= 0 && n.grade <= 9 && n.color);
+    if(q.has("d")){ S.days = {}; q.get("d").split(".").filter(Boolean).forEach(t => { const [w,d] = t.split("-"); if(WBY[w] && DAYS.some(x => x.id === d)) S.days[w] = d; }); }
+  }catch(e){ S = defaults(); }
+}
+function save(){
+  const def = defaults();
+  const m = [...S.marked].sort().join("."), dm = [...def.marked].sort().join(".");
+  const d = Object.entries(S.days).map(([w,x]) => w+"-"+x).sort().join(".");
+  const dd = Object.entries(def.days).map(([w,x]) => w+"-"+x).sort().join(".");
+  const q = [];
+  if(m !== dm) q.push("m="+m);
+  if(S.news.length) q.push("n="+S.news.map(n => n.wall+"-"+n.grade+"-"+CNAMES.indexOf(n.color)).join("."));
+  if(d !== dd) q.push("d="+d);
+  history.replaceState(null,"",q.length ? "#"+q.join("&") : location.pathname+location.search);
+}
+
+/* ---- derived ---- */
+function derive(){
+  const staying = ROUTES.filter(r => !S.marked.has(r.id));
+  const walls = WALLS.map(w => {
+    const stay = staying.filter(r => r.wall === w.id).length;
+    const placed = S.news.filter(n => n.wall === w.id).length;
+    const open = w.cap - stay;
+    return {...w, stay, placed, open, left:open - placed, down:w.routes.length - stay, day:open > 0 ? (S.days[w.id] || null) : null};
+  });
+  const bands = BANDS.map(b => {
+    const up = staying.filter(r => bandOf(r.grade) === b).length;
+    const neu = S.news.filter(n => bandOf(n.grade) === b).length;
+    return {...b, up, neu, short:Math.max(0, b.target - up - neu), over:Math.max(0, up + neu - b.target)};
+  });
+  // who sets what: go round the day's crew
+  const setter = {};
+  DAYS.forEach(d => {
+    let i = 0;
+    walls.filter(w => w.day === d.id).forEach(w =>
+      S.news.filter(n => n.wall === w.id).sort((a,b) => b.grade - a.grade).forEach(n => setter[n.id] = d.crew[i++ % d.crew.length]));
+  });
+  const open = walls.reduce((n,w) => n + w.open, 0), placed = S.news.length;
+  return {staying, walls, bands, setter, open, placed};
+}
+const usedColors = (wall, skip) => new Set([
+  ...ROUTES.filter(r => r.wall === wall && !S.marked.has(r.id)).map(r => r.color),
+  ...S.news.filter(n => n.wall === wall && n !== skip).map(n => n.color)]);
+function pickColor(wall, skip){
+  const used = usedColors(wall, skip);
+  const free = CNAMES.filter(c => !used.has(c));
+  const pool = free.length ? free : CNAMES;
+  const count = c => ROUTES.filter(r => !S.marked.has(r.id) && r.color === c).length + S.news.filter(n => n.color === c).length;
+  return pool.slice().sort((a,b) => count(a) - count(b))[0];
+}
+
+/* ---- actions ---- */
+function say(t){ const el = document.getElementById("say"); el.textContent = t; el.classList.add("hot"); clearTimeout(sayT); sayT = setTimeout(() => { el.classList.remove("hot"); el.textContent = HINT; }, 5200); }
+const HINT = matchMedia("(pointer:coarse)").matches ? "Tap a route to strip or keep it. Tap an empty square to add a problem. Tap a new one to change its color." : "Click a route to strip or keep it. Click an empty square to add a problem. Click a new one to change its color, or drag it.";
+function toggle(id){
+  const r = RBY[id], w = WBY[r.wall];
+  if(S.marked.has(id)){
+    S.marked.delete(id);
+    const d = derive().walls.find(x => x.id === w.id);
+    let msg = "Keeping "+r.name+" another week.";
+    if(d.left < 0){
+      const mine = S.news.filter(n => n.wall === w.id);
+      const gone = mine[mine.length-1];
+      S.news = S.news.filter(n => n !== gone);
+      msg += " Took one new "+gl(gone.grade)+" off "+w.name+" to make room.";
+    }
+    S.news.filter(n => n.wall === w.id && n.color === r.color).forEach(n => n.color = pickColor(w.id, n));
+    say(msg);
+  } else { S.marked.add(id); say(r.name+" comes down Thursday. "+w.name+" has one more line to fill."); }
+  render();
+}
+function add(wall, grade, quiet){
+  const d = derive().walls.find(w => w.id === wall);
+  if(d.left <= 0){ say(d.name+" is full. Strip a route there to open a line."); return null; }
+  const n = {id:"n"+(seq++), wall, grade, color:pickColor(wall)};
+  S.news.push(n); fresh.set(n.id, fresh.size);
+  if(!quiet){ say("Added a "+n.color+" "+gl(grade)+" on "+d.name+"."); render(); }
+  return n;
+}
+function recolor(id){
+  const n = S.news.find(x => x.id === id); if(!n) return;
+  const used = usedColors(n.wall, n);
+  const i = CNAMES.indexOf(n.color);
+  for(let k = 1; k <= CNAMES.length; k++){ const c = CNAMES[(i+k) % CNAMES.length]; if(!used.has(c)){ n.color = c; break; } }
+  say("Now "+n.color+".");
+  render();
+}
+function remove(id){ S.news = S.news.filter(n => n.id !== id); render(); }
+function fill(){
+  let d = derive();
+  const slots = Object.fromEntries(d.walls.map(w => [w.id, Math.max(0, w.left)]));
+  let total = Object.values(slots).reduce((a,b) => a+b, 0);
+  if(!total){ say("No open lines to fill."); return; }
+  const gcount = g => d.staying.filter(r => r.grade === g).length + S.news.filter(n => n.grade === g).length + picks.filter(x => x === g).length;
+  const picks = [];
+  const need = d.bands.map(b => ({b, n:b.short}));
+  // take from the band that is furthest short, one at a time
+  while(picks.length < total){
+    need.sort((a,b) => b.n - a.n);
+    let b = need[0].n > 0 ? need[0].b : null;
+    if(!b){ // every band on target: spread what is left across V0 to V8
+      const g = [0,1,2,3,4,5,6,7,8].sort((x,y) => gcount(x) - gcount(y))[0]; picks.push(g); continue;
+    }
+    need[0].n--;
+    const gs = []; for(let g = b.min; g <= Math.min(b.max,9); g++) gs.push(g);
+    picks.push(gs.sort((x,y) => gcount(x) - gcount(y) || x - y)[0]);
+  }
+  picks.sort((a,b) => b - a);
+  const onWall = (w,g) => d.staying.filter(r => r.wall === w && r.grade === g).length + S.news.filter(n => n.wall === w && n.grade === g).length;
+  fresh = new Map();
+  picks.forEach(g => {
+    const w = Object.keys(slots).filter(id => slots[id] > 0)
+      .sort((a,b) => (onWall(a,g)*10 + (onWall(a,g-1)+onWall(a,g+1))*3 - slots[a]*.5) - (onWall(b,g)*10 + (onWall(b,g-1)+onWall(b,g+1))*3 - slots[b]*.5))[0];
+    slots[w]--; add(w, g, true);
+  });
+  say("Placed "+total+". Each one went to the wall with the fewest at that grade.");
+  render();
+}
+
+/* ---- drawing ---- */
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function disc(color, mode, days){
+  const c = COLORS[color], edge = color === "white" ? ' stroke="#1b1a18" stroke-opacity=".35" stroke-width="1"' : "";
+  if(mode === "down") return `<svg class="d" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7" fill="none" stroke="${color === "white" ? "#8d887d" : c}" stroke-width="2.2"/><path d="M4 20 20 4" stroke="#1b1a18" stroke-width="2"/></svg>`;
+  if(mode === "new") return `<svg class="d" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5" fill="none" stroke="#1b1a18" stroke-width="1.5" stroke-dasharray="3 3"/><circle cx="12" cy="12" r="7" fill="${c}"${edge}/></svg>`;
+  const p = Math.min(100, Math.round(days / STRIP_AFTER * 100));
+  return `<svg class="d" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5" fill="none" stroke="#d9d5cb" stroke-width="2"/><circle cx="12" cy="12" r="10.5" fill="none" stroke="#1b1a18" stroke-width="${p >= 100 ? 2.6 : 2}" pathLength="100" stroke-dasharray="${p} 100" transform="rotate(-90 12 12)"/><circle cx="12" cy="12" r="7" fill="${c}"${edge}/></svg>`;
+}
+function dot(color){ const edge = color === "white" ? ' stroke="#1b1a18" stroke-opacity=".4"' : ""; return `<svg viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="6" fill="${COLORS[color]}"${edge}/></svg>`; }
+function angle(a){
+  if(a === null) return `<svg viewBox="0 0 30 34" aria-hidden="true"><path d="M3 31h24" stroke="#1b1a18" stroke-width="1.5"/><path d="M22 31V5M22 31 6 11" stroke="#1b1a18" stroke-width="1.5" stroke-dasharray="2 3" fill="none"/><path d="M22 13A18 18 0 0 0 10.8 16.9" stroke="#1b1a18" stroke-width="1.5" fill="none"/></svg>`;
+  const r = a * Math.PI / 180, L = 27, x0 = a > 20 ? 24 : 15, x1 = x0 - Math.sin(r) * L, y1 = 31 - Math.cos(r) * L;
+  return `<svg viewBox="0 0 30 34" aria-hidden="true"><path d="M3 31h24" stroke="#1b1a18" stroke-width="1.5"/><path d="M${x0} 31V4" stroke="#d9d5cb" stroke-width="1.5" stroke-dasharray="2 3"/><path d="M${x0} 31 ${x1.toFixed(1)} ${y1.toFixed(1)}" stroke="#1b1a18" stroke-width="2.5" stroke-linecap="round"/></svg>`;
+}
+const squares = b => { let h = ""; const n = Math.max(b.target, b.up + b.neu); for(let i = 0; i < n; i++) h += `<i class="${i < b.up ? "f" : i < b.up + b.neu ? "n" : "e"}${i >= b.target ? " o" : ""}"></i>`; return `<div class="sq">${h}</div>`; };
+const bandLine = b => b.short ? `<strong>${b.short} short</strong> of ${b.target}` : b.over ? `<strong>${b.over} over</strong> ${b.target}` : `<strong>On target</strong>, ${b.target}`;
+const I = {
+  x:'<svg class="i" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>',
+  plus:'<svg class="i" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></svg>',
+  check:'<svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>',
+  alert:'<svg class="i" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>',
+  print:'<svg class="i" viewBox="0 0 24 24"><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6"/><rect x="6" y="14" width="12" height="8" rx="1"/></svg>',
+  copy:'<svg class="i" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>',
+  link:'<svg class="i" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>',
+  reset:'<svg class="i" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>',
+};
+
+function checks(d){
+  const out = [];
+  d.walls.forEach(w => {
+    const ln = w.open === 1 ? "line" : "lines";
+    if(w.left > 0 && !w.day) out.push(`${w.name}: ${w.left} of ${w.open} open ${ln} empty, and no day picked.`);
+    else if(w.left > 0) out.push(`${w.name}: ${w.left} of ${w.open} open ${ln} still empty.`);
+    else if(w.open > 0 && !w.day) out.push(`${w.name}: ${w.open} new, and no day picked.`);
+  });
+  d.bands.forEach(b => { if(b.short) out.push(`${b.label} is ${b.short} short of ${b.target}.`); else if(b.over) out.push(`${b.label} is ${b.over} over its ${b.target}.`); });
+  const stretch = {};
+  S.news.forEach(n => { const s = d.setter[n.id]; if(s && n.grade > HARDEST[s]) stretch[s] = Math.max(stretch[s] ?? 0, n.grade); });
+  Object.entries(stretch).forEach(([s,g]) => out.push(`${s} is down for a ${gl(g)}. Her hardest on the wall now is ${gl(HARDEST[s])}.`.replace("Her", s === "Jonas" ? "His" : "Her")));
+  return out;
+}
+
+function render(){
+  const d = derive();
+  const act = document.activeElement && document.activeElement.dataset ? document.activeElement.dataset.k : null;
+  /* headline */
+  const short = d.bands.filter(b => b.short), left = d.open - d.placed;
+  let h;
+  if(d.open === 0) h = "Nothing comes down. <b>Nothing to set.</b>";
+  else if(left > 0) h = `${d.open} ${d.open === 1 ? "line" : "lines"} to fill. <b>${d.placed} placed.</b>`;
+  else if(short.length) h = `All ${d.open} filled. <b>${short[0].label} is ${short[0].short} short.</b>`;
+  else h = `All ${d.open} filled. <b>Every grade band is on target.</b>`;
+  const h1 = document.getElementById("h1"); if(h1.innerHTML !== h) h1.innerHTML = h;
+
+  /* board */
+  let b = `<div class="corner c0 r0" style="grid-column:1/3;grid-row:1">Target mix</div>`;
+  d.walls.forEach((w,i) => b += `<div class="whead r0" style="grid-column:${i+3};grid-row:1"><h2>${w.name}</h2><p>${w.detail}</p>${angle(w.ang)}</div>`);
+  let row = 2;
+  d.bands.forEach(bd => {
+    const gs = GRADES.filter(g => bandOf(g).id === bd.id);
+    b += `<div class="band c0 bt" style="grid-column:1;grid-row:${row}/${row+gs.length}"><h3>${bd.label}</h3>${squares(bd)}<p>${bandLine(bd)}</p></div>`;
+    gs.forEach((g,gi) => {
+      const bt = gi === 0 ? " bt" : "";
+      b += `<div class="grade${bt}" style="grid-column:2;grid-row:${row}">${gl(g)}</div>`;
+      d.walls.forEach((w,wi) => {
+        let c = "";
+        w.routes.filter(r => r.grade === g).forEach(r => {
+          const down = S.marked.has(r.id), over = r.days > STRIP_AFTER;
+          c += `<span class="chip${down ? " is-down" : ""}${over ? " is-over" : ""}" style="--k:${wi*3 + (9-g)}"><button class="chip-b" data-act="toggle" data-id="${r.id}" data-k="r${r.id}" aria-pressed="${down}" title="${esc(r.name)}, ${r.color}, set by ${r.setter}, ${r.days} days up" aria-label="${esc(r.name)}, ${gl(g)}, ${r.color}, set by ${r.setter}, ${r.days} days up. ${down ? "Coming down. Press to keep." : "Staying. Press to strip."}">${disc(r.color, down ? "down" : "up", r.days)}<span class="nm">${esc(r.name)}</span><span class="dy">${r.days}d</span></button></span>`;
+        });
+        S.news.filter(n => n.wall === w.id && n.grade === g).forEach(n => {
+          const who = d.setter[n.id];
+          c += `<span class="chip is-new${fresh.has(n.id) ? " fresh" : ""}" data-nid="${n.id}" style="--k:${fresh.get(n.id) ?? 0}"><button class="chip-b" data-act="color" data-id="${n.id}" data-k="${n.id}" title="Click to change color, drag to move" aria-label="New ${gl(g)}, ${n.color}${who ? ", set by "+who : ", no setter yet"}. Press to change color.">${disc(n.color,"new")}<span class="nm"><b>New</b>${who ? " · "+who : ""}</span></button><button class="x" data-act="rm" data-id="${n.id}" data-k="x${n.id}" aria-label="Remove this new ${gl(g)}">${I.x}</button></span>`;
+        });
+        const room = w.left > 0;
+        b += `<div class="cell${bt}${room ? " has-room" : ""}" data-wall="${w.id}" data-grade="${g}" style="grid-column:${wi+3};grid-row:${row}"><button class="add" data-act="add" data-k="a${w.id}${g}" tabindex="${room ? 0 : -1}" ${room ? "" : "disabled"} aria-label="Add a ${gl(g)} on ${w.name}">${I.plus}</button>${c}</div>`;
+      });
+      row++;
+    });
+  });
+  b += `<div class="corner c0 bt" style="grid-column:1/3;grid-row:${row}">Open lines</div>`;
+  d.walls.forEach((w,i) => {
+    let t = w.open === 0 ? "Full. Nothing coming down." : `<strong>${w.open} open</strong>, ${w.placed} placed`;
+    let days = "";
+    if(w.open > 0) days = `<div class="days${w.day ? "" : " none"}" role="group" aria-label="Day to set ${w.name}">` + DAYS.map(x => {
+      const no = x.id === "tue" && w.down > 0;
+      return `<button data-act="day" data-wall="${w.id}" data-day="${x.id}" data-k="d${w.id}${x.id}" aria-pressed="${w.day === x.id}" ${no ? 'disabled title="Routes here come down Thursday"' : ""}>${x.day}</button>`;
+    }).join("") + `</div>`;
+    b += `<div class="wfoot bt" style="grid-column:${i+3};grid-row:${row}"><p>${t}</p>${days}</div>`;
+  });
+  const board = document.getElementById("board");
+  board.innerHTML = b;
+
+  document.getElementById("bandsm").innerHTML = d.bands.slice().reverse().map(x => `<div><h3>${x.label}</h3><p>${bandLine(x).replace(/ of \d+|, \d+| \d+$/,"")}</p>${squares(x)}</div>`).join("");
+
+  /* week */
+  const downs = ROUTES.filter(r => S.marked.has(r.id));
+  let w = `<h2>The week</h2>`;
+  DAYS.forEach(x => {
+    const walls = d.walls.filter(v => v.day === x.id && v.placed > 0);
+    const nset = walls.reduce((n,v) => n + v.placed, 0);
+    let jobs = "", tally = [];
+    if(x.id === "thu" && downs.length){
+      tally.push("strip "+downs.length);
+      jobs += `<div class="job"><h4>Strip ${downs.length}</h4><p>${downs.map(r => esc(r.name)).join(", ")}</p></div>`;
+    }
+    if(nset) tally.push("set "+nset);
+    walls.forEach(v => {
+      jobs += `<div class="job"><h4>Set ${v.placed} on ${v.name}</h4><ul class="sets">` + S.news.filter(n => n.wall === v.id).sort((a,b) => b.grade - a.grade).map(n => `<li>${dot(n.color)}<b>${gl(n.grade)}</b><span>${n.color}, ${d.setter[n.id]}</span></li>`).join("") + `</ul></div>`;
+    });
+    if(x.id === "fri"){ tally.push("forerun "+d.placed); jobs += `<div class="job"><p>${d.placed ? `Forerun the ${d.placed} new ${d.placed === 1 ? "problem" : "problems"} and settle grades.` : "Nothing new to forerun yet."}</p></div>`; }
+    if(!jobs) jobs = `<div class="job"><p>Nothing yet.</p></div>`;
+    w += `<section class="day"><header><h3>${x.day}</h3><span>${x.date} · ${x.who}</span><em>${tally.join(", ")}</em></header>${jobs}</section>`;
+  });
+  const ck = checks(d);
+  w += ck.length ? `<section class="open"><h3>Still open</h3><ul>${ck.map(t => `<li>${I.alert}<span>${t}</span></li>`).join("")}</ul></section>`
+                 : `<section class="open clear"><h3>Nothing open</h3><ul><li>${I.check}<span>Every line has a problem, a setter and a day. Ready for the setting board.</span></li></ul></section>`;
+  w += `<div class="outs"><button class="btn pri wide" data-act="print" data-k="oprint">${I.print}Print for the setting board</button><button class="btn" data-act="text" data-k="otext">${I.copy}Copy as text</button><button class="btn" data-act="link" data-k="olink">${I.link}Copy link</button><button class="btn wide" data-act="reset" data-k="oreset">${I.reset}Start the week over</button></div>`;
+  document.getElementById("week").innerHTML = w;
+
+  document.getElementById("clear").disabled = !S.news.length;
+  document.getElementById("fill").disabled = left <= 0;
+  if(act){ const el = document.querySelector(`[data-k="${act}"]`); if(el && !el.disabled) el.focus({preventScroll:true}); }
+  fresh = new Map();
+  save();
+  window.__setline = {state:S, derived:d, checks:ck};
+}
+
+function asText(){
+  const d = derive(), downs = ROUTES.filter(r => S.marked.has(r.id)), L = ["Set plan, week of July 20",""];
+  DAYS.forEach(x => {
+    L.push(`${x.day} ${x.date}, ${x.who}`);
+    if(x.id === "thu" && downs.length) L.push(`  Strip ${downs.length}: ${downs.map(r => r.name+" ("+WBY[r.wall].name+")").join(", ")}`);
+    d.walls.filter(v => v.day === x.id && v.placed).forEach(v => L.push(`  Set ${v.placed} on ${v.name}: `+S.news.filter(n => n.wall === v.id).sort((a,b) => b.grade - a.grade).map(n => `${gl(n.grade)} ${n.color} (${d.setter[n.id]})`).join(", ")));
+    if(x.id === "fri") L.push(`  Forerun ${d.placed} new and settle grades.`);
+    L.push("");
+  });
+  L.push("After the reset: "+d.bands.slice().reverse().map(b => `${b.label} ${b.up + b.neu} of ${b.target}`).join(", ")+".");
+  const ck = checks(d); if(ck.length){ L.push("","Still open:"); ck.forEach(t => L.push("  "+t)); }
+  return L.join("\n");
+}
+async function copy(t, ok){ try{ await navigator.clipboard.writeText(t); say(ok); }catch(e){ say("Could not reach the clipboard here."); } }
+
+/* ---- events ---- */
+let dragged = false;
+document.addEventListener("click", e => {
+  if(dragged){ dragged = false; return; }
+  const t = e.target.closest("[data-act]"); if(!t) return;
+  const a = t.dataset.act;
+  if(a === "toggle") toggle(t.dataset.id);
+  else if(a === "color") recolor(t.dataset.id);
+  else if(a === "rm") remove(t.dataset.id);
+  else if(a === "add"){ const c = t.closest(".cell"); add(c.dataset.wall, +c.dataset.grade); }
+  else if(a === "day"){ const w = t.dataset.wall; if(S.days[w] === t.dataset.day) delete S.days[w]; else S.days[w] = t.dataset.day; render(); }
+  else if(a === "print") window.print();
+  else if(a === "text") copy(asText(), "Plan copied as text.");
+  else if(a === "link") copy(location.href, "Link copied. It opens this exact board.");
+  else if(a === "reset"){ S = defaults(); say("Back to the start of the week."); render(); }
+});
+document.getElementById("fill").addEventListener("click", fill);
+document.getElementById("clear").addEventListener("click", () => { S.news = []; say("Cleared every new problem."); render(); });
+
+/* drag a new problem to another square (mouse) */
+let drag = null;
+document.addEventListener("pointerdown", e => {
+  if(e.pointerType !== "mouse" || e.button !== 0) return;
+  const c = e.target.closest(".chip.is-new"); if(!c || e.target.closest(".x")) return;
+  drag = {id:c.dataset.nid, x:e.clientX, y:e.clientY, on:false, el:c, ghost:null, cell:null};
+});
+document.addEventListener("pointermove", e => {
+  if(!drag) return;
+  if(!drag.on){
+    if(Math.hypot(e.clientX - drag.x, e.clientY - drag.y) < 6) return;
+    drag.on = true; document.body.classList.add("dragging");
+    const r = drag.el.getBoundingClientRect();
+    drag.ox = e.clientX - r.left; drag.oy = e.clientY - r.top;
+    drag.ghost = drag.el.cloneNode(true); drag.ghost.classList.add("ghost"); drag.ghost.classList.remove("fresh");
+    document.body.appendChild(drag.ghost); drag.el.classList.add("lifted");
+  }
+  drag.ghost.style.transform = `translate(${e.clientX - drag.ox}px,${e.clientY - drag.oy}px)`;
+  const under = document.elementFromPoint(e.clientX, e.clientY);
+  const cell = under && under.closest(".cell");
+  if(cell !== drag.cell){ drag.cell && drag.cell.classList.remove("drop"); drag.cell = cell; cell && cell.classList.add("drop"); }
+});
+const endDrag = () => {
+  if(!drag) return;
+  const g = drag; drag = null;
+  if(!g.on) return;
+  dragged = true; setTimeout(() => dragged = false, 0);
+  document.body.classList.remove("dragging"); g.ghost.remove();
+  const n = S.news.find(x => x.id === g.id);
+  if(g.cell && n){
+    const wall = g.cell.dataset.wall, grade = +g.cell.dataset.grade;
+    const d = derive().walls.find(w => w.id === wall);
+    if(wall !== n.wall && d.left <= 0) say(d.name+" is full. Strip a route there to open a line.");
+    else {
+      if(wall !== n.wall){ n.wall = wall; if(usedColors(wall, n).has(n.color)) n.color = pickColor(wall, n); }
+      n.grade = grade; say("Moved to "+gl(grade)+" on "+d.name+".");
+    }
+  }
+  render();
+};
+document.addEventListener("pointerup", endDrag);
+document.addEventListener("pointercancel", endDrag);
+window.addEventListener("hashchange", () => { load(); render(); });
+
+load();
+document.getElementById("say").textContent = HINT;
+render();
+setTimeout(() => document.getElementById("board").classList.remove("intro"), 1400);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HumanLup Design Lab</title>
+<!-- humanlup:meta -->
+<!-- HumanLup Design Lab · Anthony Lupo · humanlup.com · X @humanlup · IG humanlup.ai · anthony@humanlup.com -->
+<meta name="author" content="Anthony Lupo">
+<meta name="creator" content="Anthony Lupo">
+<meta name="publisher" content="HumanLup">
+<meta name="copyright" content="© 2026 Anthony Lupo, HumanLup">
+<link rel="author" href="https://humanlup.com">
+<link rel="me" href="https://x.com/humanlup">
+<link rel="me" href="https://www.instagram.com/humanlup.ai">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HumanLup Design Lab">
+<meta property="og:title" content="HumanLup Design Lab">
+<meta property="og:description" content="Small things I made to see if they would work.">
+<meta property="og:image" content="preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@humanlup">
+<meta name="twitter:creator" content="@humanlup">
+<meta name="twitter:title" content="HumanLup Design Lab">
+<meta name="twitter:description" content="Small things I made to see if they would work.">
+<meta name="twitter:image" content="preview.jpg">
+<!-- /humanlup:meta -->
+<meta name="description" content="Small things I made to see if they would work.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Inter:wght@400..700&display=swap" rel="stylesheet">
+<style>
+@property --g{syntax:'<color>';inherits:true;initial-value:#fff}
+@property --i{syntax:'<color>';inherits:true;initial-value:#111}
+@property --a{syntax:'<color>';inherits:true;initial-value:#111}
+*{box-sizing:border-box;margin:0}
+html{-webkit-text-size-adjust:100%}
+body{--g:#fff;--i:#151515;--a:#2f6bff;background:var(--g);color:var(--i);font:400 16px/1.5 Inter,system-ui,-apple-system,"Helvetica Neue",sans-serif;transition:--g .35s ease,--i .35s ease,--a .35s ease;overflow-x:hidden}
+:root{--line:color-mix(in srgb,var(--i) 16%,transparent);--soft:color-mix(in srgb,var(--i) 68%,var(--g))}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--a);outline-offset:3px;border-radius:6px}
+.ic{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.disp{font-family:Archivo,"Arial Black","Helvetica Neue",sans-serif;font-weight:800;font-variation-settings:"wdth" 112;letter-spacing:-.03em}
+
+/* the live card */
+.card{min-height:100svh;display:grid;grid-template-rows:auto auto minmax(0,1fr) auto;padding:0 clamp(16px,4vw,64px);gap:0}
+.top{display:flex;justify-content:space-between;align-items:baseline;padding:22px 0 0;font-weight:600;font-size:17px}
+.top h1{font:inherit}
+.top span{font-weight:500;color:var(--soft)}
+.title{height:clamp(84px,23svh,230px);display:flex;align-items:center;justify-content:center;overflow:hidden}
+#t{color:var(--a);line-height:.9;white-space:nowrap;font-size:120px;transition:color .35s ease}
+.mid{display:grid;grid-template-columns:48px minmax(0,auto) 48px;justify-content:center;align-items:center;gap:clamp(8px,2vw,28px);min-height:0}
+.nav{width:48px;height:48px;border-radius:999px;display:grid;place-items:center;border:1.5px solid var(--line);transition:background-color .15s,border-color .15s}
+.nav:hover{background:color-mix(in srgb,var(--i) 8%,transparent);border-color:var(--i)}
+.shot{position:relative;display:block;height:100%;max-height:min(100%,calc((100vw - 2*clamp(16px,4vw,64px) - 152px)/1.6));aspect-ratio:16/10;border-radius:14px;overflow:hidden;box-shadow:0 0 0 1.5px var(--line),0 30px 60px -28px rgba(0,0,0,.4);background:color-mix(in srgb,var(--i) 6%,var(--g))}
+.shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.foot{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;padding:22px 0 26px}
+.say{max-width:34ch}
+#cap{font-size:clamp(17px,1.5vw,21px);line-height:1.35;font-weight:500;text-wrap:balance}
+.open{display:inline-flex;align-items:center;gap:6px;margin-top:12px;min-height:44px;padding:0 18px;border-radius:8px;background:var(--i);color:var(--g);font-weight:600;text-decoration:none;transition:opacity .15s}
+.open:hover{opacity:.85}
+.open .ic{width:18px;height:18px}
+.num{font-size:clamp(84px,13svh,150px);line-height:.78;overflow:hidden;height:.8em;display:block}
+.num b{display:block;font:inherit}
+
+/* everything */
+.all{padding:clamp(56px,9vw,120px) clamp(16px,4vw,64px) clamp(48px,7vw,96px);border-top:1.5px solid var(--line)}
+.all h2{font-size:clamp(40px,7vw,96px);line-height:.92;text-align:center}
+.all p{text-align:center;margin:14px auto 0;max-width:36ch;color:var(--soft);font-size:17px}
+.grid{list-style:none;padding:0;margin:clamp(32px,5vw,64px) 0 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:clamp(20px,2.4vw,36px) clamp(14px,1.8vw,28px)}
+.grid button{display:block;width:100%;text-align:left}
+.grid img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;border-radius:10px;box-shadow:0 0 0 1.5px var(--line);transition:transform .15s ease}
+.grid button:hover img{transform:translateY(-3px)}
+.grid span{display:flex;justify-content:space-between;align-items:baseline;padding:10px 2px 0;font-weight:600}
+.grid i{font-style:normal;font-weight:500;color:var(--soft);font-variant-numeric:tabular-nums}
+.grid [aria-current=true] img{box-shadow:0 0 0 3px var(--a)}
+.end{text-align:center;padding:0 16px 28px;font-size:14px;color:var(--soft)}
+.ck{height:12px;background:conic-gradient(var(--i) 25%,var(--g) 0 50%,var(--i) 0 75%,var(--g) 0) 0 0/24px 24px}
+
+@media (max-width:767px){
+  .card{min-height:0;grid-template-rows:auto;padding-bottom:8px}
+  .title{height:auto;padding:22px 0 18px}
+  .mid{display:block}
+  .mid .nav{display:none}
+  .shot{height:auto;max-height:none;width:100%;border-radius:10px}
+  .foot{display:grid;grid-template-columns:1fr;gap:18px;padding:20px 0 28px}
+  .say{max-width:none}
+  .open{width:100%;justify-content:center;min-height:48px}
+  .step{display:flex;align-items:center;justify-content:space-between}
+  .num{font-size:88px}
+  .all h2{font-weight:800}
+  .grid{grid-template-columns:1fr 1fr}
+}
+@media (min-width:768px){.step .nav{display:none}}
+@media (prefers-reduced-motion:reduce){body,#t{transition:none}.grid img{transition:none}}
+</style>
+</head>
+<body>
+<main class="card" id="card">
+  <div class="top"><h1>HumanLup</h1><span>Design Lab</span></div>
+  <div class="title"><h2 class="disp" id="t" aria-live="polite"></h2></div>
+  <div class="mid">
+    <button class="nav" data-go="-1" aria-label="Previous"><svg class="ic" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
+    <a class="shot" id="shot"><img id="imgA" alt=""><img id="imgB" alt=""></a>
+    <button class="nav" data-go="1" aria-label="Next"><svg class="ic" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
+  </div>
+  <div class="foot">
+    <div class="say"><p id="cap"></p><a class="open" id="open">Open it<svg class="ic" viewBox="0 0 24 24"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a></div>
+    <div class="step">
+      <button class="nav" data-go="-1" aria-label="Previous"><svg class="ic" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
+      <span class="num disp" aria-hidden="true"><b id="n"></b></span>
+      <button class="nav" data-go="1" aria-label="Next"><svg class="ic" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</main>
+<section class="all">
+  <h2 class="disp">All of it</h2>
+  <p>Small things I made to see if they'd work. Pick one.</p>
+  <ul class="grid" id="grid"></ul>
+</section>
+<p class="end">Built by Lupo</p>
+<div class="ck"></div>
+<script>
+const D=[{"nn":"02","title":"Terracotta","g":"#efe6da","i":"#1a1a1a","a":"#b9531f","cap":"138 colors, fired as little test tiles.","img":"shots/002-terracotta.jpg","href":"../002-terracotta/index.html"},{"nn":"03","title":"Tidal","g":"#ffffff","i":"#111111","a":"#0f5c55","cap":"A design language for buildings at the water's edge. The tide keeps moving.","img":"shots/003-tidal.jpg","href":"../003-tidal/index.html"},{"nn":"04","title":"Terrain","g":"#f3efe6","i":"#1b1d2a","a":"#c2410c","cap":"The ground is made up. The sun is not. Drag it and the shadows move.","img":"shots/004-terrain.jpg","href":"../004-terrain/index.html"},{"nn":"05","title":"Cinema","g":"#0b0b0e","i":"#f4f4f2","a":"#f08a4b","cap":"Short films cut from a few lines of text. Press play.","img":"shots/005-cinema.jpg","href":"../005-cinema/index.html"},{"nn":"06","title":"Taste","g":"#f4f4f1","i":"#111111","a":"#c4122f","cap":"An essay on taste with a slider under it. Drag left and it edits itself down.","img":"shots/006-taste-report.jpg","href":"../006-taste-report/index.html"},{"nn":"07","title":"Prints","g":"#F5F0E8","i":"#1A1A1A","a":"#b4541a","cap":"Every color gets a fingerprint. Type yours in.","img":"shots/007-ink-almanac.jpg","href":"../007-ink-almanac/index.html"},{"nn":"08","title":"Reflecction","g":"#0d1016","i":"#e9edf2","a":"#9ad1ff","cap":"A day of prompts on the left, what it says about me on the right.","img":"shots/008-reflecction.jpg","href":"../008-reflecction/index.html"},{"nn":"09","title":"Press L","g":"#eeece7","i":"#17181a","a":"#2f6fe4","cap":"Press L and the page becomes the canvas.","img":"shots/009-layout-mode.jpg","href":"../009-layout-mode/index.html"},{"nn":"10","title":"Glass","g":"#101012","i":"#f4f4f2","a":"#e8c468","cap":"I wanted glass that acts like glass. Drag a piece over the type.","img":"shots/010-glass.jpg","href":"../010-glass/index.html"},{"nn":"11","title":"Rare Form","g":"#f2efe9","i":"#151515","a":"#151515","cap":"One magazine issue, set four ways with nothing but type.","img":"shots/011-l-editorial.jpg","href":"../011-l-editorial/index.html"},{"nn":"12","title":"Tool Library","g":"#f3f0e8","i":"#111111","a":"#111111","cap":"A neighborhood tool library. The date is the biggest thing on the page.","img":"shots/012-tool-library.jpg","href":"../012-tool-library/index.html"},{"nn":"13","title":"Swipe File","g":"#b4a54a","i":"#0d0d0d","a":"#0d0d0d","cap":"I counted every pixel on five sites I like.","img":"shots/013-swipe-file.jpg","href":"../013-swipe-file/index.html"},{"nn":"14","title":"Only Copy","g":"#efece4","i":"#14110f","a":"#cf3a12","cap":"Which repos exist only on this laptop? Red is the only copy.","img":"shots/014-only-copy.jpg","href":"../014-only-copy/index.html"},{"nn":"15","title":"No Script","g":"#f1eee6","i":"#15140f","a":"#2a3fd6","cap":"An issue about CSS with no JavaScript on the page. Scroll and the headline turns into code.","img":"shots/015-layer-issue.jpg","href":"../015-layer-issue/index.html"},{"nn":"16","title":"Field Notes","g":"#f1efea","i":"#111111","a":"#2238f5","cap":"My notes on the LLM wiki idea, as 71 pages on a ring.","img":"shots/016-wiki-of-the-wiki.jpg","href":"../016-wiki-of-the-wiki/index.html"},{"nn":"17","title":"Set Board","g":"#efede8","i":"#1a1a1a","a":"#1a1a1a","cap":"A week of route setting for a climbing gym, on one board.","img":"shots/017-set-board.jpg","href":"../017-set-board/index.html"},{"nn":"18","title":"One Line","g":"#ffffff","i":"#111a2e","a":"#1b2a6b","cap":"How I work, drawn one line each time a job runs.","img":"shots/018-one-line-a-run.jpg","href":"../018-one-line-a-run/index.html"},{"nn":"19","title":"Seven Grays","g":"#050509","i":"#F9FAFB","a":"#FD7308","cap":"Seven grays, one black and a dither made with only CSS.","img":"shots/019-seven-grays.jpg","href":"../019-seven-grays/index.html"},{"nn":"20","title":"Your Line","g":"#ffffff","i":"#111111","a":"#111111","cap":"Draw one line and the headline moves out of its way.","img":"shots/020-your-line-first.jpg","href":"../020-your-line-first/index.html"},{"nn":"21","title":"Let’s Talk","g":"#111211","i":"#f2f2ee","a":"#86e39a","cap":"A contact page with no form. Change three sentences and it writes the email.","img":"shots/021-lets-talk.jpg","href":"../021-lets-talk/index.html"},{"nn":"23","title":"Call Sheet","g":"#e5e1d8","i":"#17181a","a":"#17181a","cap":"A call sheet for a prompt. Fill five lines.","img":"shots/023-call-sheet.jpg","href":"../023-call-sheet/index.html"},{"nn":"24","title":"Grow","g":"#ffffff","i":"#151515","a":"#2f6bff","cap":"Love how the flowers turned out. Thought it was a good idea for a creative studio.","img":"shots/024-you-need-both.jpg","href":"../024-you-need-both/index.html"},{"nn":"25","title":"Eight","g":"#f6f2ea","i":"#1a1a1a","a":"#2552d0","cap":"A style guide where every box sits on an 8 px line.","img":"shots/025-eight-at-a-time.jpg","href":"../025-eight-at-a-time/index.html"},{"nn":"26","title":"Any Color","g":"#F8F8F8","i":"#0A0A0A","a":"#E04F26","cap":"Every dot is a different color at the same lightness. Type on it.","img":"shots/026-any-color.jpg","href":"../026-any-color/index.html"},{"nn":"27","title":"One Card","g":"#f1efea","i":"#151515","a":"#b3541c","cap":"One social card that holds at any shape. Drag the corner.","img":"shots/027-one-card.jpg","href":"../027-one-card/index.html"},{"nn":"28","title":"Take the L","g":"#e8e7e2","i":"#0d0d0d","a":"#c2185f","cap":"Two Ls make a W. Tap anywhere.","img":"shots/028-take-the-l.jpg","href":"../028-take-the-l/index.html"},{"nn":"29","title":"O’clock","g":"#efeadd","i":"#1b2fc4","a":"#1b2fc4","cap":"A clock you count. Bumps are the hour, the dot is the minute.","img":"shots/029-oclock.jpg","href":"../029-oclock/index.html"},{"nn":"30","title":"Nosy","g":"#edeae3","i":"#191714","a":"#c2410c","cap":"A page full of little guys that watch your cursor. Sit still and they drift off.","img":"shots/030-nosy.jpg","href":"../030-nosy/index.html"},{"nn":"31","title":"Fold","g":"#dfe3e0","i":"#111512","a":"#0d6e4b","cap":"A sheet of paper. Drag it and it folds, and it keeps the creases.","img":"shots/031-fold.jpg","href":"../031-fold/index.html"}];
+const LINKS=true;
+const $=s=>document.getElementById(s), calm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const t=$('t'), cap=$('cap'), n=$('n'), open=$('open'), shot=$('shot'), grid=$('grid');
+let cur=-1, front=$('imgA'), back=$('imgB');
+if(!LINKS) open.hidden=true, open.style.display='none';
+
+const meter=document.createElement('span');
+meter.className='disp'; meter.style.cssText='position:absolute;visibility:hidden;white-space:nowrap;font-size:100px;left:-9999px;top:0';
+document.body.appendChild(meter);
+function fit(){
+  const box=t.parentElement; meter.textContent=t.textContent;
+  const w=meter.getBoundingClientRect().width||1, phone=innerWidth<768;
+  const byW=(box.clientWidth-4)/w*100, byH=phone?innerWidth*.3:box.clientHeight*.98;
+  t.style.fontSize=Math.max(36,Math.min(byW,byH))+'px';
+}
+grid.innerHTML=D.map((d,k)=>`<li><button data-k="${k}" aria-label="${d.title}, number ${d.nn}"><img src="${d.thumb||d.img}" alt="" loading="lazy" width="560" height="350"><span>${d.title}<i>${d.nn}</i></span></button></li>`).join('');
+
+function show(k,dir,quiet){
+  k=(k+D.length)%D.length; if(k===cur) return; const d=D[k], first=cur<0; cur=k;
+  const s=document.body.style; s.setProperty('--g',d.g); s.setProperty('--i',d.i); s.setProperty('--a',d.a);
+  t.textContent=d.title; fit(); cap.textContent=d.cap;
+  if(LINKS){ open.href=d.href; shot.href=d.href; open.setAttribute('aria-label','Open '+d.title); shot.setAttribute('aria-label','Open '+d.title); }
+  [front,back]=[back,front]; front.src=d.img; front.style.zIndex=2; back.style.zIndex=1;
+  const old=n.textContent; n.textContent=d.nn;
+  if(!calm&&!first){
+    t.animate([{fontVariationSettings:'"wdth" 62',opacity:0},{fontVariationSettings:'"wdth" 112',opacity:1}],{duration:420,easing:'cubic-bezier(.2,.8,.2,1)'});
+    front.animate([{clipPath:dir<0?'inset(0 100% 0 0)':'inset(0 0 0 100%)'},{clipPath:'inset(0 0 0 0)'}],{duration:420,easing:'cubic-bezier(.2,.8,.2,1)'});
+    n.animate([{transform:`translateY(${dir<0?-100:100}%)`},{transform:'none'}],{duration:320,easing:'cubic-bezier(.2,.8,.2,1)'});
+    cap.animate([{opacity:0},{opacity:1}],{duration:300});
+  }
+  grid.querySelectorAll('button').forEach((b,j)=>b.setAttribute('aria-current',j===k));
+  if(!quiet) history.replaceState(null,'','#'+d.nn);
+  const nx=D[(k+1)%D.length]; new Image().src=nx.img;
+}
+document.querySelectorAll('.nav').forEach(b=>b.addEventListener('click',()=>show(cur+ +b.dataset.go,+b.dataset.go)));
+addEventListener('keydown',e=>{ if(e.target.closest('input,textarea')) return; if(e.key==='ArrowRight') show(cur+1,1); if(e.key==='ArrowLeft') show(cur-1,-1); });
+grid.addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; const k=+b.dataset.k; show(k,k>cur?1:-1); scrollTo({top:0,behavior:calm?'auto':'smooth'}); });
+let x0=null; shot.addEventListener('touchstart',e=>{x0=e.touches[0].clientX},{passive:true});
+shot.addEventListener('touchend',e=>{ if(x0===null) return; const dx=e.changedTouches[0].clientX-x0; x0=null; if(Math.abs(dx)>40){ e.preventDefault(); show(cur+(dx<0?1:-1),dx<0?1:-1); } });
+addEventListener('resize',fit);
+const want=D.findIndex(d=>'#'+d.nn===location.hash);
+show(want>=0?want:D.findIndex(d=>d.nn==='24'),1,true);
+if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fit);
+</script>
+</body>
+</html>

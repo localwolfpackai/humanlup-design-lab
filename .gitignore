@@ -1,0 +1,28 @@
+# HumanLup Design Lab: what stays off GitHub
+.DS_Store
+# real first names and winnings (my dad's dice group)
+001-wise-guys/
+# still a study of one of my old files, not a piece yet
+022-halfway/
+# earlier versions kept for me, some with real repo and client folder names
+*.v1.html
+*.v1.jpg
+# the retired hub page and its builder
+/index.html
+/hub.py
+/hub-preview.jpg
+# the build made for the Claude project (same page, images inlined)
+showcase/project.html
+# working notes about the old files each piece started from
+SOURCE.md
+source-screenshot.jpg
+021-lets-talk/LOG.md
+_social/card-jobs-*.json
+# video scratch
+_video/tmp/
+# my running checklist
+STATUS.md
+# card for a private piece
+_social/lab-01-wise-guys.jpg
+# clips before sound went on
+*.silent.mp4

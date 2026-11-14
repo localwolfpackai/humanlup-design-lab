@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>O’clock · HumanLup</title>
+<!-- humanlup:meta -->
+<!-- HumanLup Design Lab 29 · Anthony Lupo · humanlup.com · X @humanlup · IG humanlup.ai · anthony@humanlup.com -->
+<meta name="author" content="Anthony Lupo">
+<meta name="creator" content="Anthony Lupo">
+<meta name="publisher" content="HumanLup">
+<meta name="copyright" content="© 2026 Anthony Lupo, HumanLup">
+<link rel="author" href="https://humanlup.com">
+<link rel="me" href="https://x.com/humanlup">
+<link rel="me" href="https://www.instagram.com/humanlup.ai">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HumanLup Design Lab 29">
+<meta property="og:title" content="O’clock · HumanLup">
+<meta property="og:description" content="A clock you count. Bumps are the hour, the dot is the minute.">
+<meta property="og:image" content="preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@humanlup">
+<meta name="twitter:creator" content="@humanlup">
+<meta name="twitter:title" content="O’clock · HumanLup">
+<meta name="twitter:description" content="A clock you count. Bumps are the hour, the dot is the minute.">
+<meta name="twitter:image" content="preview.jpg">
+<!-- /humanlup:meta -->
+<meta name="description" content="A clock you count. Bumps are the hour, the dot is the minute.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--g:#efeadd;--ink:#1b2fc4;--mute:rgba(27,47,196,.78);--line:rgba(27,47,196,.3);--a:#e6410a}
+:root[data-theme=night]{--g:#1b2fc4;--ink:#efeadd;--mute:rgba(239,234,221,.8);--line:rgba(239,234,221,.34);--a:#ff8a3d}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;overflow:hidden;background:var(--g);color:var(--ink);font-family:"Hanken Grotesk",-apple-system,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+canvas{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:grab;outline:none;-webkit-tap-highlight-color:transparent}
+canvas.drag{cursor:grabbing}
+canvas:focus-visible{outline:2px solid var(--a);outline-offset:-6px}
+.ui{position:fixed;inset:0;display:flex;flex-direction:column;justify-content:space-between;pointer-events:none;padding:max(20px,env(safe-area-inset-top)) 28px 0;transition:color .2s}
+.top{display:flex;justify-content:space-between;align-items:center;height:40px;font-size:15px;font-weight:700;letter-spacing:-.01em}
+button{pointer-events:auto;font:600 14px "Hanken Grotesk",-apple-system,sans-serif;color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:999px;height:40px;padding:0 18px;cursor:pointer;transition:opacity .25s,border-color .15s}
+button:hover{border-color:var(--ink)}
+button:focus-visible{outline:2px solid var(--a);outline-offset:2px}
+button[hidden]{display:block;opacity:0;pointer-events:none}
+.bot{text-align:center;padding-bottom:20px}
+h1{font-size:clamp(30px,3.6vw,52px);font-weight:800;letter-spacing:-.04em;line-height:1}
+.bot p{margin-top:10px;font-size:16px;color:var(--mute)}
+.by{margin-top:16px;font-size:12px;color:var(--mute)}
+.ck{height:12px;margin:0 -28px;background:conic-gradient(var(--ink) 25%,transparent 0 50%,var(--ink) 0 75%,transparent 0) 0 0/24px 24px}
+@media (max-width:640px){
+  .ui{padding-left:18px;padding-right:18px}
+  .ck{margin:0 -18px}
+  button{height:44px}
+  .bot{padding-bottom:16px}
+  .bot p{max-width:270px;margin-left:auto;margin-right:auto;line-height:1.35}
+}
+</style>
+</head>
+<body>
+<canvas id="c" tabindex="0" role="img" aria-label="Clock"></canvas>
+<div class="ui">
+  <div class="top"><span>HumanLup</span><button id="now" hidden>Now</button></div>
+  <div>
+    <div class="bot" id="bot">
+      <h1>O’clock</h1>
+      <p>Count the bumps for the hour. The dot is the minute. Drag it.</p>
+      <div class="by">Built by Lupo</div>
+    </div>
+    <div class="ck"></div>
+  </div>
+</div>
+<script>
+(() => {
+const TAU = Math.PI * 2;
+const cv = document.getElementById('c'), ctx = cv.getContext('2d');
+const nowBtn = document.getElementById('now'), bot = document.getElementById('bot');
+const root = document.documentElement;
+const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const PAL = { day: { g: '#efeadd', ink: '#1b2fc4', a: '#e6410a' }, night: { g: '#1b2fc4', ink: '#efeadd', a: '#ff8a3d' } };
+const ONES = ['twelve','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'];
+const TENS = ['','','twenty','thirty','forty','fifty'];
+
+let W = 0, H = 0, dpr = 1, cx = 0, cy = 0, R = 100;
+let offset = 0;                       // ms away from the real time
+let weights = new Array(13).fill(0);  // how much of each hour's shape is showing
+let theme = null, swap = null;        // swap: {t0, from, to}
+let show = 0, showUntil = 0;          // the time in words
+let homing = null;                    // easing back to now
+
+// start at a time from the address, like #7:42pm or #19:42
+(() => {
+  const m = /^#(\d{1,2}):(\d{2})\s*(am|pm)?$/i.exec(decodeURIComponent(location.hash));
+  if (!m) return;
+  let h = +m[1] % 24, mi = +m[2] % 60;
+  if (m[3]) { h = h % 12 + (m[3].toLowerCase() === 'pm' ? 12 : 0); }
+  const d = new Date(), t = new Date(d); t.setHours(h, mi, 20, 0);
+  offset = t - d;
+})();
+
+const clock = () => new Date(Date.now() + offset);
+const isDay = d => { const h = d.getHours(); return h >= 6 && h < 18; };
+
+function words(d) {
+  const h = d.getHours() % 12, m = d.getMinutes();
+  let mw = m === 0 ? "o’clock" : m < 10 ? 'oh ' + ONES[m] : m < 20 ? ONES[m] : TENS[Math.floor(m / 10)] + (m % 10 ? '-' + ONES[m % 10] : '');
+  return [ONES[h], mw];
+}
+function digits(d) {
+  const h = d.getHours(), m = d.getMinutes();
+  return ((h % 12) || 12) + ':' + String(m).padStart(2, '0') + (h < 12 ? ' am' : ' pm');
+}
+
+// one hour's outline, radius 0..1, angle measured clockwise from the top
+function hourR(n, th) {
+  const depth = n === 1 ? .3 : n === 2 ? .4 : .37 - (n - 3) * .012;
+  return 1 - depth + depth * Math.pow(Math.abs(Math.cos(n * th / 2)), .6);
+}
+function wobble(th, t) {
+  return Math.sin(3 * th + t * .41 + 1.3) * .5 + Math.sin(5 * th - t * .29 + 4.1) * .3 + Math.sin(7 * th + t * .17) * .2;
+}
+function radius(th, t) {
+  let s = 0, w = 0;
+  for (let n = 1; n <= 12; n++) if (weights[n] > .001) { s += weights[n] * hourR(n, th); w += weights[n]; }
+  const r = w ? s / w : 1;
+  return r * (1 + (calm ? 0 : wobble(th, t) * .016));
+}
+function trace(scale, t) {
+  const N = 300;
+  ctx.beginPath();
+  for (let i = 0; i <= N; i++) {
+    const th = i / N * TAU, r = radius(th, t) * R * scale;
+    const x = cx + Math.sin(th) * r, y = cy - Math.cos(th) * r;
+    i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+  }
+  ctx.closePath();
+}
+
+function size() {
+  dpr = Math.min(devicePixelRatio || 1, 2);
+  W = innerWidth; H = innerHeight;
+  cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+  const top = 64, bottom = bot.getBoundingClientRect().top - 8;
+  const avail = Math.max(120, bottom - top);
+  cx = W / 2; cy = top + avail / 2;
+  R = Math.min(W * .37, avail * .42);
+}
+
+function setTheme(name) {
+  theme = name;
+  if (name === 'night') root.dataset.theme = 'night'; else delete root.dataset.theme;
+  document.querySelector('meta[name=theme-color]')?.setAttribute('content', PAL[name].g);
+}
+
+let last = performance.now(), label = '';
+function frame(now) {
+  const dt = Math.min(.05, (now - last) / 1000); last = now;
+  if (homing) {
+    const p = Math.min(1, (now - homing.t0) / 900), e = 1 - Math.pow(1 - p, 3);
+    offset = homing.from * (1 - e);
+    if (p === 1) { homing = null; offset = 0; nowBtn.hidden = true; }
+  }
+  const d = clock(), t = d.getTime() / 1000;
+  const hour = d.getHours() % 12 || 12;
+  const k = calm ? 1 : 1 - Math.exp(-dt * 7);
+  for (let n = 1; n <= 12; n++) weights[n] += ((n === hour ? 1 : 0) - weights[n]) * k;
+
+  // day and night trade places: the shape grows until it is the page
+  const want = isDay(d) ? 'day' : 'night';
+  if (theme === null) { setTheme(want); weights.fill(0); weights[hour] = 1; }
+  else if (!swap && want !== theme) {
+    if (calm || homing) setTheme(want);
+    else swap = { t0: now, from: theme, to: want };
+  }
+  let scale = 1, pal = PAL[theme], dots = 1;
+  if (swap) {
+    const p = (now - swap.t0) / 1100;
+    if (p < .5) {
+      const q = p / .5;
+      scale = 1 + q * q * q * (Math.hypot(W, H) / 2 / (R * .5) - 1);
+      pal = PAL[swap.from]; dots = Math.max(0, 1 - q * 4);
+    } else if (p < 1) {
+      if (theme !== swap.to) setTheme(swap.to);
+      const q = (p - .5) / .5, c = 1.4;
+      scale = 1 + (c + 1) * Math.pow(q - 1, 3) + c * Math.pow(q - 1, 2);
+      pal = PAL[swap.to]; dots = Math.max(0, q * 3 - 2);
+    } else { if (theme !== swap.to) setTheme(swap.to); swap = null; pal = PAL[theme]; }
+  }
+
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.fillStyle = pal.g; ctx.fillRect(0, 0, W, H);
+  if (scale > .002) {
+    trace(scale, t);
+    ctx.fillStyle = pal.ink; ctx.fill();
+    // rings inside, each a beat behind the edge
+    ctx.strokeStyle = pal.g; ctx.lineWidth = Math.max(1, R * .006);
+    for (let i = 1; i <= 4; i++) {
+      ctx.globalAlpha = (.34 - i * .05) * (1 - show) * Math.min(1, dots + (scale > 1 ? 0 : 1));
+      trace(scale * (1 - i * .17), t - i * 1.1);
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  // minute dot rides outside the edge, second dot inside it
+  const mAng = (d.getMinutes() + d.getSeconds() / 60 + d.getMilliseconds() / 60000) / 60 * TAU;
+  const sAng = (d.getSeconds() + d.getMilliseconds() / 1000) / 60 * TAU;
+  if (dots > 0) {
+    const mr = radius(mAng, t) * R + R * .085;
+    ctx.globalAlpha = dots;
+    ctx.fillStyle = pal.a;
+    ctx.beginPath(); ctx.arc(cx + Math.sin(mAng) * mr, cy - Math.cos(mAng) * mr, R * .048, 0, TAU); ctx.fill();
+    const sr = radius(sAng, t) * R - R * .06;
+    ctx.fillStyle = pal.g;
+    ctx.beginPath(); ctx.arc(cx + Math.sin(sAng) * sr, cy - Math.cos(sAng) * sr, R * .016, 0, TAU); ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+
+  // tap: the time in words, inside the shape
+  show += ((now < showUntil ? 1 : 0) - show) * (calm ? 1 : 1 - Math.exp(-dt * 9));
+  if (show > .01 && !swap) {
+    const [a, b] = words(d);
+    ctx.fillStyle = pal.g; ctx.globalAlpha = show; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+    let fs = R * .2;
+    ctx.font = `800 ${fs}px "Hanken Grotesk",-apple-system,sans-serif`;
+    const wide = Math.max(ctx.measureText(a).width, ctx.measureText(b).width);
+    if (wide > R * .8) fs *= R * .8 / wide;
+    ctx.font = `800 ${fs}px "Hanken Grotesk",-apple-system,sans-serif`;
+    ctx.fillText(a, cx, cy - fs * .12);
+    ctx.fillText(b, cx, cy + fs * .88);
+    ctx.font = `500 ${Math.max(12, R * .05)}px "Hanken Grotesk",-apple-system,sans-serif`;
+    ctx.globalAlpha = show * .7;
+    ctx.fillText(digits(d), cx, cy + fs * .88 + Math.max(22, R * .11));
+    ctx.globalAlpha = 1;
+  }
+
+  const l = 'Clock. ' + digits(d);
+  if (l !== label) { label = l; cv.setAttribute('aria-label', l); }
+  if (!document.hidden) requestAnimationFrame(frame);
+}
+document.addEventListener('visibilitychange', () => { if (!document.hidden) { last = performance.now(); requestAnimationFrame(frame); } });
+
+// drag around the middle to turn the minutes, tap for the words
+const ang = e => Math.atan2(e.clientX - cx, -(e.clientY - cy));
+let drag = null;
+cv.addEventListener('pointerdown', e => {
+  cv.setPointerCapture(e.pointerId);
+  drag = { a: ang(e), x: e.clientX, y: e.clientY, t: performance.now(), moved: false };
+  homing = null;
+});
+cv.addEventListener('pointermove', e => {
+  if (!drag) return;
+  if (!drag.moved && Math.hypot(e.clientX - drag.x, e.clientY - drag.y) < 7) return;
+  if (!drag.moved) { drag.moved = true; drag.a = ang(e); cv.classList.add('drag'); }
+  if (Math.hypot(e.clientX - cx, e.clientY - cy) < 12) return;
+  const a = ang(e); let da = a - drag.a;
+  if (da > Math.PI) da -= TAU; if (da < -Math.PI) da += TAU;
+  drag.a = a;
+  offset += da / TAU * 3600e3;
+  nowBtn.hidden = false;
+});
+const up = () => {
+  if (drag && !drag.moved && performance.now() - drag.t < 500) showUntil = performance.now() + 2600;
+  drag = null; cv.classList.remove('drag');
+};
+cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
+cv.addEventListener('keydown', e => {
+  const step = e.shiftKey ? 3600e3 : 60e3;
+  if (e.key === 'ArrowRight' || e.key === 'ArrowUp') { offset += step; nowBtn.hidden = false; homing = null; }
+  else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') { offset -= step; nowBtn.hidden = false; homing = null; }
+  else if (e.key === ' ' || e.key === 'Enter') showUntil = performance.now() + 2600;
+  else if (e.key === 'Escape' || e.key === 'Home') goNow();
+  else return;
+  e.preventDefault();
+});
+function goNow() {
+  if (!offset) return;
+  // take the short way round, never more than half a day
+  const day = 86400e3; let o = ((offset % day) + day) % day; if (o > day / 2) o -= day;
+  if (calm) { offset = 0; nowBtn.hidden = true; return; }
+  homing = { t0: performance.now(), from: o }; offset = o;
+}
+nowBtn.addEventListener('click', goNow);
+
+addEventListener('resize', size);
+const meta = document.createElement('meta'); meta.name = 'theme-color'; document.head.appendChild(meta);
+size();
+if (offset) nowBtn.hidden = false;
+(document.fonts ? document.fonts.load('800 40px "Hanken Grotesk"').catch(() => {}) : Promise.resolve()).then(() => { size(); });
+requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

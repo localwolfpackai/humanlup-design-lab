@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One Line a Run · How I Work</title>
+<!-- humanlup:meta -->
+<!-- HumanLup Design Lab 18 · Anthony Lupo · humanlup.com · X @humanlup · IG humanlup.ai · anthony@humanlup.com -->
+<meta name="author" content="Anthony Lupo">
+<meta name="creator" content="Anthony Lupo">
+<meta name="publisher" content="HumanLup">
+<meta name="copyright" content="© 2026 Anthony Lupo, HumanLup">
+<link rel="author" href="https://humanlup.com">
+<link rel="me" href="https://x.com/humanlup">
+<link rel="me" href="https://www.instagram.com/humanlup.ai">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HumanLup Design Lab 18">
+<meta property="og:title" content="One Line a Run · How I Work">
+<meta property="og:description" content="A week of scheduled jobs on Anthony Lupo&#x27;s machine, drawn one line per run. Scroll and the week goes by.">
+<meta property="og:image" content="preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@humanlup">
+<meta name="twitter:creator" content="@humanlup">
+<meta name="twitter:title" content="One Line a Run · How I Work">
+<meta name="twitter:description" content="A week of scheduled jobs on Anthony Lupo&#x27;s machine, drawn one line per run. Scroll and the week goes by.">
+<meta name="twitter:image" content="preview.jpg">
+<!-- /humanlup:meta -->
+<meta name="description" content="A week of scheduled jobs on Anthony Lupo's machine, drawn one line per run. Scroll and the week goes by.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=B612+Mono:wght@400;700&family=Instrument+Sans:wdth,wght@75..100,400..700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ground:#F4F6FA; --plate:#FBFCFE; --line:#BCC9DC; --line-2:#DCE4EF;
+  --ink:#0D1526; --soft:#334764; --faint:#48597A;
+  --teal:#075A72; --amber:#734A08; --navy:#1E3A6B;
+  --teal-l:#0B7FA3; --amber-l:#C27A0E;
+  --day:1400px; --rule:96px;
+  --f:"Instrument Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --m:"B612 Mono",ui-monospace,"SF Mono",Menlo,monospace;
+}
+:root[data-theme="dark"]{
+  --ground:#070B14; --plate:#0C1220; --line:#28375A; --line-2:#182238;
+  --ink:#E4ECF7; --soft:#A9BCD8; --faint:#8FA6C8;
+  --teal:#5AC8E8; --amber:#E8A13A; --navy:#6F9BE0;
+  --teal-l:#5AC8E8; --amber-l:#E8A13A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--ground);color:var(--ink);font-family:var(--f);font-size:17px;line-height:1.55;overflow-x:hidden}
+button,input,select{font:inherit;color:inherit}
+::selection{background:var(--teal);color:var(--ground)}
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:3px}
+svg.i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+/* field */
+.field{position:fixed;inset:0;z-index:0;pointer-events:none}
+.field canvas{position:absolute;inset:0;width:100%;height:100%}
+
+/* top bar */
+.bar{position:fixed;z-index:30;top:0;left:0;right:0;display:flex;align-items:center;gap:10px;padding:12px 20px;pointer-events:none}
+.bar>*{pointer-events:auto}
+.mark{font-family:var(--m);font-size:13px;color:var(--soft);margin-right:auto;background:var(--ground);padding:4px 8px;border-radius:4px}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border:1px solid var(--line);background:var(--plate);border-radius:8px;cursor:pointer;font-weight:600;font-size:15px;transition:background .14s,border-color .14s}
+.btn:hover{border-color:var(--faint)}
+.btn.solid{background:var(--ink);color:var(--ground);border-color:var(--ink)}
+.btn.solid:hover{background:var(--soft);border-color:var(--soft)}
+.btn.icon{width:44px;padding:0;justify-content:center}
+
+main{position:relative;z-index:1}
+
+/* intro */
+.intro{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:96px 24px 120px calc(var(--rule) + 32px);max-width:calc(var(--rule) + 32px + 640px)}
+h1{font-stretch:75%;font-weight:700;font-size:clamp(52px,8.4vw,128px);line-height:.92;letter-spacing:-.02em;text-wrap:balance}
+.intro p{margin-top:24px;max-width:34rem;color:var(--soft);font-size:19px;background:var(--ground)}
+.intro p b{color:var(--ink);font-weight:600}
+.intro .go{margin-top:32px;display:flex;gap:10px;flex-wrap:wrap}
+
+/* week */
+.week{position:relative}
+.day{position:relative;height:var(--day);border-top:1px solid var(--ink)}
+.rule{position:absolute;left:0;top:0;bottom:0;width:var(--rule);border-right:1px solid var(--line);
+  background:
+    repeating-linear-gradient(to bottom,var(--faint) 0 1px,transparent 1px calc(var(--day) / 24)) right 0 top 0 / 10px 100% no-repeat,
+    var(--ground)}
+.rule i{position:absolute;top:0;bottom:0;width:2px}
+.rule .d1{left:8px;background:var(--amber-l)}
+.rule .d2{left:14px;background:var(--amber-l);opacity:.6}
+.rule .dz{left:23px;width:3px;background:repeating-linear-gradient(to bottom,var(--navy) 0 2px,transparent 2px calc(var(--day) / 288))}
+.rule .hr{position:absolute;right:16px;font-family:var(--m);font-size:12px;color:var(--faint);transform:translateY(-50%);line-height:1}
+.mk{position:absolute;left:0;height:0;display:flex;align-items:center;white-space:nowrap;z-index:2}
+.mk::before{content:"";width:var(--rule);border-top:2px solid var(--teal-l);flex:none}
+.mk b{width:12px;height:12px;border-radius:50%;border:3px solid var(--teal-l);background:var(--ground);margin-left:-6px;flex:none}
+.mk span{font-family:var(--m);font-size:13px;color:var(--teal);margin-left:8px;background:var(--ground);padding:2px 6px;border-radius:4px}
+.dayname{position:absolute;top:6px;left:calc(var(--rule) + 16px);z-index:3;font-stretch:75%;font-weight:700;font-size:30px;line-height:1;padding:10px 0 0;letter-spacing:-.01em}
+.dayname span{background:var(--ground);padding:2px 6px;margin-left:-6px;border-radius:4px}
+.plate{position:absolute;top:calc(var(--day) * 9.4 / 24);left:calc(var(--rule) + 32px);width:min(31rem,calc(100vw - var(--rule) - 48px));
+  background:var(--plate);border:1px solid var(--line);border-radius:10px;padding:26px 28px 28px}
+.plate .when{font-family:var(--m);font-size:13px;color:var(--faint);margin-bottom:10px}
+.plate h2{font-stretch:80%;font-weight:700;font-size:34px;line-height:1.02;letter-spacing:-.015em;margin-bottom:12px;text-wrap:balance}
+.plate p{color:var(--soft);margin-top:10px}
+.plate p:first-of-type{margin-top:0}
+.rows{list-style:none;margin-top:16px;border-top:1px solid var(--line)}
+.rows li{display:flex;gap:16px;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--line)}
+.rows .k{font-family:var(--m);font-size:13px;color:var(--faint);min-width:64px;flex:none}
+.rows .n{font-stretch:75%;font-weight:700;font-size:28px;line-height:1;min-width:64px;flex:none;font-variant-numeric:tabular-nums}
+.rows .v small{display:block;font-size:15px;color:var(--soft)}
+.key{list-style:none;margin-top:16px;display:grid;gap:8px}
+.key li{display:flex;gap:12px;align-items:center;font-size:16px}
+.key s{flex:none;width:34px;height:0;border-top:2px solid var(--navy)}
+.key .t s{border-color:var(--teal-l);border-top-width:3px}
+.key .a s{border-color:var(--amber-l);border-top-width:3px}
+.deny{list-style:none;margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.deny li{font-family:var(--m);font-size:14px;padding:10px 12px;border:1px solid var(--line);border-radius:6px;background:var(--ground)}
+.plate .btn{margin-top:18px}
+
+/* fixed read line and readout */
+.readline{position:fixed;z-index:20;left:0;top:50%;width:calc(var(--rule) + 14px);height:0;border-top:2px solid var(--ink);pointer-events:none}
+.readline::after{content:"";position:absolute;right:-1px;top:-7px;border:6px solid transparent;border-left-color:var(--ink);border-right:0}
+.read{position:fixed;z-index:20;right:24px;bottom:18px;text-align:right;pointer-events:none}
+.read .dn{position:relative;z-index:1;margin-bottom:6px;font-stretch:75%;font-weight:700;font-size:clamp(22px,2.6vw,36px);line-height:1}
+.read .tm{font-stretch:75%;font-weight:700;font-size:clamp(64px,12vw,176px);line-height:.84;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.read .ct{font-family:var(--m);font-size:13px;color:var(--soft);margin-top:10px}
+.read .ct b{color:var(--ink)}
+.read span{background:var(--ground);border-radius:4px;padding:0 6px}
+
+/* end */
+.end{border-top:1px solid var(--ink);padding:72px 24px 0 calc(var(--rule) + 32px);position:relative}
+.end .rule{background:var(--ground)}
+.end .plate{position:static;margin-bottom:20px}
+.end h2.big{font-stretch:75%;font-weight:700;font-size:clamp(40px,5.6vw,84px);line-height:.94;letter-spacing:-.02em;max-width:12em;margin-bottom:24px}
+.end h2.big span{background:var(--ground);box-decoration-break:clone;-webkit-box-decoration-break:clone;padding:0 6px;margin-left:-6px}
+.end .go{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:40px}
+.end ul.open{margin:12px 0 0 1.1em;color:var(--soft)}
+.end ul.open li{margin-top:8px}
+.end code{font-family:var(--m);font-size:14px}
+.strip{height:24px;margin:56px -24px 0 calc(-1 * (var(--rule) + 32px));position:relative;z-index:3;background:conic-gradient(var(--ink) 25%,var(--ground) 0 50%,var(--ink) 0 75%,var(--ground) 0) 0 0/24px 24px}
+
+/* panel */
+.panel{position:fixed;z-index:40;top:0;right:0;bottom:0;width:372px;max-width:100vw;background:var(--plate);border-left:1px solid var(--ink);padding:16px 20px 28px;overflow-y:auto;transform:translateX(102%);transition:transform .22s cubic-bezier(.2,.7,.2,1);visibility:hidden}
+.panel.on{transform:none;visibility:visible}
+.panel header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.panel h3{font-stretch:80%;font-weight:700;font-size:26px}
+.panel h4{font-family:var(--m);font-weight:400;font-size:13px;color:var(--faint);margin:22px 0 6px}
+.job{display:flex;align-items:center;gap:12px;min-height:44px;border-bottom:1px solid var(--line-2);cursor:pointer}
+.job input{width:20px;height:20px;accent-color:var(--ink);flex:none}
+.job s{flex:none;width:18px;border-top:3px solid var(--navy)}
+.job.t s{border-color:var(--teal-l)} .job.a s{border-color:var(--amber-l)}
+.job .nm{font-weight:600;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.job .c{font-family:var(--m);font-size:13px;color:var(--faint);flex:none}
+.job .rm{width:36px;height:36px;border:0;background:none;cursor:pointer;display:grid;place-items:center;border-radius:6px;color:var(--faint)}
+.job .rm:hover{color:var(--ink);background:var(--line-2)}
+.add{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.add input,.add select{min-height:44px;border:1px solid var(--line);border-radius:8px;background:var(--ground);padding:0 10px;width:100%;font-size:16px}
+.add .wide{grid-column:1/-1}
+.sl{display:grid;grid-template-columns:1fr auto;gap:2px 12px;align-items:center;margin-top:10px}
+.sl label{font-weight:600;font-size:16px}
+.sl output{font-family:var(--m);font-size:13px;color:var(--soft)}
+.sl input{grid-column:1/-1;width:100%;accent-color:var(--ink);height:32px}
+.panel .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
+.panel p.note{font-size:15px;color:var(--soft);margin-top:6px}
+
+@media (max-width:760px){
+  :root{--day:1900px;--rule:58px}
+  body{font-size:16px}
+  .bar{padding:8px 10px;gap:6px}
+  .mark{display:none}
+  .bar .btn span{display:none}
+  .bar .btn{width:44px;padding:0;justify-content:center}
+  .bar .sp{margin-right:auto}
+  .intro{padding:84px 16px 160px calc(var(--rule) + 14px)}
+  .intro p{font-size:17px}
+  .rule .d1{left:5px}.rule .d2{left:10px}.rule .dz{left:16px}
+  .rule .hr{right:13px;font-size:10px}
+  .rule .hr.minor{display:none}
+  .mk span{font-size:12px}
+  .dayname{left:calc(var(--rule) + 10px);font-size:26px}
+  .plate{left:calc(var(--rule) + 10px);width:calc(100vw - var(--rule) - 20px);padding:20px 18px 22px}
+  .plate h2{font-size:28px}
+  .deny{grid-template-columns:1fr}
+  .read{left:0;right:0;bottom:0;background:var(--ground);border-top:1px solid var(--ink);padding:8px 12px 10px calc(var(--rule) + 10px);text-align:left;display:grid;grid-template-columns:auto 1fr;column-gap:10px;align-items:baseline}
+  .read .dn{margin:0;font-size:26px;order:2}
+  .read .tm{font-size:40px;line-height:1;order:1}
+  .read .ct{grid-column:1/-1;order:3;margin-top:2px;font-size:12px}
+  .read span{padding:0}
+  .readline{width:calc(var(--rule) + 8px)}
+  .end{padding:56px 10px 84px calc(var(--rule) + 10px)}
+  .strip{margin:48px -10px 0 calc(-1 * (var(--rule) + 10px))}
+  .panel{width:100vw;border-left:0}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="field" aria-hidden="true">
+  <canvas id="src"></canvas>
+  <canvas id="acc"></canvas>
+  <canvas id="top"></canvas>
+</div>
+
+<div class="bar">
+  <span class="mark">How I Work · Anthony Lupo</span>
+  <i class="sp"></i>
+  <button class="btn" id="playBtn" aria-pressed="false"><svg class="i" viewBox="0 0 24 24" id="playIco"><polygon points="6 3 20 12 6 21 6 3"/></svg><span id="playTxt">Play the week</span></button>
+  <button class="btn" id="adjBtn" aria-expanded="false" aria-controls="panel"><svg class="i" viewBox="0 0 24 24"><line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" x2="14" y1="2" y2="6"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="16" x2="16" y1="18" y2="22"/></svg><span>Adjust</span></button>
+  <button class="btn icon" id="themeBtn" aria-label="Switch to dark"><svg class="i" viewBox="0 0 24 24" id="themeIco"></svg></button>
+</div>
+
+<main>
+  <section class="intro">
+    <h1>The work happens on a schedule.</h1>
+    <p>I am not a developer. I run a machine that builds things while I sleep, and I direct it while I am awake.</p>
+    <p>Scroll down and the page draws <b>one line each time a job runs</b>, for one week.</p>
+    <div class="go">
+      <button class="btn solid" id="playBtn2"><svg class="i" viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"/></svg>Play the week</button>
+    </div>
+  </section>
+
+  <div class="week" id="week">
+    <section class="day" data-d="0">
+      <div class="dayname"><span>Monday</span></div>
+      <article class="plate">
+        <div class="when">09:00 to 23:30</div>
+        <h2>The empty stretch</h2>
+        <p>Between the 08:00 health check and the 23:30 backup, nothing is scheduled. That is when I am working and the machine is taking instructions, not giving them. The jobs that run alone sit at the two ends of the day.</p>
+        <ul class="key">
+          <li><s></s>Dropzone. Checks the drop folder every 5 minutes.</li>
+          <li class="t"><s></s>A job with a set time.</li>
+          <li class="a"><s></s>Always on. One line that never lifts.</li>
+        </ul>
+        <p>Monday's lines are the small ones in the middle. Each later run is drawn a little larger, so Sunday is the outside edge.</p>
+      </article>
+    </section>
+    <section class="day" data-d="1">
+      <div class="dayname"><span>Tuesday</span></div>
+      <article class="plate">
+        <div class="when">Session one</div>
+        <h2>The room, where I think</h2>
+        <p>An open session in my operations folder. Nothing ships from here. It holds the context: what the client asked for, what I decided last week, what is on the board. It tells the other session what to do.</p>
+        <ul class="rows">
+          <li><span class="k">Holds</span><span class="v">Context, decisions, the task board</span></li>
+          <li><span class="k">Ships</span><span class="v">Nothing</span></li>
+          <li><span class="k">Reads</span><span class="v">Session log, heartbeat, briefs</span></li>
+        </ul>
+      </article>
+    </section>
+    <section class="day" data-d="2">
+      <div class="dayname"><span>Wednesday</span></div>
+      <article class="plate">
+        <div class="when">Session two</div>
+        <h2>The bench, where it gets built</h2>
+        <p>A second session inside the project, with the project's own rules loaded. It does not need my history. It needs the repo. When the work is done it goes to a branch and I look at it in the morning.</p>
+        <ul class="rows">
+          <li><span class="k">Holds</span><span class="v">One repo, one job</span></li>
+          <li><span class="k">Ships</span><span class="v">Commits, branches, pages</span></li>
+          <li><span class="k">Reads</span><span class="v">The project's own instructions</span></li>
+        </ul>
+      </article>
+    </section>
+    <section class="day" data-d="3">
+      <div class="dayname"><span>Thursday</span></div>
+      <article class="plate">
+        <div class="when">Counted on disk, August 28, 2026</div>
+        <h2>What the machine is made of</h2>
+        <ul class="rows">
+          <li><span class="n">18</span><span class="v">Skills<small>Workflows I call by name.</small></span></li>
+          <li><span class="n">11</span><span class="v">Rule files<small>Loaded by file path, so the right standard shows up on its own.</small></span></li>
+          <li><span class="n">6</span><span class="v">Scheduled jobs<small>Four are drawn here.</small></span></li>
+          <li><span class="n">7</span><span class="v">Hooks<small>Across four events. They fire whether or not I remember them.</small></span></li>
+          <li><span class="n">17</span><span class="v">Repositories<small>Client sites, experiments and the studio.</small></span></li>
+        </ul>
+      </article>
+    </section>
+    <section class="day" data-d="4">
+      <div class="dayname"><span>Friday</span></div>
+      <article class="plate">
+        <div class="when">Checked before anything runs</div>
+        <h2>The parts that say no</h2>
+        <p>Running alone is only worth having if it cannot hurt you. Nine commands are refused outright, by configuration that does not get tired at 2 am. Six of the nine:</p>
+        <ul class="deny">
+          <li>rm -r*</li><li>rm -f*</li><li>sudo rm *</li><li>git push --force*</li><li>git reset --hard*</li><li>git clean*</li>
+        </ul>
+      </article>
+    </section>
+    <section class="day" data-d="5">
+      <div class="dayname"><span>Saturday</span></div>
+      <article class="plate">
+        <div class="when">The week so far</div>
+        <h2 id="shareH">2,016 of 2,031 runs are one job</h2>
+        <p id="shareP">The dropzone checks a folder 288 times a day. Take it out and the week is 15 lines: seven health checks, seven backups and one cache clean.</p>
+        <button class="btn" id="dzBtn" aria-pressed="false">Take the dropzone out</button>
+      </article>
+    </section>
+    <section class="day" data-d="6">
+      <div class="dayname"><span>Sunday</span></div>
+      <article class="plate">
+        <div class="when">Once a week</div>
+        <h2>One line for the cache clean</h2>
+        <p>It ran at 03:00 this morning. It is the only job that runs once a week, so it gets one line out of the whole drawing.</p>
+        <p>The two amber lines are the jobs with no time at all: the auto-organizer, which files what lands, and the agent feed, a local board that is always up.</p>
+      </article>
+    </section>
+  </div>
+
+  <section class="end" id="end">
+    <div class="rule"></div>
+    <h2 class="big"><span id="endH">2,031 lines. One week.</span></h2>
+    <div class="go">
+      <button class="btn solid" data-save="png"><svg class="i" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>Save PNG</button>
+      <button class="btn" data-save="svg"><svg class="i" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>Save SVG</button>
+      <button class="btn" id="adjBtn2">Adjust the lines</button>
+      <button class="btn" id="topBtn"><svg class="i" viewBox="0 0 24 24"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>Back to Monday</button>
+    </div>
+    <article class="plate">
+      <p>Built by Lupo</p>
+    </article>
+    <div class="strip" aria-hidden="true"></div>
+  </section>
+</main>
+
+<div class="readline" aria-hidden="true"></div>
+<div class="read" aria-live="off">
+  <div class="dn"><span id="rDay">Monday</span></div>
+  <div class="tm"><span id="rTime">00:00</span></div>
+  <div class="ct"><span><b id="rCount">0</b> <i id="rUnit" style="font-style:normal">lines</i><i id="rLast" style="font-style:normal"></i></span></div>
+</div>
+
+<aside class="panel" id="panel" aria-label="Adjust the lines">
+  <header><h3>Adjust</h3><button class="btn icon" id="closeBtn" aria-label="Close"><svg class="i" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></header>
+  <h4>Jobs, runs a week</h4>
+  <div id="jobs"></div>
+  <h4>Add a job</h4>
+  <form class="add" id="addForm">
+    <input class="wide" id="aName" placeholder="Name" maxlength="24" required aria-label="Job name">
+    <select id="aMode" aria-label="How it runs"><option value="e">Every N minutes</option><option value="d">Daily at</option></select>
+    <input id="aVal" type="number" min="5" max="1440" step="5" value="60" aria-label="Minutes or time" required>
+    <button class="btn wide" type="submit"><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></svg>Add job</button>
+  </form>
+  <button class="btn" id="presetBtn" style="margin-top:8px;width:100%;justify-content:center">Add an hourly job</button>
+  <h4>The formula's three numbers</h4>
+  <div class="sl"><label for="sA">Height wave</label><output id="oA"></output><input id="sA" type="range" min="1" max="20" step="0.1"></div>
+  <div class="sl"><label for="sB">Turn wave</label><output id="oB"></output><input id="sB" type="range" min="1" max="30" step="0.1"></div>
+  <div class="sl"><label for="sC">Ink wave</label><output id="oC"></output><input id="sC" type="range" min="1" max="30" step="0.1"></div>
+  <div class="acts">
+    <button class="btn" id="resetBtn">Reset</button>
+    <button class="btn" data-save="png">Save PNG</button>
+    <button class="btn" data-save="svg">Save SVG</button>
+  </div>
+</aside>
+
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id);};
+var WEEK=168, DAYS=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+var DEF={a:7.5,b:13,c:9};
+var S={a:7.5,b:13,c:9,off:{},x:[]};
+var BASE=[
+  {id:"dz",name:"Dropzone",kind:"e",min:5},
+  {id:"hb",name:"Heartbeat",kind:"d",at:8},
+  {id:"bk",name:"Config backup",kind:"d",at:23.5},
+  {id:"cc",name:"Cache clean",kind:"w",day:6,at:3},
+  {id:"ao",name:"Auto-organizer",kind:"a",th:0},
+  {id:"af",name:"Agent feed",kind:"a",th:Math.PI/2}
+];
+var jobs=[],fine=[],marked=[],always=[];
+function z(n){return(n<10?"0":"")+n;}
+function hhmm(h){var m=Math.round(h*60);return z(Math.floor(m/60)%24)+":"+z(m%60);}
+function fmt(n){return n.toLocaleString("en-US");}
+
+/* ---------- state in the address, only where it differs ---------- */
+function readHash(){
+  var h=location.hash.slice(1);if(!h)return;
+  h.split("&").forEach(function(p){
+    var i=p.indexOf("="),k=p.slice(0,i),v=decodeURIComponent(p.slice(i+1));
+    if(k==="a"||k==="b"||k==="c"){var n=parseFloat(v);if(isFinite(n))S[k]=Math.min(30,Math.max(1,n));}
+    if(k==="off")v.split(",").forEach(function(id){if(/^[a-z0-9]+$/.test(id))S.off[id]=1;});
+    if(k==="x")v.split(";").slice(0,6).forEach(function(s){var q=s.split("~");var j=mkCustom(q[0],q[1],q[2]);if(j)S.x.push(j);});
+  });
+}
+function mkCustom(name,mode,val){
+  name=String(name||"").replace(/[^\w .\-]/g,"").trim().slice(0,24);if(!name)return null;
+  if(mode==="e"){var n=Math.round(parseFloat(val));if(!(n>=5&&n<=1440))return null;return{name:name,kind:"e",min:n};}
+  if(mode==="d"){var m=/^(\d{1,2}):(\d{2})$/.exec(val);if(!m||+m[1]>23||+m[2]>59)return null;return{name:name,kind:"d",at:+m[1]+(+m[2])/60};}
+  return null;
+}
+function writeHash(){
+  var p=[];
+  ["a","b","c"].forEach(function(k){if(S[k]!==DEF[k])p.push(k+"="+S[k]);});
+  var off=Object.keys(S.off);if(off.length)p.push("off="+off.join(","));
+  if(S.x.length)p.push("x="+encodeURIComponent(S.x.map(function(j){return j.name+"~"+j.kind+"~"+(j.kind==="e"?j.min:hhmm(j.at));}).join(";")));
+  history.replaceState(null,"",p.length?"#"+p.join("&"):location.pathname+location.search);
+}
+
+/* ---------- the week as a list of runs ---------- */
+function runs(j){return j.kind==="e"?Math.ceil(10080/j.min):j.kind==="d"?7:j.kind==="w"?1:0;}
+function build(){
+  jobs=BASE.concat(S.x.map(function(j,i){var o={};for(var k in j)o[k]=j[k];o.id="x"+i;o.custom=i;return o;}));
+  fine=[];marked=[];always=[];
+  jobs.forEach(function(j,ji){
+    j.n=runs(j);j.fineJob=j.n>400;j.on=!S.off[j.id];
+    if(!j.on)return;
+    if(j.kind==="a"){always.push(j);return;}
+    var out=j.fineJob?fine:marked,m,d;
+    if(j.kind==="e")for(m=0;m<10080;m+=j.min)out.push({t:m/60,j:ji});
+    if(j.kind==="d")for(d=0;d<7;d++)out.push({t:d*24+j.at,j:ji});
+    if(j.kind==="w")out.push({t:j.day*24+j.at,j:ji});
+  });
+  function by(a,b){return a.t-b.t;}
+  fine.sort(by);marked.sort(by);
+  total=fine.length+marked.length;
+}
+var total=0;
+function upto(arr,T){var lo=0,hi=arr.length;while(lo<hi){var mid=(lo+hi)>>1;if(arr[mid].t<=T)lo=mid+1;else hi=mid;}return lo;}
+
+/* ---------- the formula from the August background ---------- */
+function geom(t){
+  return{rx:Math.abs(90+t*760),ry:Math.abs(40+Math.sin(t*S.a)*150+t*180),
+    rot:(t*220+Math.sin(t*S.b)*26)*Math.PI/180,op:0.05+0.1*Math.abs(Math.sin(t*S.c))};
+}
+
+/* ---------- canvases ---------- */
+var cs={src:$("src"),acc:$("acc"),top:$("top")},cx={},W=0,H=0,dpr=1,sc=1,ox=0,oy=0,drawn=0,dirty=true;
+function theme(){return document.documentElement.getAttribute("data-theme");}
+function col(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();}
+var C={};
+function size(){
+  W=window.innerWidth;H=window.innerHeight;dpr=Math.min(window.devicePixelRatio||1,2);
+  for(var k in cs){cs[k].width=Math.round(W*dpr);cs[k].height=Math.round(H*dpr);cx[k]=cs[k].getContext("2d");}
+  sc=Math.max(W/1200,H/900);ox=W*(W>760?0.64:0.5);oy=H*0.5;
+  C={navy:col("--navy"),teal:col("--teal-l"),amber:col("--amber-l"),ink:col("--ink"),ground:col("--ground"),dark:theme()==="dark"};
+  dirty=true;drawSrc();
+}
+function prep(c,clear){
+  c.setTransform(1,0,0,1,0,0);if(clear)c.clearRect(0,0,c.canvas.width,c.canvas.height);
+  c.setTransform(sc*dpr,0,0,sc*dpr,ox*dpr,oy*dpr);
+}
+function ell(c,g){c.beginPath();c.ellipse(0,0,g.rx,g.ry,g.rot,0,6.2832);c.stroke();}
+function drawSrc(){
+  var c=cx.src;prep(c,true);c.strokeStyle=C.navy;c.lineWidth=0.6/sc;
+  for(var i=0;i<240;i++){var g=geom(i/240);c.globalAlpha=Math.min(1,g.op*(C.dark?1.5:2.2));ell(c,g);}
+}
+function fineAlpha(g){return Math.min(1,g.op*(C.dark?0.75:1.05));}
+function draw(T){
+  var k=upto(fine,T),c=cx.acc,i,g;
+  if(dirty||k<drawn){prep(c,true);drawn=0;dirty=false;}else prep(c,false);
+  c.strokeStyle=C.navy;c.lineWidth=0.55/sc;
+  for(i=drawn;i<k;i++){g=geom(fine[i].t/WEEK);c.globalAlpha=fineAlpha(g);ell(c,g);}
+  drawn=k;
+  /* top layer: the newest line, the timed jobs, the two that never stop */
+  c=cx.top;prep(c,true);
+  if(k>0&&T<WEEK){c.strokeStyle=C.ink;c.lineWidth=1.1/sc;c.globalAlpha=.7;ell(c,geom(fine[k-1].t/WEEK));}
+  var mk=upto(marked,T);
+  c.strokeStyle=C.teal;
+  for(i=0;i<mk;i++){var many=jobs[marked[i].j].n>30;c.lineWidth=(many?0.9:1.8)/sc;c.globalAlpha=many?.5:.95;ell(c,geom(marked[i].t/WEEK));}
+  if(T>0)always.forEach(function(j,n){
+    c.strokeStyle=C.amber;c.lineWidth=1.6/sc;c.globalAlpha=n?0.65:0.95;c.beginPath();
+    var cs_=Math.cos(j.th),sn=Math.sin(j.th);
+    for(var m=0;m<=T*60;m+=5){
+      var g=geom(m/10080),x=g.rx*cs_,y=g.ry*sn,cr=Math.cos(g.rot),sr=Math.sin(g.rot);
+      if(m===0)c.moveTo(x*cr-y*sr,x*sr+y*cr);else c.lineTo(x*cr-y*sr,x*sr+y*cr);
+    }
+    c.stroke();
+  });
+  return k+mk;
+}
+
+/* ---------- scroll is time ---------- */
+var week=$("week"),weekTop=0,pph=58,raf=0,lastT=-1;
+function measure(){
+  var r=week.getBoundingClientRect();weekTop=r.top+window.scrollY;
+  pph=week.firstElementChild.offsetHeight/24;
+}
+function rawT(){return(window.scrollY+H*0.5-weekTop)/pph;}
+function update(){
+  raf=0;
+  var raw=rawT(),T=Math.min(WEEK,Math.max(0,raw));
+  cs.src.style.opacity=Math.min(1,Math.max(0,-raw/5)).toFixed(3);
+  var n=draw(raw<0?-1:T);
+  var d=Math.min(6,Math.floor(T/24));
+  $("rDay").textContent=DAYS[d];
+  $("rTime").textContent=T>=WEEK?"24:00":hhmm(T-d*24>=24?0:T-d*24);
+  $("rCount").textContent=fmt(n);
+  $("rUnit").textContent=n===1?"line":"lines";
+  var last="";
+  if(n>0&&T<WEEK&&raw>=0){
+    var a=upto(fine,T),b=upto(marked,T),e=null;
+    if(a)e=fine[a-1];if(b&&(!e||marked[b-1].t>=e.t))e=marked[b-1];
+    if(e)last=" · last: "+jobs[e.j].name+" "+hhmm(e.t%24);
+  }
+  $("rLast").textContent=last;
+  lastT=T;
+}
+function ask(){if(!raf)raf=requestAnimationFrame(update);}
+window.addEventListener("scroll",ask,{passive:true});
+window.addEventListener("resize",function(){size();measure();ask();});
+
+/* ---------- ruler ---------- */
+function ruler(){
+  week.querySelectorAll(".day").forEach(function(day){
+    var d=+day.dataset.d,r=day.querySelector(".rule");
+    if(!r){r=document.createElement("div");r.className="rule";r.setAttribute("aria-hidden","true");day.insertBefore(r,day.firstChild);
+      for(var h=3;h<24;h+=3){var s=document.createElement("span");s.className="hr"+(h%6?" minor":"");s.style.top=(h/24*100)+"%";s.textContent=z(h)+":00";r.appendChild(s);}
+    }
+    r.querySelectorAll("i").forEach(function(n){n.remove();});
+    day.querySelectorAll(".mk").forEach(function(n){n.remove();});
+    var ai=0;
+    jobs.forEach(function(j){
+      if(!j.on)return;
+      if(j.kind==="a"){var i=document.createElement("i");i.className=ai++?"d2":"d1";r.appendChild(i);return;}
+      if(j.id==="dz"){var q=document.createElement("i");q.className="dz";r.appendChild(q);return;}
+      if(j.kind==="e")return;
+      if(j.kind==="w"&&j.day!==d)return;
+      var m=document.createElement("div");m.className="mk";m.style.top=(j.at/24*100)+"%";
+      var b=document.createElement("b"),sp=document.createElement("span");sp.textContent=hhmm(j.at)+" "+j.name;
+      m.appendChild(b);m.appendChild(sp);day.appendChild(m);
+    });
+  });
+}
+
+/* ---------- panel ---------- */
+function jobList(){
+  var box=$("jobs");box.textContent="";
+  jobs.forEach(function(j){
+    var l=document.createElement("label");l.className="job"+(j.kind==="a"?" a":j.fineJob?"":" t");
+    var c=document.createElement("input");c.type="checkbox";c.checked=j.on;
+    c.addEventListener("change",function(){if(c.checked)delete S.off[j.id];else S.off[j.id]=1;apply();});
+    var s=document.createElement("s"),n=document.createElement("span");n.className="nm";n.textContent=j.name;
+    var k=document.createElement("span");k.className="c";k.textContent=j.kind==="a"?"always on":fmt(j.n);
+    l.appendChild(c);l.appendChild(s);l.appendChild(n);l.appendChild(k);
+    if(j.custom!==undefined){
+      var b=document.createElement("button");b.type="button";b.className="rm";b.setAttribute("aria-label","Remove "+j.name);
+      b.innerHTML='<svg class="i" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>';
+      b.addEventListener("click",function(ev){ev.preventDefault();S.x.splice(j.custom,1);S.off={};apply();});
+      l.appendChild(b);
+    }
+    box.appendChild(l);
+  });
+}
+function words(){
+  var dz=jobs[0],rest=total-(dz.on?dz.n:0);
+  $("endH").textContent=fmt(total)+(total===1?" line":" lines")+". One week.";
+  $("dzBtn").textContent=dz.on?"Take the dropzone out":"Put the dropzone back";
+  $("dzBtn").setAttribute("aria-pressed",dz.on?"false":"true");
+  $("shareH").textContent=dz.on?fmt(dz.n)+" of "+fmt(total)+" runs are one job":"Without the dropzone, "+fmt(total)+(total===1?" line":" lines");
+  ["A","B","C"].forEach(function(K){var k=K.toLowerCase();$("s"+K).value=S[k];$("o"+K).textContent=(+S[k]).toFixed(1)+(S[k]===DEF[k]?"":" (was "+DEF[k]+")");});
+}
+function apply(){build();ruler();jobList();words();writeHash();dirty=true;ask();}
+
+$("dzBtn").addEventListener("click",function(){if(S.off.dz)delete S.off.dz;else S.off.dz=1;apply();});
+["A","B","C"].forEach(function(K){$("s"+K).addEventListener("input",function(){S[K.toLowerCase()]=parseFloat(this.value);drawSrc();apply();});});
+$("resetBtn").addEventListener("click",function(){S={a:7.5,b:13,c:9,off:{},x:[]};drawSrc();apply();});
+$("aMode").addEventListener("change",function(){
+  var v=$("aVal");if(this.value==="d"){v.type="time";v.value="02:00";v.removeAttribute("min");v.removeAttribute("max");v.removeAttribute("step");}
+  else{v.type="number";v.min=5;v.max=1440;v.step=5;v.value=60;}
+});
+$("addForm").addEventListener("submit",function(ev){
+  ev.preventDefault();if(S.x.length>=6)return;
+  var j=mkCustom($("aName").value,$("aMode").value,$("aVal").value);
+  if(j){S.x.push(j);$("aName").value="";apply();}
+});
+$("presetBtn").addEventListener("click",function(){
+  if(S.x.length>=6||S.x.some(function(j){return j.name==="This routine";}))return;
+  S.x.push({name:"This routine",kind:"e",min:60});apply();
+});
+var panel=$("panel");
+function openPanel(on){panel.classList.toggle("on",on);$("adjBtn").setAttribute("aria-expanded",on?"true":"false");if(on)$("closeBtn").focus();}
+$("adjBtn").addEventListener("click",function(){openPanel(!panel.classList.contains("on"));});
+$("adjBtn2").addEventListener("click",function(){openPanel(true);});
+$("closeBtn").addEventListener("click",function(){openPanel(false);$("adjBtn").focus();});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&panel.classList.contains("on")){openPanel(false);$("adjBtn").focus();}});
+
+/* ---------- theme ---------- */
+var SUN='<circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>',
+    MOON='<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>';
+function themeUI(){var dk=theme()==="dark";$("themeIco").innerHTML=dk?SUN:MOON;$("themeBtn").setAttribute("aria-label",dk?"Switch to light":"Switch to dark");}
+$("themeBtn").addEventListener("click",function(){
+  document.documentElement.setAttribute("data-theme",theme()==="dark"?"light":"dark");themeUI();size();ask();
+});
+
+/* ---------- play ---------- */
+var playing=false,pRaf=0,pLast=0;
+function setPlay(on){
+  playing=on;$("playBtn").setAttribute("aria-pressed",on?"true":"false");
+  $("playTxt").textContent=on?"Stop":"Play the week";
+  $("playIco").innerHTML=on?'<rect width="18" height="18" x="3" y="3" rx="2"/>':'<polygon points="6 3 20 12 6 21 6 3"/>';
+  cancelAnimationFrame(pRaf);
+  if(on){
+    if(lastT>=WEEK-0.01||rawT()<-0.5)window.scrollTo(0,weekTop-H*0.5);
+    pLast=performance.now();pRaf=requestAnimationFrame(step);
+  }
+}
+var pPos=0;
+function step(now){
+  if(!playing)return;
+  var dt=Math.min(64,now-pLast);pLast=now;
+  if(Math.abs(window.scrollY-pPos)>4)pPos=window.scrollY;
+  pPos+=pph*24/5200*dt;               /* one day in about five seconds */
+  window.scrollTo(0,pPos);
+  if(rawT()>=WEEK){setPlay(false);return;}
+  pRaf=requestAnimationFrame(step);
+}
+function togglePlay(){pPos=window.scrollY;setPlay(!playing);}
+$("playBtn").addEventListener("click",togglePlay);
+$("playBtn2").addEventListener("click",togglePlay);
+["wheel","touchstart","keydown"].forEach(function(t){window.addEventListener(t,function(e){
+  if(playing&&!(t==="keydown"&&(e.key==="Enter"||e.key===" "||e.key==="Tab")))setPlay(false);},{passive:true});});
+$("topBtn").addEventListener("click",function(){window.scrollTo(0,weekTop-H*0.5);});
+
+/* ---------- save ---------- */
+function download(name,blob){var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(a.href);},2000);}
+function svgText(){
+  var o=['<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" fill="none">','<rect width="1200" height="900" fill="'+C.ground+'"/>','<g stroke="'+C.navy+'" stroke-width="0.5">'];
+  function e(g,extra){return'<ellipse cx="600" cy="450" rx="'+g.rx.toFixed(1)+'" ry="'+g.ry.toFixed(1)+'" transform="rotate('+(g.rot*180/Math.PI).toFixed(2)+' 600 450)"'+extra+'/>';}
+  fine.forEach(function(r){var g=geom(r.t/WEEK);o.push(e(g,' stroke-opacity="'+fineAlpha(g).toFixed(3)+'"'));});
+  o.push('</g>','<g stroke="'+C.teal+'" stroke-width="1.6">');
+  marked.forEach(function(r){o.push(e(geom(r.t/WEEK),jobs[r.j].n>30?' stroke-width="0.8" stroke-opacity="0.5"':''));});
+  o.push('</g>','<g stroke="'+C.amber+'" stroke-width="1.4">');
+  always.forEach(function(j,n){
+    var p=[],cs_=Math.cos(j.th),sn=Math.sin(j.th);
+    for(var m=0;m<=10080;m+=5){var g=geom(m/10080),x=g.rx*cs_,y=g.ry*sn,cr=Math.cos(g.rot),sr=Math.sin(g.rot);p.push((600+x*cr-y*sr).toFixed(1)+","+(450+x*sr+y*cr).toFixed(1));}
+    o.push('<polyline points="'+p.join(" ")+'"'+(n?' stroke-opacity="0.65"':'')+'/>');
+  });
+  o.push('</g>','</svg>');return o.join("\n");
+}
+function save(kind){
+  if(kind==="svg"){download("one-line-a-run.svg",new Blob([svgText()],{type:"image/svg+xml"}));return;}
+  var keep=lastT;draw(WEEK);
+  var c=document.createElement("canvas");c.width=cs.acc.width;c.height=cs.acc.height;var g=c.getContext("2d");
+  g.fillStyle=C.ground;g.fillRect(0,0,c.width,c.height);g.drawImage(cs.acc,0,0);g.drawImage(cs.top,0,0);
+  c.toBlob(function(b){download("one-line-a-run.png",b);dirty=true;draw(Math.max(0,keep));},"image/png");
+}
+document.querySelectorAll("[data-save]").forEach(function(b){b.addEventListener("click",function(){save(b.dataset.save);});});
+
+/* ---------- start ---------- */
+readHash();themeUI();size();build();ruler();jobList();words();measure();update();
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){measure();ask();});
+window.__w={S:S,state:function(){return{T:lastT,total:total,fine:fine.length,marked:marked.length,always:always.length,drawn:drawn};},svg:svgText};
+})();
+</script>
+</body>
+</html>

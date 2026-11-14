@@ -1,0 +1,68 @@
+<!doctype html><meta charset="utf-8"><title>HumanLup Design Lab clip stage</title>
+<!-- HumanLup Design Lab · Anthony Lupo · humanlup.com · X @humanlup · IG humanlup.ai -->
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Inter:wght@400..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden}
+body{background:var(--g);color:var(--i);font-family:Inter,sans-serif;position:relative}
+.top{position:absolute;left:64px;right:64px;top:64px;display:flex;justify-content:space-between;align-items:baseline;font:600 30px Inter}
+.top span:last-child{font:500 26px 'JetBrains Mono';letter-spacing:.04em}
+h1{position:absolute;left:64px;right:64px;top:150px;height:250px;display:flex;align-items:center;font-family:Archivo;font-weight:800;font-stretch:112%;letter-spacing:-.03em;line-height:.9;color:var(--a);white-space:nowrap}
+.shot{position:absolute;left:64px;top:430px;width:952px;height:1240px;border-radius:20px;overflow:hidden;box-shadow:0 0 0 1.5px color-mix(in srgb,var(--i) 22%,transparent),0 40px 70px -24px rgba(0,0,0,.35)}
+iframe{border:0;width:476px;height:620px;transform:scale(2);transform-origin:0 0;display:block}
+.foot{position:absolute;left:64px;right:64px;bottom:70px;display:flex;justify-content:space-between;align-items:flex-end}
+.foot span{font:500 28px Inter;padding-bottom:16px}.foot b{font-family:Archivo;font-weight:800;font-stretch:112%;font-size:128px;line-height:.8;letter-spacing:-.03em}
+.ck{position:absolute;left:0;right:0;bottom:0;height:24px;background:conic-gradient(var(--a) 25%,var(--g) 0 50%,var(--a) 0 75%,var(--g) 0) 0 0/48px 48px;z-index:6}
+/* dot that stands in for a finger */
+#tip{position:absolute;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;background:color-mix(in srgb,var(--a) 80%,transparent);box-shadow:0 0 0 3px var(--g);z-index:4;opacity:0;pointer-events:none}
+#tip.on{opacity:.9}#tip.down{transform:scale(.7)}
+/* outro */
+#out{position:absolute;inset:0;z-index:5;pointer-events:none}
+#out .wipe{position:absolute;left:0;right:0;bottom:0;height:0;background:conic-gradient(var(--i) 25%,var(--g) 0 50%,var(--i) 0 75%,var(--g) 0) 0 0/120px 120px}
+#out .fill{position:absolute;inset:0;background:var(--i);clip-path:inset(100% 0 0 0)}
+#out .mark{position:absolute;left:0;right:0;top:800px;text-align:center;font-family:Archivo;font-weight:700;font-stretch:100%;font-size:128px;letter-spacing:.06em;text-indent:.06em;color:var(--g);white-space:nowrap}
+#out .mark i{display:inline-block;font-style:normal;transform:translateY(120%);opacity:0}
+#out .mark .cl{display:inline-block;overflow:hidden;padding:0 0 30px;line-height:1}
+#out svg{position:absolute;inset:0;width:1080px;height:1920px;overflow:visible}
+#out svg path{fill:none;stroke:var(--a2);stroke-width:6;stroke-linecap:round;opacity:0}
+#out .tag{position:absolute;left:0;right:0;top:1046px;text-align:center;font:400 30px Inter;letter-spacing:.2em;text-indent:.2em;color:color-mix(in srgb,var(--g) 66%,transparent)}
+#out .tag span{display:inline-block;opacity:0}#out .tag u{text-decoration:none;opacity:.5;margin:0 22px}
+#out .lab{position:absolute;left:0;right:0;top:1136px;text-align:center;font:500 30px 'JetBrains Mono';letter-spacing:.06em;color:var(--g);opacity:0}
+#out .who{position:absolute;left:0;right:0;bottom:150px;text-align:center;font:500 32px Inter;color:color-mix(in srgb,var(--g) 78%,transparent);opacity:0}
+#out .sq{position:absolute;bottom:0;left:0;right:0;height:24px;background:conic-gradient(var(--a2) 25%,var(--i) 0 50%,var(--a2) 0 75%,var(--i) 0) 0 0/48px 48px;opacity:0}
+</style>
+<div class="top"><span>HumanLup</span><span>Design Lab</span></div>
+<h1 id="t"></h1>
+<div class="shot"><iframe id="f"></iframe></div>
+<div class="foot"><span>Built by Lupo</span><b id="n"></b></div>
+<div class="ck"></div>
+<div id="tip"></div>
+<div id="out"><div class="wipe"></div><div class="fill"></div>
+  <div class="mark" id="m"></div>
+  <svg viewBox="0 0 1080 1920"><path id="lup" d="M -520 1000 L 330 1000 A 150 150 0 0 0 330 700 A 150 150 0 0 0 330 1000 L 750 1000"/></svg>
+  <div class="tag"><span>ideas</span><span><u>|</u>projects</span><span><u>|</u>craft</span></div><div class="lab" id="lab"></div>
+  <div class="who">humanlup.com &nbsp;·&nbsp; @humanlup</div><div class="sq"></div></div>
+<script>
+const q = new URLSearchParams(location.search), R = document.documentElement.style;
+R.setProperty('--g', q.get('ground')||'#edeae3'); R.setProperty('--i', q.get('ink')||'#191714'); R.setProperty('--a', q.get('accent')||'#c2410c');
+R.setProperty('--a2', q.get('outro')||q.get('accent')||'#c2410c');
+t.textContent = q.get('title')||'Title'; n.textContent = q.get('nn')||'00'; lab.textContent = 'Design Lab ' + (q.get('nn')||'00');
+f.src = q.get('src') + (q.get('hash')||'');
+m.innerHTML = [...'HumanLup'].map(c => `<span class="cl"><i>${c}</i></span>`).join('');
+document.fonts.ready.then(() => { let s = 300; t.style.fontSize = s+'px'; while (t.scrollWidth > t.clientWidth && s > 60) { s -= 4; t.style.fontSize = s+'px'; } });
+// the outro, about 4 seconds: checkers climb, ink fills, one line runs in, takes a loop (the Lup) and comes to rest as the rule under the name
+window.outro = () => new Promise(done => {
+  const o = out, ez = 'cubic-bezier(.2,.8,.2,1)', A = (el, k, opt) => el.animate(k, Object.assign({fill:'forwards', easing:ez}, opt));
+  A(o.querySelector('.wipe'), [{height:'0px'},{height:'2040px'}], {duration:620, easing:'cubic-bezier(.7,0,.3,1)'});
+  A(o.querySelector('.fill'), [{clipPath:'inset(100% 0 0 0)'},{clipPath:'inset(0 0 0 0)'}], {duration:620, delay:200, easing:'cubic-bezier(.7,0,.3,1)'});
+  const T = lup.getTotalLength(), L = 420; lup.style.strokeDasharray = L + ' ' + (T + L);
+  A(lup, [{strokeDashoffset: L, opacity:1},{strokeDashoffset: -(T - L), opacity:1}], {duration:1500, delay:650, easing:'cubic-bezier(.55,0,.15,1)'});
+  o.querySelectorAll('.mark i').forEach((el, k) => A(el, [{transform:'translateY(120%)',opacity:0},{transform:'translateY(0)',opacity:1}], {duration:560, delay:1250 + k*55}));
+  A(o.querySelector('.mark'), [{letterSpacing:'.16em',textIndent:'.16em'},{letterSpacing:'.06em',textIndent:'.06em'}], {duration:1300, delay:1250, easing:'cubic-bezier(.16,1,.3,1)'});
+  o.querySelectorAll('.tag span').forEach((el, k) => A(el, [{opacity:0,transform:'translateY(10px)'},{opacity:1,transform:'none'}], {duration:380, delay:2200 + k*130}));
+  A(o.querySelector('.lab'), [{opacity:0,transform:'translateY(14px)'},{opacity:1,transform:'none'}], {duration:420, delay:2650});
+  A(o.querySelector('.who'), [{opacity:0},{opacity:1}], {duration:420, delay:2850});
+  A(o.querySelector('.sq'), [{opacity:0},{opacity:1}], {duration:300, delay:2850});
+  setTimeout(done, 4100);
+});
+</script>

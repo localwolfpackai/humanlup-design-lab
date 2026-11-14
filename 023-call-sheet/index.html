@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Call Sheet · HumanLup</title>
+<!-- humanlup:meta -->
+<!-- HumanLup Design Lab 23 · Anthony Lupo · humanlup.com · X @humanlup · IG humanlup.ai · anthony@humanlup.com -->
+<meta name="author" content="Anthony Lupo">
+<meta name="creator" content="Anthony Lupo">
+<meta name="publisher" content="HumanLup">
+<meta name="copyright" content="© 2026 Anthony Lupo, HumanLup">
+<link rel="author" href="https://humanlup.com">
+<link rel="me" href="https://x.com/humanlup">
+<link rel="me" href="https://www.instagram.com/humanlup.ai">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HumanLup Design Lab 23">
+<meta property="og:title" content="Call Sheet · HumanLup">
+<meta property="og:description" content="A call sheet for a prompt. Five lines, twelve plays in the margin, and the prompt comes out the side.">
+<meta property="og:image" content="preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@humanlup">
+<meta name="twitter:creator" content="@humanlup">
+<meta name="twitter:title" content="Call Sheet · HumanLup">
+<meta name="twitter:description" content="A call sheet for a prompt. Five lines, twelve plays in the margin, and the prompt comes out the side.">
+<meta name="twitter:image" content="preview.jpg">
+<!-- /humanlup:meta -->
+<meta name="description" content="A call sheet for a prompt. Five lines, twelve plays in the margin, and the prompt comes out the side.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Libre+Franklin:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --desk:#e7e4dc; --ink:#16181c; --soft:#4e5158; --rule:#16181c; --pencil:#b3261a;
+  --white:#ffffff; --blue:#cfe0f5; --pink:#f6d9e1; --yellow:#f8eeaa; --green:#cfe8c8; --gold:#f0cd6e;
+  --paper:var(--white); --edges:0 0 0 transparent;
+  --sans:"Libre Franklin","Franklin Gothic Medium","Helvetica Neue",Arial,sans-serif;
+  --type:"Courier Prime","Courier New",Courier,monospace;
+  --margin:270px;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--desk);color:var(--ink);font:400 16px/1.5 var(--sans)}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.ed:focus-visible{outline:2px dashed var(--ink);outline-offset:3px}
+svg.i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.wrap{max-width:1480px;margin:0 auto;padding:28px 32px 80px}
+
+/* masthead */
+.top{display:flex;justify-content:space-between;gap:24px;font-size:14px;color:var(--soft);font-weight:500}
+.top a{text-underline-offset:3px}
+.mast{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:32px;align-items:end;margin:26px 0 34px}
+h1{font:900 clamp(40px,6.3vw,96px)/.94 var(--sans);letter-spacing:-.035em;margin:0;text-wrap:balance}
+.mast .by{font-size:14px;color:var(--soft);margin:14px 0 0;font-weight:500}
+.mast .lede{font-size:18px;line-height:1.45;margin:0;max-width:34ch}
+
+/* bench */
+.bench{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:32px;align-items:start}
+.sheet{position:relative}
+.row{display:grid;grid-template-columns:var(--margin) minmax(0,1fr)}
+.mg{padding:14px 0 14px 0;display:flex;flex-direction:column;gap:8px;align-items:stretch}
+.mg p{margin:0 22px 4px 0;font-size:14.5px;line-height:1.45;color:var(--soft)}
+.mg p b{color:var(--ink);font-weight:700}
+.mg .lab{font:800 14px/1.2 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin:0 22px 2px 0}
+.pp{background:var(--paper);border-left:2px solid var(--rule);border-right:2px solid var(--rule);border-bottom:1px solid var(--rule);
+  box-shadow:var(--edges);transition:background-color .5s ease, box-shadow .5s ease;position:relative;min-width:0}
+.row:first-child .pp{border-top:2px solid var(--rule)}
+.row:last-child .pp{border-bottom:2px solid var(--rule)}
+
+/* tabs in the margin */
+.tab{display:grid;grid-template-columns:34px 1fr;column-gap:8px;align-items:baseline;text-align:left;min-height:56px;
+  background:#fff;border:2px solid var(--ink);border-right:0;padding:8px 12px 9px 12px;margin-left:18px;border-radius:0;
+  transition:margin-left .18s ease, background-color .18s ease, color .18s ease}
+.tab .n{font:900 22px/1 var(--sans);letter-spacing:-.02em}
+.tab .nm{font:700 15px/1.25 var(--sans)}
+.tab .ad{grid-column:2;font:400 14px/1.3 var(--sans);color:var(--soft)}
+.tab:hover{margin-left:8px}
+.tab[aria-pressed=true]{background:var(--ink);color:#fff;margin-left:0}
+.tab[aria-pressed=true] .ad{color:#d5d6d9}
+.starts{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-right:22px}
+.st{min-height:44px;background:transparent;border:1.5px solid var(--ink);padding:6px 10px;font:600 14px/1.2 var(--sans);text-align:left}
+.st:hover{background:#fff}
+.st[aria-pressed=true]{background:var(--ink);color:#fff}
+.act{display:inline-flex;align-items:center;gap:8px;min-height:44px;background:var(--ink);color:#fff;border:2px solid var(--ink);padding:8px 14px;font:700 15px/1.2 var(--sans);margin-right:22px;justify-content:center}
+.act.ghost{background:transparent;color:var(--ink)}
+.act:disabled{opacity:.45;cursor:not-allowed}
+.act:not(:disabled):hover{background:#000}
+.act.ghost:not(:disabled):hover{background:#fff}
+
+/* the paper */
+.head{display:grid;grid-template-columns:minmax(0,1fr) 190px}
+.head>div{padding:14px 18px 12px}
+.head .meta{border-left:1px solid var(--rule);padding:0;display:grid;grid-template-rows:1fr 1fr 1fr}
+.head .meta div{padding:7px 12px 6px;border-bottom:1px solid var(--rule);font:700 15px/1.25 var(--sans)}
+.head .meta div:last-child{border-bottom:0}
+.k{display:block;font:800 14px/1.2 var(--sans);letter-spacing:.08em;text-transform:uppercase}
+.head .meta .k{font-size:14px;font-weight:600;letter-spacing:.06em;color:var(--soft)}
+.ed.ttl{font:900 34px/1.05 var(--sans);letter-spacing:-.02em;margin-top:4px;text-transform:uppercase}
+.call{border-top:1px solid var(--rule);padding:14px 18px 18px}
+.call .ed{font:700 clamp(22px,2.1vw,30px)/1.2 var(--sans);letter-spacing:-.012em;margin-top:6px}
+.line{display:grid;grid-template-columns:150px minmax(0,1fr) 34px;min-height:96px}
+.line .lb{padding:14px 10px 14px 18px;border-right:1px solid var(--rule)}
+.line .lb .big{font:900 54px/.86 var(--sans);letter-spacing:-.04em;display:block}
+.line .lb .q{display:block;font:400 14px/1.3 var(--sans);color:var(--soft);margin-top:3px}
+.line .lb .tag{display:inline-block;margin-top:8px;border:1.5px solid var(--ink);padding:1px 6px;font:700 14px/1.3 var(--sans);letter-spacing:.04em;text-transform:uppercase}
+.line .bd{padding:16px 6px 16px 18px;min-width:0}
+.line .star{font:900 34px/1 var(--sans);color:var(--pencil);padding-top:14px;text-align:center}
+.ed{font:400 17px/1.5 var(--type);white-space:pre-wrap;overflow-wrap:anywhere;min-height:1.5em;cursor:text;outline:0}
+.ed:empty::before{content:attr(data-ph);color:#6a6d74}
+.sub{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:baseline;border-top:1px dashed var(--rule);margin-top:12px;padding-top:10px}
+.sub .k{font-size:14px;font-weight:700;letter-spacing:.06em}
+ol.list{list-style:none;margin:0;padding:0;counter-reset:n}
+ol.list li{display:grid;grid-template-columns:30px minmax(0,1fr) auto auto;align-items:start;gap:2px;counter-increment:n;border-bottom:1px dotted #9a9da3;padding:3px 0}
+ol.list li::before{content:counter(n) ".";font:700 17px/1.5 var(--type)}
+ol.list.nts li{grid-template-columns:22px minmax(0,1fr) auto auto}
+ol.list.nts li::before{content:"\2013"}
+.ib{width:32px;height:32px;display:grid;place-items:center;background:transparent;border:0;color:var(--soft);border-radius:4px;opacity:.55}
+li:hover .ib,li:focus-within .ib{opacity:1}
+.ib:hover{background:rgba(22,24,28,.1);color:var(--ink)}
+.ib svg{width:16px;height:16px}
+.add{display:inline-flex;align-items:center;gap:6px;margin-top:8px;min-height:36px;background:transparent;border:0;padding:4px 6px 4px 0;font:600 14px/1.2 var(--sans);text-decoration:underline;text-underline-offset:3px}
+/* a line that is not called: the rule under it wobbles */
+.row.empty .pp{border-bottom-color:transparent}
+.row.empty .pp::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:8px;z-index:2;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='8' viewBox='0 0 28 8'%3E%3Cpath d='M0 4c3.5 0 3.5-3 7-3s3.5 6 7 6 3.5-6 7-6 3.5 3 7 3' fill='none' stroke='%23b3261a' stroke-width='1.6'/%3E%3C/svg%3E") repeat-x left center}
+.row.empty .lb .big{color:var(--pencil)}
+/* a standing line that lives in the file */
+.row.filed .bd{background:repeating-linear-gradient(135deg,rgba(22,24,28,.07) 0 2px,transparent 2px 9px)}
+.row.filed .tag{background:var(--ink);color:#fff}
+/* revisions */
+.revs{padding:14px 18px 18px;min-height:86px}
+.revs .none{font:400 17px/1.5 var(--type);color:#6a6d74;margin:6px 0 0}
+.rev{margin-top:14px}
+.rev h3{display:flex;align-items:center;gap:10px;font:800 14px/1.2 var(--sans);letter-spacing:.08em;text-transform:uppercase;margin:0 0 6px}
+.rev h3 i{width:26px;height:16px;border:1.5px solid var(--ink);background:var(--c)}
+.chips{display:flex;gap:0;margin:8px 22px 4px 0;border:1.5px solid var(--ink);width:max-content;max-width:100%}
+.chips i{width:30px;height:20px;border-right:1.5px solid var(--ink);position:relative}
+.chips i:last-child{border-right:0}
+.chips i.on::after{content:"";position:absolute;inset:auto 0 -9px 0;margin:auto;width:0;height:0;border:5px solid transparent;border-bottom-color:var(--ink)}
+
+/* what gets sent */
+.side{position:sticky;top:20px;display:flex;flex-direction:column;max-height:calc(100vh - 40px);background:#fff;border:2px solid var(--ink)}
+.side h2{font:800 14px/1.2 var(--sans);letter-spacing:.08em;text-transform:uppercase;margin:0;padding:14px 16px 10px}
+.seg{display:flex;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+.seg button{flex:1;min-height:44px;background:transparent;border:0;border-right:1px solid var(--ink);font:600 14px/1.15 var(--sans);padding:6px 6px}
+.seg button:last-child{border-right:0}
+.seg button[aria-selected=true]{background:var(--ink);color:#fff}
+.out{margin:0;padding:16px;font:400 15px/1.5 var(--type);white-space:pre-wrap;overflow-wrap:anywhere;overflow:auto;flex:1;min-height:180px}
+.out mark{background:var(--yellow);color:inherit;padding:0 1px}
+.stat{border-top:1px solid var(--ink);padding:10px 16px;font:500 14px/1.4 var(--sans)}
+.stat b.warn{color:var(--pencil)}
+.btns{display:grid;grid-template-columns:1fr auto auto;gap:8px;padding:0 16px 16px}
+.btns .act{margin:0}
+.btns .sq{width:48px;padding:0}
+.live{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.toast{margin:10px 0 0;font:500 14px/1.4 var(--sans);min-height:20px}
+.toast button{background:none;border:0;padding:0;text-decoration:underline;text-underline-offset:3px;font-weight:700}
+
+/* notes */
+.notes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;margin-top:72px;border-top:2px solid var(--ink);padding-top:22px}
+.notes h2{font:800 22px/1.15 var(--sans);letter-spacing:-.01em;margin:0 0 8px}
+.notes p{margin:0 0 10px;font-size:16px;line-height:1.55;max-width:46ch}
+.notes code{font:400 15px var(--type)}
+footer{margin-top:44px;font-size:14px;color:var(--soft);display:flex;gap:24px;flex-wrap:wrap;justify-content:space-between}
+.strip{height:12px;margin-top:28px;background:conic-gradient(var(--ink) 25%,transparent 0 50%,var(--ink) 0 75%,transparent 0) 0 0/24px 24px}
+.bar{display:none}
+
+@media (max-width:1180px){
+  :root{--margin:230px}
+  .mast,.bench{grid-template-columns:minmax(0,1fr)}
+  .side{position:static;max-height:none}
+  .out{max-height:60vh}
+  .notes{grid-template-columns:minmax(0,1fr);gap:22px}
+}
+@media (max-width:760px){
+  body{font-size:16px}
+  .wrap{padding:18px 14px 110px}
+  .top{flex-direction:column;gap:2px}
+  .mast{margin:18px 0 22px;gap:14px}
+  .row{grid-template-columns:minmax(0,1fr);background:var(--paper);border-left:2px solid var(--rule);border-right:2px solid var(--rule);border-bottom:1px solid var(--rule);transition:background-color .5s ease}
+  .row:first-child{border-top:2px solid var(--rule)}
+  .row:last-child{border-bottom:2px solid var(--rule)}
+  .pp{border:0!important;box-shadow:none;background:transparent}
+  .row.empty .pp::after{bottom:auto;top:-4px;display:none}
+  .row.empty{border-bottom:2px dashed var(--pencil)}
+  .mg{order:2;padding:10px 14px 14px;border-top:1px dashed var(--rule)}
+  .mg p,.mg .lab,.starts,.act,.chips{margin-right:0}
+  .tab{margin-left:0!important;border-right:2px solid var(--ink);min-height:56px}
+  .st{min-height:48px;font-size:15px}
+  .head{grid-template-columns:minmax(0,1fr)}
+  .head .meta{border-left:0;border-top:1px solid var(--rule);grid-template-rows:none;grid-template-columns:1fr 1fr}
+  .head .meta div{border-bottom:0;border-right:1px solid var(--rule)}
+  .head .meta div:last-child{border-right:0;grid-column:1/-1;border-top:1px solid var(--rule)}
+  .ed.ttl{font-size:28px}
+  .line{grid-template-columns:minmax(0,1fr) 30px;min-height:0}
+  .line .lb{grid-column:1/-1;border-right:0;border-bottom:1px solid var(--rule);display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;padding:10px 14px}
+  .line .lb .big{font-size:34px}
+  .line .lb .big,.line .lb .k,.line .lb .q,.line .lb .tag{display:inline-block;margin:0}
+  .line .bd{padding:14px 4px 14px 14px}
+  .head>div,.call,.revs{padding-left:14px;padding-right:14px}
+  .ib{width:44px;height:44px;opacity:1}
+  ol.list li{grid-template-columns:26px minmax(0,1fr) auto auto}
+  .add{min-height:44px;font-size:16px}
+  .act{min-height:48px;font-size:16px}
+  .seg button{min-height:48px;font-size:15px}
+  .out{font-size:16px}
+  .bar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--ink);color:#fff;padding:10px 14px calc(10px + env(safe-area-inset-bottom));gap:12px;align-items:center;justify-content:space-between}
+  .bar span{font:500 14px/1.3 var(--sans)}
+  .bar button{min-height:48px;background:#fff;color:var(--ink);border:0;padding:8px 16px;font:800 16px/1 var(--sans);display:inline-flex;gap:8px;align-items:center;flex:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+@media print{
+  @page{size:letter;margin:.5in}
+  body{background:#fff}
+  .wrap{padding:0;max-width:none}
+  .top,.mast,.mg,.notes,footer,.strip,.bar,.side h2,.seg,.stat,.btns,.ib,.add,.toast{display:none!important}
+  .bench{display:block}
+  .row{grid-template-columns:minmax(0,1fr);border:0;background:none}
+  .pp{box-shadow:none;-webkit-print-color-adjust:exact;print-color-adjust:exact;border-left:2px solid #000;border-right:2px solid #000;border-bottom:1px solid #000;background:var(--paper)}
+  .row{break-inside:avoid}
+  #r-rev{break-inside:auto}
+  .side{position:static;max-height:none;border:0;break-before:page;display:block}
+  .out{padding:0;overflow:visible;font-size:11.5pt}
+  .out::before{content:"WHAT GETS SENT";display:block;font:800 10pt var(--sans);letter-spacing:.08em;border-bottom:2px solid #000;margin-bottom:10pt;padding-bottom:4pt}
+  .ed{font-size:10.5pt;line-height:1.4}
+  .ed.ttl{font-size:20pt}
+  .call .ed{font-size:14pt}
+  .line{min-height:0}
+  .line .lb{padding:8px 8px 8px 14px}
+  .line .lb .big{font-size:30pt}
+  .line .bd{padding:9px 6px 9px 14px}
+  .head>div{padding:8px 14px}
+  .revs{padding:8px 14px 12px;min-height:0}
+  ol.list li{padding:1px 0}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <span>HumanLup · Call Sheet</span>
+    <span>A prompt, one page</span>
+  </div>
+
+  <header class="mast">
+    <div>
+      <h1>&ldquo;You&rsquo;re not writing code. You&rsquo;re directing.&rdquo;</h1>
+      
+    </div>
+    <p class="lede">A director hands the crew one page. This is that page for a prompt. Fill five lines and it comes out the side.</p>
+  </header>
+
+  <main class="bench">
+    <div class="sheet" id="sheet">
+
+      <section class="row" id="r-top">
+        <div class="mg">
+          <div class="lab">Start from one of six</div>
+          <div class="starts" id="starts"></div>
+          <div class="toast" id="toast" role="status"></div>
+        </div>
+        <div class="pp">
+          <div class="head">
+            <div>
+              <span class="k">Name</span>
+              <div class="ed ttl" data-f="title" data-one role="textbox" aria-label="Name" data-ph="Name it"></div>
+            </div>
+            <div class="meta">
+              <div><span class="k">Date</span><span id="date"></span></div>
+              <div><span class="k">Paper</span><span id="pages">White</span></div>
+              <div><span class="k">Lines filled</span><span id="called">5 of 5</span></div>
+            </div>
+          </div>
+          <div class="call line" style="display:grid;grid-template-columns:minmax(0,1fr) 34px;padding:0;min-height:0">
+            <div style="padding:14px 18px 18px">
+              <span class="k">What we are making</span>
+              <div class="ed" data-f="outcome" role="textbox" aria-multiline="true" aria-label="What we are making" data-ph="Say what it should be, not how to code it."></div>
+            </div>
+            <div class="star" data-star="outcome" aria-hidden="true"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="row" data-layer="role">
+        <div class="mg">
+          <p><b>None of the twelve patterns fills this line</b>, and none of the six starters does. Give it a role and a standard.</p>
+          <button class="tab" data-play="12" aria-pressed="false"><span class="n">12</span><span class="nm">System prompt investment</span><span class="ad">Keeps lines 1, 4 and 5 in a file you write once</span></button>
+        </div>
+        <div class="pp line">
+          <div class="lb"><span class="big">1</span><span class="k">Role</span><span class="q">Who is the AI?</span><span class="tag">Standing</span></div>
+          <div class="bd"><div class="ed" data-f="role" role="textbox" aria-multiline="true" aria-label="Role" data-ph="Empty."></div></div>
+          <div class="star" data-star="role" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <section class="row" data-layer="context">
+        <div class="mg" data-tabs="context"></div>
+        <div class="pp line">
+          <div class="lb"><span class="big">2</span><span class="k">Context</span><span class="q">What are we working with?</span></div>
+          <div class="bd">
+            <div class="ed" data-f="context" role="textbox" aria-multiline="true" aria-label="Context" data-ph="Empty. Point at the real material."></div>
+            <div class="sub"><span class="k">Who it is for</span><div class="ed" data-f="audience" role="textbox" aria-multiline="true" aria-label="Audience" data-ph="Who will see it"></div></div>
+          </div>
+          <div class="star" data-star="context" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <section class="row" data-layer="structure">
+        <div class="mg" data-tabs="structure"></div>
+        <div class="pp line">
+          <div class="lb"><span class="big">3</span><span class="k">Structure</span><span class="q">Sections, in order</span></div>
+          <div class="bd">
+            <ol class="list" id="structure"></ol>
+            <button class="add" id="addS"><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></svg>Add a section</button>
+          </div>
+          <div class="star" data-star="structure" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <section class="row" data-layer="style">
+        <div class="mg" data-tabs="style"><p>Show, don&rsquo;t just tell.</p></div>
+        <div class="pp line">
+          <div class="lb"><span class="big">4</span><span class="k">Style</span><span class="q">How should it look and feel?</span><span class="tag">Standing</span></div>
+          <div class="bd"><div class="ed" data-f="style" role="textbox" aria-multiline="true" aria-label="Style" data-ph="Empty."></div></div>
+          <div class="star" data-star="style" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <section class="row" data-layer="constraints">
+        <div class="mg" data-tabs="constraints"></div>
+        <div class="pp line">
+          <div class="lb"><span class="big">5</span><span class="k">Constraints</span><span class="q">What are the guardrails?</span><span class="tag">Standing</span></div>
+          <div class="bd"><div class="ed" data-f="constraints" role="textbox" aria-multiline="true" aria-label="Constraints" data-ph="Empty."></div></div>
+          <div class="star" data-star="constraints" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <section class="row" id="r-rev">
+        <div class="mg">
+          <p><b>Iterate in layers, not rewrites.</b> On a film set a changed page is reprinted on colored paper, white then blue, pink, yellow, green, goldenrod, and every changed line gets a star.</p>
+          <div class="chips" id="chips" aria-hidden="true"></div>
+          <button class="act" id="callRev"><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></svg><span>Start a revision</span></button>
+          <button class="act ghost" id="backRev" hidden><svg class="i" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg><span>Take the last one back</span></button>
+        </div>
+        <div class="pp revs">
+          <span class="k">Revisions · review, then direct</span>
+          <p class="none" id="noRev">First draft. Send it, look at what comes back, then start a revision.</p>
+          <div id="revs"></div>
+        </div>
+      </section>
+    </div>
+
+    <aside class="side" aria-label="What gets sent">
+      <h2>What gets sent</h2>
+      <div class="seg" role="tablist" id="seg">
+        <button role="tab" data-v="first" aria-selected="true">First prompt</button>
+        <button role="tab" data-v="round" aria-selected="false" hidden>Round 1</button>
+        <button role="tab" data-v="file" aria-selected="false">Standing file</button>
+      </div>
+      <pre class="out" id="out" tabindex="0" aria-label="Prompt text"></pre>
+      <div class="stat" id="stat"></div>
+      <div class="btns">
+        <button class="act" id="copy"><svg class="i" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg><span id="copyT">Copy</span></button>
+        <button class="act ghost sq" id="save" aria-label="Save as a text file" title="Save as a text file"><svg class="i" viewBox="0 0 24 24"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg></button>
+        <button class="act ghost sq" id="print" aria-label="Print the sheet" title="Print the sheet"><svg class="i" viewBox="0 0 24 24"><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6"/><rect x="6" y="14" width="12" height="8" rx="1"/></svg></button>
+      </div>
+      <div class="live" aria-live="polite" id="live"></div>
+    </aside>
+  </main>
+
+  
+  <footer>
+    <span>Libre Franklin and Courier Prime. Prints as the sheet, then the prompt on its own page.</span>
+    <span>HumanLup · Built by Lupo</span>
+  </footer>
+  <div class="strip" aria-hidden="true"></div>
+</div>
+
+<div class="bar"><span id="barT"></span><button id="barCopy"><svg class="i" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg><span>Copy</span></button></div>
+
+<script>
+(() => {
+const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const SAVE = '~/Desktop/[name].html';
+const STARTERS = [
+  {name:'System breakdown', outcome:'A visual HTML report that explains how a set of [files, scripts or tools] work together. Save to ' + SAVE,
+   context:'Read each [file, script or tool] in [location].', audience:'[who will read this]',
+   structure:['One-paragraph plain-English summary of each','Step-by-step flow diagram for each','Pipeline showing how they connect','Dependency table (who calls who)','Expandable cards, color-coded by role']},
+  {name:'Decision document', outcome:'A visual HTML comparison that recommends a path forward. Direct, no hedging. Save to ' + SAVE,
+   context:'Compare [option A] vs [option B] vs [option C].', audience:'[who decides]',
+   structure:['Side-by-side feature table','Pros and cons for each option','A clear recommendation with reasoning','Visual indicators (color-coded scores)']},
+  {name:'Process guide', outcome:'A visual step-by-step guide that teaches someone how to do [process]. Save to ' + SAVE,
+   context:'The process: [process]. Language: [simple, technical or mixed].', audience:'[who is learning it]',
+   structure:['Numbered steps with color-coded markers','A "what can go wrong" callout per step','A flowchart showing the decision points','A quick-reference checklist at the end']},
+  {name:'Project status', outcome:'A visual status report on where a project stands right now, scannable in under 2 minutes. Save to ' + SAVE,
+   context:'Analyze the current state of [project or repo].', audience:'[who needs to know]',
+   structure:['Health indicators (what\'s working, what\'s not)','Architecture diagram of key components','Risk and attention areas highlighted in amber and red','Next steps as a prioritized list']},
+  {name:'Audit report', outcome:'A visual report that evaluates [quality area]. Honest but constructive. Save to ' + SAVE,
+   context:'Audit [system, codebase or config] for [quality area].', audience:'[who will fix it]',
+   structure:['Severity-coded findings (critical, warning, info)','One-line fix suggestion per finding','Overall health score or grade','Before and after comparison where applicable']},
+  {name:'Learning map', outcome:'An HTML learning map that explains [concept, tool or domain] visually. Save to ' + SAVE,
+   context:'The subject: [concept, tool or domain].', audience:'[experience level]',
+   structure:['Core concept in the center, related ideas radiating out','Real-world analogies for each concept','"Start here" pathway for beginners','Deep-dive expandable sections for each topic']}
+];
+const STANDING = {
+  role:'You are a senior designer who builds beautiful, accessible HTML reports.',
+  style:'High contrast, light mode, blue accent #2563eb, Inter font, generous whitespace, no emojis.',
+  constraints:'Standalone HTML, no external dependencies, mobile-responsive, no purple, no generic SaaS aesthetic.'
+};
+const PLAYS = [
+  {n:1, name:'Anchor example', layer:'style', ad:'Adds a page to match', text:'Like [a page you admire], but with [what changes]. Keep its [what to keep].'},
+  {n:4, name:'Design token handoff', layer:'style', ad:'Adds fonts, colors, spacing', text:'Fonts: [body], [headings], [code].\nColors: background [hex], surface [hex], accent [hex].\nSpacing: [grid]. Radius: [cards], [buttons].'},
+  {n:5, name:'Audience lens', layer:'context', field:'audience', swap:true, ad:'Says who it is for, in full', text:'[who will see it]. They know [what they know]. They do not know [what they do not]. Explain with examples from [their world].'},
+  {n:3, name:'Section blueprint', layer:'structure', ad:'Seven sections, in order', items:['Hero with title and one-line description','At-a-glance stats (4 cards in a row)','Pipeline diagram showing data flow','Expandable cards for each component','Dependency table (who calls who)','Bonus recommendations grid','Footer with brand + date'], swap:true},
+  {n:7, name:'Interaction spec', layer:'structure', ad:'Adds what a click does', items:['Interaction: [which element] should [do what] on [click, hover or scroll].']},
+  {n:8, name:'Analogy bridge', layer:'structure', ad:'Adds one analogy callout', items:['A callout that explains the whole thing as [an everyday analogy], in three or four sentences.']},
+  {n:10, name:'Comparison frame', layer:'structure', ad:'Adds a table to compare', items:['A comparison table of [the things], by [what differs], sorted by [what order].']},
+  {n:11, name:'Confidence gradient', layer:'structure', ad:'Adds tiered suggestions', items:['[How many] suggestions in three tiers: high impact, medium, experimental. A short name and two sentences each.']},
+  {n:2, name:'Negative constraint', layer:'constraints', ad:'Adds what to leave out', text:'Do not use: [the default you are tired of], [another one]. Instead: [what you want in its place].'},
+  {n:6, name:'Progressive reveal', layer:'constraints', ad:'Adds a stop before the build', text:'Before you build anything, list [the parts] with one sentence each and wait for my go.'},
+  {n:9, name:'Format lock', layer:'constraints', ad:'Adds file, path, no dependencies', text:'Output: one standalone HTML file. All CSS and JS inside it. Save to: [path]. It must work when double-clicked.'}
+];
+const COLORS = [['White','--white'],['Blue','--blue'],['Pink','--pink'],['Yellow','--yellow'],['Green','--green'],['Goldenrod','--gold']];
+const KEYS = ['outcome','role','context','audience','structure','style','constraints'];
+const LAYERS = ['role','context','structure','style','constraints'];
+const NAMES = {outcome:'What we are making', role:'Role', context:'Context', audience:'Who it is for', structure:'Structure', style:'Style', constraints:'Constraints'};
+const KEY = 'callsheet-023';
+
+let S, undo = null;
+const fresh = i => ({title:STARTERS[i].name, outcome:STARTERS[i].outcome, context:STARTERS[i].context, audience:STARTERS[i].audience,
+  structure:[...STARTERS[i].structure], ...STANDING, filed:false, plays:{}, revs:[], view:'first', starter:i});
+try { S = JSON.parse(localStorage.getItem(KEY)); } catch (e) {}
+if (!S || !Array.isArray(S.structure)) S = fresh(0);
+const store = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
+
+/* editable text */
+function mk(el){
+  el.setAttribute('contenteditable','plaintext-only');
+  if (el.contentEditable !== 'plaintext-only') {
+    el.setAttribute('contenteditable','true');
+    el.addEventListener('paste', e => { e.preventDefault(); document.execCommand('insertText', false, (e.clipboardData || window.clipboardData).getData('text')); });
+  }
+  el.spellcheck = true;
+}
+const txt = el => { const t = el.innerText.replace(/ /g,' ').replace(/\n+$/,''); if (!t.trim()) { if (el.firstChild) el.textContent = ''; return ''; } return t; };
+$$('.ed[data-f]').forEach(el => {
+  mk(el);
+  el.addEventListener('input', () => { S[el.dataset.f] = txt(el); update(); });
+  if (el.hasAttribute('data-one')) el.addEventListener('keydown', e => { if (e.key === 'Enter') e.preventDefault(); });
+});
+const fill = () => $$('.ed[data-f]').forEach(el => { if (txt(el) !== (S[el.dataset.f] || '')) el.textContent = S[el.dataset.f] || ''; });
+
+/* lists */
+const IC = {up:'<path d="m5 12 7-7 7 7"/><path d="M12 19V5"/>', x:'<path d="M18 6 6 18"/><path d="m6 6 12 12"/>'};
+function drawList(ol, arr, what, focus){
+  ol.innerHTML = '';
+  arr.forEach((t, i) => {
+    const li = document.createElement('li');
+    const ed = document.createElement('div'); ed.className = 'ed'; ed.setAttribute('role','textbox'); ed.setAttribute('aria-label', what + ' ' + (i + 1)); ed.dataset.ph = what; ed.textContent = t; mk(ed);
+    li.append(ed);
+    [['up','Move ' + what.toLowerCase() + ' ' + (i + 1) + ' up'], ['x','Remove ' + what.toLowerCase() + ' ' + (i + 1)]].forEach(([k, lab]) => {
+      const b = document.createElement('button'); b.className = 'ib'; b.dataset.a = k; b.setAttribute('aria-label', lab); b.title = lab;
+      b.innerHTML = '<svg class="i" viewBox="0 0 24 24">' + IC[k] + '</svg>'; if (k === 'up' && i === 0) b.disabled = true, b.style.visibility = 'hidden';
+      li.append(b);
+    });
+    ol.append(li);
+  });
+  if (focus != null && ol.children[focus]) { const e = ol.children[focus].firstChild; e.focus(); const r = document.createRange(); r.selectNodeContents(e); r.collapse(false); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+}
+function wire(ol, get, what){
+  const idx = t => [...ol.children].indexOf(t.closest('li'));
+  const redraw = f => { drawList(ol, get(), what, f); update(); };
+  ol.addEventListener('input', e => { const i = idx(e.target); if (i > -1) { get()[i] = txt(e.target); update(); } });
+  ol.addEventListener('keydown', e => {
+    if (!e.target.classList.contains('ed')) return; const i = idx(e.target), a = get();
+    if (e.key === 'Enter') { e.preventDefault(); a.splice(i + 1, 0, ''); redraw(i + 1); }
+    else if (e.key === 'Backspace' && !txt(e.target) && a.length > 1) { e.preventDefault(); a.splice(i, 1); redraw(Math.max(0, i - 1)); }
+    else if (e.altKey && e.key === 'ArrowUp' && i > 0) { e.preventDefault(); a.splice(i - 1, 0, a.splice(i, 1)[0]); redraw(i - 1); }
+    else if (e.altKey && e.key === 'ArrowDown' && i < a.length - 1) { e.preventDefault(); a.splice(i + 1, 0, a.splice(i, 1)[0]); redraw(i + 1); }
+  });
+  ol.addEventListener('click', e => {
+    const b = e.target.closest('.ib'); if (!b) return; const i = idx(b), a = get();
+    if (b.dataset.a === 'up' && i > 0) { a.splice(i - 1, 0, a.splice(i, 1)[0]); redraw(i - 1); }
+    if (b.dataset.a === 'x') { a.splice(i, 1); if (!a.length) a.push(''); redraw(Math.min(i, a.length - 1)); }
+  });
+}
+const sOl = $('#structure');
+wire(sOl, () => S.structure, 'Section');
+$('#addS').onclick = () => { S.structure.push(''); drawList(sOl, S.structure, 'Section', S.structure.length - 1); update(); };
+
+/* starters */
+const stBox = $('#starts');
+STARTERS.forEach((s, i) => { const b = document.createElement('button'); b.className = 'st'; b.textContent = s.name; b.dataset.i = i; stBox.append(b); });
+stBox.onclick = e => {
+  const b = e.target.closest('.st'); if (!b) return;
+  undo = JSON.stringify(S);
+  const i = +b.dataset.i, keep = {role:S.role, style:S.style, constraints:S.constraints, filed:S.filed, plays:{}};
+  for (const p of PLAYS) if (S.plays[p.n] && !['context','structure'].includes(p.layer)) keep.plays[p.n] = S.plays[p.n];
+  S = {...fresh(i), ...keep};
+  redrawAll(); toast('Loaded ' + STARTERS[i].name + ', a clean white draft.', true);
+};
+function toast(msg, canUndo){
+  const t = $('#toast'); t.textContent = msg + ' ';
+  if (canUndo && undo) { const u = document.createElement('button'); u.textContent = 'Undo'; u.onclick = () => { S = JSON.parse(undo); undo = null; redrawAll(); toast('Put back.'); }; t.append(u); }
+}
+
+/* tabs */
+$$('[data-tabs]').forEach(m => PLAYS.filter(p => p.layer === m.dataset.tabs).forEach(p => {
+  const b = document.createElement('button'); b.className = 'tab'; b.dataset.play = p.n; b.setAttribute('aria-pressed','false');
+  b.innerHTML = '<span class="n">' + p.n + '</span><span class="nm">' + p.name + '</span><span class="ad">' + p.ad + '</span>'; m.append(b);
+}));
+$('#sheet').addEventListener('click', e => {
+  const b = e.target.closest('.tab'); if (!b) return; const n = +b.dataset.play;
+  if (n === 12) { S.filed = !S.filed; if (S.filed && S.view === 'first') S.view = 'file'; if (!S.filed && S.view === 'file') S.view = 'first'; update(); say(S.filed ? 'Lines 1, 4 and 5 moved to the standing file.' : 'Lines 1, 4 and 5 back on the prompt.'); return; }
+  const p = PLAYS.find(q => q.n === n), on = !S.plays[n];
+  if (p.items) {
+    if (on) { const blank = S.structure.every(x => !x.trim()); S.plays[n] = p.swap ? {prev:[...S.structure]} : true;
+      if (p.swap || blank) S.structure = [...p.items]; else S.structure.push(...p.items); }
+    else { const was = S.plays[n]; delete S.plays[n];
+      const rest = S.structure.filter(x => !p.items.includes(x));
+      S.structure = p.swap && was.prev ? [...was.prev.filter(x => !rest.includes(x)), ...rest] : rest; if (!S.structure.length) S.structure = ['']; }
+    drawList(sOl, S.structure, 'Section');
+  } else {
+    const f = p.field || p.layer, cur = S[f] || '';
+    if (on) { if (p.swap) { S.plays[n] = {prev:cur}; S[f] = p.text; } else { S.plays[n] = true; S[f] = cur.trim() ? cur.replace(/\s+$/,'') + '\n' + p.text : p.text; } }
+    else { const was = S.plays[n]; delete S.plays[n];
+      if (p.swap) { if (cur === p.text) S[f] = was.prev || ''; }
+      else S[f] = cur.split(p.text).join('').replace(/\n{2,}/g,'\n').trim(); }
+    fill();
+  }
+  update(); say(p.name + (on ? ' added to ' : ' taken off ') + NAMES[p.layer] + '.');
+});
+
+/* revisions */
+const snap = () => JSON.stringify(KEYS.map(k => S[k]));
+$('#callRev').onclick = () => { if (S.revs.length >= 5) return; S.revs.push({notes:[''], base:snap()}); S.view = 'round'; drawRevs(S.revs.length - 1); update(); say('Revision ' + S.revs.length + ', ' + COLORS[S.revs.length][0].toLowerCase() + ' pages.'); };
+$('#backRev').onclick = () => { S.revs.pop(); if (!S.revs.length && S.view === 'round') S.view = 'first'; drawRevs(); update(); };
+function drawRevs(focusRev){
+  const box = $('#revs'); box.innerHTML = '';
+  S.revs.forEach((r, i) => {
+    const d = document.createElement('div'); d.className = 'rev'; d.style.setProperty('--c', 'var(' + COLORS[i + 1][1] + ')');
+    d.innerHTML = '<h3><i></i>Revision ' + (i + 1) + ' · ' + COLORS[i + 1][0] + ' pages</h3>';
+    const ol = document.createElement('ol'); ol.className = 'list nts'; d.append(ol); box.append(d);
+    drawList(ol, r.notes, 'Note', focusRev === i ? r.notes.length - 1 : null); wire(ol, () => r.notes, 'Note');
+  });
+}
+const changed = () => { if (!S.revs.length) return []; const b = JSON.parse(S.revs[S.revs.length - 1].base); return KEYS.filter((k, i) => JSON.stringify(b[i]) !== JSON.stringify(S[k])); };
+
+/* what gets sent */
+const items = () => S.structure.map(x => x.trim()).filter(Boolean);
+const block = k => k === 'structure' ? items().map((x, i) => (i + 1) + '. ' + x).join('\n')
+  : k === 'context' ? [S.context.trim(), S.audience.trim() && 'Audience: ' + S.audience.trim()].filter(Boolean).join('\n') : (S[k] || '').trim();
+function build(v){
+  if (v === 'file') return '## Standing direction\nWrite this once. Every prompt inherits it.\n\n' +
+    [['Role','role'],['Style','style'],['Constraints','constraints']].map(([n, k]) => '### ' + n + '\n' + (block(k) || '(empty)')).join('\n\n');
+  if (v === 'round') { const n = S.revs.length, r = S.revs[n - 1], notes = r.notes.map(x => x.trim()).filter(Boolean), ch = changed();
+    let t = 'Revision ' + n + ' (' + COLORS[n][0].toLowerCase() + ' pages). Keep everything not named here exactly as it is.';
+    t += '\n\nNotes:\n' + (notes.length ? notes.map(x => '- ' + x).join('\n') : '- [what to change, one thing a line]');
+    const seen = new Set(); ch.map(k => k === 'audience' ? 'context' : k).forEach(k => { if (seen.has(k) || (S.filed && ['role','style','constraints'].includes(k))) return; seen.add(k);
+      if (seen.size === 1) t += '\n\nChanged on the sheet:'; t += '\n\n' + NAMES[k].toUpperCase() + '\n' + (k === 'outcome' ? S.outcome.trim() : block(k) || '(taken off)'); });
+    return t; }
+  const parts = []; if (S.outcome.trim()) parts.push(S.outcome.trim());
+  LAYERS.forEach(k => { if (S.filed && ['role','style','constraints'].includes(k)) return; const b = block(k); if (b) parts.push(k.toUpperCase() + '\n' + b); });
+  return parts.join('\n\n');
+}
+const esc = s => s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const BL = /\[[^\[\]\n]+\]/g;
+
+function update(){
+  const n = S.revs.length, ch = changed();
+  document.documentElement.style.setProperty('--paper', 'var(' + COLORS[n][1] + ')');
+  let sh = [], x = 0; for (let i = n - 1; i >= 0; i--) { sh.push((x + 5) + 'px 0 0 var(' + COLORS[i][1] + ')', (x + 6.5) + 'px 0 0 var(--ink)'); x += 6.5; }
+  document.documentElement.style.setProperty('--edges', sh.length ? sh.join(',') : '0 0 0 transparent');
+  $('#pages').textContent = COLORS[n][0] + (n ? ', revision ' + n : ', first draft');
+  let called = 0;
+  LAYERS.forEach(k => { const row = $('.row[data-layer=' + k + ']'), has = !!block(k); called += has; row.classList.toggle('empty', !has);
+    row.classList.toggle('filed', S.filed && ['role','style','constraints'].includes(k));
+    const tag = $('.tag', row); if (tag) tag.textContent = S.filed ? 'In the file' : 'Standing'; });
+  $('#called').textContent = called + ' of 5';
+  $$('[data-star]').forEach(s => { const k = s.dataset.star; s.textContent = (ch.includes(k) || (k === 'context' && ch.includes('audience'))) ? '*' : ''; });
+  $$('.tab').forEach(b => b.setAttribute('aria-pressed', +b.dataset.play === 12 ? !!S.filed : !!S.plays[b.dataset.play]));
+  $$('.st').forEach(b => b.setAttribute('aria-pressed', false));
+  $('#noRev').hidden = n > 0; $('#backRev').hidden = n === 0;
+  const cr = $('#callRev'); cr.disabled = n >= 5; $('span', cr).textContent = n >= 5 ? 'Goldenrod is the last color' : n ? 'Start revision ' + (n + 1) : 'Start a revision';
+  $('#chips').innerHTML = COLORS.map((c, i) => '<i class="' + (i === n ? 'on' : '') + '" style="background:var(' + c[1] + ')"></i>').join('');
+  if (S.view === 'round' && !n) S.view = 'first';
+  const rt = $('#seg [data-v=round]'); rt.hidden = !n; rt.textContent = 'Round ' + n;
+  $$('#seg button').forEach(b => { b.setAttribute('aria-selected', b.dataset.v === S.view); b.tabIndex = b.dataset.v === S.view ? 0 : -1; });
+  const t = build(S.view), blanks = (t.match(BL) || []).length, words = (t.trim().match(/\S+/g) || []).length;
+  $('#out').innerHTML = esc(t).replace(BL, m => '<mark>' + m + '</mark>') || '<span style="color:#6a6d74">Nothing written yet.</span>';
+  const miss = 5 - called;
+  const st = (S.view === 'first' ? (S.filed ? 'Lines 1, 4 and 5 are in the standing file. ' : '') + (miss ? '<b class="warn">' + miss + (miss === 1 ? ' line' : ' lines') + ' empty.</b> ' : 'All five lines filled. ') : '')
+    + words + ' words. ' + (blanks ? '<b class="warn">' + blanks + (blanks === 1 ? ' blank' : ' blanks') + ' to fill.</b>' : 'No blanks left.');
+  $('#stat').innerHTML = st;
+  $('#barT').textContent = ({first:'First prompt',round:'Round ' + n,file:'Standing file'})[S.view] + ' · ' + words + ' words' + (blanks ? ' · ' + blanks + ' blanks' : '');
+  store();
+}
+function redrawAll(){ fill(); drawList(sOl, S.structure, 'Section'); drawRevs(); update(); }
+
+/* side controls */
+$('#seg').addEventListener('click', e => { const b = e.target.closest('button'); if (b) { S.view = b.dataset.v; update(); } });
+$('#seg').addEventListener('keydown', e => { if (!['ArrowLeft','ArrowRight'].includes(e.key)) return; const bs = $$('#seg button:not([hidden])'), i = bs.findIndex(b => b.dataset.v === S.view);
+  const nx = bs[(i + (e.key === 'ArrowRight' ? 1 : bs.length - 1)) % bs.length]; S.view = nx.dataset.v; update(); nx.focus(); });
+const say = m => { $('#live').textContent = ''; setTimeout(() => $('#live').textContent = m, 30); };
+async function copy(){
+  const t = build(S.view); let ok = false;
+  try { await navigator.clipboard.writeText(t); ok = true; } catch (e) {
+    const ta = document.createElement('textarea'); ta.value = t; ta.style.cssText = 'position:fixed;opacity:0'; document.body.append(ta); ta.select(); try { ok = document.execCommand('copy'); } catch (e2) {} ta.remove(); }
+  $('#copyT').textContent = ok ? 'Copied' : 'Select the text and copy'; say(ok ? 'Copied.' : 'Could not copy.'); setTimeout(() => $('#copyT').textContent = 'Copy', 1600);
+}
+$('#copy').onclick = copy; $('#barCopy').onclick = copy;
+$('#save').onclick = () => { const slug = (S.title || 'call-sheet').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'') || 'call-sheet';
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([build(S.view) + '\n'], {type:'text/plain'})); a.download = slug + '-' + S.view + '.txt'; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); };
+$('#print').onclick = () => window.print();
+
+$('#date').textContent = new Date().toLocaleDateString('en-US', {weekday:'short', month:'short', day:'numeric', year:'numeric'});
+redrawAll();
+window.__sheet = {get state(){ return S; }, build};
+})();
+</script>
+</body>
+</html>

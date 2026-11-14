@@ -1,0 +1,679 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Only Copy</title>
+<!-- humanlup:meta -->
+<!-- HumanLup Design Lab 14 · Anthony Lupo · humanlup.com · X @humanlup · IG humanlup.ai · anthony@humanlup.com -->
+<meta name="author" content="Anthony Lupo">
+<meta name="creator" content="Anthony Lupo">
+<meta name="publisher" content="HumanLup">
+<meta name="copyright" content="© 2026 Anthony Lupo, HumanLup">
+<link rel="author" href="https://humanlup.com">
+<link rel="me" href="https://x.com/humanlup">
+<link rel="me" href="https://www.instagram.com/humanlup.ai">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HumanLup Design Lab 14">
+<meta property="og:title" content="Only Copy">
+<meta property="og:description" content="Which of your repos exist nowhere but this Mac, and a plan to fix that.">
+<meta property="og:image" content="preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@humanlup">
+<meta name="twitter:creator" content="@humanlup">
+<meta name="twitter:title" content="Only Copy">
+<meta name="twitter:description" content="Which of your repos exist nowhere but this Mac, and a plan to fix that.">
+<meta name="twitter:image" content="preview.jpg">
+<!-- /humanlup:meta -->
+<meta name="description" content="Which of your repos exist nowhere but this Mac, and a plan to fix that.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Overpass+Mono:wght@400;600;700&family=Unbounded:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#efece4; --ink:#14110f; --dim:#57524a; --hot:#ff4a1c; --on-hot:#14110f; --line:#14110f; --wash:#e3dfd4;
+  --disp:"Unbounded","Arial Black","Helvetica Neue",sans-serif;
+  --body:"Figtree",-apple-system,"Helvetica Neue",sans-serif;
+  --mono:"Overpass Mono","SF Mono",Menlo,monospace;
+}
+[data-theme="dark"]{ --paper:#131210; --ink:#f1ede3; --dim:#aaa498; --hot:#ff5a2e; --line:#f1ede3; --wash:#1f1d1a; }
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.45 var(--body);overflow-x:hidden}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-align:left}
+svg.i{width:18px;height:18px;flex:none;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+.top{display:flex;align-items:center;gap:16px;padding:12px 28px;border-bottom:2px solid var(--line)}
+.mark{font:900 18px/1 var(--disp);letter-spacing:-.01em;margin-right:auto;white-space:nowrap}
+.scan{font:400 14px/1.3 var(--mono);color:var(--dim);text-align:right}
+.scan b{color:var(--ink);font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 16px;border:2px solid var(--line);font:600 15px/1 var(--body);white-space:nowrap;background:var(--paper);color:var(--ink)}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn.solid{background:var(--ink);color:var(--paper)}
+.btn.solid:hover{background:var(--hot);color:var(--on-hot);border-color:var(--hot)}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+.btn.sq{width:44px;padding:0}
+
+.wrap{display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:0;align-items:start}
+.lead{padding:24px 28px 56px;min-width:0}
+.side{border-left:2px solid var(--line);position:sticky;top:0;height:100vh;overflow:auto;display:flex;flex-direction:column}
+
+.hero{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:stretch;margin:0 0 20px}
+.slab{background:var(--hot);color:var(--on-hot);border:2px solid var(--line);min-width:260px;padding:0 24px;display:grid;place-items:center}
+#big{font:900 clamp(120px,13vw,190px)/.86 var(--disp);letter-spacing:-.06em;padding:18px 0 14px;display:block;font-variant-numeric:tabular-nums}
+#big.tick{animation:tick .28s ease-out}
+@keyframes tick{from{transform:translateY(-10px);opacity:.3}to{transform:none;opacity:1}}
+.say{display:flex;flex-direction:column;justify-content:space-between;gap:12px;min-width:0}
+h1{margin:0;font:700 clamp(26px,2.9vw,40px)/1.08 var(--disp);letter-spacing:-.035em;text-wrap:balance}
+#tally{margin:0;font-size:18px;line-height:1.4;max-width:34em}
+#was{margin:0;font:400 14px/1.4 var(--mono);color:var(--dim);min-height:20px}
+
+.legend{display:flex;flex-wrap:wrap;gap:8px 22px;margin:0 0 10px;font-size:14px;align-items:center}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.chip{width:26px;height:18px;border:2px solid var(--line);display:inline-block}
+.f-whole{background:var(--hot)}
+.f-part{background:repeating-linear-gradient(135deg,var(--hot) 0 5px,transparent 5px 10px)}
+.f-unknown{border-style:dashed !important}
+
+.map{border:2px solid var(--line);position:relative}
+.rootbar{display:flex;width:100%;align-items:baseline;gap:14px;flex-wrap:wrap;padding:10px 14px;min-height:48px;border-bottom:2px solid var(--line)}
+.row{display:grid;grid-template-columns:176px minmax(0,1fr);border-bottom:2px solid var(--line)}
+.row:last-child{border-bottom:0}
+.row>h2{margin:0;padding:14px 12px 12px 14px;font:700 14px/1.25 var(--disp);letter-spacing:-.02em;border-right:2px solid var(--line);overflow-wrap:anywhere}
+.row>h2 small{display:block;font:400 14px/1.3 var(--body);color:var(--dim);margin-top:4px;letter-spacing:0}
+.cells{display:flex;flex-wrap:wrap;gap:8px;padding:10px;min-width:0}
+.nest{flex:1 1 100%;border:2px solid var(--line);display:flex;flex-direction:column;min-width:0}
+.nest>.blk{border:0;border-bottom:2px solid var(--line);min-height:48px;flex:none}
+.nest>.cells{padding:8px}
+.blk{position:relative;flex:1 1 auto;min-width:132px;max-width:100%;min-height:72px;border:2px solid var(--line);padding:9px 11px 9px;display:flex;flex-direction:column;justify-content:space-between;gap:6px;background:var(--paper);transition:background-color .15s,opacity .15s}
+.blk .nm,.blk .ls,.rootbar .nm,.rootbar .ls{align-self:flex-start;max-width:100%;overflow-wrap:anywhere}
+.nm{font:600 14px/1.25 var(--mono)}
+.ls{font:400 14px/1.25 var(--body)}
+.blk.whole,.rootbar.whole{background:var(--hot);color:var(--on-hot)}
+.blk.part,.rootbar.part{background:repeating-linear-gradient(135deg,var(--hot) 0 5px,var(--paper) 5px 10px)}
+.blk.part .nm,.blk.part .ls,.rootbar.part .nm,.rootbar.part .ls{background:var(--paper);padding:1px 5px;margin-left:-3px}
+.blk.unknown,.rootbar.unknown{border-style:dashed}
+.nest>.blk.unknown{border-bottom-style:dashed}
+.blk:hover,.rootbar:hover{box-shadow:inset 0 0 0 2px var(--line)}
+.sel{outline:3px solid var(--ink);outline-offset:3px;z-index:2}
+.gone{opacity:.5}
+.gone .nm{text-decoration:line-through;text-decoration-thickness:2px}
+.tags{display:flex;align-self:flex-end;margin:0 -11px -9px 0}
+.rootbar .tags{margin:0 -6px 0 auto;align-self:center}
+.tag{background:var(--ink);color:var(--paper);font:600 14px/1 var(--body);padding:4px 7px 5px;display:inline-flex;gap:4px;align-items:center}
+.tag+.tag{border-left:1px solid var(--paper)}
+.tag svg.i{width:14px;height:14px;stroke-width:3}
+.map.lit .blk:not(.hit),.map.lit .rootbar:not(.hit){opacity:.16}
+.map.lit .hit{box-shadow:0 0 0 3px var(--paper),0 0 0 6px var(--ink);z-index:3}
+
+#old{margin-top:36px}
+#old h3,.side h3{margin:0 0 4px;font:700 20px/1.15 var(--disp);letter-spacing:-.03em}
+#old>p{margin:0 0 14px;color:var(--dim);max-width:46em}
+.finds{list-style:none;margin:0;padding:0;border-top:2px solid var(--line)}
+.finds li{border-bottom:2px solid var(--line)}
+.finds button{display:grid;grid-template-columns:44px 1fr auto;align-items:center;width:100%;min-height:52px;padding:8px 12px 8px 0;gap:4px 12px;font-size:16px}
+.finds .n{font:900 20px/1 var(--disp);text-align:center}
+.finds .show{font:600 14px/1 var(--body);display:inline-flex;gap:6px;align-items:center;padding:8px 10px;border:2px solid var(--line)}
+.finds button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.finds button[aria-pressed="true"] .show{border-color:var(--paper)}
+.sign{display:flex;gap:8px 24px;flex-wrap:wrap;justify-content:space-between;padding:14px 28px;border-top:2px solid var(--line);font-size:14px;color:var(--dim)}
+.ck{height:12px;background:conic-gradient(var(--ink) 25%,var(--paper) 0 50%,var(--ink) 0 75%,var(--paper) 0) 0 0/24px 24px}
+.foot{margin-top:28px;font-size:14px;color:var(--dim);max-width:52em}
+.foot code,.note code{font:400 14px var(--mono)}
+
+#detail,#plan{padding:20px 22px}
+#detail{border-bottom:2px solid var(--line)}
+#plan{flex:1}
+.path{font:400 14px/1.35 var(--mono);color:var(--dim);overflow-wrap:anywhere;margin:2px 0 12px}
+.dname{font:700 22px/1.1 var(--disp);letter-spacing:-.035em;overflow-wrap:anywhere;margin:0}
+.only{border:2px solid var(--line);padding:10px 12px;margin:0 0 12px}
+.only b{display:block;font:600 14px/1 var(--body);margin-bottom:5px}
+.only.whole{background:var(--hot);color:var(--on-hot)}
+.only p{margin:0;font-size:16px;line-height:1.35}
+dl.facts{margin:0 0 14px;display:grid;grid-template-columns:92px minmax(0,1fr);gap:4px 10px;font-size:14px}
+dl.facts dt{color:var(--dim)}
+dl.facts dd{margin:0;font-family:var(--mono);overflow-wrap:anywhere}
+dl.facts dd.txt{font-family:var(--body)}
+.clamp{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);border:2px solid var(--line);margin:0 0 8px}
+.seg button{min-height:46px;text-align:center;font:600 15px/1 var(--body)}
+.seg button+button{border-left:2px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.seg button[disabled]{opacity:.35;cursor:not-allowed}
+.sw{display:flex;align-items:center;gap:12px;width:100%;min-height:46px;border:2px solid var(--line);padding:6px 12px;margin:0 0 8px;font:600 15px/1.2 var(--body)}
+.sw .box{width:22px;height:22px;border:2px solid currentColor;display:grid;place-items:center;flex:none}
+.sw .box svg{opacity:0;width:16px;height:16px;stroke-width:3.5}
+.sw[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.sw[aria-pressed="true"] .box svg{opacity:1}
+.sw[disabled]{opacity:.4;cursor:not-allowed}
+.sw small{display:block;font:400 14px/1.25 var(--body)}
+.note{font-size:14px;line-height:1.4;margin:0 0 10px;color:var(--dim)}
+.note.warn{color:var(--ink);border-left:6px solid var(--hot);padding-left:10px}
+.acts{display:flex;gap:8px;flex-wrap:wrap}
+.acts .btn{flex:1 1 auto}
+#close{display:none}
+pre#script{margin:12px 0;padding:12px;background:var(--wash);border:2px solid var(--line);font:400 13px/1.5 var(--mono);white-space:pre;overflow:auto;max-height:340px;tab-size:2}
+#sum{margin:0 0 10px;font-size:16px}
+#sum b{font-weight:700}
+.empty{color:var(--dim);font-size:16px;margin:0 0 12px}
+
+dialog{border:2px solid var(--line);background:var(--paper);color:var(--ink);padding:22px;width:min(620px,calc(100vw - 32px));max-height:calc(100vh - 32px)}
+dialog::backdrop{background:rgba(20,17,15,.6)}
+dialog h3{margin:0 0 8px;font:700 22px/1.1 var(--disp);letter-spacing:-.03em}
+dialog p{margin:0 0 10px}
+dialog pre{margin:0 0 12px;padding:10px 12px;background:var(--wash);border:2px solid var(--line);font:400 14px/1.45 var(--mono);white-space:pre-wrap;overflow-wrap:anywhere}
+dialog textarea{width:100%;height:140px;border:2px solid var(--line);background:var(--paper);color:var(--ink);font:400 14px/1.4 var(--mono);padding:10px;resize:vertical;border-radius:0}
+dialog input[type=file]{font:400 14px var(--body);margin:10px 0;max-width:100%;min-height:44px}
+#err{color:var(--ink);border-left:6px solid var(--hot);padding-left:10px;min-height:22px;font-size:14px}
+
+@media (max-width:1180px){ .wrap{grid-template-columns:minmax(0,1fr) 360px} .slab{min-width:200px} .row{grid-template-columns:1fr} .row>h2{border-right:0;border-bottom:2px solid var(--line);padding:10px 12px} .row>h2 small{display:inline;margin-left:8px} }
+@media (max-width:900px){
+  .top{padding:10px 16px;flex-wrap:wrap;gap:8px 12px}
+  .scan{order:3;flex:1 1 100%;text-align:left}
+  .wrap{display:block}
+  .lead{padding:18px 16px 28px}
+  .hero{grid-template-columns:1fr;gap:14px}
+  .slab{min-width:0;justify-items:start}
+  #big{font-size:132px}
+  h1{font-size:28px}
+  .row{grid-template-columns:1fr}
+  .row>h2{border-right:0;border-bottom:2px solid var(--line);padding:10px 12px;font-size:14px}
+  .row>h2 small{display:inline;margin-left:8px}
+  .blk{flex-basis:100%;min-height:64px}
+  .side{position:static;height:auto;border-left:0;border-top:2px solid var(--line);overflow:visible}
+  #detail{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--paper);border-top:3px solid var(--line);border-bottom:0;max-height:76vh;overflow:auto;padding:16px;transform:translateY(105%);transition:transform .18s ease-out;visibility:hidden}
+  body.open #detail{transform:none;visibility:visible}
+  #close{display:inline-flex;float:right;margin:-4px -4px 6px 10px}
+  #plan{padding:20px 16px 40px}
+  .finds button{grid-template-columns:36px 1fr;padding-right:8px}
+  .finds .show{grid-column:2;justify-self:start}
+  pre#script{font-size:13px}
+}
+@media (prefers-reduced-motion:reduce){ *{animation:none !important;transition:none !important} }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="mark">Only Copy</div>
+  <div class="scan" id="scanline"></div>
+  <button class="btn" id="loadBtn"><svg class="i" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>Load scan</button>
+  <button class="btn sq" id="theme" aria-label="Switch to dark"></button>
+</header>
+
+<main class="wrap">
+  <div class="lead">
+    <div class="hero">
+      <div class="slab" aria-hidden="true"><span id="big">0</span></div>
+      <div class="say">
+        <h1 id="h1"></h1>
+        <p id="tally"></p>
+        <p id="was"></p>
+      </div>
+    </div>
+    <div class="legend" aria-label="Key">
+      <span><i class="chip f-whole"></i>Only here</span>
+      <span><i class="chip f-part"></i>Partly here</span>
+      <span><i class="chip f-unknown"></i>Can't tell</span>
+      <span><i class="chip"></i>Backed up</span>
+    </div>
+    <div class="map" id="map" aria-label="Every repo in the folder, drawn inside the folder that holds it"></div>
+
+    <p class="foot" id="foot"></p>
+  </div>
+
+  <aside class="side">
+    <section id="detail" aria-live="polite"></section>
+    <section id="plan">
+      <h3>The plan</h3>
+      <p id="sum"></p>
+      <div class="acts">
+        <button class="btn solid" id="all"></button>
+        <button class="btn" id="reset"><svg class="i" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>Clear</button>
+      </div>
+      <pre id="script" tabindex="0" aria-label="Plan as a shell script"></pre>
+      <div class="acts">
+        <button class="btn solid" id="copyPlan"><svg class="i" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg><span>Copy plan</span></button>
+      </div>
+      <p class="note" style="margin-top:12px">The plan never deletes. Drop moves a repo into a folder you empty yourself. Read it before you run it.</p>
+    </section>
+  </aside>
+</main>
+<footer class="sign"><span>Only Copy</span><span>HumanLup</span><span>Built by Lupo</span></footer>
+<div class="ck" aria-hidden="true"></div>
+
+<dialog id="dlg" aria-labelledby="dlgT">
+  <h3 id="dlgT">Load your scan</h3>
+  <p>Run the scanner that sits beside this page. It only reads.</p>
+  <pre id="cmd">python3 scan.py --output ~/Desktop/scan.json</pre>
+  <p>Then choose the file, or paste what it printed.</p>
+  <input type="file" id="file" accept=".json,application/json" aria-label="Scan file">
+  <textarea id="paste" aria-label="Scan JSON" placeholder='{"onlyCopy": 2, "root": "~/Projects", ...}'></textarea>
+  <p id="err" role="alert"></p>
+  <div class="acts">
+    <button class="btn solid" id="doLoad">Load</button>
+    <button class="btn" id="back">Sample</button>
+    <button class="btn" id="cancel">Cancel</button>
+  </div>
+</dialog>
+<div class="sr" role="status" id="live"></div>
+
+<script>
+/* ---------- sample folder: made-up repos, dated two days back so it always reads fresh ----------
+   rel, type, branch, remote, deploy, dirty, ahead, hash, days before the scan, subject */
+const SNAP = { root:"~/Projects", scanned:new Date(Date.now() - 2*864e5).toISOString(), legacy:true, repos:[
+["02-clients/harbor-bakery","Docs / mixed","docs/menu-update","https://github.com/sample/harbor-bakery-docs.git",0,8,8,"a41c9e2",5,"docs: fix two opening hours that disagree with the site"],
+["02-clients/harbor-bakery/_archive/builds/first-try","Web / Node project","main","https://github.com/sample/harbor-bakery-v1",0,33,1,"c07d1b4",240,"Refactor the order form and the blog list"],
+[".","Docs / mixed","main","",0,34,0,"7be02f1",21,"chore: ignore the scratch folder"],
+["01-experiments/slider-ui","Web / Node project","master","",0,1,0,"5e47bb0",14,"Add a five-step plan to fix the base"],
+["02-clients/harbor-bakery/_archive/builds/second-try","Web / Node project","main","",0,12,0,"6b6f0de",150,"feat: initial commit"],
+["02-clients/harbor-bakery/site","Web / Node project","fix/quick-wins","https://github.com/sample/harbor-bakery-com.git",1,26,0,"00ce5c2",0,"Merge main into feat/reviews"],
+["03-side/trail-maps/02-contour-gallery","Web / Node project","master","",0,9,0,"f307911",180,"Initial commit"],
+["03-side/trail-maps/03-route-sketcher","Web / Node project","main","",0,20,0,"1dd1db1",270,"Initial commit from Create Next App"],
+["03-side/app-bird-list","Web / Node project","main","https://github.com/sample/bird-list.git",0,2,0,"91e7878",150,"polish README, add favicon"],
+["03-side/lab-tide-clock","Web / Node project","main","https://github.com/sample/tide-clock.git",0,1,0,"04d2087",150,"add favicon and credits"],
+["03-side/site-field-guide","Web / Node project","main","https://github.com/sample/field-guide.git",0,2,0,"5c23ce0",150,"rewrite README, add favicon"],
+["05-showcase/screenshot-loop","Web / Node project","master","https://github.com/someone-else/screenshot-tool.git",0,10,0,"0c5e586",605,"Add a selector option for part of a page"],
+["05-showcase/pixel-type","Static website","main","https://github.com/sample/pixel-type.git",0,2,0,"766a4f9",120,"Merge pull request #1 from sample/type-pass"],
+["05-showcase/notes-site","Static website","launch/hero","https://github.com/sample/notes-site.git",1,6,0,"ff5d23f",90,"Fix the hero line, ignore local settings"],
+["05-showcase/field-notebook","Static website","explorations-july","https://github.com/sample/field-notebook.git",0,3,0,"509fbea",35,"Add four card directions for review"],
+["09-workbench","Docs / mixed","main","https://github.com/sample/workbench.git",0,4,0,"6be0a90",49,"Initial commit: workbench"],
+["studio/clients/corner-garage","Web / Node project","main","https://github.com/sample/corner-garage.git",0,14,0,"bcc59d6",63,"fix(footer): point the credit to the new address"],
+["studio/clients/blue-heron/heron-seo","Web / Node project","main","https://github.com/sample/heron-seo.git",0,8,0,"b9bf334",120,"Add a share image for link previews"],
+["portfolio","Web / Node project","main","https://github.com/sample/portfolio.git",0,7,0,"1294605",10,"Polish the UI, docs and screenshots (#3)"],
+["01-experiments/art-attractor","Static website","master","",0,0,0,"d251919",35,"feat: first sketch of the attractor"],
+["01-experiments/petal-atlas","Web / Node project","main","",0,0,0,"9f77619",35,"feat: build out the atlas page and layout"],
+["01-experiments/lab-tokens","Web / Node project","main","",0,0,0,"7b56d54",11,"feat: one token set for light and dark, dark toggle added"],
+["01-experiments/night-studio","Static website","master","",0,0,0,"df429ae",0,"The handover, as a pile of paper"],
+["01-experiments/grid-wall","Web / Node project","main","",0,0,0,"69297d4",35,"feat: add components and docs for the grid"],
+["console","Web / Node project","master","",0,0,0,"2517c88",6,"Drop a dead re-export"],
+["09-workbench/tools/workbench-cli","Docs / mixed","main","https://github.com/sample/workbench-cli.git",0,0,0,"a4e18cd",49,"Merge the logo update into v0.2"]
+]};
+
+const IC = {
+  copy:'<svg class="i" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>',
+  check:'<svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>',
+  sun:'<svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>',
+  moon:'<svg class="i" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>',
+  x:'<svg class="i" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>',
+  eye:'<svg class="i" viewBox="0 0 24 24"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>',
+  shield:'<svg class="i" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>'
+};
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const qs = new URLSearchParams(location.search);
+const NOW = qs.get("today") ? new Date(qs.get("today") + "T12:00:00") : new Date();
+const DAY = 864e5;
+const plural = (n, w) => n + " " + w + (n === 1 ? "" : "s");
+const fmtDate = d => d.toLocaleDateString("en-US", {month:"short", day:"numeric", year:"numeric"});
+const iso = d => d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
+function ago(days){
+  days = Math.max(0, Math.round(days));
+  if (days < 1) return "today";
+  if (days < 14) return plural(days, "day") + " ago";
+  if (days < 70) return plural(Math.round(days/7), "week") + " ago";
+  if (days < 720) return plural(Math.round(days/30), "month") + " ago";
+  return plural(Math.round(days/365*10)/10, "year") + " ago";
+}
+
+/* ---------- model ---------- */
+let S = null;          // normalized scan
+let D = [];            // decisions: {fate:'', backup:false}
+let sel = -1, lit = -1;
+
+function owner(remote){ const m = /[:\/]([^\/:]+)\/[^\/]+?(?:\.git)?\/?$/.exec(remote || ""); return m ? m[1].toLowerCase() : ""; }
+
+function normalize(doc){
+  const legacy = !!doc.legacy;
+  const scanned = new Date(doc.scanned);
+  if (isNaN(scanned)) throw new Error("The scan has no readable date.");
+  let repos = doc.repos.map(r => legacy ? {
+      rel:r[0], type:r[1], branch:r[2], remote:r[3], deploy:!!r[4], dirty:r[5], unpushed:r[6], hash:r[7],
+      date:new Date(scanned - r[8]*DAY), subject:r[9], commits:true
+    } : {
+      rel:String(r.rel), type:r.type || "Unknown", branch:r.branch || "", remote:r.remote || "", deploy:!!r.deploy,
+      dirty:+r.dirty || 0, unpushed:+r.unpushed || 0, hash:r.hash || "", date:r.date ? new Date(r.date) : null,
+      subject:r.subject || "", commits:r.commits !== false
+    });
+  if (!repos.length) throw new Error("The scan holds no repos.");
+  repos.sort((a,b) => a.rel === "." ? -1 : b.rel === "." ? 1 : a.rel.localeCompare(b.rel));
+  const tally = {};
+  repos.forEach(r => { const o = owner(r.remote); if (o) tally[o] = (tally[o]||0) + 1; });
+  const mine = Object.keys(tally).sort((a,b) => tally[b]-tally[a])[0] || "";
+  repos.forEach((r,i) => {
+    r.i = i;
+    r.owner = owner(r.remote);
+    r.foreign = !!r.remote && !!r.owner && r.owner !== mine;
+    // a quick scan prints 0 unpushed when the branch has no upstream; on a side branch that 0 means nothing
+    r.unknown = legacy && !!r.remote && !r.foreign && r.unpushed === 0 && !/^(main|master)$/.test(r.branch);
+    r.name = r.rel === "." ? doc.root.replace(/\/+$/,"").split("/").pop() : r.rel.split("/").pop();
+    r.parent = -1;
+  });
+  repos.forEach(r => {
+    if (r.rel === ".") return;
+    let best = -1, len = -1;
+    repos.forEach(p => { if (p !== r && p.rel !== "." && r.rel.startsWith(p.rel + "/") && p.rel.length > len){ best = p.i; len = p.rel.length; } });
+    r.parent = best;
+  });
+  return {root:doc.root || "~/Projects", scanned, legacy, repos, mine, rootIdx: repos.findIndex(r => r.rel === ".")};
+}
+
+/* what exists only on this Mac, before or after the plan's backup */
+function loss(r, planned){
+  const b = planned && D[r.i].backup && canBackup(r);
+  return {
+    all: !b && !r.remote && r.commits,
+    commits: b ? 0 : (r.remote ? r.unpushed : 0),
+    unknown: !b && r.unknown,
+    files: r.dirty,
+    stuck: r.foreign
+  };
+}
+function tierOf(l){ return l.all ? "whole" : l.unknown ? "unknown" : (l.commits || l.files) ? "part" : "safe"; }
+function canBackup(r){ return r.commits && (!r.remote || (!r.foreign && (r.unpushed > 0 || r.unknown))); }
+function lossWords(l, r){
+  if (r && !r.commits && !l.files) return "empty";
+  if (l.all) return l.files ? "all of it, " + plural(l.files,"open file") : "all of it";
+  const a = [];
+  if (l.unknown) a.push("can't tell");
+  if (l.commits) a.push(plural(l.commits,"commit"));
+  if (l.files) a.push(plural(l.files,"file"));
+  return a.length ? a.join(", ") : "backed up";
+}
+function lossSentence(r, l){
+  if (l.all) return "Every commit. There is no remote." + (l.files ? " And " + plural(l.files,"file") + " not committed." : "");
+  const a = [];
+  if (l.unknown) a.push("Can't tell. The scan reads 0 unpushed on <code>" + esc(r.branch) + "</code> whether or not it was ever pushed.");
+  if (l.commits) a.push(plural(l.commits,"commit") + " not pushed" + (l.stuck ? ", and the remote is not yours." : "."));
+  if (l.files) a.push(plural(l.files,"file") + " not committed" + (l.stuck && !l.commits ? ". The remote belongs to " + esc(r.owner) + ", so there is nowhere to push them." : "."));
+  if (!a.length) return r.commits ? "Nothing. It is all on the remote." : "Nothing. The repo is empty.";
+  return a.join(" ");
+}
+
+/* fates: a moved folder takes the repos inside it along; a kept repo inside holds the move */
+function fates(){
+  const R = S.repos, own = R.map(r => D[r.i].fate);
+  const kids = R.map(() => []);
+  R.forEach(r => { if (r.parent >= 0) kids[r.parent].push(r.i); });
+  const hasKept = i => kids[i].some(k => own[k] === "keep" || hasKept(k));
+  const out = R.map(() => ({fate:"", held:false, carried:false}));
+  const order = R.slice().sort((a,b) => a.rel.split("/").length - b.rel.split("/").length);
+  order.forEach(r => {
+    const o = own[r.i], p = r.parent >= 0 ? out[r.parent] : null;
+    const moving = p && (p.fate === "archive" || p.fate === "drop") && !p.held;
+    if ((o === "archive" || o === "drop") && r.rel !== "."){
+      if (hasKept(r.i)) out[r.i] = {fate:o, held:true, carried:false};
+      else out[r.i] = {fate:o, held:false, carried:false};
+    } else if (moving && o !== "keep") out[r.i] = {fate:p.fate, held:false, carried:true};
+    else out[r.i] = {fate:o === "keep" ? "keep" : "", held:false, carried:false};
+  });
+  return out;
+}
+
+const sq = s => '"' + String(s).replace(/(["\\$`])/g, "\\$1") + '"';
+function buildPlan(){
+  const R = S.repos, F = fates(), today = iso(NOW);
+  const save = [], look = [], moves = [], held = [];
+  let nBack = 0, nArch = 0, nDrop = 0, lostWhole = 0, lostFiles = 0, lostCommits = 0, lostUnknown = 0;
+  R.forEach(r => {
+    const d = D[r.i], f = F[r.i], p = r.rel;
+    if (d.backup && canBackup(r)){
+      nBack++;
+      const tail = r.dirty ? "   # " + plural(r.dirty,"open file") + " not included" : "";
+      if (!r.remote) save.push("gh repo create " + sq(r.name) + " --private --source " + sq(p) + " --push" + tail);
+      else if (r.unknown) save.push("git -C " + sq(p) + " push -u origin " + sq(r.branch) + tail);
+      else save.push("git -C " + sq(p) + (S.legacy ? " push" : " push --all origin") + "   # " + plural(r.unpushed,"commit") + (r.dirty ? ", " + plural(r.dirty,"open file") + " not included" : ""));
+    }
+    const moved = (f.fate === "archive" || f.fate === "drop") && !f.held;
+    if (moved && r.dirty && f.fate === "drop") look.push("git -C " + sq(p) + " status --short   # " + plural(r.dirty,"file"));
+    if (f.held) held.push("# held: " + p + " holds a repo you are keeping. Move that one out first.");
+    if (moved){
+      if (f.fate === "archive") nArch++; else {
+        nDrop++;
+        const l = loss(r, true);
+        if (l.all) lostWhole++; lostCommits += l.commits; lostFiles += l.files; if (l.unknown) lostUnknown++;
+      }
+      if (!f.carried) moves.push({depth:p.split("/").length, line:"mv " + sq(p) + " " + sq((f.fate === "archive" ? "$ARCHIVE" : "$DROP") + "/" + p.replace(/\//g,"--")).replace('"\\$','"$'),
+        inside: R.filter(c => F[c.i].carried && c.rel.startsWith(p + "/")).length});
+    }
+  });
+  moves.sort((a,b) => b.depth - a.depth);
+  const L = [];
+  if (save.length || moves.length || held.length){
+    L.push("#!/bin/sh", "# Only Copy plan, written " + today + " from the scan of " + iso(S.scanned) + ".", "# Nothing here deletes.", "set -e", "cd " + (S.root[0] === "~" ? sq("$HOME" + S.root.slice(1)).replace('"\\$','"$') : sq(S.root)));
+    if (save.length) L.push("", "# 1. Back up", ...save);
+    if (look.length) L.push("", "# 2. Look before you drop: these have files that were never committed", ...look);
+    if (moves.length || held.length){
+      L.push("", "# 3. Move");
+      if (moves.some(m => m.line.includes("$ARCHIVE"))) L.push('ARCHIVE="_archive"; mkdir -p "$ARCHIVE"');
+      if (moves.some(m => m.line.includes("$DROP"))) L.push('DROP="_drop-' + today + '"; mkdir -p "$DROP"   # empty this yourself, when you are sure');
+      moves.forEach(m => L.push(m.line + (m.inside ? "   # takes " + plural(m.inside,"repo") + " inside it" : "")));
+      L.push(...held);
+    }
+  }
+  return {text:L.join("\n"), F, nBack, nArch, nDrop, lostWhole, lostFiles, lostCommits, lostUnknown, held:held.length};
+}
+
+/* ---------- render ---------- */
+function blockHTML(r, P, cls){
+  const f = P.F[r.i], l = loss(r, true), t = tierOf(l), d = D[r.i];
+  const gone = (f.fate === "archive" || f.fate === "drop") && !f.held;
+  const tags = [];
+  if (d.backup && canBackup(r)) tags.push('<span class="tag">' + IC.check + 'Backup</span>');
+  if (f.fate === "keep") tags.push('<span class="tag">Keep</span>');
+  if (f.fate === "archive") tags.push('<span class="tag">' + (f.held ? "Held" : "Archive") + '</span>');
+  if (f.fate === "drop") tags.push('<span class="tag">' + (f.held ? "Held" : "Drop") + '</span>');
+  const label = r.rel + ". " + lossWords(l, r) + (tags.length ? ". Plan: " + [d.backup && canBackup(r) ? "back up" : "", f.fate].filter(Boolean).join(", ") : "");
+  return '<button class="' + cls + " " + t + (gone && f.fate === "drop" ? " gone" : "") + (sel === r.i ? " sel" : "") + (lit >= 0 && FINDS[lit].set.has(r.i) ? " hit" : "") +
+    '" data-i="' + r.i + '" aria-pressed="' + (sel === r.i) + '" aria-label="' + esc(label) + '" title="' + esc(r.rel) + '">' +
+    '<span class="nm">' + esc(cls === "rootbar" ? S.root + " is a repo too" : r.name) + '</span><span class="ls">' + esc(lossWords(l, r)) + '</span>' +
+    (tags.length ? '<span class="tags">' + tags.join("") + '</span>' : "") + '</button>';
+}
+function renderMap(P){
+  const R = S.repos, kids = R.map(() => []);
+  R.forEach(r => { if (r.parent >= 0) kids[r.parent].push(r); });
+  const one = r => kids[r.i].length
+    ? '<div class="nest">' + blockHTML(r, P, "blk") + '<div class="cells">' + kids[r.i].map(one).join("") + '</div></div>'
+    : blockHTML(r, P, "blk");
+  const tops = R.filter(r => r.parent < 0 && r.rel !== ".");
+  const groups = new Map();
+  tops.forEach(r => { const seg = r.rel.includes("/") ? r.rel.split("/")[0] : ""; if (!groups.has(seg)) groups.set(seg, []); groups.get(seg).push(r); });
+  const keys = [...groups.keys()].sort((a,b) => a === "" ? 1 : b === "" ? -1 : a.localeCompare(b));
+  let h = S.rootIdx >= 0 ? blockHTML(R[S.rootIdx], P, "rootbar") : "";
+  keys.forEach(k => {
+    const g = groups.get(k), n = g.reduce(function c(a, r){ return a + 1 + kids[r.i].reduce(c, 0); }, 0);
+    h += '<div class="row"><h2>' + esc(k || "top level") + '<small>' + plural(n,"repo") + '</small></h2><div class="cells">' + g.map(one).join("") + '</div></div>';
+  });
+  const m = $("#map"), keep = document.activeElement && document.activeElement.dataset ? document.activeElement.dataset.i : null, inMap = m.contains(document.activeElement);
+  m.innerHTML = h; m.classList.toggle("lit", lit >= 0);
+  if (inMap && keep != null){ const b = m.querySelector('[data-i="' + keep + '"]'); if (b) b.focus({preventScroll:true}); }
+}
+
+let lastBig = null;
+function renderHero(P){
+  const R = S.repos, c0 = {whole:0, part:0, unknown:0, safe:0}, c1 = {whole:0, part:0, unknown:0, safe:0};
+  let dropped = 0;
+  R.forEach(r => {
+    c0[tierOf(loss(r, false))]++;
+    const f = P.F[r.i];
+    if (f.fate === "drop" && !f.held) dropped++; else c1[tierOf(loss(r, true))]++;
+  });
+  const big = $("#big");
+  if (lastBig !== c1.whole){ big.textContent = c1.whole; if (lastBig !== null){ big.classList.remove("tick"); void big.offsetWidth; big.classList.add("tick"); } lastBig = c1.whole; }
+  $("#h1").innerHTML = '<span class="sr">' + c1.whole + ' </span>' + (c1.whole === 1 ? "repo exists" : "repos exist") + " only on this Mac.";
+  const bits = [];
+  bits.push(c1.part ? c1.part + (c1.whole ? " more" : "") + (c1.part === 1 ? " holds" : " hold") + (c1.whole ? " some work that does." : " some work that is only here.") : "None hold loose work.");
+  if (c1.unknown) bits.push(c1.unknown + " can't be read.");
+  bits.push(c1.safe + (c1.safe === 1 ? " is" : " are") + " backed up.");
+  if (dropped) bits.push(dropped + " dropped.");
+  $("#tally").textContent = bits.join(" ");
+  const changed = c1.whole !== c0.whole || c1.part !== c0.part || c1.unknown !== c0.unknown || dropped;
+  $("#was").textContent = changed ? "Before the plan: " + c0.whole + " only here, " + c0.part + " partly, " + c0.unknown + " can't tell, " + c0.safe + " backed up." : "Of " + plural(R.length, "repo") + " in " + S.root + ".";
+  const age = (NOW - S.scanned) / DAY;
+  $("#scanline").innerHTML = "Scanned <b>" + fmtDate(S.scanned) + "</b>, " + ago(age) + "." + (age > 7 ? " Old enough to be wrong." : "");
+}
+
+function renderDetail(P){
+  const el = $("#detail");
+  if (sel < 0){ el.innerHTML = '<h3>Pick a repo</h3><p class="empty">Press any block on the map to see what would be lost with it, and to decide what happens to it.</p>'; return; }
+  const r = S.repos[sel], d = D[sel], f = P.F[sel], l0 = loss(r, false), l1 = loss(r, true), t0 = tierOf(l0);
+  const isRoot = r.rel === ".", cb = canBackup(r);
+  const how = !r.remote ? "Makes a private remote and pushes." : r.unknown ? "Pushes " + esc(r.branch) + " to your remote." : "Pushes " + plural(r.unpushed, "commit") + ".";
+  const why = cb ? how : !r.commits ? "Nothing committed yet." : r.foreign ? "The remote is not yours." : "Commits are already on the remote.";
+  const facts = [];
+  facts.push(["Branch", esc(r.branch)]);
+  facts.push(["Remote", r.remote ? esc(r.remote.replace(/^https?:\/\/[^\/]+\//,"").replace(/\.git$/,"")) + (r.foreign ? " (not yours)" : "") : "none"]);
+  if (r.deploy) facts.push(["Deploy", "linked to Vercel"]);
+  if (r.subject) facts.push(["Last", '<span class="clamp" title="' + esc(r.subject) + '">' + esc(r.subject) + '</span>']);
+  if (r.date) facts.push(["When", (S.legacy ? "about " : "") + ago((NOW - r.date)/DAY)]);
+  if (r.parent >= 0) facts.push(["Inside", esc(S.repos[r.parent].rel), 0]);
+  let warn = "";
+  if (f.held) warn = '<p class="note warn">Held. A repo inside it is marked Keep, so the plan will not move this folder.</p>';
+  else if (f.carried) warn = '<p class="note warn">Moves with ' + esc(S.repos[r.parent].rel) + ' (' + f.fate + '). Mark it Keep to hold that move.</p>';
+  else if (f.fate === "drop" && tierOf(l1) !== "safe") warn = '<p class="note warn">Dropping lets go of: ' + esc(lossWords(l1)) + '.</p>';
+  else if (isRoot) warn = '<p class="note">This is the folder itself. It holds every other repo, so it can only be kept.</p>';
+  el.innerHTML =
+    '<button class="btn sq" id="close" aria-label="Close">' + IC.x + '</button>' +
+    '<h3 class="dname">' + esc(r.name) + '</h3><p class="path">' + esc(S.root + (isRoot ? "" : "/" + r.rel)) + '</p>' +
+    '<div class="only ' + (t0 === "whole" ? "whole" : "") + '"><b>Only on this Mac</b><p>' + lossSentence(r, l0) + '</p></div>' +
+    '<dl class="facts">' + facts.map(x => '<dt>' + x[0] + '</dt><dd' + (x[2] ? ' class="txt"' : "") + '>' + x[1] + '</dd>').join("") + '</dl>' +
+    '<button class="sw" id="bk" aria-pressed="' + (d.backup && cb) + '"' + (cb ? "" : " disabled") + '><span class="box">' + IC.check + '</span><span>Back up first<small>' + why + '</small></span></button>' +
+    '<div class="seg" role="group" aria-label="What happens to it">' +
+      ["keep","archive","drop"].map(k => '<button data-f="' + k + '" aria-pressed="' + (d.fate === k) + '"' + (isRoot && k !== "keep" ? " disabled" : "") + '>' + k[0].toUpperCase() + k.slice(1) + '</button>').join("") + '</div>' +
+    warn +
+    '<div class="acts"><button class="btn" id="prompt">' + IC.copy + '<span>Copy inspect prompt</span></button></div>';
+}
+
+function renderPlan(P){
+  const any = D.some(d => d.fate || d.backup), bits = [];
+  if (P.nBack) bits.push("Backs up <b>" + P.nBack + "</b>.");
+  if (P.nArch) bits.push("Archives <b>" + P.nArch + "</b>.");
+  if (P.nDrop){
+    const lost = [];
+    if (P.lostWhole) lost.push(plural(P.lostWhole, "whole repo"));
+    if (P.lostCommits) lost.push(plural(P.lostCommits, "commit"));
+    if (P.lostFiles) lost.push(plural(P.lostFiles, "open file"));
+    if (P.lostUnknown) lost.push(P.lostUnknown + " unread");
+    bits.push("Drops <b>" + P.nDrop + "</b>" + (lost.length ? ", letting go of " + lost.join(", ") + "." : ", losing nothing."));
+  }
+  if (P.held) bits.push(plural(P.held, "move") + " held.");
+  $("#sum").innerHTML = bits.length ? bits.join(" ") : any ? "Kept as they are. Nothing to run." : "No decisions yet. Start with the button, or pick a block.";
+  const n = S.repos.filter(r => canBackup(r) && !D[r.i].backup).length;
+  $("#all").innerHTML = IC.shield + "<span>Back up all it can (" + n + ")</span>";
+  $("#all").disabled = !n;
+  $("#reset").disabled = !any;
+  $("#script").textContent = P.text || "# empty";
+  $("#copyPlan").disabled = !P.text;
+}
+
+const FINDS = [];
+function renderFinds(){
+  $("#foot").innerHTML = S.legacy
+    ? "A sample folder. Load a scan to see yours."
+    : "Your scan of " + esc(S.root) + ". Counted as of the last fetch.";
+}
+
+function render(){
+  const P = buildPlan();
+  renderHero(P); renderMap(P); renderDetail(P); renderPlan(P); renderFinds();
+  document.body.classList.toggle("open", sel >= 0);
+  writeHash();
+}
+
+/* ---------- state in the URL (sample only) ---------- */
+const FT = ["", "keep", "archive", "drop"];
+function writeHash(){
+  if (!S.legacy) return;
+  const s = D.map(d => FT.indexOf(d.fate) * 2 + (d.backup ? 1 : 0)).join("");
+  const h = /[1-7]/.test(s) ? "#p=" + s : "";
+  if (location.hash !== h) history.replaceState(null, "", location.pathname + location.search + h);
+}
+function readHash(){
+  const m = /^#p=([0-7]+)$/.exec(location.hash);
+  if (!m || m[1].length !== D.length) return;
+  [...m[1]].forEach((c,i) => { D[i] = {fate:FT[c >> 1], backup:!!(c & 1)}; });
+}
+
+function start(doc, fromHash){
+  S = normalize(doc);
+  D = S.repos.map(() => ({fate:"", backup:false}));
+  sel = -1; lit = -1; lastBig = null;
+  if (fromHash) readHash();
+  if (matchMedia("(min-width:901px)").matches){
+    // open on the most recent work that has no copy anywhere
+    const w = S.repos.filter(r => r.rel !== "." && tierOf(loss(r,false)) === "whole" && r.date).sort((a,b) => b.date - a.date)[0];
+    if (w) sel = w.i;
+  }
+  render();
+}
+
+/* ---------- events ---------- */
+function say(t){ $("#live").textContent = ""; setTimeout(() => $("#live").textContent = t, 30); }
+async function copy(text, btn){
+  let ok = false;
+  try { await navigator.clipboard.writeText(text); ok = true; } catch(e){
+    const ta = document.createElement("textarea"); ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0"; document.body.appendChild(ta); ta.select();
+    try { ok = document.execCommand("copy"); } catch(e2){} ta.remove();
+  }
+  const sp = btn.querySelector("span"), was = sp.textContent;
+  sp.textContent = ok ? "Copied" : "Select and copy"; say(ok ? "Copied" : "Copy failed");
+  setTimeout(() => { if (btn.isConnected) sp.textContent = was; }, 1400);
+}
+$("#map").addEventListener("click", e => {
+  const b = e.target.closest("[data-i]"); if (!b) return;
+  const i = +b.dataset.i; sel = (sel === i && !matchMedia("(min-width:901px)").matches) ? -1 : i; render();
+  if (sel >= 0) say(S.repos[sel].rel + ". " + lossWords(loss(S.repos[sel], true)));
+});
+$("#detail").addEventListener("click", e => {
+  const t = e.target.closest("button"); if (!t || sel < 0) return;
+  const r = S.repos[sel], d = D[sel];
+  if (t.id === "close"){ sel = -1; render(); return; }
+  if (t.id === "bk"){ d.backup = !d.backup; render(); $("#bk").focus(); say(d.backup ? "Backup added to the plan" : "Backup removed"); return; }
+  if (t.dataset.f){ const k = t.dataset.f; d.fate = d.fate === k ? "" : k; render(); const nb = document.querySelector('.seg [data-f="' + k + '"]'); if (nb) nb.focus(); say(d.fate ? r.name + ": " + d.fate : r.name + ": undecided"); return; }
+  if (t.id === "prompt"){
+    copy("Inspect this repo:\n\n" + S.root + (r.rel === "." ? "" : "/" + r.rel) + "\n\nTell me:\n1. What is this project?\n2. Is it connected to GitHub?\n3. Is it connected to Vercel/deployment?\n4. Are there uncommitted changes or unpushed commits?\n5. Should I keep, archive, delete, merge, push, or deploy it?\n6. What exact commands should I run next?\n\nDo not modify files yet. First give me a summary.", t);
+  }
+});
+document.addEventListener("keydown", e => {
+  if (e.target.closest("textarea,input,dialog") || e.metaKey || e.ctrlKey || e.altKey) return;
+  if (e.key === "Escape"){ if (lit >= 0){ lit = -1; render(); } else if (sel >= 0 && !matchMedia("(min-width:901px)").matches){ sel = -1; render(); } return; }
+  if (sel < 0 || !e.target.closest("#map")) return;
+  const k = {k:"keep", a:"archive", d:"drop"}[e.key.toLowerCase()], r = S.repos[sel];
+  if (k && !(r.rel === "." && k !== "keep")){ D[sel].fate = D[sel].fate === k ? "" : k; render(); say(r.name + ": " + (D[sel].fate || "undecided")); }
+  if (e.key.toLowerCase() === "b" && canBackup(r)){ D[sel].backup = !D[sel].backup; render(); say(D[sel].backup ? "Backup added" : "Backup removed"); }
+});
+$("#all").addEventListener("click", () => { S.repos.forEach(r => { if (canBackup(r)) D[r.i].backup = true; }); render(); say("Backup planned for all it can"); });
+$("#reset").addEventListener("click", () => { D = S.repos.map(() => ({fate:"", backup:false})); render(); say("Plan cleared"); });
+$("#copyPlan").addEventListener("click", e => copy($("#script").textContent, e.currentTarget));
+
+function setTheme(t){
+  document.documentElement.dataset.theme = t;
+  $("#theme").innerHTML = t === "dark" ? IC.sun : IC.moon;
+  $("#theme").setAttribute("aria-label", t === "dark" ? "Switch to light" : "Switch to dark");
+}
+$("#theme").addEventListener("click", () => setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark"));
+setTheme(qs.get("theme") === "dark" ? "dark" : "light");
+
+const dlg = $("#dlg");
+$("#loadBtn").addEventListener("click", () => { $("#err").textContent = ""; dlg.showModal(); });
+$("#cancel").addEventListener("click", () => dlg.close());
+$("#back").addEventListener("click", () => { dlg.close(); start(SNAP, false); });
+$("#file").addEventListener("change", async e => { const f = e.target.files[0]; if (f) $("#paste").value = await f.text(); });
+$("#doLoad").addEventListener("click", () => {
+  try {
+    const raw = $("#paste").value.trim();
+    if (!raw) throw new Error("Nothing to load yet. Choose a file or paste the scan.");
+    let doc; try { doc = JSON.parse(raw); } catch(e){ throw new Error("That is not JSON. Paste everything the scanner printed."); }
+    if (!doc || !Array.isArray(doc.repos) || !doc.onlyCopy) throw new Error("That JSON is not an Only Copy scan. Run scan.py and paste its output.");
+    doc.legacy = false;
+    history.replaceState(null, "", location.pathname + location.search);
+    start(doc, false); dlg.close(); say("Scan loaded. " + S.repos.length + " repos.");
+  } catch(err){ $("#err").textContent = err.message; }
+});
+
+window.__oc = {get S(){return S}, get D(){return D}, buildPlan, loss, tierOf, start, fates};
+start(SNAP, true);
+</script>
+</body>
+</html>

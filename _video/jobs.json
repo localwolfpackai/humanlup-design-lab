@@ -1,0 +1,5 @@
+[
+ {"slug": "lab-30-nosy", "file": "../030-nosy/index.html", "nn": "30", "title": "Nosy", "ground": "#edeae3", "ink": "#191714", "accent": "#c2410c", "acts": [["move", 240, 150, 400], ["tap", 240, 150], ["wait", 1100], ["move", 400, 90, 700], ["wait", 500], ["move", 90, 230, 900], ["wait", 500], ["move", 400, 250, 900], ["wait", 400], ["tap", 400, 250], ["wait", 700], ["move", 120, 100, 800], ["wait", 300], ["hide"], ["wait", 4300], ["tap", 240, 180], ["wait", 1300]]},
+ {"slug": "lab-31-fold", "file": "../031-fold/index.html", "nn": "31", "title": "Fold", "ground": "#dfe3e0", "ink": "#111512", "accent": "#0d6e4b", "acts": [["wait", 600], ["drag", 120, 160, 300, 360, 1100], ["wait", 500], ["drag", 360, 480, 200, 300, 1100], ["wait", 700], ["hide"], ["key", "u"], ["wait", 900], ["key", "u"], ["wait", 1400]]},
+ {"slug": "lab-28-take-the-l", "file": "../028-take-the-l/index.html", "nn": "28", "title": "Two Ls", "ground": "#e8e7e2", "ink": "#0d0d0d", "accent": "#f0287f", "acts": [["wait", 600], ["tap", 240, 300], ["wait", 1500], ["tap", 120, 180], ["wait", 1300], ["tap", 360, 440], ["wait", 1300], ["tap", 240, 300], ["hide"], ["wait", 1500]]}
+]

@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Take the L · HumanLup</title>
+<!-- humanlup:meta -->
+<!-- HumanLup Design Lab 28 · Anthony Lupo · humanlup.com · X @humanlup · IG humanlup.ai · anthony@humanlup.com -->
+<meta name="author" content="Anthony Lupo">
+<meta name="creator" content="Anthony Lupo">
+<meta name="publisher" content="HumanLup">
+<meta name="copyright" content="© 2026 Anthony Lupo, HumanLup">
+<link rel="author" href="https://humanlup.com">
+<link rel="me" href="https://x.com/humanlup">
+<link rel="me" href="https://www.instagram.com/humanlup.ai">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HumanLup Design Lab 28">
+<meta property="og:title" content="Take the L · HumanLup">
+<meta property="og:description" content="Two Ls make a W. Tap anywhere.">
+<meta property="og:image" content="preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@humanlup">
+<meta name="twitter:creator" content="@humanlup">
+<meta name="twitter:title" content="Take the L · HumanLup">
+<meta name="twitter:description" content="Two Ls make a W. Tap anywhere.">
+<meta name="twitter:image" content="preview.jpg">
+<!-- /humanlup:meta -->
+<meta name="description" content="Two Ls make a W. Tap anywhere.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--g:#e8e7e2;--ink:#0d0d0d;--mute:rgba(13,13,13,.6);--line:rgba(13,13,13,.16);--l:#f0287f}
+:root[data-theme=dark]{--g:#0d0d0d;--ink:#f1f0ea;--mute:rgba(241,240,234,.62);--line:rgba(241,240,234,.2);--l:#ff4a97}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;overflow:hidden;background:var(--g);color:var(--ink);font-family:Geist,-apple-system,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+canvas{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent}
+canvas:focus-visible{outline:2px solid var(--l);outline-offset:-6px}
+.ui{position:fixed;inset:0;display:flex;flex-direction:column;pointer-events:none;padding:max(20px,env(safe-area-inset-top)) 28px 0}
+.top{display:flex;justify-content:space-between;align-items:baseline;font-size:15px;font-weight:600;letter-spacing:-.01em}
+.count{font-variant-numeric:tabular-nums;font-weight:500}
+.count i{font-style:normal;color:var(--l);font-weight:700}
+.count b{font-weight:700}
+#stage{flex:1;min-height:0;margin:22px 0 20px}
+.bot{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;padding-bottom:18px}
+h1{font-size:clamp(26px,3.1vw,44px);font-weight:700;letter-spacing:-.035em;line-height:1}
+.bot p{margin-top:8px;font-size:15px;color:var(--mute)}
+.by{margin-top:14px;font-size:12px;color:var(--mute)}
+.btns{display:flex;gap:8px;pointer-events:auto}
+button{font:500 14px Geist,-apple-system,sans-serif;color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:999px;height:40px;padding:0 16px;cursor:pointer;transition:background .15s,border-color .15s}
+button:hover{border-color:var(--ink)}
+button:active{background:var(--ink);color:var(--g)}
+button:focus-visible{outline:2px solid var(--l);outline-offset:2px}
+button:disabled{opacity:.35;cursor:default;border-color:var(--line)}
+.ck{height:12px;margin:0 -28px;background:conic-gradient(var(--ink) 25%,transparent 0 50%,var(--ink) 0 75%,transparent 0) 0 0/24px 24px}
+@media (max-width:640px){
+  .ui{padding-left:18px;padding-right:18px}
+  .ck{margin:0 -18px}
+  #stage{margin:16px 0 14px}
+  .bot{flex-direction:column;align-items:stretch;gap:14px;padding-bottom:14px}
+  .btns button{flex:1;height:44px;padding:0}
+  .by{position:absolute;right:0;top:12px;margin:0}
+  .txt{position:relative}
+}
+</style>
+</head>
+<body>
+<canvas id="c" tabindex="0" role="button" aria-label="Take an L"></canvas>
+<div class="ui">
+  <div class="top"><span>HumanLup</span><span class="count" id="count"></span></div>
+  <div id="stage"></div>
+  <div class="bot">
+    <div class="txt">
+      <h1>Take the L.</h1>
+      <p>Two of them make a W. Tap anywhere, hold to pour.</p>
+      <div class="by">Built by Lupo</div>
+    </div>
+    <div class="btns">
+      <button id="undo">Undo</button>
+      <button id="clear">Clear</button>
+      <button id="theme">Dark</button>
+      <button id="save">Save</button>
+    </div>
+  </div>
+  <div class="ck"></div>
+</div>
+<script>
+(() => {
+const cv = document.getElementById('c'), ctx = cv.getContext('2d');
+const stage = document.getElementById('stage'), countEl = document.getElementById('count');
+const root = document.documentElement;
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// one shape: a stem, a corner, a foot. t=0 it stands as an L, t=1 the foot is up and it is half a W.
+const SW = .2, WL = .62, Q = .25;
+const O = SW / 2 * Math.hypot(Q, 1);
+const WW = 4 * Q + 2 * O, GAP = .17, LEAD = .15, MAX = 2000;
+const L = { cx: SW / 2, cy: 1 - SW / 2, sa: -Math.PI / 2, sl: 1 - SW / 2, fa: 0, fl: WL - SW / 2 };
+const V = { cx: O + Q, cy: 1, sa: Math.atan2(-1, -Q), sl: Math.hypot(Q, 1), fa: Math.atan2(-1, Q), fl: Math.hypot(Q, 1) };
+
+const PAL = {
+  light: { g: [232, 231, 226], ink: [13, 13, 13], l: [240, 40, 127], w: [0, 168, 98] },
+  dark: { g: [13, 13, 13], ink: [241, 240, 234], l: [255, 74, 151], w: [46, 214, 140] }
+};
+let pal = PAL.light;
+const mix = (a, b, t) => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t];
+const rgb = (c, a = 1) => `rgba(${c[0] | 0},${c[1] | 0},${c[2] | 0},${a})`;
+const clamp = (v, a, b) => v < a ? a : v > b ? b : v;
+
+let W = 0, H = 0, dpr = 1, box = { x: 0, y: 0, w: 0, h: 0 };
+let Ls = [], gone = [], raf = 0, last = 0, ghost = null;
+let px = null, py = null;
+
+function size() {
+  dpr = Math.min(devicePixelRatio || 1, 2);
+  W = innerWidth; H = innerHeight;
+  cv.width = W * dpr; cv.height = H * dpr;
+  const r = stage.getBoundingClientRect();
+  box = { x: r.left, y: r.top, w: r.width, h: r.height };
+  layout(); kick();
+}
+
+function rowsAt(h, items, nw) {
+  let x = 0, rows = 1, widest = 0;
+  for (let i = 0; i < items; i++) {
+    const w = (i < nw ? WW : WL) * h;
+    if (x > 0 && x + w > box.w + .5) { rows++; x = 0; }
+    x += w; if (x > widest) widest = x; x += GAP * h;
+  }
+  return { rows, widest, tall: rows * h + (rows - 1) * LEAD * h };
+}
+
+function layout() {
+  const n = Ls.length, nw = n >> 1, odd = n & 1, items = nw + odd;
+  const lone = WL, firstW = items ? (nw ? WW : WL) : lone;
+  let lo = 2, hi = Math.min(box.h, box.w / firstW);
+  if (items > 1) {
+    for (let i = 0; i < 26; i++) {
+      const mid = (lo + hi) / 2, r = rowsAt(mid, items, nw);
+      if (r.tall <= box.h && r.widest <= box.w + .5) lo = mid; else hi = mid;
+    }
+  } else lo = hi;
+  const h = lo, r = rowsAt(h, Math.max(items, 1), nw);
+  const ox = box.x + (box.w - r.widest) / 2, oy = box.y + (box.h - r.tall) / 2;
+  let x = 0, row = 0;
+  const place = [];
+  for (let i = 0; i < Math.max(items, 1); i++) {
+    const w = (i < nw ? WW : WL) * h;
+    if (x > 0 && x + w > box.w + .5) { row++; x = 0; }
+    place.push([ox + x, oy + row * h * (1 + LEAD)]);
+    x += w + GAP * h;
+  }
+  for (let j = 0; j < n; j++) {
+    const o = Ls[j], p = j >> 1, pair = p < nw, s = place[p];
+    o.tx = s[0] + (pair ? (j & 1) * 2 * Q * h : 0); o.ty = s[1]; o.tH = h; o.tt = pair ? 1 : 0;
+  }
+  ghost = n ? null : { x: place[0][0], y: place[0][1], H: h };
+  const ws = nw;
+  countEl.innerHTML = `<i>${n}</i> ${n === 1 ? 'L' : 'Ls'} &nbsp;·&nbsp; <b>${ws}</b> ${ws === 1 ? 'W' : 'Ws'}`;
+  document.getElementById('undo').disabled = document.getElementById('clear').disabled = !n;
+  write();
+}
+
+function add(x, y) {
+  if (Ls.length >= MAX) return;
+  const o = { x: 0, y: 0, H: 0, t: 0, r: 0, glow: 0, a: 0, vx: 0, vy: 0, vH: 0, vt: 0, vr: 0 };
+  Ls.push(o); layout();
+  const h0 = Math.max(18, o.tH * .22);
+  if (x == null) { x = o.tx + WL * o.tH / 2; y = o.ty - o.tH * .25; }
+  o.x = x - WL * h0 / 2; o.y = y - h0 / 2; o.H = h0; o.vr = (Math.random() - .5) * 4;
+  if (Ls.length % 2 === 0) {
+    const m = Ls[Ls.length - 2];
+    m.glow = o.glow = 1; m.vr += -1.4; o.vr += 1.4;
+  }
+  if (still) for (const q of Ls) snap(q);
+  kick();
+}
+function snap(o) { o.x = o.tx; o.y = o.ty; o.H = o.tH; o.t = o.tt; o.r = 0; o.a = 1; o.glow = 0; o.vx = o.vy = o.vH = o.vt = o.vr = 0; }
+function undo() {
+  const o = Ls.pop(); if (!o) return;
+  o.vy = -o.H * 1.2; o.vx = o.H * .5; o.vr = 3; gone.push(o);
+  layout(); if (still) { gone.length = 0; for (const q of Ls) snap(q); } kick();
+}
+function clearAll() {
+  for (const o of Ls) { o.vy = -o.H * (.4 + Math.random()); o.vx = (Math.random() - .5) * o.H * 2; o.vr = (Math.random() - .5) * 8; gone.push(o); }
+  Ls = []; layout(); if (still) gone.length = 0; kick();
+}
+
+function spring(o, k, c, dt) {
+  o.vx += ((o.tx - o.x) * k - o.vx * c) * dt; o.x += o.vx * dt;
+  o.vy += ((o.ty - o.y) * k - o.vy * c) * dt; o.y += o.vy * dt;
+  o.vH += ((o.tH - o.H) * k - o.vH * c) * dt; o.H += o.vH * dt;
+  o.vt += ((o.tt - o.t) * 130 - o.vt * 15) * dt; o.t += o.vt * dt;
+  o.vr += (-o.r * 210 - o.vr * 11) * dt; o.r += o.vr * dt;
+}
+
+function glyph(c, o, col) {
+  const t = clamp(o.t, 0, 1.05), u = clamp(t, 0, 1), h = o.H;
+  const cx = L.cx + (V.cx - L.cx) * t, cy = L.cy + (V.cy - L.cy) * t;
+  const sa = L.sa + (V.sa - L.sa) * t, fa = L.fa + (V.fa - L.fa) * t;
+  const e = SW * 1.2 * u;
+  const sl = L.sl + (V.sl - L.sl) * u + e, fl = L.fl + (V.fl - L.fl) * u + e;
+  const w = (WL + (2 * Q + 2 * O - WL) * u) * h;
+  c.save();
+  c.translate(o.x + w / 2, o.y + h); c.rotate(o.r); c.translate(-w / 2, -h); c.scale(h, h);
+  if (u > .01) { c.beginPath(); c.rect(-3, 0, 8, 1); c.clip(); }
+  c.beginPath();
+  c.moveTo(cx + Math.cos(sa) * sl, cy + Math.sin(sa) * sl);
+  c.lineTo(cx, cy);
+  c.lineTo(cx + Math.cos(fa) * fl, cy + Math.sin(fa) * fl);
+  c.lineWidth = SW; c.lineJoin = 'miter'; c.miterLimit = 30; c.lineCap = 'butt';
+  c.strokeStyle = col; c.stroke();
+  c.restore();
+}
+
+function draw(c) {
+  c.setTransform(dpr, 0, 0, dpr, 0, 0);
+  c.fillStyle = rgb(pal.g); c.fillRect(0, 0, W, H);
+  if (ghost) glyph(c, { x: ghost.x, y: ghost.y, H: ghost.H, t: 0, r: 0 }, rgb(pal.ink, .07));
+  for (const o of gone) glyph(c, o, rgb(pal.l, clamp(o.a, 0, 1)));
+  for (const o of Ls) {
+    const u = clamp(o.t, 0, 1);
+    let col = mix(pal.l, pal.ink, u * u);
+    if (o.glow > .01) col = mix(col, pal.w, o.glow * u);
+    glyph(c, o, rgb(col, clamp(o.a, 0, 1)));
+  }
+}
+
+function frame(now) {
+  raf = 0;
+  let dt = Math.min(.05, (now - last) / 1000 || .016); last = now;
+  let moving = 0;
+  const steps = Math.ceil(dt / .008), d = dt / steps;
+  for (const o of Ls) {
+    for (let s = 0; s < steps; s++) spring(o, 150, 19, d);
+    o.a = Math.min(1, o.a + dt * 7);
+    if (o.t > .9) o.glow *= Math.exp(-dt * 1.9);
+    moving += Math.abs(o.vx) + Math.abs(o.vy) + Math.abs(o.vH) + Math.abs(o.vt) * 40 + Math.abs(o.vr) * 40
+      + Math.abs(o.tx - o.x) + Math.abs(o.ty - o.y) + (o.glow > .01 ? 1 : 0);
+  }
+  for (const o of gone) {
+    o.vy += o.H * 9 * dt; o.x += o.vx * dt; o.y += o.vy * dt; o.r += o.vr * dt; o.a -= dt * 2.6; moving += 1;
+  }
+  gone = gone.filter(o => o.a > 0);
+  draw(ctx);
+  if (moving > .4) kick();
+}
+function kick() { if (!raf) { last = performance.now(); raf = requestAnimationFrame(frame); } }
+
+// input
+let hold = 0, pour = 0, gap = 0, intro = [];
+const stopIntro = () => { intro.forEach(clearTimeout); intro = []; };
+function pourOne() { add(px, py); gap = Math.max(26, gap * .9); pour = setTimeout(pourOne, gap); }
+cv.addEventListener('pointerdown', e => {
+  if (e.button) return; stopIntro();
+  px = e.clientX; py = e.clientY; add(px, py);
+  try { cv.setPointerCapture(e.pointerId); } catch (_) {}
+  gap = 120; hold = setTimeout(pourOne, 380);
+});
+const up = () => { clearTimeout(hold); clearTimeout(pour); };
+cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up); addEventListener('blur', up);
+cv.addEventListener('pointermove', e => {
+  const dx = px == null ? 0 : e.clientX - px; px = e.clientX; py = e.clientY;
+  if (still || !dx) return;
+  let hit = 0;
+  for (const o of Ls) {
+    const mx = o.x + o.H * .5, my = o.y + o.H * .5, r = o.H * .8;
+    const q = (px - mx) * (px - mx) + (py - my) * (py - my);
+    if (q < r * r) { o.vr += clamp(dx, -40, 40) * .012 * (1 - q / (r * r)); hit = 1; }
+  }
+  if (hit) kick();
+});
+addEventListener('keydown', e => {
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  const onBtn = e.target.tagName === 'BUTTON';
+  if (e.key === 'l' || e.key === 'L' || (!onBtn && (e.key === ' ' || e.key === 'Enter'))) { e.preventDefault(); stopIntro(); add(); }
+  else if (e.key === 'Backspace' || e.key === 'z') { e.preventDefault(); stopIntro(); undo(); }
+});
+document.getElementById('undo').onclick = () => { stopIntro(); undo(); };
+document.getElementById('clear').onclick = () => { stopIntro(); clearAll(); };
+const themeBtn = document.getElementById('theme');
+function setTheme(dark) {
+  root.dataset.theme = dark ? 'dark' : 'light'; pal = dark ? PAL.dark : PAL.light;
+  themeBtn.textContent = dark ? 'Light' : 'Dark'; write(); kick();
+}
+themeBtn.onclick = () => setTheme(root.dataset.theme !== 'dark');
+document.getElementById('save').onclick = () => {
+  draw(ctx);
+  cv.toBlob(b => { const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = `take-the-l-${Ls.length}.png`; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000); }, 'image/png');
+};
+function write() {
+  const s = '#' + Ls.length + (root.dataset.theme === 'dark' ? '-dark' : '');
+  try { history.replaceState(null, '', s); } catch (_) {}
+}
+
+// start
+const m = /^#(\d+)(-dark)?$/.exec(location.hash);
+size(); addEventListener('resize', size);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(size);
+if (m) {
+  if (m[2]) setTheme(true);
+  const n = Math.min(MAX, +m[1]);
+  for (let i = 0; i < n; i++) Ls.push({ x: 0, y: 0, H: 0, t: 0, r: 0, glow: 0, a: 1, vx: 0, vy: 0, vH: 0, vt: 0, vr: 0 });
+  layout(); Ls.forEach(snap); kick();
+} else if (still) { add(); add(); add(); }
+else intro = [500, 1500, 2600].map(t => setTimeout(() => add(), t));
+})();
+</script>
+</body>
+</html>

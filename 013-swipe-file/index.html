@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Swipe File · Loudest or Most</title>
+<!-- humanlup:meta -->
+<!-- HumanLup Design Lab 13 · Anthony Lupo · humanlup.com · X @humanlup · IG humanlup.ai · anthony@humanlup.com -->
+<meta name="author" content="Anthony Lupo">
+<meta name="creator" content="Anthony Lupo">
+<meta name="publisher" content="HumanLup">
+<meta name="copyright" content="© 2026 Anthony Lupo, HumanLup">
+<link rel="author" href="https://humanlup.com">
+<link rel="me" href="https://x.com/humanlup">
+<link rel="me" href="https://www.instagram.com/humanlup.ai">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HumanLup Design Lab 13">
+<meta property="og:title" content="Swipe File · Loudest or Most">
+<meta property="og:description" content="Five captured pages and a dial: pick a palette by the loudest colors or by the most.">
+<meta property="og:image" content="preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@humanlup">
+<meta name="twitter:creator" content="@humanlup">
+<meta name="twitter:title" content="Swipe File · Loudest or Most">
+<meta name="twitter:description" content="Five captured pages and a dial: pick a palette by the loudest colors or by the most.">
+<meta name="twitter:image" content="preview.jpg">
+<!-- /humanlup:meta -->
+<meta name="description" content="Five captured pages and a dial: pick a palette by the loudest colors or by the most.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@500..900&family=Onest:wght@400..700&family=Reddit+Mono:wght@400..600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ground:#0b0c0e; --text:#f5f5f5; --dim:#a0a0a0; --accent:#f4bd01; --soft:#222; --line:#444; --ink:#f5f5f5;
+  --display:"Darker Grotesque","Avenir Next Condensed","Helvetica Neue",Arial,sans-serif;
+  --body:"Onest","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --mono:"Reddit Mono","SF Mono",Menlo,monospace;
+  --pad:clamp(16px,3.2vw,52px);
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--ground);transition:background-color .35s var(--ease)}
+body{font-family:var(--body);font-size:16px;line-height:1.45;color:var(--text);background:var(--ground);
+  transition:background-color .35s var(--ease),color .35s var(--ease);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--text);outline-offset:3px;border-radius:2px}
+.sr{position:fixed;top:0;left:0;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+.app{min-height:100dvh;display:grid;grid-template-rows:auto minmax(0,1fr) auto auto auto auto}
+
+/* top */
+.top{display:flex;align-items:center;gap:24px;padding:14px var(--pad);border-bottom:1px solid var(--line);transition:border-color .35s}
+.brand{display:flex;align-items:baseline;gap:14px;white-space:nowrap}
+.brand b{font-family:var(--display);font-weight:900;font-size:30px;line-height:1;letter-spacing:-.01em}
+.brand span{font-family:var(--mono);font-size:14px;color:var(--dim)}
+.sites{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.sites::-webkit-scrollbar{display:none}
+.sites button{min-height:44px;padding:0 14px;font-family:var(--mono);font-size:14px;color:var(--dim);white-space:nowrap;
+  border-bottom:3px solid transparent;transition:color .2s,border-color .2s}
+.sites button:hover{color:var(--text)}
+.sites button[aria-pressed=true]{color:var(--text);border-bottom-color:var(--text);font-weight:600}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border:1.5px solid var(--text);
+  font-weight:600;font-size:15px;white-space:nowrap;transition:background-color .2s,color .2s,border-color .35s}
+.btn:hover,.btn.done{background:var(--text);color:var(--ground)}
+.btn svg{width:18px;height:18px;flex:none}
+
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,400px);gap:clamp(24px,5vw,80px);align-items:end;
+  padding:clamp(14px,2.4vh,30px) var(--pad) clamp(12px,2vh,24px)}
+.num{font-family:var(--display);font-weight:900;font-size:clamp(150px,min(24vw,37vh),400px);line-height:.66;letter-spacing:-.045em;
+  font-variant-numeric:tabular-nums;display:flex;align-items:flex-start;margin-left:-.04em;padding-top:.08em}
+.num i{font-style:normal;font-size:.42em;line-height:.9;letter-spacing:0;margin-left:.06em;margin-top:.1em;color:var(--accent);transition:color .35s}
+.say{margin-top:clamp(18px,3vh,30px);font-family:var(--display);font-weight:700;font-size:clamp(26px,2.5vw,38px);line-height:1.02}
+.say a{text-decoration-thickness:2px;text-underline-offset:.14em}
+.say a svg{width:.62em;height:.62em;margin-left:.08em;vertical-align:.02em}
+
+.kept h2{font-family:var(--mono);font-weight:500;font-size:14px;color:var(--dim);margin-bottom:10px}
+.kept ol{list-style:none;border-top:1px solid var(--line);transition:border-color .35s}
+.kept li{display:grid;grid-template-columns:28px 9ch 1fr;gap:12px;align-items:center;min-height:34px;border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:14px;transition:border-color .35s}
+.kept li i{width:28px;height:22px;border:1px solid var(--line);transition:border-color .35s}
+.kept li em{font-style:normal;text-align:right;color:var(--dim)}
+.kept li.none em{color:var(--text);font-weight:600}
+.kept p{margin-top:12px;font-size:15px;line-height:1.4;max-width:40ch}
+.kept p b{font-weight:700}
+
+/* bar */
+.barwrap{position:relative}
+.pins{position:relative;height:38px;margin:0 var(--pad)}
+.pin{position:absolute;bottom:0;width:30px;margin-left:-15px;height:38px;transition:left .28s var(--ease)}
+.pin b{display:grid;place-items:center;width:30px;height:28px;font-family:var(--mono);font-size:14px;font-weight:600;
+  background:var(--text);color:var(--ground);transition:background-color .35s,color .35s}
+.pin::after{content:"";position:absolute;left:14px;top:28px;width:2px;height:10px;background:var(--text);transition:left .28s var(--ease),background-color .35s}
+.pin[data-shift]::after{left:calc(14px + var(--sh))}
+.bar{display:flex;height:clamp(110px,19vh,230px);cursor:crosshair;touch-action:pan-y;margin:0 var(--pad);outline:1px solid var(--line);transition:outline-color .35s}
+.bar i{flex:1 1 0;min-width:0;transition:flex-grow .28s var(--ease)}
+.bar.in i{animation:rise .5s var(--ease) backwards}
+@keyframes rise{from{transform:scaleY(0)}to{transform:none}}
+.bar i{transform-origin:50% 100%}
+.probe{margin:10px var(--pad) 0;font-family:var(--mono);font-size:14px;color:var(--dim);min-height:21px;display:flex;gap:10px;align-items:center}
+.probe i{width:14px;height:14px;border:1px solid var(--line);flex:none}
+
+/* dial */
+.dial{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:clamp(14px,2vw,28px);padding:clamp(6px,1.2vh,14px) var(--pad)}
+.dial label{font-family:var(--display);font-weight:900;font-size:clamp(30px,3.2vw,50px);line-height:1;cursor:pointer;opacity:.45;transition:opacity .2s}
+.dial label.on{opacity:1}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:44px;background:none;cursor:ew-resize;--v:0%}
+input[type=range]::-webkit-slider-runnable-track{height:6px;background:linear-gradient(90deg,var(--text) var(--v),var(--line) var(--v))}
+input[type=range]::-moz-range-track{height:6px;background:var(--line)}
+input[type=range]::-moz-range-progress{height:6px;background:var(--text)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:44px;margin-top:-19px;background:var(--accent);border:3px solid var(--text)}
+input[type=range]::-moz-range-thumb{width:16px;height:38px;border-radius:0;background:var(--accent);border:3px solid var(--text)}
+input[type=range]:focus-visible{outline-offset:0}
+
+/* picks */
+.picks{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:1px solid var(--line);transition:border-color .35s}
+.pick{position:relative;display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:10px;align-items:baseline;text-align:left;
+  padding:12px clamp(12px,1.4vw,22px) 14px;min-height:84px;background:var(--c);color:var(--on);transition:background-color .35s var(--ease),color .35s}
+.pick:first-child{padding-left:var(--pad)}
+.pick:last-child{padding-right:var(--pad)}
+.pick .n{font-family:var(--mono);font-size:14px;font-weight:600;grid-row:1}
+.pick .role{font-family:var(--display);font-weight:800;font-size:28px;line-height:1}
+.pick .hex{grid-column:1/-1;margin-top:10px;font-family:var(--mono);font-size:14px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.pick:focus-visible{outline-color:var(--on);outline-offset:-6px}
+.pick:hover .hex span:first-child{text-decoration:underline}
+
+.foot{display:flex;flex-wrap:wrap;gap:6px 28px;justify-content:space-between;padding:10px var(--pad) 12px;font-size:14px;color:var(--dim)}
+.foot b{color:var(--text);font-weight:600;font-family:var(--mono)}
+
+@media (max-width:1080px){
+  .brand span{display:none}
+  .hero{grid-template-columns:minmax(0,1fr) minmax(260px,330px)}
+}
+@media (max-width:1000px){
+  .top{flex-wrap:wrap;gap:6px 12px;padding-bottom:0;border-bottom:0}
+  .brand span{display:inline}
+  .sites{order:3;width:calc(100% + 2*var(--pad));margin:0 calc(-1*var(--pad));padding:0 calc(var(--pad) - 14px);border-block:1px solid var(--line)}
+  .top .btn{margin-left:auto}
+}
+@media (max-width:760px){
+  .app{display:block;padding-bottom:104px}
+  .hero{grid-template-columns:1fr;gap:28px;padding-top:28px}
+  .num{font-size:clamp(150px,46vw,220px)}
+  .say{font-size:28px}
+  .kept li{min-height:44px}
+  .bar{height:150px}
+  .dial{position:fixed;left:0;right:0;bottom:0;z-index:5;background:var(--ground);border-top:1px solid var(--line);
+    padding:8px var(--pad) calc(10px + env(safe-area-inset-bottom));gap:12px;transition:background-color .35s,border-color .35s}
+  .dial label{font-size:26px}
+  .picks{grid-template-columns:1fr;margin-top:18px}
+  .pick{grid-template-columns:20px 5.2ch 1fr;grid-template-rows:auto;min-height:56px;align-items:center;padding:8px var(--pad)!important}
+  .pick .role{font-size:26px}
+  .pick .hex{grid-column:auto;margin:0;justify-content:flex-end;gap:14px}
+  .foot{display:block}
+  .foot p+p{margin-top:8px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand"><b>Swipe File</b><span>Five captures, Feb 20, 2026</span></div>
+    <nav class="sites" aria-label="Captured page" id="sites"></nav>
+    <button class="btn" id="copy" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+      <span id="copyLabel">Copy CSS</span>
+    </button>
+  </header>
+
+  <main class="hero">
+    <div>
+      <div class="num" aria-hidden="true"><span id="pct">0</span><i>%</i></div>
+      <p class="say" id="say"></p>
+    </div>
+    <aside class="kept" aria-labelledby="keptH">
+      <h2 id="keptH">The five on file</h2>
+      <ol id="kept"></ol>
+      <p id="keptSay"></p>
+    </aside>
+  </main>
+
+  <section class="barwrap" aria-label="The page by color">
+    <div class="pins" id="pins" aria-hidden="true"></div>
+    <div class="bar" id="bar" role="img"></div>
+    <p class="probe" id="probe"></p>
+  </section>
+
+  <section class="dial">
+    <label for="dial" id="lLoud">Loudest</label>
+    <input type="range" id="dial" min="0" max="100" value="0" step="1" aria-label="Pick five colors by loudest, left, or by most, right">
+    <label for="dial" id="lMost">Most</label>
+  </section>
+
+  <section class="picks" id="picks" aria-label="The five picked colors. Press one to copy its hex."></section>
+
+  <footer class="foot">
+    <p id="contrast"></p>
+    <p>Every pixel counted. Built by Lupo</p>
+  </footer>
+</div>
+<p class="sr" aria-live="polite" id="live"></p>
+
+<script>
+const DATA = {"linear.app":{"url":"https://linear.app","kept":[["#d4a80c",10],["#84827d",3881],["#6b581c",37],["#f7dd81",0],["#444341",4819]],"keptCover":0.67,"clusters":[["#08090b",57.3883],["#161719",36.6088],["#222325",2.0174],["#fafbfc",1.5699],["#e5e5e5",0.237],["#323335",0.3131],["#525355",0.3634],["#444649",0.2864],["#626365",0.2487],["#8c8e91",0.2907],["#74767a",0.2106],["#d2d5da",0.1416],["#acadb1",0.137],["#babcbc",0.0785],["#9a9b9d",0.0571],["#231b01",0.0173],["#f4bd01",0.0046],["#ab9c44",0.0064],["#645a0c",0.0025],["#83771d",0.002],["#9d8231",0.0019],["#d8c254",0.0012]]},"vercel.com":{"url":"https://vercel.com","kept":[["#ecbe2c",10946],["#9a8a59",11],["#795f0a",13],["#f3e0a6",21784],["#444344",873]],"keptCover":2.59,"clusters":[["#fafafa",74.3662],["#161616",1.1844],["#ececec",2.3995],["#fffddc",1.7217],["#d4fffc",1.5243],["#dcdcdc",0.5364],["#bbfce5",1.6395],["#54ebbe",0.7888],["#fcecbc",1.193],["#93eccc",1.2782],["#eeab33",0.4726],["#cbcbcb",0.2877],["#84fed3",0.6903],["#bce4db",0.8552],["#54fec1",0.3221],["#7cdcbd",0.8987],["#f3d364",0.6287],["#ecdb9c",0.8799],["#fffcb4",0.1995],["#dcbb5c",0.7939],["#9cdbcb",0.6488],["#e3cc7c",0.7326],["#eec22e",0.3909],["#ecd3bc",0.6656],["#fde38c",0.2765],["#e4c39b",0.6028],["#f3a484",0.308],["#f6b4ac",0.2236],["#ee9c43",0.2499],["#d4b37c",0.3478],["#f39c9b",0.1107],["#f19464",0.113],["#f28b84",0.0892],["#ffcb93",0.0711],["#ec7374",0.0755],["#fcbc5c",0.0838],["#ee7c54",0.0472],["#f2ab64",0.0282],["#fff283",0.0029],["#ec5e5a",0.0035]]},"awwwards.com":{"url":"https://www.awwwards.com","kept":[["#dd266a",20843],["#64748c",20],["#c40a44",6252],["#f276c4",7327],["#472f3a",3113]],"keptCover":2.88,"clusters":[["#e9e9e9",40.5835],["#222222",9.0888],["#c3ccfb",31.5364],["#abbaf5",7.659],["#3e3e3e",2.2137],["#fefeff",0.3824],["#4c4c4c",0.2719],["#dbdbf5",0.5748],["#d3d3d3",0.2004],["#dc1453",0.9966],["#c2c2c2",0.1331],["#9c9c9c",0.1819],["#f43b7c",0.9525],["#f4539c",0.5974],["#646464",0.1461],["#c4448c",0.4631],["#f464bb",0.5038],["#c30a45",0.344],["#4b2334",0.1585],["#f47ccb",0.2917],["#93aaec",0.1059],["#e4439b",0.4333],["#cb2374",0.4133],["#f493d4",0.1668],["#b41b5b",0.2323],["#db397c",0.4872],["#f11d5b",0.1424],["#b4357a",0.0806],["#ecc4eb",0.0495],["#cc55ab",0.0375],["#63163c",0.0359],["#dbb3eb",0.0809],["#c3ade3",0.0267],["#f2abdd",0.035],["#dc9ddb",0.009],["#aa9ede",0.0032],["#e473b3",0.0062],["#5b2b4a",0.0035],["#e1538a",0.0045],["#cd65c1",0.0029]]},"elevenlabs.io":{"url":"https://elevenlabs.io/voice-design","kept":[["#3674be",87],["#7c7c80",56439],["#0d1434",117823],["#61a2c8",112],["#4c3c44",7661]],"keptCover":14.05,"clusters":[["#0a0f15",62.436],["#fcfcfc",12.5596],["#6b6e72",5.9719],["#0d112c",7.2575],["#7a7d81",3.3141],["#24151d",4.793],["#22251b",0.9299],["#393e42",0.6381],["#02060c",0.1329],["#86898d",0.2069],["#bbbec1",0.4397],["#939599",0.2119],["#a3a6aa",0.3129],["#cbcdd2",0.1829],["#dbdee2",0.1644],["#010202",0.0282],["#ebeef2",0.1183],["#2a2d32",0.0946],["#4a4d52",0.1002],["#5a5d63",0.0547],["#3d84ba",0.0054],["#5cabca",0.0069],["#4495cc",0.0051],["#56badc",0.0062],["#acdceb",0.0035],["#3b6cc4",0.0029],["#226cac",0.0019],["#9dccdb",0.0043],["#54a3e5",0.0011],["#64cbec",0.0022],["#315dbf",0.0012]]},"component.gallery":{"url":"https://component.gallery","kept":[["#c83636",0],["#898885",3802],["#681c1c",0],["#fcf4f4",1198554],["#555150",31441]],"keptCover":95.2,"clusters":[["#f6f5f1",92.6521],["#4a4946",3.6306],["#cac9c5",0.9998],["#deddd9",1.3178],["#555452",0.2612],["#82817e",0.3069],["#9e9d9a",0.2285],["#6d6c6a",0.2639],["#bab9b6",0.1022],["#aeadaa",0.1704],["#3e3d3b",0.035],["#1d1d1c",0.0213],["#908f8c",0.0087]]}};
+const ORDER = ["linear.app","vercel.com","awwwards.com","elevenlabs.io","component.gallery"];
+const ROLES = ["Ground","Ink","Accent","Soft","Line"];
+const PX = 1296000;
+const $ = id => document.getElementById(id);
+
+/* color math */
+const rgb = h => [1,3,5].map(i => parseInt(h.slice(i,i+2),16));
+const lin = v => { v/=255; return v<=.04045 ? v/12.92 : ((v+.055)/1.055)**2.4; };
+function oklab(h){
+  const [r,g,b] = rgb(h).map(lin);
+  const l=Math.cbrt(.4122214708*r+.5363325363*g+.0514459929*b),
+        m=Math.cbrt(.2119034982*r+.6806995451*g+.1073969566*b),
+        s=Math.cbrt(.0883024619*r+.2817188376*g+.6299787005*b);
+  return [.2104542553*l+.793617785*m-.0040720468*s, 1.9779984951*l-2.428592205*m+.4505937099*s, .0259040371*l+.7827717662*m-.808675766*s];
+}
+const dist = (a,b) => Math.hypot(a[0]-b[0],a[1]-b[1],a[2]-b[2]);
+const lum = h => { const [r,g,b]=rgb(h).map(lin); return .2126*r+.7152*g+.0722*b; };
+const contrast = (a,b) => { const x=lum(a), y=lum(b); return (Math.max(x,y)+.05)/(Math.min(x,y)+.05); };
+const mix = (a,b,t) => "#"+rgb(a).map((v,i)=>Math.round(v+(rgb(b)[i]-v)*t).toString(16).padStart(2,"0")).join("");
+const onColor = h => contrast(h,"#000000") >= contrast(h,"#ffffff") ? "#000000" : "#ffffff";
+
+/* prepare clusters: neutrals by lightness, then color by hue */
+for (const k of ORDER){
+  const s = DATA[k];
+  s.c = s.clusters.map(([hex,share]) => {
+    const lab = oklab(hex), C = Math.hypot(lab[1],lab[2]);
+    return {hex, share:share/100, lab, C, hue:Math.atan2(lab[2],lab[1])};
+  });
+  s.c.sort((a,b) => {
+    const na=a.C<.03, nb=b.C<.03;
+    if (na!==nb) return na?-1:1;
+    return na ? a.lab[0]-b.lab[0] : a.hue-b.hue || a.lab[0]-b.lab[0];
+  });
+}
+
+const state = {site:ORDER[0], a:0};
+
+function compute(site, a){
+  const cs = DATA[site].c;
+  const e = .1 + .9*a;                       // a little head count even at the loud end
+  let sum = 0;
+  const w = cs.map(c => { const v = Math.pow(c.share,e) * Math.pow(Math.max(c.C,.006)/.3, 2.4*(1-e)); sum+=v; return v; });
+  for (let i=0;i<w.length;i++) w[i]/=sum;
+  const idx = cs.map((_,i)=>i).sort((x,y)=>w[y]-w[x]);
+  let picks = [];
+  for (const gap of [.05,.03,0]){
+    picks = [];
+    for (const i of idx){ if (picks.every(p => dist(cs[p].lab,cs[i].lab) >= gap)) picks.push(i); if (picks.length===5) break; }
+    if (picks.length===5) break;
+  }
+  const got = picks.map(()=>0);
+  cs.forEach(c => {
+    let best=-1, bd=1e9;
+    picks.forEach((p,j)=>{ const d=dist(cs[p].lab,c.lab); if(d<bd){bd=d;best=j;} });
+    if (bd < .04) got[best]+=c.share;
+  });
+  const cover = got.reduce((x,y)=>x+y,0);
+  // roles
+  const left = picks.map((p,j)=>({i:p, hex:cs[p].hex, C:cs[p].C, L:cs[p].lab[0], got:got[j]}));
+  const take = fn => { let b=0; for(let k=1;k<left.length;k++) if(fn(left[k])>fn(left[b])) b=k; return left.splice(b,1)[0]; };
+  const ground = take(p=>p.got);
+  const ink = take(p=>contrast(p.hex,ground.hex));
+  const accent = take(p=>p.C*10 + contrast(p.hex,ground.hex)/100);
+  const soft = take(p=>-Math.abs(p.L-ground.L));
+  const line = left[0];
+  return {w, roles:[ground,ink,accent,soft,line], cover};
+}
+
+const fmtPct = v => { const p=v*100; return p>=99.95 ? "100" : p>=10 ? String(Math.round(p)) : p>=.1 ? p.toFixed(1) : p.toFixed(2); };
+const fmtShare = v => { const p=v*100; return p>=10 ? Math.round(p)+"%" : p>=.1 ? p.toFixed(1)+"%" : Math.round(v*PX).toLocaleString("en-US")+" px"; };
+
+let bands = [], lastSite = null, cur = null;
+
+function render(){
+  const s = DATA[state.site], r = cur = compute(state.site, state.a);
+  const [g,ink,acc,soft,line] = r.roles.map(x=>x.hex);
+  const inkOK = contrast(ink,g) >= 4.5;
+  const text = inkOK ? ink : onColor(g);
+  let dim = text;
+  for (const t of [.38,.28,.18]) { const m = mix(text,g,t); if (contrast(m,g) >= 4.5){ dim=m; break; } }
+  const lineSafe = contrast(line,g) >= 1.25 ? line : mix(text,g,.72);
+  const softSafe = soft;
+  const accSafe = contrast(acc,g) >= 1.6 ? acc : text;
+  const st = document.documentElement.style;
+  st.setProperty("--ground",g); st.setProperty("--text",text); st.setProperty("--dim",dim);
+  st.setProperty("--accent",accSafe); st.setProperty("--soft",softSafe); st.setProperty("--line",lineSafe);
+  document.querySelector('meta[name=theme-color]')?.setAttribute("content",g);
+
+  // bar
+  const bar = $("bar");
+  if (lastSite !== state.site){
+    bar.innerHTML = ""; bands = s.c.map((c,i) => { const el=document.createElement("i"); el.style.background=c.hex; el.dataset.i=i; el.style.animationDelay=(i*9)+"ms"; bar.appendChild(el); return el; });
+    bar.classList.remove("in"); void bar.offsetWidth; bar.classList.add("in");
+  }
+  let acc0 = 0; const mid = [];
+  r.w.forEach((v,i)=>{ bands[i].style.flexGrow = Math.max(v,1e-5).toFixed(6); mid[i]=acc0+v/2; acc0+=v; });
+
+  // pins
+  const pins = $("pins"), W = pins.clientWidth || 1;
+  if (!pins.children.length) ROLES.forEach((_,j)=>{ const p=document.createElement("div"); p.className="pin"; p.innerHTML="<b>"+(j+1)+"</b>"; pins.appendChild(p); });
+  const pos = r.roles.map((x,j)=>({j, x:mid[x.i]*W})).sort((a,b)=>a.x-b.x);
+  const lab = pos.map(p=>Math.min(Math.max(p.x,15),W-15));
+  for (let k=1;k<lab.length;k++) if (lab[k]-lab[k-1] < 33) lab[k]=lab[k-1]+33;
+  if (lab[lab.length-1] > W-15){ lab[lab.length-1]=W-15; for (let k=lab.length-2;k>=0;k--) if (lab[k+1]-lab[k] < 33) lab[k]=lab[k+1]-33; }
+  pos.forEach((p,k)=>{ const el=pins.children[p.j]; el.style.left=lab[k]+"px"; const sh=Math.max(-14,Math.min(14,p.x-lab[k])); el.dataset.shift=1; el.style.setProperty("--sh",sh+"px"); });
+
+  // picks
+  const box = $("picks");
+  if (!box.children.length) ROLES.forEach((role,j)=>{ const b=document.createElement("button"); b.type="button"; b.className="pick";
+    b.innerHTML='<span class="n">'+(j+1)+'</span><span class="role">'+role+'</span><span class="hex"><span></span><span></span></span>';
+    b.addEventListener("click",()=>copyText(b.dataset.hex,b)); box.appendChild(b); });
+  r.roles.forEach((x,j)=>{ const b=box.children[j]; b.dataset.hex=x.hex; b.style.setProperty("--c",x.hex); b.style.setProperty("--on",onColor(x.hex));
+    const sp=b.querySelectorAll(".hex span"); if(!b.classList.contains("copied")) sp[0].textContent=x.hex; sp[1].textContent=fmtShare(x.got);
+    b.setAttribute("aria-label",ROLES[j]+", "+x.hex+", "+fmtShare(x.got).replace("px","pixels")+" of the page. Copy hex."); });
+
+  // words
+  $("pct").textContent = fmtPct(r.cover);
+  if (lastSite !== state.site){
+    $("say").innerHTML = 'of <a href="'+s.url+'" target="_blank" rel="noopener">'+state.site+'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a> is in these five colors.';
+    $("kept").innerHTML = s.kept.map(([hex,px]) => '<li'+(px===0?' class="none"':'')+'><i style="background:'+hex+'"></i><span>'+hex+'</span><em>'+(px===0?"in no pixel":fmtShare(px/PX))+'</em></li>').join("");
+    const lead = s.kept[0];
+    $("keptSay").innerHTML = 'Together they cover <b>'+fmtPct(s.keptCover/100)+'%</b> of the page. The lead color is '+(lead[1]===0?'<b>in no pixel</b>.':'<b>'+fmtShare(lead[1]/PX).replace("px","pixels")+'</b>.');
+    bar.setAttribute("aria-label","Every color found on "+state.site+", neutrals first, then by hue. Width is how much each one counts at the current dial setting.");
+    document.querySelectorAll("#sites button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.site===state.site));
+    probe(null);
+  }
+  const cr = contrast(ink,g);
+  $("contrast").innerHTML = inkOK ? 'Ink on ground <b>'+cr.toFixed(1)+' : 1</b>. The page you are reading is set in it.'
+                                  : 'Ink on ground <b>'+cr.toFixed(1)+' : 1</b>, too low to read. Text here is set in '+(text==="#000000"?"black":"white")+' instead.';
+  $("dial").style.setProperty("--v", state.a*100+"%");
+  $("dial").setAttribute("aria-valuetext", Math.round(state.a*100)+" percent toward most. Five colors cover "+fmtPct(r.cover)+" percent of the page.");
+  $("lLoud").classList.toggle("on", state.a < .5); $("lMost").classList.toggle("on", state.a >= .5);
+  lastSite = state.site;
+  history.replaceState(null,"","#"+state.site+"@"+Math.round(state.a*100));
+}
+
+function probe(i){
+  const p = $("probe");
+  if (i==null){ p.textContent = "Every color on the page. Width is how much each one counts right now. Point at a band."; return; }
+  const c = DATA[state.site].c[i];
+  p.innerHTML = '<i style="background:'+c.hex+'"></i><span>'+c.hex+' · '+fmtShare(c.share).replace("px","pixels")+' of the page · counts as '+fmtShare(cur.w[i]).replace(/ px$/," px wide").replace(/^[\d,]+ px wide$/,"under 0.1%")+' here</span>';
+}
+$("bar").addEventListener("pointermove", e => { if (e.target.dataset.i!=null) probe(+e.target.dataset.i); });
+$("bar").addEventListener("pointerdown", e => { if (e.target.dataset.i!=null) probe(+e.target.dataset.i); });
+$("bar").addEventListener("pointerleave", e => { if (e.pointerType==="mouse") probe(null); });
+
+async function copyText(t, el){
+  let ok = false;
+  try { await navigator.clipboard.writeText(t); ok = true; } catch(_){
+    const ta=document.createElement("textarea"); ta.value=t; ta.style.cssText="position:fixed;opacity:0"; document.body.appendChild(ta); ta.select();
+    try { ok=document.execCommand("copy"); } catch(_){} ta.remove(); el.focus();
+  }
+  const msg = ok ? "Copied" : "Copy failed";
+  $("live").textContent = ok ? "Copied "+(t.length<10?t:"the five tokens")+"." : "Could not copy.";
+  if (el.id==="copy"){ $("copyLabel").textContent=msg; el.classList.add("done"); clearTimeout(el._t); el._t=setTimeout(()=>{ $("copyLabel").textContent="Copy CSS"; el.classList.remove("done"); },1600); }
+  else { const sp=el.querySelector(".hex span"); el.classList.add("copied"); sp.textContent=msg; clearTimeout(el._t); el._t=setTimeout(()=>{ el.classList.remove("copied"); sp.textContent=el.dataset.hex; },1400); }
+}
+function cssText(){
+  const names=["ground","ink","accent","soft","line"];
+  return "/* "+state.site+", five colors picked "+Math.round(state.a*100)+"% of the way from loudest to most.\n   They cover "+fmtPct(cur.cover)+"% of the captured page. */\n:root {\n"+cur.roles.map((x,j)=>"  --"+names[j]+": "+x.hex+";").join("\n")+"\n}\n";
+}
+$("copy").addEventListener("click", () => copyText(cssText(), $("copy")));
+
+// sites
+ORDER.forEach(k => { const b=document.createElement("button"); b.type="button"; b.textContent=k; b.dataset.site=k;
+  b.addEventListener("click",()=>{ state.site=k; render(); }); $("sites").appendChild(b); });
+$("dial").addEventListener("input", e => { state.a = e.target.value/100; render(); });
+$("lLoud").addEventListener("click", e => { e.preventDefault(); state.a=0; $("dial").value=0; render(); $("dial").focus(); });
+$("lMost").addEventListener("click", e => { e.preventDefault(); state.a=1; $("dial").value=100; render(); $("dial").focus(); });
+addEventListener("resize", () => render());
+
+const m = decodeURIComponent(location.hash.slice(1)).match(/^([a-z.]+)@(\d{1,3})$/);
+if (m && DATA[m[1]]) { state.site=m[1]; state.a=Math.min(100,+m[2])/100; $("dial").value=state.a*100; }
+const tc=document.createElement("meta"); tc.name="theme-color"; document.head.appendChild(tc);
+render();
+document.fonts && document.fonts.ready.then(render);
+window.__swipe = {state, compute, cssText, render};
+</script>
+</body>
+</html>

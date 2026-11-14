@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ink Almanac · HumanLup</title>
+<!-- humanlup:meta -->
+<!-- HumanLup Design Lab 07 · Anthony Lupo · humanlup.com · X @humanlup · IG humanlup.ai · anthony@humanlup.com -->
+<meta name="author" content="Anthony Lupo">
+<meta name="creator" content="Anthony Lupo">
+<meta name="publisher" content="HumanLup">
+<meta name="copyright" content="© 2026 Anthony Lupo, HumanLup">
+<link rel="author" href="https://humanlup.com">
+<link rel="me" href="https://x.com/humanlup">
+<link rel="me" href="https://www.instagram.com/humanlup.ai">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HumanLup Design Lab 07">
+<meta property="og:title" content="Ink Almanac · HumanLup">
+<meta property="og:description" content="Every color leaves a print. Each hex pressed as a fingerprint and checked against Tailwind&#x27;s default palette.">
+<meta property="og:image" content="preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@humanlup">
+<meta name="twitter:creator" content="@humanlup">
+<meta name="twitter:title" content="Ink Almanac · HumanLup">
+<meta name="twitter:description" content="Every color leaves a print. Each hex pressed as a fingerprint and checked against Tailwind&#x27;s default palette.">
+<meta name="twitter:image" content="preview.jpg">
+<!-- /humanlup:meta -->
+<meta name="description" content="Every color leaves a print. Each hex pressed as a fingerprint and checked against Tailwind's default palette.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;500;600&family=Geist:wght@300..900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bone:#F5F0E8; --bone-deep:#EBE4D8; --stock:#FFFDF9; --ink:#1A1A1A; --graphite:#6B6B6B; --rule:#D6CDBE; --rule-soft:#E4DCCE;
+  --copper:#C4723A; --copper-deep:#8E4A1E; --sage:#5A7A5E; --sage-deep:#3F5F44; --lift:#1C1B1A;
+  --sans:'Geist',-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;
+  --mono:'Azeret Mono',ui-monospace,'SF Mono',Menlo,monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);font-size:16px;line-height:1.5;color:var(--ink);background:var(--bone);min-height:100vh}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.04em;text-transform:uppercase}
+svg.i{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+/* ---------- masthead ---------- */
+.mast{display:flex;align-items:center;gap:20px;padding:0 28px;height:60px;border-bottom:1px solid var(--ink)}
+.mast .name{font-weight:800;font-size:19px;letter-spacing:-.02em;white-space:nowrap}
+.mast .file{color:var(--graphite);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;min-width:0}
+.btn{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 16px;border:1px solid var(--ink);font-weight:600;font-size:14px;white-space:nowrap;transition:background .15s,color .15s}
+.btn:hover{background:var(--ink);color:var(--bone)}
+.btn.solid{background:var(--ink);color:var(--bone)}
+.btn.solid:hover{background:var(--copper-deep);border-color:var(--copper-deep)}
+.btn[disabled]{opacity:.55;cursor:default}
+
+/* ---------- bench ---------- */
+.bench{display:grid;grid-template-columns:minmax(260px,312px) minmax(0,1fr) 352px;min-height:calc(100vh - 60px);border-bottom:1px solid var(--ink)}
+.lede{padding:36px 28px 28px;display:flex;flex-direction:column;gap:20px;border-right:1px solid var(--rule)}
+.lede h1{font-size:clamp(34px,3.1vw,46px);line-height:.98;letter-spacing:-.035em;font-weight:800;text-wrap:balance}
+.lede h1 em{font-style:normal;color:var(--copper-deep)}
+.lede p{color:#3b3a38;max-width:34em}
+.result{border-top:1px solid var(--ink);padding-top:14px;margin-top:auto;font-weight:600;font-size:18px;line-height:1.3;letter-spacing:-.01em;min-height:4.4em}
+.result small{display:block;font-family:var(--mono);font-weight:400;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--graphite);margin-bottom:6px}
+.key{margin:auto auto 0;max-width:860px;width:100%;border-top:1px solid var(--rule);padding-top:14px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;font-size:14px;line-height:1.4;color:#3b3a38}
+.key dt{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--graphite);margin-bottom:4px}
+
+/* ---------- comparator ---------- */
+.cmp{padding:28px 28px 24px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.sides{display:none}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;max-width:860px;width:100%;margin:0 auto}
+.chart{min-width:0}
+.chart .cap{display:flex;justify-content:space-between;gap:12px;color:var(--graphite);padding-bottom:8px;border-bottom:1px solid var(--ink);margin-bottom:10px;white-space:nowrap;overflow:hidden}
+.chart .cap b{color:var(--ink);font-weight:600}
+.chart .cap span{overflow:hidden;text-overflow:ellipsis;min-width:0}
+.chart .cap b{flex:none}
+.plate{position:relative;aspect-ratio:380/390;width:100%}
+.plate .stock{position:absolute;left:13.158%;top:5.128%;width:73.684%;height:89.744%;background:var(--stock);box-shadow:0 0 0 1px var(--rule)}
+.plate .stock.lift{background:var(--lift);box-shadow:0 0 0 1px var(--lift)}
+.plate canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.plate canvas.press{animation:press .5s var(--ease)}
+.plate canvas.seek{image-rendering:auto;filter:blur(1.5px) saturate(.4);opacity:.7}
+@keyframes press{from{opacity:0;filter:blur(7px);transform:scale(.965)}}
+.plate svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.plate svg text{font-family:var(--mono);font-size:13px;fill:#A69B89;text-anchor:middle;dominant-baseline:central}
+.plate svg g.on text{fill:var(--ink);font-weight:600}
+.plate svg g.on line{stroke:var(--ink);stroke-width:.8}
+.plate svg g.on circle{fill:none;stroke:var(--ink);stroke-width:1.2}
+.plate .lift ~ svg g.on line,.plate .lift ~ svg g.on circle{stroke:var(--copper)}
+.plate svg g.diff text{fill:var(--copper-deep)}
+.plate svg g.diff line,.plate svg g.diff circle{stroke:var(--copper)!important;stroke-dasharray:3 3}
+.plate svg g.hot text{fill:var(--copper-deep);font-weight:600}
+.plate svg g.hot line{stroke:var(--copper)!important;stroke-width:1.6;stroke-dasharray:none}
+.plate svg g.hot circle{stroke:var(--copper)!important;stroke-width:2.2;stroke-dasharray:none}
+.plate svg g.off line,.plate svg g.off circle{display:none}
+.plate svg g.off.hot circle{display:block;stroke:#B5AB9B!important;stroke-dasharray:2 2}
+.read{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;align-items:center;margin-top:10px}
+.read .hex{grid-column:1/-1;font-family:var(--mono);font-size:22px;font-weight:500;letter-spacing:-.01em;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;min-height:34px}
+.read .hex span{font-size:12px;color:var(--graphite);letter-spacing:.04em;text-transform:uppercase}
+.read .ch{font-family:var(--mono);font-size:12px;color:var(--graphite);text-transform:uppercase;white-space:nowrap}
+.bits{display:grid;grid-template-columns:repeat(8,1fr);gap:3px;max-width:240px}
+.bits i{display:block;height:14px;border:1px solid var(--rule);background:transparent}
+.bits i:nth-child(4){margin-right:5px}
+.bits i.on{background:var(--ink);border-color:var(--ink)}
+.bits i.diff{border-color:var(--copper);box-shadow:inset 0 0 0 1px var(--copper)}
+.bits i.on.diff{background:var(--copper)}
+.bits i.hot{outline:2px solid var(--copper);outline-offset:1px}
+.verdict{max-width:860px;width:100%;margin:4px auto 0;display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:center;border-top:1px solid var(--ink);padding-top:16px}
+.stamp{border:2px solid var(--copper-deep);color:var(--copper-deep);padding:8px 14px 9px;min-width:150px;line-height:1.15}
+.stamp small{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:600}
+.stamp b{font-size:22px;font-weight:800;letter-spacing:-.02em;white-space:nowrap}
+.stamp.none{border-color:var(--sage-deep);color:var(--sage-deep)}
+.stamp.seek{border-color:var(--rule);color:var(--graphite)}
+.stamp.hit{animation:hit .32s var(--ease)}
+@keyframes hit{from{transform:scale(1.18);opacity:0}}
+.verdict p{font-size:15px;color:#3b3a38;max-width:44em}
+
+/* ---------- the card ---------- */
+.card{border-left:1px solid var(--rule);padding:24px 20px 24px;display:flex;flex-direction:column;gap:18px;background:var(--bone)}
+.grp h2{display:flex;justify-content:space-between;gap:8px;font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;padding-bottom:7px;border-bottom:1px solid var(--ink);margin-bottom:10px}
+.grp h2 span{color:var(--graphite);font-weight:400}
+.grp h2 span.done{color:var(--copper-deep);font-weight:600}
+.grp h2 span.done.none{color:var(--sage-deep)}
+.thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.thumbs.five{grid-template-columns:repeat(5,1fr)}
+.thumb{display:block;text-align:left;position:relative;min-width:0}
+.thumb .tp{display:block;position:relative;aspect-ratio:4/5;background:var(--stock);box-shadow:0 0 0 1px var(--rule);transition:box-shadow .15s}
+.thumb .tp.lift{background:var(--lift);box-shadow:0 0 0 1px var(--lift)}
+.thumb canvas{position:absolute;inset:0;width:100%;height:100%;opacity:0;transform:scale(.94);transition:opacity .45s var(--ease),transform .45s var(--ease)}
+.thumb.inked canvas{opacity:1;transform:none}
+.thumb:hover .tp{box-shadow:0 0 0 2px var(--graphite)}
+.thumb[aria-pressed=true] .tp{box-shadow:0 0 0 2px var(--ink),0 0 0 4px var(--bone),0 0 0 5px var(--ink)}
+.thumb .no{position:absolute;left:4px;top:3px;font-family:var(--mono);font-size:11px;color:var(--graphite);z-index:1}
+.thumb .lift .no{color:#9a948a}
+.thumb .tick{position:absolute;right:3px;top:3px;width:16px;height:16px;border-radius:50%;background:var(--copper-deep);color:#fff;display:grid;place-items:center;transform:scale(0);transition:transform .25s var(--ease);z-index:1}
+.thumb .tick svg{width:10px;height:10px;stroke-width:3.2}
+.thumb.none .tick{background:var(--sage-deep)}
+.thumb.seen .tick{transform:scale(1)}
+.thumb .lb{display:block;font-family:var(--mono);font-size:12px;letter-spacing:-.01em;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#3b3a38}
+
+/* ---------- remarks ---------- */
+.remarks{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:0}
+.remarks > section{padding:36px 28px 44px;border-right:1px solid var(--rule)}
+.remarks > section:last-child{border-right:0}
+.remarks h2{font-size:24px;font-weight:800;letter-spacing:-.025em;line-height:1.1;margin-bottom:6px}
+.remarks .sub{color:var(--graphite);margin-bottom:18px;font-size:15px}
+.remarks p{margin-bottom:12px;color:#3b3a38;max-width:38em}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{font-family:var(--mono);font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.04em;text-align:left;color:var(--graphite);padding:0 10px 8px 0;border-bottom:1px solid var(--ink)}
+td{padding:9px 10px 9px 0;border-bottom:1px solid var(--rule-soft);vertical-align:top}
+td:first-child,td:nth-child(2){font-family:var(--mono);font-size:13px}
+td:nth-child(2){color:var(--graphite)}
+td.y{color:var(--copper-deep);font-weight:600;font-family:var(--mono);font-size:13px}
+td.n{color:var(--sage-deep);font-size:14px}
+ol.err{list-style:none;counter-reset:e;display:grid;gap:14px}
+ol.err li{counter-increment:e;display:grid;grid-template-columns:28px 1fr;color:#3b3a38;font-size:15px}
+ol.err li::before{content:counter(e,decimal-leading-zero);font-family:var(--mono);font-size:12px;color:var(--graphite);padding-top:3px}
+ol.err b{color:var(--ink);font-weight:600}
+.own{display:flex;gap:6px;margin:4px 0 18px}
+.own span{flex:1;height:44px;display:flex;align-items:flex-end;padding:4px 6px;font-family:var(--mono);font-size:11px;box-shadow:inset 0 0 0 1px rgba(26,26,26,.14)}
+.foot{border-top:1px solid var(--ink);padding:20px 28px 28px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:var(--graphite);font-size:14px}
+.checker{height:12px;background:conic-gradient(var(--ink) 25%,var(--bone) 0 50%,var(--ink) 0 75%,var(--bone) 0) 0 0/24px 24px}
+.try{display:flex;flex-direction:column;gap:8px}.try label{color:var(--graphite)}.try div{display:flex}.try input{flex:1;min-width:0;height:44px;padding:0 12px;border:1px solid var(--ink);border-right:0;border-radius:0;background:var(--stock);color:var(--ink);font:500 16px var(--mono)}.try input.bad{box-shadow:inset 0 -3px 0 var(--copper)}
+.foot b{color:var(--ink);font-weight:800;letter-spacing:-.02em;font-size:16px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:var(--ink);color:var(--bone);padding:12px 18px;font-size:14px;font-weight:500;opacity:0;pointer-events:none;transition:opacity .2s,transform .3s var(--ease);z-index:20;max-width:calc(100vw - 32px)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+@media (max-width:1240px){
+  .bench{grid-template-columns:minmax(0,1fr) 340px}
+  .lede{grid-column:1/-1;border-right:0;border-bottom:1px solid var(--rule);display:grid;grid-template-columns:1.1fr 1fr;gap:16px 36px;padding:28px}
+  .lede h1{grid-row:span 2}
+}
+@media (max-width:860px){
+  .mast{padding:0 16px;gap:10px}
+  .mast .file{display:none}
+  .mast .name{flex:1}
+  .btn{padding:0 12px}
+  .btn .long{display:none}
+  .bench{display:block}
+  .lede{display:flex;padding:24px 16px}
+  .lede h1{font-size:34px}
+  .key{grid-template-columns:1fr 1fr;margin-top:8px}
+  .cmp{padding:20px 16px;border-bottom:1px solid var(--rule)}
+  .sides{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--ink)}
+  .sides button{height:44px;font-weight:600;font-size:14px}
+  .sides button[aria-pressed=true]{background:var(--ink);color:var(--bone)}
+  .pair{grid-template-columns:1fr;max-width:420px}
+  .cmp[data-side=a] .chart.b,.cmp[data-side=b] .chart.a{display:none}
+  .verdict{grid-template-columns:1fr;gap:12px}
+  .stamp{justify-self:start}
+  .card{border-left:0;padding:20px 16px 28px}
+  .thumb .lb,.thumb .no{font-size:13px}
+  .thumbs.five{grid-template-columns:repeat(4,1fr)}
+  .remarks{display:block}
+  .remarks > section{border-right:0;border-bottom:1px solid var(--rule);padding:28px 16px}
+  .mono,.read .ch,.read .hex span,.grp h2,th,.key dt,.result small,.stamp small{font-size:13px}
+  td:first-child,td:nth-child(2),td.y{font-size:14px}
+  .own span{font-size:0}
+  table td:nth-child(2){display:none} table th:nth-child(2){display:none}
+  .foot{padding:20px 16px 28px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="mast">
+  <div class="name">Ink Almanac</div>
+  <div class="file mono">HumanLup</div>
+  <button class="btn" id="copyMap"><svg class="i" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg><span>Copy<span class="long"> the map</span></span></button>
+  <button class="btn solid" id="run"><svg class="i" viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"/></svg><span>Run<span class="long"> them all</span></span></button>
+</header>
+
+<main>
+<div class="bench">
+  <section class="lede">
+    <h1>Every color leaves a print. <em>Most are already on file.</em></h1>
+    <p>A hex pressed as a fingerprint, then checked against Tailwind's 244.</p>
+    <form class="try" id="try" novalidate><label class="mono" for="hexIn">Try yours</label><div><input id="hexIn" type="text" placeholder="#c4723a" maxlength="7" spellcheck="false" autocomplete="off" autocapitalize="off"><button class="btn solid" type="submit">Press</button></div></form>
+    <div class="result" id="result" aria-live="polite"><small>So far</small><span id="resultText">Nothing yet.</span></div>
+
+  </section>
+
+  <section class="cmp" id="cmp" data-side="a" aria-label="Comparison">
+    <div class="sides" role="group" aria-label="Which print to show">
+      <button id="sideA" aria-pressed="true">Exhibit</button><button id="sideB" aria-pressed="false">On file</button>
+    </div>
+    <div class="pair">
+      <div class="chart a">
+        <div class="cap mono"><b id="capA">Exhibit</b><span id="capA2"></span></div>
+        <div class="plate"><div class="stock" id="stockA"></div><canvas id="cvA" role="img"></canvas><svg id="svA" viewBox="0 0 380 390" aria-hidden="true"></svg></div>
+        <div class="read"><div class="hex" id="hexA"></div><div class="ch">R<br>G<br>B</div><div id="bitsA"></div></div>
+      </div>
+      <div class="chart b">
+        <div class="cap mono"><b id="capB">On file</b><span id="capB2"></span></div>
+        <div class="plate"><div class="stock" id="stockB"></div><canvas id="cvB" role="img"></canvas><svg id="svB" viewBox="0 0 380 390" aria-hidden="true"></svg></div>
+        <div class="read"><div class="hex" id="hexB"></div><div class="ch">R<br>G<br>B</div><div id="bitsB"></div></div>
+      </div>
+    </div>
+    <div class="verdict">
+      <div class="stamp" id="stamp"><small id="stampK">On file</small><b id="stampV">&nbsp;</b></div>
+      <p id="verdictText" aria-live="polite"></p>
+      <button class="btn" id="copyOne"><svg class="i" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg><span id="copyOneT">Copy</span></button>
+    </div>
+    <dl class="key">
+      <div><dt>Pattern</dt><dd>Hue turns the print. Saturation closes the loop into a whorl.</dd></div>
+      <div><dt>Ridges</dt><dd>Darker colors print more of them.</dd></div>
+      <div><dt>Points</dt><dd>The 24 bits of the hex. A 1 breaks a ridge at that numbered spot; a 0 leaves it whole.</dd></div>
+      <div><dt>Card</dt><dd>Dark colors are inked on white stock. Pale ones are dusted and lifted on black.</dd></div>
+    </dl>
+  </section>
+
+  <aside class="card" aria-label="Print card">
+    <div class="grp"><h2>Twelve colors <span id="tA">12 prints</span></h2><div class="thumbs" id="gA"></div></div>
+    <div class="grp"><h2>With alpha <span id="tB">4 partials</span></h2><div class="thumbs" id="gB"></div></div>
+    <div class="grp"><h2>House colors <span id="tC">5 prints</span></h2><div class="thumbs five" id="gC"></div></div>
+    <div class="grp" id="grpD" hidden><h2>Yours <span id="tD"></span></h2><div class="thumbs" id="gD"></div></div>
+  </aside>
+</div>
+
+</main>
+<footer class="foot"><span><b>Ink Almanac</b> · HumanLup</span><span>Built by Lupo</span></footer>
+<div class="checker" aria-hidden="true"></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* ---------- print engine: a value pressed as a fingerprint ---------- */
+const TAU = Math.PI * 2;
+function ih(x, y, s) { let h = (x * 374761393 + y * 668265263 + s * 2147483647) | 0; h = (h ^ (h >>> 13)) * 1274126177 | 0; return ((h ^ (h >>> 16)) >>> 0) / 4294967296; }
+function vn(x, y, s) { const xi = Math.floor(x), yi = Math.floor(y); let fx = x - xi, fy = y - yi; fx = fx * fx * (3 - 2 * fx); fy = fy * fy * (3 - 2 * fy);
+  const a = ih(xi, yi, s), b = ih(xi + 1, yi, s), c = ih(xi, yi + 1, s), d = ih(xi + 1, yi + 1, s); return a + (b - a) * fx + (c - a) * fy + (a - b - c + d) * fx * fy; }
+function sst(a, b, x) { let t = (x - a) / (b - a); t = t < 0 ? 0 : t > 1 ? 1 : t; return t * t * (3 - 2 * t); }
+function hsl(r, g, b) { r /= 255; g /= 255; b /= 255; const mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 2, d = mx - mn; let h = 0, s = 0;
+  if (d) { s = d / (1 - Math.abs(2 * l - 1)); h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4; h = (h * 60 + 360) % 360; } return [h, s, l]; }
+/* 24 fixed sites, reading order = bit order (R7..R0 G7..G0 B7..B0) */
+const SITES = (() => { const rows = [[-0.60, 4, 0.40], [-0.31, 5, 0.54], [0.00, 6, 0.60], [0.31, 5, 0.54], [0.60, 4, 0.40]], o = [];
+  rows.forEach(([y, n, w], ri) => { for (let i = 0; i < n; i++) { const x = -w + 2 * w * i / (n - 1); o.push({ x: x + ((o.length * 7) % 5 - 2) * 0.012, y: y + ((o.length * 3) % 5 - 2) * 0.022, row: ri }); } }); return o; })();
+function bitsOf(r, g, b) { const v = (r << 16) | (g << 8) | b, o = []; for (let i = 0; i < 24; i++) o.push((v >> (23 - i)) & 1); return o; }
+function printParams(r, g, b) { const [h, s, l] = hsl(r, g, b); const hr = h / 360 * TAU;
+  return { tilt: (h / 360 - 0.5) * 1.3, whorl: Math.min(1, s * 1.05), freq: 9.5 + (1 - l) * 4.5, cx: 0.10 * Math.sin(hr), cy: -0.16 + 0.06 * Math.cos(hr), seed: ((r * 31 + g) * 31 + b) % 9973, h, s, l }; }
+/* draws into canvas; ink = [r,g,b]; density 0..1; partial 0..1 (1 = whole print) */
+function renderPrint(cv, rgb, ink, density, partial) {
+  const W = cv.width, H = cv.height, ctx = cv.getContext('2d'), im = ctx.createImageData(W, H), d = im.data;
+  const P = printParams(rgb[0], rgb[1], rgb[2]), bits = bitsOf(rgb[0], rgb[1], rgb[2]);
+  const ct = Math.cos(P.tilt), st = Math.sin(P.tilt), sd = P.seed; const on = []; SITES.forEach((s, i) => { if (bits[i]) on.push([s.x, s.y, i % 2 ? -1 : 1]); });
+  const k = TAU * P.freq, soft = Math.min(0.40, 1.7 * k / W + 0.04);
+  for (let j = 0; j < H; j++) { const y = (j + 0.5) / H * 2.5 - 1.25; for (let i = 0; i < W; i++) { const x = (i + 0.5) / W * 2 - 1;
+    const e1 = vn(x * 2.2 + 7, y * 2.2 + 3, sd), e2 = vn(x * 7 + 1, y * 7 + 5, sd + 1);
+    const dd = Math.pow(Math.abs(x) / 0.84, 2.5) + Math.pow(Math.abs(y + 0.03) / 1.12, 2.5) + (e1 - 0.5) * 0.34 + (e2 - 0.5) * 0.12;
+    if (dd > 1.08) continue; let m = 1 - sst(0.80, 1.06, dd);
+    if (partial < 1) { const pm = vn(x * 1.3 + 11, y * 1.3 + 4, sd + 5) * 0.7 + vn(x * 4 + 2, y * 4 + 8, sd + 6) * 0.3; m *= sst(0.98 - partial, 1.08 - partial, pm + 0.16 * (0.3 - y) ); if (m <= 0.003) continue; }
+    const wx = x + (vn(x * 1.6 + 3, y * 1.6 + 9, sd + 2) - 0.5) * 0.16, wy = y + (vn(x * 1.6 + 8, y * 1.6 + 1, sd + 3) - 0.5) * 0.16;
+    const px = wx - P.cx, py = wy - P.cy, qx = px * ct + py * st, qy = -px * st + py * ct;
+    const rad = Math.hypot(qx, qy), loop = qy < 0 ? rad : Math.hypot(qx, qy * 0.22) , wh = Math.hypot(qx, qy * 0.84);
+    /* flat creases at the base blend in, the way a real print settles into the joint */
+    const base = sst(0.55, 1.15, wy) ; let psi = loop + (wh - loop) * P.whorl; psi = psi + (wy * 0.9 + 0.35 * wx * wx + 0.2 - psi) * base * 0.85;
+    let ph = k * psi; for (let n = 0; n < on.length; n++) ph += on[n][2] * Math.atan2(y - on[n][1], x - on[n][0]);
+    const rr = 0.5 + 0.5 * Math.cos(ph);
+    const press = (1 - 0.5 * dd) * (0.62 + 0.76 * vn(x * 1.9 + 5, y * 1.9 + 2, sd + 4));
+    const th = 0.56 - 0.30 * (press - 0.5); let a = sst(th - soft, th + soft, rr);
+    const gr = vn(i * 0.55, j * 0.55, sd + 7) * 0.6 + vn(i * 0.17, j * 0.17, sd + 8) * 0.4; a *= sst(0.10, 0.46, gr + press * 0.55);
+    if (rr > 0.9 && vn(i * 0.34, j * 0.34, sd + 9) > 0.80) a *= 0.25;      /* pores */
+    a *= m * density * (0.86 + 0.14 * gr); const o = (j * W + i) * 4; d[o] = ink[0]; d[o + 1] = ink[1]; d[o + 2] = ink[2]; d[o + 3] = a * 255; } }
+  ctx.putImageData(im, 0, 0);
+}
+
+/* ---------- the file ---------- */
+const TW = {}; const TWL = [];
+"slate:f8fafc,f1f5f9,e2e8f0,cbd5e1,94a3b8,64748b,475569,334155,1e293b,0f172a,020617;gray:f9fafb,f3f4f6,e5e7eb,d1d5db,9ca3af,6b7280,4b5563,374151,1f2937,111827,030712;zinc:fafafa,f4f4f5,e4e4e7,d4d4d8,a1a1aa,71717a,52525b,3f3f46,27272a,18181b,09090b;neutral:fafafa,f5f5f5,e5e5e5,d4d4d4,a3a3a3,737373,525252,404040,262626,171717,0a0a0a;stone:fafaf9,f5f5f4,e7e5e4,d6d3d1,a8a29e,78716c,57534e,44403c,292524,1c1917,0c0a09;red:fef2f2,fee2e2,fecaca,fca5a5,f87171,ef4444,dc2626,b91c1c,991b1b,7f1d1d,450a0a;orange:fff7ed,ffedd5,fed7aa,fdba74,fb923c,f97316,ea580c,c2410c,9a3412,7c2d12,431407;amber:fffbeb,fef3c7,fde68a,fcd34d,fbbf24,f59e0b,d97706,b45309,92400e,78350f,451a03;yellow:fefce8,fef9c3,fef08a,fde047,facc15,eab308,ca8a04,a16207,854d0e,713f12,422006;lime:f7fee7,ecfccb,d9f99d,bef264,a3e635,84cc16,65a30d,4d7c0f,3f6212,365314,1a2e05;green:f0fdf4,dcfce7,bbf7d0,86efac,4ade80,22c55e,16a34a,15803d,166534,14532d,052e16;emerald:ecfdf5,d1fae5,a7f3d0,6ee7b7,34d399,10b981,059669,047857,065f46,064e3b,022c22;teal:f0fdfa,ccfbf1,99f6e4,5eead4,2dd4bf,14b8a6,0d9488,0f766e,115e59,134e4a,042f2e;cyan:ecfeff,cffafe,a5f3fc,67e8f9,22d3ee,06b6d4,0891b2,0e7490,155e75,164e63,083344;sky:f0f9ff,e0f2fe,bae6fd,7dd3fc,38bdf8,0ea5e9,0284c7,0369a1,075985,0c4a6e,082f49;blue:eff6ff,dbeafe,bfdbfe,93c5fd,60a5fa,3b82f6,2563eb,1d4ed8,1e40af,1e3a8a,172554;indigo:eef2ff,e0e7ff,c7d2fe,a5b4fc,818cf8,6366f1,4f46e5,4338ca,3730a3,312e81,1e1b4b;violet:f5f3ff,ede9fe,ddd6fe,c4b5fd,a78bfa,8b5cf6,7c3aed,6d28d9,5b21b6,4c1d95,2e1065;purple:faf5ff,f3e8ff,e9d5ff,d8b4fe,c084fc,a855f7,9333ea,7e22ce,6b21a8,581c87,3b0764;fuchsia:fdf4ff,fae8ff,f5d0fe,f0abfc,e879f9,d946ef,c026d3,a21caf,86198f,701a75,4a044e;pink:fdf2f8,fce7f3,fbcfe8,f9a8d4,f472b6,ec4899,db2777,be185d,9d174d,831843,500724;rose:fff1f2,ffe4e6,fecdd3,fda4af,fb7185,f43f5e,e11d48,be123c,9f1239,881337,4c0519".split(';').forEach(f => { const [n, v] = f.split(':'); const st = [50,100,200,300,400,500,600,700,800,900,950]; v.split(',').forEach((h, i) => { TWL.push({ name: n + '-' + st[i], hex: '#' + h }); }); });
+TWL.push({ name: 'white', hex: '#ffffff' }, { name: 'black', hex: '#000000' });
+TWL.forEach(t => { (TW[t.hex] = TW[t.hex] || []).push(t.name); t.rgb = rgbOf(t.hex); t.lab = oklab(t.rgb); });
+function rgbOf(h) { return [1, 3, 5].map(i => parseInt(h.substr(i, 2), 16)); }
+function oklab([r, g, b]) { const f = c => { c /= 255; return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4); }; r = f(r); g = f(g); b = f(b);
+  const l = Math.cbrt(0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b), m = Math.cbrt(0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b), s = Math.cbrt(0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b);
+  return [0.2104542553 * l + 0.793617785 * m - 0.0040720468 * s, 1.9779984951 * l - 2.428592205 * m + 0.4505937099 * s, 0.0259040371 * l + 0.7827717662 * m - 0.808675766 * s]; }
+const EX = [
+  { g: 'A', v: '--bg-base', n: 'Background Base', hex: '#fafafa', use: 'Page background' },
+  { g: 'A', v: '--bg-surface', n: 'Surface White', hex: '#ffffff', use: 'Card and section backgrounds' },
+  { g: 'A', v: '--text-main', n: 'Text Main', hex: '#111827', use: 'Primary text, headings' },
+  { g: 'A', v: '--text-muted', n: 'Text Muted', hex: '#6b7280', use: 'Secondary text, captions' },
+  { g: 'A', v: '--border-light', n: 'Border Light', hex: '#e5e7eb', use: 'Card borders, dividers' },
+  { g: 'A', v: '--accent', n: 'Accent Indigo', hex: '#6366f1', use: 'Interactive elements, links' },
+  { g: 'A', v: '--accent-hover', n: 'Accent Hover', hex: '#4f46e5', use: 'Button hover states' },
+  { g: 'A', v: '--code-bg', n: 'Code Background', hex: '#f3f4f6', use: 'Inline code backgrounds' },
+  { g: 'A', v: 'code color', n: 'Code Pink', hex: '#db2777', use: 'Inline code text accent' },
+  { g: 'A', v: '.ghost-note bg', n: 'Note Background', hex: '#eef2ff', use: 'Callout panels' },
+  { g: 'A', v: '.ghost-note accent', n: 'Note Border', hex: '#3730a3', use: 'Callout left border' },
+  { g: 'A', v: '.ghost-note strong', n: 'Note Deep', hex: '#312e81', use: 'Callout heading text' },
+  { g: 'B', v: '.glass-header bg', n: 'White Overlay 85%', hex: '#ffffff', a: 0.85, use: 'Frosted glass header' },
+  { g: 'B', v: '--shadow-sm', n: 'Shadow Base', hex: '#000000', a: 0.05, use: 'Subtle elevation shadow' },
+  { g: 'B', v: '--shadow-md', n: 'Shadow Depth', hex: '#000000', a: 0.1, use: 'Card hover elevation' },
+  { g: 'B', v: 'swatch inset shadow', n: 'Border Inset', hex: '#000000', a: 0.06, use: 'Color swatch inner shadow' },
+  { g: 'C', v: '--bone', n: 'Bone', hex: '#f5f0e8', use: 'Page' },
+  { g: 'C', v: '--ink', n: 'Ink', hex: '#1a1a1a', use: 'Text' },
+  { g: 'C', v: '--graphite', n: 'Graphite', hex: '#6b6b6b', use: 'Captions' },
+  { g: 'C', v: '--copper', n: 'Copper', hex: '#c4723a', use: 'Accent' },
+  { g: 'C', v: '--sage', n: 'Sage', hex: '#5a7a5e', use: 'Second accent' }
+];
+const OPACITY_SCALE = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100];
+function prep(e, i) { e.i = i; e.rgb = rgbOf(e.hex); e.bits = bitsOf(...e.rgb); e.lab = oklab(e.rgb); e.names = TW[e.hex] || [];
+  e.lift = e.a != null ? e.hex === '#ffffff' : e.lab[0] > 0.86;
+  let best = null, bd = 9; TWL.forEach(t => { const d = Math.hypot(t.lab[0] - e.lab[0], t.lab[1] - e.lab[1], t.lab[2] - e.lab[2]); if (d < bd) { bd = d; best = t; } });
+  e.ref = best; e.match = bd === 0; e.agree = 24 - bitsOf(...best.rgb).reduce((s, b, k) => s + (b ^ e.bits[k]), 0);
+  e.label = e.a != null ? (e.hex === '#ffffff' ? 'white ' : 'black ') + Math.round(e.a * 100) + '%' : e.hex;
+  e.onScale = e.a == null || OPACITY_SCALE.includes(Math.round(e.a * 100));
+  e.tw = e.match ? e.names[0] + (e.a != null && e.onScale ? '/' + Math.round(e.a * 100) : '') : null; }
+EX.forEach(prep);
+
+/* ---------- chart geometry ---------- */
+const PX = 50, PY = 20, PW = 280, PH = 350;
+const sx = x => PX + (x + 1) / 2 * PW, sy = y => PY + (y + 1.25) / 2.5 * PH;
+const LABELS = (() => { const L = [], R = []; SITES.forEach((s, i) => { const mid = Math.abs(s.x) < 0.06; ((mid ? s.row === 1 : s.x < 0) ? L : R).push(i); });
+  const place = (arr, lx) => { arr.sort((a, b) => SITES[a].y - SITES[b].y || SITES[a].x - SITES[b].x); const ys = arr.map((_, k) => 36 + k * (318 / (arr.length - 1)));
+    const cross = (a, ya, b, yb) => { const d = (p, q, r) => (q[0] - p[0]) * (r[1] - p[1]) - (q[1] - p[1]) * (r[0] - p[0]); const A = [lx, ya], B = [sx(SITES[a].x), sy(SITES[a].y)], C = [lx, yb], D = [sx(SITES[b].x), sy(SITES[b].y)]; return d(A, B, C) * d(A, B, D) < 0 && d(C, D, A) * d(C, D, B) < 0; };
+    for (let pass = 0; pass < 20; pass++) { let sw = false; for (let p = 0; p < arr.length; p++) for (let q = p + 1; q < arr.length; q++) if (cross(arr[p], ys[p], arr[q], ys[q])) { [arr[p], arr[q]] = [arr[q], arr[p]]; sw = true; } if (!sw) break; }
+    return arr.map((i, k) => ({ i, lx, ly: ys[k] })); };
+  const o = []; place(L, 22).concat(place(R, 358)).forEach(l => o[l.i] = l); return o; })();
+function drawChart(svg, bits, other) { let h = '';
+  for (let i = 0; i < 24; i++) { const l = LABELS[i], s = SITES[i], X = sx(s.x), Y = sy(s.y), tx = l.lx < 190 ? l.lx + 11 : l.lx - 11;
+    const cls = (bits[i] ? 'on' : 'off') + (other && other[i] !== bits[i] ? ' diff' : '');
+    h += `<g class="${cls}" data-b="${i}"><line x1="${tx}" y1="${l.ly}" x2="${X.toFixed(1)}" y2="${Y.toFixed(1)}"/><circle cx="${X.toFixed(1)}" cy="${Y.toFixed(1)}" r="7"/><text x="${l.lx}" y="${l.ly}">${i + 1}</text></g>`; }
+  svg.innerHTML = h; }
+function drawBits(el, bits, other) { let h = ''; for (let r = 0; r < 3; r++) { h += '<div class="bits"' + (r ? ' style="margin-top:3px"' : '') + '>'; for (let c = 0; c < 8; c++) { const i = r * 8 + c; h += `<i data-b="${i}" class="${bits[i] ? 'on' : ''}${other && other[i] !== bits[i] ? ' diff' : ''}"></i>`; } h += '</div>'; } el.innerHTML = h; }
+
+/* ---------- canvases ---------- */
+const $ = id => document.getElementById(id);
+const DPR = Math.min(2, window.devicePixelRatio || 1);
+function inkFor(e) { return e.rgb; }
+function density(e) { return e.a == null ? 1 : 0.3 + Math.sqrt(e.a) * 0.7; }
+function partial(e) { return e.a == null ? 1 : Math.min(1, 0.4 + Math.sqrt(e.a) * 0.62); }
+/* big prints sit inside a plate with margins for the numbers: draw to an offscreen print, then place it */
+const off = document.createElement('canvas');
+function paintPlate(cv, rgb, den, par, scale) { const W = Math.round(380 * DPR * scale), H = Math.round(390 * DPR * scale); if (cv.width !== W) { cv.width = W; cv.height = H; }
+  off.width = Math.round(PW * DPR * scale); off.height = Math.round(PH * DPR * scale); renderPrint(off, rgb, rgb, den, par);
+  const c = cv.getContext('2d'); c.clearRect(0, 0, W, H); c.drawImage(off, Math.round(PX * DPR * scale), Math.round(PY * DPR * scale)); }
+
+/* ---------- card ---------- */
+const CHECK = '<svg class="i" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>', MINUS = '<svg class="i" viewBox="0 0 24 24"><path d="M5 12h14"/></svg>';
+function mkThumb(e) { const b = document.createElement('button'); b.className = 'thumb' + (e.match ? '' : ' none'); b.setAttribute('aria-pressed', 'false');
+  b.setAttribute('aria-label', `Exhibit ${e.i + 1}, ${e.n}, ${e.label}`); b.title = e.v;
+  b.innerHTML = `<span class="tp${e.lift ? ' lift' : ''}"><span class="no">${String(e.i + 1).padStart(2, '0')}</span><span class="tick">${e.match ? CHECK : MINUS}</span><canvas width="${Math.round(80 * DPR)}" height="${Math.round(100 * DPR)}"></canvas></span><span class="lb">${e.label}</span>`;
+  b.addEventListener('click', () => { stopRun(); select(e.i, true); if (matchMedia('(max-width:860px)').matches) $('cmp').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+  $('g' + e.g).appendChild(b); e.el = b; }
+EX.forEach(mkThumb);
+function inkThumbs() { EX.forEach((e, k) => setTimeout(() => { renderPrint(e.el.querySelector('canvas'), e.rgb, inkFor(e), density(e), partial(e)); e.el.classList.add('inked'); }, reduce ? 0 : 40 * k)); }
+
+/* ---------- comparator ---------- */
+let cur = -1, hot = -1, running = false, runTok = 0; const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+const pad = n => String(n).padStart(2, '0');
+function setHot(i) { hot = i; document.querySelectorAll('.cmp [data-b]').forEach(n => n.classList.toggle('hot', +n.dataset.b === i)); }
+function hexHTML(hex, extra) { return hex + (extra ? `<span>${extra}</span>` : ''); }
+function fillA(e) { $('capA').textContent = e.g === 'D' ? 'Yours' : 'Exhibit ' + pad(e.i + 1); $('capA2').textContent = e.v; $('stockA').className = 'stock' + (e.lift ? ' lift' : '');
+  $('hexA').innerHTML = hexHTML(e.hex, e.a != null ? 'at ' + Math.round(e.a * 100) + '% · ' + e.n : e.n);
+  $('cvA').setAttribute('aria-label', `Fingerprint drawn from ${e.label}. ${e.bits.filter(Boolean).length} of 24 points set.`); }
+function fillB(e, t, final) { const tb = bitsOf(...t.rgb);
+  $('capB').textContent = final ? (e.match ? 'On file' : 'Nearest on file') : 'Searching'; $('capB2').textContent = final ? 'Tailwind 3.4 · ' + t.name : t.name;
+  const tl = oklab(t.rgb)[0] > 0.86; $('stockB').className = 'stock' + ((e.a != null ? e.lift : tl) ? ' lift' : ''); $('hexB').innerHTML = hexHTML(t.hex, t.name);
+  drawChart($('svB'), tb, final ? e.bits : null); drawBits($('bitsB'), tb, final ? e.bits : null);
+  $('cvB').setAttribute('aria-label', `Reference print for ${t.name}, ${t.hex}.`); }
+function verdict(e) { const st = $('stamp'); st.className = 'stamp' + (e.match ? '' : ' none') + ' hit'; void st.offsetWidth;
+  $('stampK').textContent = e.match ? 'On file' : 'No record'; $('stampV').textContent = e.match ? e.tw : 'Original';
+  let t; const also = e.names.length > 1 ? ` It is filed under two names: ${e.names.join(' and ')}.` : '';
+  if (e.a != null) t = `The base is ${e.names[0]}, 24 of 24 points. ` + (e.hex === '#000000' ? 'Black is all zeros, so there is not one point to chart; the pattern alone carries it. ' : '') + (e.onScale ? `${Math.round(e.a * 100)}% is a step on the default opacity scale.` : `${Math.round(e.a * 100)}% is not a step on the default opacity scale, so the alpha is its own.`);
+  else if (e.match) t = `24 of 24 points agree. ${e.v} is ${e.tw}, value for value.` + also;
+  else t = `Nearest on file is ${e.ref.name} (${e.ref.hex}), and ${e.agree} of 24 points agree. Not a match. This one is its own.`;
+  $('verdictText').textContent = t; $('copyOneT').textContent = 'Copy ' + (e.match ? e.tw : e.hex); }
+function select(i, full) { const e = EX[i]; cur = i; EX.forEach(x => x.el.setAttribute('aria-pressed', x.i === i)); fillA(e);
+  drawChart($('svA'), e.bits, e.match ? null : bitsOf(...e.ref.rgb)); drawBits($('bitsA'), e.bits, e.match ? null : bitsOf(...e.ref.rgb));
+  const sc = full ? 1 : 0.5; paintPlate($('cvA'), e.rgb, density(e), partial(e), sc);
+  if (full) { fillB(e, e.ref, true); paintPlate($('cvB'), e.ref.rgb, density(e), 1, 1); $('cvB').classList.remove('seek'); verdict(e); seen(e);
+    if (!reduce) ['cvA', 'cvB'].forEach(id => { const c = $(id); c.classList.remove('press'); void c.offsetWidth; c.classList.add('press'); });
+    try { history.replaceState(null, '', '#' + (i + 1)); } catch (_) {} } }
+function seen(e) { e.seen = true; e.el.classList.add('seen'); tally(); }
+function tally() { const cnt = g => EX.filter(e => e.g === g), f = g => cnt(g).filter(e => e.seen);
+  const set = (id, g, word) => { const all = cnt(g), s = f(g), el = $(id); if (!s.length) return; const hit = s.filter(e => e.match).length; el.textContent = `${hit} of ${all.length} ${word}`; el.className = s.length === all.length ? 'done' + (hit ? '' : ' none') : ''; };
+  set('tA', 'A', 'on file'); set('tB', 'B', 'on file'); set('tC', 'C', 'on file');
+  const all = EX.every(e => e.seen), a = f('A'), hit = a.filter(e => e.match).length;
+  $('resultText').textContent = all ? 'All twelve are Tailwind defaults, value for value. The five house colors match nothing.' : a.length ? `${hit} of ${a.length} examined so far are on file.` : 'Nothing yet.'; }
+const wait = ms => new Promise(r => setTimeout(r, ms));
+function stopRun() { if (running) { runTok++; running = false; runBtn(false); } }
+function runBtn(on) { $('run').querySelector('span').innerHTML = on ? 'Running' : (EX.every(e => e.seen) ? 'Run<span class="long"> it again</span>' : 'Run<span class="long"> them all</span>'); }
+async function runFile() { if (running) { stopRun(); select(cur < 0 ? 5 : cur, true); return; } const tok = ++runTok; running = true; runBtn(true);
+  EX.forEach(e => { e.seen = false; e.el.classList.remove('seen'); }); ['tA', 'tB', 'tC'].forEach((id, k) => { $(id).textContent = ['12 prints', '4 partials', '5 prints'][k]; $(id).className = ''; }); $('resultText').textContent = 'Looking.';
+  for (const e of EX) { if (tok !== runTok) return; select(e.i, false); $('stamp').className = 'stamp seek'; $('stampK').textContent = 'Searching'; $('stampV').textContent = '244 on file'; $('verdictText').textContent = ''; $('cvB').classList.add('seek');
+    for (let k = 0; k < 3; k++) { const t = TWL[(e.i * 37 + k * 71 + 13) % TWL.length]; fillB(e, t, false); paintPlate($('cvB'), t.rgb, 1, 1, 0.3); await wait(50); if (tok !== runTok) return; }
+    fillB(e, e.ref, true); paintPlate($('cvB'), e.ref.rgb, density(e), 1, 0.5); $('cvB').classList.remove('seek'); verdict(e); seen(e); await wait(e.g === 'C' ? 220 : 130); }
+  if (tok !== runTok) return; running = false; runBtn(false); select(5, true); }
+
+/* ---------- wiring ---------- */
+$('cmp').addEventListener('pointerover', ev => { const n = ev.target.closest('[data-b]'); setHot(n ? +n.dataset.b : -1); });
+$('cmp').addEventListener('pointerleave', () => setHot(-1));
+$('sideA').onclick = () => side('a'); $('sideB').onclick = () => side('b');
+function side(s) { $('cmp').dataset.side = s; $('sideA').setAttribute('aria-pressed', s === 'a'); $('sideB').setAttribute('aria-pressed', s === 'b'); }
+$('run').onclick = runFile;
+document.addEventListener('keydown', ev => { if (ev.metaKey || ev.ctrlKey || ev.altKey) return; if (ev.key === 'ArrowRight' || ev.key === 'ArrowLeft') { if (!document.activeElement || !document.activeElement.classList.contains('thumb')) return; ev.preventDefault(); stopRun(); const n = (cur + (ev.key === 'ArrowRight' ? 1 : EX.length - 1)) % EX.length; select(n, true); EX[n].el.focus(); } });
+let tt; function toast(m) { const t = $('toast'); t.textContent = m; t.classList.add('show'); clearTimeout(tt); tt = setTimeout(() => t.classList.remove('show'), 2200); }
+function copy(text, msg) { const done = () => toast(msg); if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, () => fallback(text, done)); else fallback(text, done); }
+function fallback(text, done) { const ta = document.createElement('textarea'); ta.value = text; ta.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); done(); } catch (_) { toast('Copy is blocked here'); } ta.remove(); }
+function mapText() { const w = Math.max(...EX.filter(e => e.g === 'A' || e.g === 'B').map(e => e.v.length)); let s = '/* Ink Almanac. Sixteen colors with their Tailwind CSS 3.4 names. */\n';
+  EX.filter(e => e.g === 'A' || e.g === 'B').forEach(e => { const val = e.a != null ? `rgb(${e.rgb.join(' ')} / ${e.a})` : e.hex; s += `${(e.v + ':').padEnd(w + 2)}${(val + ';').padEnd(26)}/* ${e.tw}${e.names.length > 1 ? ', also ' + e.names.slice(1).join(', ') : ''}${e.onScale ? '' : ', alpha off the default scale'} */\n`; });
+  s += '\n/* Not on file: the five house colors. */\n'; EX.filter(e => e.g === 'C').forEach(e => { s += `${(e.v + ':').padEnd(w + 2)}${e.hex};\n`; }); return s; }
+$('copyMap').onclick = () => copy(mapText(), 'Map copied: 16 colors with their Tailwind names');
+$('copyOne').onclick = () => { const e = EX[cur]; if (!e) return; const v = e.match ? e.tw : e.hex; copy(v, 'Copied ' + v); };
+/* try yours */
+let mine = null;
+$('try').addEventListener('submit', ev => { ev.preventDefault(); const inp = $('hexIn'); let v = inp.value.trim().toLowerCase().replace(/^#?/, '#');
+  if (/^#[0-9a-f]{3}$/.test(v)) v = '#' + v.slice(1).split('').map(c => c + c).join('');
+  if (!/^#[0-9a-f]{6}$/.test(v)) { inp.classList.add('bad'); return; } inp.classList.remove('bad'); inp.value = v; stopRun();
+  if (mine) { mine.el.remove(); EX.pop(); }
+  mine = { g: 'D', v: v, n: 'Yours', hex: v, use: '' }; prep(mine, EX.length); EX.push(mine); mkThumb(mine); mine.el.className = 'thumb' + (mine.match ? '' : ' none');
+  $('grpD').hidden = false; $('tD').textContent = mine.match ? 'on file' : 'not on file'; $('tD').className = 'done' + (mine.match ? '' : ' none');
+  renderPrint(mine.el.querySelector('canvas'), mine.rgb, mine.rgb, 1, 1); mine.el.classList.add('inked'); select(mine.i, true); });
+$('hexIn').addEventListener('input', () => $('hexIn').classList.remove('bad'));
+window.__almanac = { EX, select, runFile, mapText, LABELS, SITES };
+
+inkThumbs();
+const hn = parseInt(location.hash.slice(1), 10), start = hn >= 1 && hn <= EX.length ? hn : 0;
+if (start) { EX.forEach(e => { e.seen = true; e.el.classList.add('seen'); }); tally(); runBtn(false); select(start - 1, true); }
+else if (reduce) { EX.forEach(e => { e.seen = true; e.el.classList.add('seen'); }); tally(); runBtn(false); select(5, true); }
+else { select(5, false); setTimeout(runFile, 700); }
+</script>
+</body>
+</html>

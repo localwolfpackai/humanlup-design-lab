@@ -1,0 +1,710 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Layer, Issue 01: Design is code now</title>
+<!-- humanlup:meta -->
+<!-- HumanLup Design Lab 15 · Anthony Lupo · humanlup.com · X @humanlup · IG humanlup.ai · anthony@humanlup.com -->
+<meta name="author" content="Anthony Lupo">
+<meta name="creator" content="Anthony Lupo">
+<meta name="publisher" content="HumanLup">
+<meta name="copyright" content="© 2026 Anthony Lupo, HumanLup">
+<link rel="author" href="https://humanlup.com">
+<link rel="me" href="https://x.com/humanlup">
+<link rel="me" href="https://www.instagram.com/humanlup.ai">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HumanLup Design Lab 15">
+<meta property="og:title" content="Layer, Issue 01: Design is code now">
+<meta property="og:description" content="An issue about what CSS can do now. Every example on the page works, and the page has no JavaScript.">
+<meta property="og:image" content="preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@humanlup">
+<meta name="twitter:creator" content="@humanlup">
+<meta name="twitter:title" content="Layer, Issue 01: Design is code now">
+<meta name="twitter:description" content="An issue about what CSS can do now. Every example on the page works, and the page has no JavaScript.">
+<meta name="twitter:image" content="preview.jpg">
+<!-- /humanlup:meta -->
+<meta name="description" content="An issue about what CSS can do now. Every example on the page works, and the page has no JavaScript.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Recursive:slnt,wght,CASL,CRSV,MONO@-15..0,300..1000,0..1,0..1,0..1&display=swap" rel="stylesheet">
+<style>
+/* One family does everything: reading text, headline and code.
+   Four layers, switched by the bar at the bottom of the page:
+   base (always on, the bar only), type, layout, motion. There is no script. */
+@layer base, type, layout, motion;
+
+@property --mono  { syntax: "<number>";  inherits: true; initial-value: 0 }
+@property --wght  { syntax: "<number>";  inherits: true; initial-value: 400 }
+@property --slnt  { syntax: "<number>";  inherits: true; initial-value: 0 }
+@property --casl  { syntax: "<number>";  inherits: true; initial-value: 0 }
+@property --pct   { syntax: "<integer>"; inherits: true; initial-value: 0 }
+@property --paper { syntax: "<color>";   inherits: true; initial-value: #f1eee6 }
+@property --ink   { syntax: "<color>";   inherits: true; initial-value: #15140f }
+@property --dim   { syntax: "<color>";   inherits: true; initial-value: #55524a }
+@property --rule  { syntax: "<color>";   inherits: true; initial-value: #cfcabd }
+@property --wash  { syntax: "<color>";   inherits: true; initial-value: #e4e0d4 }
+@property --accent{ syntax: "<color>";   inherits: true; initial-value: #2a3fd6 }
+
+/* ---------- base: always on ---------- */
+@layer base {
+  html:has(#dark:checked) {
+    --paper: #111210; --ink: #ebe8df; --dim: #a8a498;
+    --rule: #34352f; --wash: #1c1d1a; --accent: #9aa8ff;
+  }
+  body { padding-bottom: 72px }
+  .bar {
+    position: fixed; inset: auto 0 0 0; z-index: 20; margin: 0;
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    height: 56px; padding: 0 12px;
+    background: #15140f; color: #f1eee6;
+    font: 500 14px/1 "Recursive", ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", sans-serif;
+  }
+  .bar fieldset { border: 0; padding: 0; margin: 0; display: flex; align-items: center; gap: 2px; min-width: 0 }
+  .bar legend { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%) }
+  .bar .name { font-weight: 800; letter-spacing: -.01em; padding: 0 8px; white-space: nowrap }
+  .bar .hint { color: #b9b5a9; padding-right: 6px; white-space: nowrap }
+  .bar input { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none }
+  .bar label {
+    display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 12px;
+    border-radius: 6px; cursor: pointer; white-space: nowrap; user-select: none;
+  }
+  .bar label:hover { background: #2b2a24 }
+  .bar input:checked + label { background: #f1eee6; color: #15140f }
+  .bar input:focus-visible + label { outline: 2px solid #9aa8ff; outline-offset: 2px }
+  .bar svg { width: 16px; height: 16px; flex: none }
+  @media (max-width: 719px) { .bar .name, .bar .hint { display: none } .bar label { padding: 0 10px } }
+
+  /* "Your browser" lines. Default says yes; a failed test swaps it. */
+  .no { display: none }
+  @supports not (animation-timeline: scroll()) { .t-sda .yes { display: none } .t-sda .no { display: inline } }
+  @supports not (container-type: inline-size)  { .t-cq  .yes { display: none } .t-cq  .no { display: inline } }
+  @supports not (grid-template-columns: subgrid) { .t-sg .yes { display: none } .t-sg .no { display: inline } }
+  @supports not (font-variation-settings: "wght" 400) { .t-vf .yes { display: none } .t-vf .no { display: inline } }
+  @supports not (transition-behavior: allow-discrete) { .t-ss .yes { display: none } .t-ss .no { display: inline } }
+  @supports not selector(:has(a)) { .t-has .yes { display: none } .t-has .no { display: inline } }
+}
+
+/* ---------- type: faces, sizes, color ---------- */
+@layer type {
+  html:not(:has(#lv1:checked)) {
+    color-scheme: light;
+    background: var(--paper); color: var(--ink);
+    font-family: "Recursive", ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", sans-serif;
+    font-size: 106.25%; line-height: 1.55;
+    -webkit-text-size-adjust: 100%; text-rendering: optimizeLegibility;
+    transition: --paper .45s, --ink .45s, --dim .45s, --rule .45s, --wash .45s, --accent .45s;
+    scroll-padding-top: 24px;
+
+    &:has(#dark:checked) { color-scheme: dark }
+    body { margin: 0; padding-inline: 16px }
+    ::selection { background: var(--accent); color: var(--paper) }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px }
+
+    a { color: inherit; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 3px }
+    a:hover { color: var(--accent) }
+
+    h1 {
+      font-size: clamp(3.1rem, min(15.4vw, 23svh), 13.5rem); line-height: .92;
+      font-weight: 850;
+      font-variation-settings: "wght" calc(850 - 250 * var(--mono)), "MONO" var(--mono), "CASL" 0, "slnt" 0, "CRSV" 0;
+      letter-spacing: calc(-.045em * (1 - var(--mono)));
+    }
+    h1 span { display: block; white-space: nowrap }
+    h1::before, h1::after {
+      display: block; font-size: max(14px, .14em); line-height: 2; letter-spacing: 0;
+      font-variation-settings: "wght" 500, "MONO" 1; color: var(--accent); opacity: var(--mono);
+    }
+    h1::before { content: "<h1>" }
+    h1::after  { content: "</h1>" }
+
+    h2 { font-size: clamp(1.9rem, 4.6vw, 3.4rem); line-height: 1.02; font-weight: 800; letter-spacing: -.03em; text-wrap: balance }
+    h3 { font-size: 1.3rem; line-height: 1.2; font-weight: 750; letter-spacing: -.015em }
+    p { text-wrap: pretty }
+    .kicker { font-size: 14px; font-weight: 600; letter-spacing: .02em; display: flex; flex-wrap: wrap; gap: 4px 20px }
+    .kicker b { font-weight: 900 }
+    .stand { font-size: clamp(1.15rem, 1.9vw, 1.5rem); line-height: 1.35; font-weight: 500; max-width: 34em }
+    .meter { font-size: 14px; color: var(--dim); font-variation-settings: "MONO" 1 }
+    .sub { color: var(--dim); font-size: 1.05rem }
+    .big { font-size: clamp(1.25rem, 2.3vw, 1.7rem); line-height: 1.32; font-weight: 500; letter-spacing: -.01em }
+    .n { font-variation-settings: "wght" var(--wght), "MONO" 1; --wght: 400; font-size: 1.5rem; line-height: 1.1; color: var(--accent) }
+
+    .n::before { content: counter(i, decimal-leading-zero) }
+    .list { counter-reset: i } .item { counter-increment: i }
+    .note { font-size: 14px; line-height: 1.5; color: var(--dim) }
+    .note b { color: var(--ink); font-weight: 700 }
+    code, pre, kbd { font-family: inherit; font-variation-settings: "MONO" 1 }
+    code { font-size: .94em }
+    .note code, pre code { font-size: 1em }
+    pre { font-size: 14px; line-height: 1.5; background: var(--wash); padding: 12px; overflow-x: auto; white-space: pre-wrap; color: var(--ink); tab-size: 2 }
+    summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; color: var(--ink); font-weight: 600; text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 3px; width: fit-content; list-style: none }
+    summary::-webkit-details-marker { display: none }
+    details[open] summary { text-decoration-color: var(--rule) }
+
+    .btn {
+      font: inherit; font-size: 1rem; font-weight: 650; color: var(--paper); background: var(--ink);
+      border: 0; border-radius: 6px; min-height: 48px; padding: 0 18px; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn:hover { background: var(--accent) }
+    .btn svg { width: 18px; height: 18px }
+
+    .kin { font-size: clamp(2.3rem, 7vw, 4.6rem); line-height: 1.05; letter-spacing: -.03em }
+    .kin span { display: block; font-variation-settings: "wght" var(--wght), "slnt" var(--slnt), "CASL" var(--casl), "MONO" var(--mono), "CRSV" 0 }
+    .kin .k1 { --wght: 1000 } .kin .k2 { --wght: 600; --slnt: -15 } .kin .k3 { --wght: 600; --casl: 1 } .kin .k4 { --wght: 600; --mono: 1; letter-spacing: 0 }
+
+    .card-k { font-size: 14px; font-weight: 700; color: var(--accent); font-variation-settings: "MONO" 1 }
+    .card-t { font-weight: 650; line-height: 1.3 }
+    .card-s { color: var(--dim) }
+
+    .links a { font-weight: 700; font-size: 1.15rem }
+    .links svg { width: 18px; height: 18px; vertical-align: -2px; color: var(--accent) }
+    .links p { color: var(--dim); font-size: 1rem }
+    footer { font-size: 14px; color: var(--dim) }
+    footer b { color: var(--ink) }
+  }
+}
+
+/* ---------- layout: the grid, the controls, the boxes ---------- */
+@layer layout {
+  html:has(#lv3:checked, #lv4:checked) {
+    --c1: 4.5rem; --c2: 40rem; --c3: 19rem; --gap: 2.75rem;
+    * { box-sizing: border-box }
+    h1, h2, h3, p, ul, ol, pre, figure { margin: 0 }
+    ul, ol { padding: 0; list-style: none }
+
+    .hide { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap }
+    .grid { display: grid; grid-template-columns: minmax(0, 1fr); max-width: 74rem; margin-inline: auto }
+    .row  { display: grid; grid-template-columns: subgrid; grid-column: 1 / -1; row-gap: 14px }
+    @supports not (grid-template-columns: subgrid) { .row { grid-template-columns: inherit; column-gap: inherit } }
+
+    .hero-in { display: grid; align-content: center; gap: clamp(14px, 2.6svh, 28px); min-height: calc(100svh - 72px); padding-block: 24px; max-width: 74rem; margin-inline: auto }
+    main > section { padding-block: clamp(3rem, 8vw, 6.5rem) 0; row-gap: 22px; position: relative }
+    main > section::before { content: ""; display: block; height: 2px; background: var(--ink); grid-column: 1 / -1; margin-bottom: 6px; transform-origin: 0 50% }
+    .body > * + * { margin-top: .9em }
+    .body > h3 + * { margin-top: .35em }
+    .note { border-left: 2px solid var(--rule); padding-left: 14px; align-self: start }
+    .note p + p, .note details, .note pre { margin-top: 8px }
+
+    /* tabs */
+    .pick { display: flex; flex-wrap: wrap; gap: 4px 6px; border-bottom: 2px solid var(--rule) }
+    .pick input { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none }
+    .pick label { min-height: 44px; display: inline-flex; align-items: center; padding: 0 14px; cursor: pointer; font-weight: 650; color: var(--dim); margin-bottom: -2px; border-bottom: 2px solid transparent }
+    .pick label:hover { color: var(--ink) }
+    .pick input:checked + label { color: var(--ink); border-bottom-color: var(--accent) }
+    .pick input:focus-visible + label { outline: 2px solid var(--accent); outline-offset: -2px }
+    .panel { display: none; padding-top: 22px }
+    .short:has(#for-des:checked) .des,
+    .short:has(#for-dev:checked) .dev,
+    .short:has(#for-cre:checked) .cre { display: block }
+    @supports not selector(:has(a)) { .panel { display: block } }
+    .panel ul { margin-top: 18px; border-top: 1px solid var(--rule) }
+    .panel li { padding: 10px 0; border-bottom: 1px solid var(--rule) }
+
+    /* the list of six */
+    .list { position: relative; row-gap: 0 }
+    .item { padding-block: clamp(1.6rem, 4vw, 2.75rem); border-top: 1px solid var(--rule) }
+    .item:first-child { border-top: 0; padding-top: 6px }
+    .colpick { display: none }
+
+    /* container query demo */
+    .cq-stage { container-type: inline-size; width: var(--w, 100%); max-width: 100%; min-width: 180px; margin-top: 12px }
+    .cq:has(#w1:checked) .cq-stage { --w: 200px }
+    .cq:has(#w2:checked) .cq-stage { --w: 400px }
+    .card { border: 2px solid var(--ink); padding: 16px; display: grid; gap: 10px; font-size: 1rem }
+    .card-t { font-size: 1rem }
+    @container (width >= 300px) {
+      .card { padding: 22px; gap: 14px }
+      .card-t { font-size: 1.35rem }
+      .card-s { border-top: 1px solid var(--rule); padding-top: 12px }
+    }
+    @container (width >= 540px) {
+      .card { grid-template-columns: 1.25fr 1fr; column-gap: 28px; padding: 28px }
+      .card-k { grid-column: 1 / -1 }
+      .card-t { font-size: 1.7rem; letter-spacing: -.02em }
+      .card-s { border-top: 0; padding-top: 0; border-left: 1px solid var(--rule); padding-left: 24px }
+    }
+
+    /* popover */
+    [popover] {
+      border: 2px solid var(--ink); background: var(--paper); color: var(--ink);
+      padding: 22px 24px 24px; width: min(34rem, calc(100vw - 32px)); max-height: calc(100svh - 120px); overflow: auto;
+      margin: auto; inset: 0 0 56px 0;
+    }
+    [popover]::backdrop { background: color-mix(in srgb, var(--ink) 45%, transparent) }
+    [popover] h3 { display: flex; justify-content: space-between; align-items: center; gap: 12px }
+    [popover] li { padding: 10px 0; border-top: 1px solid var(--rule) }
+    [popover] ul { margin-top: 14px }
+    .x { font: inherit; background: none; border: 0; color: inherit; width: 44px; height: 44px; display: grid; place-items: center; cursor: pointer; border-radius: 6px; margin-right: -10px }
+    .x:hover { background: var(--wash) }
+    .x svg { width: 20px; height: 20px }
+
+    /* tokens */
+    .tokens { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px 14px; margin-top: 16px }
+    .tokens li { display: grid; gap: 6px; font-size: 14px }
+    .sw { height: 44px; border: 1px solid var(--rule) }
+
+    .list .item .n { padding-top: .05em }
+    .links ul { border-top: 1px solid var(--rule) }
+    .links li { padding: 14px 0; border-bottom: 1px solid var(--rule); display: grid; gap: 2px }
+    .links a { min-height: 32px; width: fit-content }
+
+    footer { max-width: 74rem; margin: clamp(3rem, 8vw, 6rem) auto 0; padding-bottom: 28px; display: grid; gap: 10px }
+    .check { height: 12px; margin-top: 18px; background: conic-gradient(var(--ink) 25%, transparent 0 50%, var(--ink) 0 75%, transparent 0) 0 0 / 12px 12px }
+
+    @media (min-width: 960px) {
+      body { padding-inline: 32px }
+      .grid { grid-template-columns: var(--c1) minmax(0, 1fr) minmax(0, var(--c3)); column-gap: var(--gap) }
+      .row > .body { max-width: var(--c2) }
+      .row > .n { grid-column: 1 } .row > .body { grid-column: 2 } .row > .note { grid-column: 3 }
+      .row > .wide { grid-column: 2 / 4 }
+      .cq:has(#w3:checked) .cq-stage { --w: 100% }
+      .colpick { display: flex; align-items: center; gap: 10px; min-height: 44px; cursor: pointer; font-weight: 650; width: fit-content }
+      .colpick input { width: 20px; height: 20px; accent-color: var(--accent); margin: 0 }
+      .list:has(#cols:checked)::before, .list:has(#cols:checked)::after {
+        content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+        background: var(--wash); outline: 1px dashed var(--accent); outline-offset: -1px;
+      }
+      .list:has(#cols:checked)::before { grid-column: 1 }
+      .list:has(#cols:checked)::after  { grid-column: 3 }
+      .list:has(#cols:checked) .item > .body { outline: 1px dashed var(--accent); outline-offset: -1px }
+      .list { isolation: isolate }
+    }
+    @media (max-width: 959px) {
+      .w2, .w2 + label { display: none }
+      .cq:has(#w3:checked) .cq-stage, .cq:has(#w2:checked) .cq-stage { --w: 100% }
+      .tokens { grid-template-columns: repeat(2, minmax(0, 1fr)) }
+    }
+  }
+}
+
+/* ---------- motion: everything that moves ---------- */
+@layer motion {
+  @media (prefers-reduced-motion: no-preference) {
+    html:has(#lv4:checked) {
+      .cq-stage { transition: width .5s cubic-bezier(.3, .7, .2, 1) }
+      .hero-in { transition: --mono .7s, --pct .7s }
+
+      [popover] {
+        opacity: 0; translate: 0 1.25rem;
+        transition: opacity .3s, translate .3s cubic-bezier(.3, .7, .2, 1), display .3s allow-discrete, overlay .3s allow-discrete;
+      }
+      [popover]:popover-open { opacity: 1; translate: 0 0 }
+      @starting-style { [popover]:popover-open { opacity: 0; translate: 0 1.25rem } }
+      [popover]::backdrop { opacity: 0; transition: opacity .3s, display .3s allow-discrete, overlay .3s allow-discrete }
+      [popover]:popover-open::backdrop { opacity: 1 }
+      @starting-style { [popover]:popover-open::backdrop { opacity: 0 } }
+
+      @supports not (animation-timeline: scroll()) {
+        .hero-in:hover { --mono: 1; --pct: 100 }
+      }
+      @supports (animation-timeline: scroll()) {
+        .progress {
+          position: fixed; inset: 0 0 auto 0; height: 4px; z-index: 15; background: var(--accent);
+          transform-origin: 0 50%; animation: grow linear both; animation-timeline: scroll(root);
+        }
+        .hero { height: calc(170svh - 72px) }
+        .hero-in { position: sticky; top: 0; animation: to-code linear both; animation-timeline: scroll(root); animation-range: 0 70vh }
+        .meter::after { counter-reset: m var(--pct); content: " Code face: " counter(m) "%" }
+
+        main > section::before { animation: grow linear both; animation-timeline: view(); animation-range: entry 0% cover 28% }
+        .item .n { animation: heavier linear both; animation-timeline: view(); animation-range: entry 20% cover 55% }
+        .kin .k1 { animation: k-w linear both } .kin .k2 { animation: k-s linear both }
+        .kin .k3 { animation: k-c linear both } .kin .k4 { animation: k-m linear both }
+        .kin .k1, .kin .k2, .kin .k3, .kin .k4 { animation-timeline: view(); animation-range: entry 60% cover 62% }
+      }
+    }
+  }
+  @keyframes grow    { from { transform: scaleX(0) } to { transform: scaleX(1) } }
+  @keyframes to-code { to { --mono: 1; --pct: 100 } }
+  @keyframes heavier { from { --wght: 300 } to { --wght: 1000 } }
+  @keyframes k-w { from { --wght: 300 } to { --wght: 1000 } }
+  @keyframes k-s { from { --slnt: 0 }   to { --slnt: -15 } }
+  @keyframes k-c { from { --casl: 0 }   to { --casl: 1 } }
+  @keyframes k-m { from { --mono: 0 }   to { --mono: 1 } }
+}
+</style>
+</head>
+<body>
+
+<div class="progress" aria-hidden="true"></div>
+
+<form class="bar" aria-label="Page controls">
+  <fieldset>
+    <legend>Layers shown</legend>
+    <span class="name">Layer 01</span>
+    <span class="hint">Show:</span>
+    <input type="radio" name="lv" id="lv1"><label for="lv1">Markup</label>
+    <input type="radio" name="lv" id="lv2"><label for="lv2">+ Type</label>
+    <input type="radio" name="lv" id="lv3"><label for="lv3">+ Layout</label>
+    <input type="radio" name="lv" id="lv4" checked><label for="lv4">+ Motion</label>
+  </fieldset>
+  <fieldset>
+    <legend>Colors</legend>
+    <input type="checkbox" id="dark"><label for="dark"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>Dark</label>
+  </fieldset>
+</form>
+
+<header class="hero">
+  <div class="hero-in">
+    <p class="kicker"><b>Layer</b> <span>Issue 01</span> <span>No JavaScript</span></p>
+    <h1><span>Design is</span> <span>code now.</span></h1>
+    <p class="stand">The 2026 creative dev stack collapsed the gap between idea and production. Here is what changed, what matters, and how to use it.</p>
+    <p class="meter">Scroll. The headline turns from a text face into a code face.</p>
+  </div>
+</header>
+
+<main>
+
+<section class="grid" id="about">
+  <div class="row">
+    <div class="body">
+      <h2>No script on this page</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="body">
+      <p class="big">How far does a page get on HTML and CSS alone? Pretty far. Everything below that moves or changes does it without a line of JavaScript.</p>
+      <p>The bar at the bottom takes the page apart. Markup is the bare HTML, then type, layout and motion go back on one at a time.</p>
+    </div>
+    <div class="note">
+      <p><b>Script:</b> 0 lines.</p>
+      <p><b>Fonts:</b> one file.</p>
+      <p><b>Colors:</b> six tokens.</p>
+    </div>
+  </div>
+</section>
+
+<section class="grid short" id="short">
+  <div class="row">
+    <div class="body">
+      <h2>The short version</h2>
+      <p class="sub">Pick who is reading.</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="body">
+      <p class="pick">
+        <input type="radio" name="who" id="for-des" checked><label for="for-des">Designer</label>
+        <input type="radio" name="who" id="for-dev"><label for="for-dev">Developer</label>
+        <input type="radio" name="who" id="for-cre"><label for="for-cre">Creative</label>
+      </p>
+      <div class="panel des">
+        <h3 class="hide">For a designer</h3>
+        <p class="big">AI-assisted design tools now generate layouts from rough wireframes. Variable fonts, scroll-driven CSS animations and spatial interfaces are no longer experimental. The 2026 visual language is bold, kinetic and personal.</p>
+        <ul>
+          <li>Variable fonts are the default, not the exception</li>
+          <li>Scroll-driven animations ship in CSS, no library required</li>
+          <li>Design tokens carry values from the design file to the code</li>
+        </ul>
+      </div>
+      <div class="panel dev">
+        <h3 class="hide">For a developer</h3>
+        <p class="big">CSS caught up. Container queries, view transitions, scroll-driven animations and subgrid are in the browser. AI pair-programming tools can scaffold a component system from a design brief. The front end is lighter and more expressive than it was.</p>
+        <ul>
+          <li>The View Transitions API handles page transitions natively</li>
+          <li>Tailwind v4 leans on CSS-native features and design tokens</li>
+          <li>AI tools write scaffolding, tests and refactors</li>
+        </ul>
+      </div>
+      <div class="panel cre">
+        <h3 class="hide">For a creative</h3>
+        <p class="big">The gap between "I have an idea" and "it is live" has never been smaller. Generative tools handle structure and boilerplate. You handle taste, narrative and surprise. The craft is in the vision, not the syntax.</p>
+        <ul>
+          <li>Idea to prototype in under an hour</li>
+          <li>Generative layouts break the template trap</li>
+          <li>WebGL and Three.js are easier to reach through higher-level wrappers</li>
+        </ul>
+      </div>
+    </div>
+    <div class="note t-has">
+      <p><b>Here:</b> three radio buttons and one rule.</p>
+      <p><b>Your browser:</b> <span class="yes">can do this.</span><span class="no">cannot, so all three are shown.</span></p>
+      <details><summary>Show the CSS</summary>
+<pre>.short:has(#for-dev:checked) .dev {
+  display: block;
+}</pre></details>
+    </div>
+  </div>
+</section>
+
+<section class="grid" id="said">
+  <div class="row">
+    <div class="body">
+      <h2>Six things CSS can do now</h2>
+      <p class="sub">Each one is done here, next to the words.</p>
+      <label class="colpick"><input type="checkbox" id="cols"> Show the columns</label>
+    </div>
+  </div>
+
+  <ol class="row list">
+    <li class="row item">
+      <span class="n" aria-hidden="true"></span>
+      <div class="body">
+        <h3>Scroll-driven animations</h3>
+        <p>Scroll-driven animations let you tie any property to scroll progress without a line of JavaScript: parallax, reveals, progress bars, all in CSS.</p>
+        <p>On this page that is the headline at the top, the bar across the top of the window, the line that draws over each section, and the numbers down this list, which get heavier as they come up the screen.</p>
+      </div>
+      <div class="note t-sda">
+        <p><b>Your browser:</b> <span class="yes">can do this.</span><span class="no">cannot yet, so these stay still. Put the pointer on the headline instead.</span></p>
+        <details><summary>Show the CSS</summary>
+<pre>.hero-in {
+  animation: to-code linear both;
+  animation-timeline: scroll(root);
+  animation-range: 0 70vh;
+}
+@keyframes to-code {
+  to { --mono: 1 }
+}</pre></details>
+      </div>
+    </li>
+
+    <li class="row item cq">
+      <span class="n" aria-hidden="true"></span>
+      <div class="body">
+        <h3>Container queries</h3>
+        <p>Container queries mean components respond to their own size, not the viewport. A card that lives in a sidebar and in a full-width grid can adapt on its own.</p>
+        <p class="pick">
+          <input type="radio" name="w" id="w1"><label for="w1">Narrow</label>
+          <input type="radio" name="w" id="w2" class="w2"><label for="w2">Medium</label>
+          <input type="radio" name="w" id="w3" checked><label for="w3">Wide</label>
+        </p>
+        <div class="cq-stage">
+          <div class="card">
+            <p class="card-k">Key insight</p>
+            <p class="card-t">AI-assisted creative development does not replace taste or vision. It removes the friction between having an idea and realizing it in code.</p>
+            <p class="card-s">The bottleneck was never imagination. It was implementation speed.</p>
+          </div>
+        </div>
+      </div>
+      <div class="note t-cq">
+        <p><b>Here:</b> the card has three layouts and never asks how wide the window is.</p>
+        <p><b>Your browser:</b> <span class="yes">can do this.</span><span class="no">cannot, so the card keeps one layout.</span></p>
+        <details><summary>Show the CSS</summary>
+<pre>.cq-stage {
+  container-type: inline-size;
+}
+@container (width >= 540px) {
+  .card {
+    grid-template-columns: 1.25fr 1fr;
+  }
+}</pre></details>
+      </div>
+    </li>
+
+    <li class="row item">
+      <span class="n" aria-hidden="true"></span>
+      <div class="body">
+        <h3>Subgrid</h3>
+        <p>Subgrid lets nested elements align to the parent grid.</p>
+        <p>This list is the example. Every row borrows the page's three columns, so the numbers, the text and the notes line up, and no row sets a width of its own.</p>
+      </div>
+      <div class="note t-sg">
+        <p><b>Your browser:</b> <span class="yes">can do this.</span><span class="no">cannot, so each row copies the columns instead.</span></p>
+        <details><summary>Show the CSS</summary>
+<pre>.row {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1;
+}</pre></details>
+      </div>
+    </li>
+
+    <li class="row item">
+      <span class="n" aria-hidden="true"></span>
+      <div class="body">
+        <h3>Variable fonts</h3>
+        <p>Type is not static anymore. Weight, slant and other axes shift as people scroll, hover or interact.</p>
+        <p class="kin" aria-label="Weight, slant, casual, mono">
+          <span class="k1">Weight</span>
+          <span class="k2">Slant</span>
+          <span class="k3">Casual</span>
+          <span class="k4">Mono</span>
+        </p>
+        <p>One font file sets this whole page. The headline, this sentence and the code in the notes are the same family with different numbers.</p>
+      </div>
+      <div class="note t-vf">
+        <p><b>Here:</b> each word is one axis, moving from one end to the other as it crosses the screen.</p>
+        <p><b>Your browser:</b> <span class="yes">can do this.</span><span class="no">cannot, so you are reading a fallback face.</span></p>
+        <details><summary>Show the CSS</summary>
+<pre>h1 {
+  font-variation-settings:
+    "wght" calc(850 - 250 * var(--mono)),
+    "MONO" var(--mono);
+}</pre></details>
+      </div>
+    </li>
+
+    <li class="row item">
+      <span class="n" aria-hidden="true"></span>
+      <div class="body">
+        <h3>Entry animations</h3>
+        <p>Add <code>@starting-style</code> rules for entry animations on elements that appear dynamically.</p>
+        <p>The button opens a small panel. Nothing scripts the open or the close, and the starting style gives it somewhere to ease in from.</p>
+        <p><button class="btn" type="button" popovertarget="cuts">Open it</button></p>
+      </div>
+      <div class="note t-ss">
+        <p><b>Your browser:</b> <span class="yes">can do this.</span><span class="no">cannot, so the panel appears at once.</span></p>
+        <details><summary>Show the CSS</summary>
+<pre>[popover] {
+  transition: opacity .3s, translate .3s,
+    display .3s allow-discrete,
+    overlay .3s allow-discrete;
+}
+@starting-style {
+  [popover]:popover-open {
+    opacity: 0;
+    translate: 0 1.25rem;
+  }
+}</pre></details>
+      </div>
+    </li>
+
+    <li class="row item">
+      <span class="n" aria-hidden="true"></span>
+      <div class="body">
+        <h3>Design tokens</h3>
+        <p>A single source of truth for colors, spacing, typography and motion flows into CSS custom properties.</p>
+        <p>This page has six color tokens. Dark changes those six and nothing else. They are typed as colors, so the change fades.</p>
+        <p><label class="btn" for="dark"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>Switch light and dark</label></p>
+        <ul class="tokens">
+          <li><span class="sw" style="background:var(--paper)"></span><code>--paper</code></li>
+          <li><span class="sw" style="background:var(--ink)"></span><code>--ink</code></li>
+          <li><span class="sw" style="background:var(--accent)"></span><code>--accent</code></li>
+          <li><span class="sw" style="background:var(--dim)"></span><code>--dim</code></li>
+          <li><span class="sw" style="background:var(--rule)"></span><code>--rule</code></li>
+          <li><span class="sw" style="background:var(--wash)"></span><code>--wash</code></li>
+        </ul>
+      </div>
+      <div class="note">
+        <p>If the change snaps and does not fade, your browser does not type its tokens.</p>
+        <details><summary>Show the CSS</summary>
+<pre>@property --paper {
+  syntax: "&lt;color&gt;";
+  inherits: true;
+  initial-value: #f1eee6;
+}
+html {
+  transition: --paper .45s, --ink .45s;
+}
+html:has(#dark:checked) {
+  --paper: #111210;
+}</pre></details>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<div id="cuts" popover>
+  <h3>What this page is made of <button class="x" type="button" popovertarget="cuts" popovertargetaction="hide" aria-label="Close"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></h3>
+  <ul>
+    <li>One font file, Recursive, for every word and all the code.</li>
+    <li>Six color tokens. Dark changes those six.</li>
+    <li>Four cascade layers you can peel off from the bar.</li>
+    <li>Radio buttons and checkboxes for anything you can press.</li>
+    <li>No script.</li>
+  </ul>
+</div>
+
+<section class="grid" id="left-out">
+  <div class="row">
+    <div class="body">
+      <h2>Two that are not here</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="body">
+      <p><b>View transitions between pages</b> need a second page, or one line of script. This is one page with no script.</p>
+      <p><b>3D and WebGPU</b> need script.</p>
+      <p>Both are left out. Nothing stands in for them.</p>
+    </div>
+  </div>
+</section>
+
+<section class="grid" id="essay">
+  <div class="row">
+    <div class="body">
+      <h2>The way we work changed</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="body">
+      <p class="big">The most significant shift in 2026 is not a new CSS property or a JavaScript framework. It is the way we work.</p>
+      <p>Before, the workflow was linear and lossy. A designer made mockups. A developer interpreted them and lost nuance along the way. Revisions went back and forth for days. By the time the feature shipped, the original idea had been diluted by constraints, miscommunication and deadlines.</p>
+      <p>AI pair programming collapses that cycle. A creative developer, whatever their background, can describe what they want in plain language and iterate in real time. "Build a hero section with a bento grid and a scroll-triggered reveal" is not a design brief anymore. It is a build instruction.</p>
+    </div>
+  </div>
+</section>
+
+<section class="grid steps" id="steps">
+  <div class="row">
+    <div class="body">
+      <h2>Four steps</h2>
+      <p class="sub">How I would start one of these.</p>
+    </div>
+  </div>
+  <ol class="row list">
+    <li class="row item">
+      <span class="n" aria-hidden="true"></span>
+      <div class="body">
+        <h3>Define your direction</h3>
+        <p>Start with constraints, not code. Describe the mood, layout, type and color you want, and be specific about what you do not want.</p>
+      </div>
+    </li>
+    <li class="row item">
+      <span class="n" aria-hidden="true"></span>
+      <div class="body">
+        <h3>Scaffold</h3>
+        <p>Ask for semantic HTML with custom properties for your tokens. Ask for responsive behavior from the start: fluid type with <code>clamp()</code>, container queries and subgrid.</p>
+      </div>
+    </li>
+    <li class="row item">
+      <span class="n" aria-hidden="true"></span>
+      <div class="body">
+        <h3>Add motion</h3>
+        <p>Use <code>animation-timeline</code> for scroll-linked effects and <code>@starting-style</code> for entry animations. Ask for a reduced-motion fallback.</p>
+      </div>
+    </li>
+    <li class="row item">
+      <span class="n" aria-hidden="true"></span>
+      <div class="body">
+        <h3>Polish and ship</h3>
+        <p>Audit contrast ratios, focus states and unused CSS before it goes live.</p>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<section class="grid links" id="links">
+  <div class="row">
+    <div class="body">
+      <h2>Links</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="body">
+      <ul>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timeline" target="_blank" rel="noopener">Scroll-driven animations <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a><p>The MDN page for <code>animation-timeline</code>.</p></li>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API" target="_blank" rel="noopener">View Transitions API <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a><p>The MDN page. Animated changes between pages and states.</p></li>
+        <li><a href="https://tr.designtokens.org/format/" target="_blank" rel="noopener">Design Tokens format <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a><p>The community format for token files.</p></li>
+        <li><a href="https://fonts.google.com/?vfonly=true" target="_blank" rel="noopener">Google Fonts, variable only <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a><p>Filter by axis and try the sliders.</p></li>
+        <li><a href="https://tailwindcss.com" target="_blank" rel="noopener">Tailwind CSS <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a><p>CSS-first configuration and token support in v4.</p></li>
+        <li><a href="https://threejs.org" target="_blank" rel="noopener">Three.js <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a><p>3D on the web.</p></li>
+        <li><a href="https://motion.dev" target="_blank" rel="noopener">Motion <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a><p>The animation library for React.</p></li>
+        <li><a href="https://spline.design" target="_blank" rel="noopener">Spline <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a><p>A 3D design tool that runs in the browser.</p></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p><b>Layer, Issue 01.</b> HumanLup</p>
+  <p>Built by Lupo</p>
+  <div class="check" aria-hidden="true"></div>
+</footer>
+
+</body>
+</html>

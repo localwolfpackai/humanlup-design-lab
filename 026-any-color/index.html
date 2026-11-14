@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Any Color · HumanLup</title>
+<!-- humanlup:meta -->
+<!-- HumanLup Design Lab 26 · Anthony Lupo · humanlup.com · X @humanlup · IG humanlup.ai · anthony@humanlup.com -->
+<meta name="author" content="Anthony Lupo">
+<meta name="creator" content="Anthony Lupo">
+<meta name="publisher" content="HumanLup">
+<meta name="copyright" content="© 2026 Anthony Lupo, HumanLup">
+<link rel="author" href="https://humanlup.com">
+<link rel="me" href="https://x.com/humanlup">
+<link rel="me" href="https://www.instagram.com/humanlup.ai">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HumanLup Design Lab 26">
+<meta property="og:title" content="Any Color · HumanLup">
+<meta property="og:description" content="A wall of dots. Every dot is a different color at the same lightness. Type on it.">
+<meta property="og:image" content="preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@humanlup">
+<meta name="twitter:creator" content="@humanlup">
+<meta name="twitter:title" content="Any Color · HumanLup">
+<meta name="twitter:description" content="A wall of dots. Every dot is a different color at the same lightness. Type on it.">
+<meta name="twitter:image" content="preview.jpg">
+<!-- /humanlup:meta -->
+<meta name="description" content="A wall of dots. Every dot is a different color at the same lightness. Type on it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800&family=Geist+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ground:#F8F8F8;--ink:#0A0A0A;--soft:rgba(10,10,10,.56);--line:rgba(10,10,10,.16)}
+[data-theme=dark]{--ground:#0A0A0A;--ink:#F8F8F8;--soft:rgba(248,248,248,.6);--line:rgba(248,248,248,.2)}
+*{box-sizing:border-box;margin:0}
+html{background:var(--ground)}
+body{background:var(--ground);color:var(--ink);font:400 16px/1.5 Inter,-apple-system,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;transition:background .5s,color .5s;min-height:100vh;display:flex;flex-direction:column}
+.mono{font-family:"Geist Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+header{display:flex;justify-content:space-between;align-items:baseline;padding:20px 24px 14px;gap:16px}
+.brand{font-weight:600;font-size:17px;letter-spacing:-.01em}
+.read{font-size:13px;color:var(--soft);white-space:nowrap}
+.wall{position:relative;width:100%;height:66vh;min-height:320px;cursor:crosshair;touch-action:pan-y}
+.wall canvas{display:block;width:100%;height:100%}
+.under{padding:22px 24px 40px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px 48px;align-items:end;flex:1}
+.line{font-size:clamp(20px,2.1vw,30px);line-height:1.2;letter-spacing:-.02em;font-weight:500;max-width:19em;align-self:start}
+.bar{display:grid;grid-template-columns:1.5fr 1fr 1fr auto auto;gap:14px 24px;align-items:end}
+.f{display:flex;flex-direction:column;gap:2px;min-width:0}
+.f>span{font-size:13px;color:var(--soft);display:flex;justify-content:space-between;gap:8px}
+.f input[type=text]{height:44px;border:0;border-bottom:1.5px solid var(--ink);background:none;color:inherit;font:500 18px Inter,sans-serif;outline:0;padding:0;width:100%;border-radius:0;text-transform:uppercase;letter-spacing:.02em}
+.f input[type=text]:focus-visible{border-bottom-width:3px}
+input[type=range]{-webkit-appearance:none;appearance:none;height:44px;width:100%;background:none;cursor:pointer;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:1.5px;background:var(--ink)}
+input[type=range]::-moz-range-track{height:1.5px;background:var(--ink)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--ink);margin-top:-10.5px;transition:transform .15s}
+input[type=range]::-moz-range-thumb{width:22px;height:22px;border:0;border-radius:50%;background:var(--ink)}
+input[type=range]:active::-webkit-slider-thumb{transform:scale(1.25)}
+input[type=range]:focus-visible{outline:2px solid var(--ink);outline-offset:2px;border-radius:6px}
+button{height:44px;min-width:44px;border:1.5px solid var(--ink);background:none;color:inherit;font:500 15px Inter,sans-serif;border-radius:22px;padding:0 18px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;transition:background .2s,color .2s}
+button:hover{background:var(--ink);color:var(--ground)}
+button:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+button.ic{padding:0;width:44px}
+button svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+[data-theme=light] .sun,[data-theme=dark] .moon{display:none}
+footer{padding:0 24px 14px;font-size:13px;color:var(--soft)}
+.strip{height:12px;background:conic-gradient(var(--ink) 25%,var(--ground) 0 50%,var(--ink) 0 75%,var(--ground) 0) 0 0/24px 24px}
+@media (max-width:860px){
+ header{padding:14px 16px 10px}
+ .wall{height:54vh}
+ .under{grid-template-columns:1fr;padding:18px 16px 32px;gap:18px}
+ .bar{grid-template-columns:1fr 1fr auto auto;gap:10px 16px}
+ .bar .words{grid-column:1/-1}
+ .f input[type=text]{font-size:17px}
+ footer{padding:0 16px 12px}
+}
+@media (max-width:420px){.read .w{display:none}}
+@media (prefers-reduced-motion:reduce){body{transition:none}}
+</style>
+</head>
+<body>
+<header>
+  <span class="brand">HumanLup</span>
+  <span class="read mono" id="read"></span>
+</header>
+
+<div class="wall" id="wall"><canvas id="c" role="img" aria-label="A wall of colored dots spelling the words you type"></canvas></div>
+
+<main class="under">
+  <p class="line">Every dot is a different color at the same lightness. The words are one step away.</p>
+  <div class="bar">
+    <label class="f words"><span>Words</span><input type="text" id="t" maxlength="36" autocomplete="off" autocapitalize="characters" spellcheck="false" value="Any color"></label>
+    <label class="f"><span>Step <b class="mono" id="gapv" style="font-weight:400"></b></span><input type="range" id="gap" min="0" max="0.5" step="0.01" value="0.26"></label>
+    <label class="f"><span>Color <b class="mono" id="chrv" style="font-weight:400"></b></span><input type="range" id="chr" min="0" max="0.2" step="0.005" value="0.14"></label>
+    <button class="ic" id="theme" aria-label="Light or dark">
+      <svg class="moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    </button>
+    <button id="save"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>Save PNG</button>
+  </div>
+</main>
+
+<footer>Built by Lupo</footer>
+<div class="strip"></div>
+
+<script>
+(()=>{
+const $=id=>document.getElementById(id);
+const root=document.documentElement, wall=$('wall'), cv=$('c'), tIn=$('t'), gapIn=$('gap'), chrIn=$('chr');
+const still=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const MID=0.65, R=0.4;
+const S={text:'Any color',gap:0.26,chr:0.14,dark:false};
+
+// state in the address
+try{const q=new URLSearchParams(location.hash.slice(1));
+  if(q.has('t'))S.text=q.get('t').slice(0,36);
+  if(q.has('s'))S.gap=Math.min(.5,Math.max(0,+q.get('s')||0));
+  if(q.has('c'))S.chr=Math.min(.2,Math.max(0,+q.get('c')||0));
+  S.dark=q.get('d')==='1';}catch(e){}
+tIn.value=S.text;gapIn.value=S.gap;chrIn.value=S.chr;
+let hashTimer;const saveHash=()=>{clearTimeout(hashTimer);hashTimer=setTimeout(()=>{
+  const q=new URLSearchParams({t:S.text,s:S.gap.toFixed(2),c:S.chr.toFixed(3)});if(S.dark)q.set('d','1');
+  try{history.replaceState(null,'','#'+q)}catch(e){}},250)};
+
+// grid
+let dpr=1,cols=0,rows=0,cell=12,W=0,H=0,ox=0,oy=0;
+const mask=document.createElement('canvas'), big=document.createElement('canvas');
+let maskData=null, fontReady=false;
+const FONT='800 100px Archivo, "Arial Black", "Helvetica Neue", Arial, sans-serif';
+
+function splits(words,n){ // every way to cut words into n lines, in order
+  if(n===1)return [[words.join(' ')]];
+  const out=[];for(let i=1;i<=words.length-n+1;i++)for(const rest of splits(words.slice(i),n-1))out.push([words.slice(0,i).join(' '),...rest]);
+  return out;}
+function drawMask(){
+  const K=4,bw=cols*K,bh=rows*K;big.width=bw;big.height=bh;
+  const g=big.getContext('2d');g.fillStyle='#000';g.fillRect(0,0,bw,bh);
+  const words=S.text.toUpperCase().trim().split(/\s+/).filter(Boolean).slice(0,8);
+  if(words.length){
+    g.font=FONT;const cap=g.measureText('H').actualBoundingBoxAscent/100||.69, lh=cap+.2;
+    const padX=cols<60?2:4,padY=cols<60?3:4,availW=(cols-padX*2)*K,availH=(rows-padY*2)*K;
+    let best=null;
+    for(let n=1;n<=Math.min(words.length,5);n++)for(const lines of splits(words,n)){
+      const mw=Math.max(...lines.map(l=>g.measureText(l).width))/100;
+      const fs=Math.min(availW/mw,availH/(cap+(n-1)*lh));
+      if(!best||fs>best.fs)best={fs,lines,n};}
+    const fs=Math.min(best.fs,rows*K*.9);g.font=FONT.replace('100px',fs+'px');g.fillStyle='#fff';g.textAlign='center';g.textBaseline='alphabetic';
+    const block=(cap+(best.n-1)*lh)*fs;let y=(bh-block)/2+cap*fs;
+    for(const l of best.lines){g.fillText(l,bw/2,y);y+=lh*fs;}
+  }
+  mask.width=cols;mask.height=rows;const m=mask.getContext('2d',{willReadFrequently:true});
+  m.imageSmoothingEnabled=true;m.imageSmoothingQuality='high';m.drawImage(big,0,0,cols,rows);
+  maskData=m.getImageData(0,0,cols,rows).data;
+  if(gl){gl.bindTexture(gl.TEXTURE_2D,tex);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,mask);}
+}
+
+// color math (used for the 2D fallback; the shader has its own copy)
+const lab2lin=(L,a,b)=>{const l=(L+.3963377774*a+.2158037573*b)**3,m=(L-.1055613458*a-.0638541728*b)**3,s=(L-.0894841775*a-1.291485548*b)**3;
+  return [4.0767416621*l-3.3077115913*m+.2309699292*s,-1.2684380046*l+2.6097574011*m-.3413193965*s,-.0041960863*l-.7034186147*m+1.707614701*s];};
+const inG=c=>c.every(v=>v>=-.0005&&v<=1.0005);
+function lch(L,C,h){const dx=Math.cos(h),dy=Math.sin(h);let c=lab2lin(L,C*dx,C*dy);
+  if(!inG(c)){let lo=0,hi=C;for(let i=0;i<10;i++){const mid=(lo+hi)/2;inG(lab2lin(L,mid*dx,mid*dy))?lo=mid:hi=mid;}c=lab2lin(L,lo*dx,lo*dy);}
+  return c.map(v=>{v=Math.min(1,Math.max(0,v));return Math.round(255*(v<.0031308?12.92*v:1.055*v**(1/2.4)-.055));});}
+
+// WebGL
+let gl=null,tex=null,U={};
+const FS=`precision highp float;
+uniform vec2 uRes,uGrid,uOff;uniform float uCell,uT,uLw,uLt,uC,uR;uniform vec3 uGround,uPtr;uniform sampler2D uMask;
+vec3 lin(float L,vec2 ab){float l=L+.3963377774*ab.x+.2158037573*ab.y,m=L-.1055613458*ab.x-.0638541728*ab.y,s=L-.0894841775*ab.x-1.291485548*ab.y;l=l*l*l;m=m*m*m;s=s*s*s;
+ return vec3(4.0767416621*l-3.3077115913*m+.2309699292*s,-1.2684380046*l+2.6097574011*m-.3413193965*s,-.0041960863*l-.7034186147*m+1.707614701*s);}
+bool inG(vec3 c){return all(greaterThanEqual(c,vec3(-.0005)))&&all(lessThanEqual(c,vec3(1.0005)));}
+vec3 lch(float L,float C,float h){vec2 d=vec2(cos(h),sin(h));vec3 c=lin(L,C*d);
+ if(!inG(c)){float lo=0.,hi=C;for(int i=0;i<10;i++){float mid=(lo+hi)*.5;if(inG(lin(L,mid*d)))lo=mid;else hi=mid;}c=lin(L,lo*d);}
+ c=clamp(c,0.,1.);return mix(12.92*c,1.055*pow(c,vec3(1./2.4))-.055,step(.0031308,c));}
+void main(){
+ vec2 p=(vec2(gl_FragCoord.x,uRes.y-gl_FragCoord.y)-uOff)/uCell;vec2 id=floor(p);
+ if(id.x<0.||id.y<0.||id.x>=uGrid.x||id.y>=uGrid.y){gl_FragColor=vec4(uGround,1.);return;}
+ float d=length(fract(p)-.5),aa=.75/uCell;
+ float m=texture2D(uMask,(id+.5)/uGrid).r;
+ float n=sin(id.x*.055+uT*.21)+sin(id.y*.075-uT*.17)+sin((id.x+id.y)*.04+uT*.13)+sin(length(id-uGrid*.5)*.09-uT*.25);
+ float h=uT*.08+n*.9+id.x*.012;
+ vec2 dp=id-uPtr.xy;h+=uPtr.z*2.4*exp(-dot(dp,dp)/70.);
+ vec3 col=lch(mix(uLw,uLt,m),uC,h);
+ gl_FragColor=vec4(mix(uGround,col,1.-smoothstep(uR-aa,uR+aa,d)),1.);
+}`;
+function initGL(){
+  try{gl=cv.getContext('webgl',{antialias:false,alpha:false,preserveDrawingBuffer:false});}catch(e){gl=null}
+  if(!gl)return;
+  const sh=(t,s)=>{const o=gl.createShader(t);gl.shaderSource(o,s);gl.compileShader(o);if(!gl.getShaderParameter(o,gl.COMPILE_STATUS))throw new Error(gl.getShaderInfoLog(o));return o;};
+  try{const pr=gl.createProgram();gl.attachShader(pr,sh(gl.VERTEX_SHADER,'attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}'));gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,FS));gl.linkProgram(pr);
+    if(!gl.getProgramParameter(pr,gl.LINK_STATUS))throw new Error('link');gl.useProgram(pr);
+    gl.bindBuffer(gl.ARRAY_BUFFER,gl.createBuffer());gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+    const a=gl.getAttribLocation(pr,'a');gl.enableVertexAttribArray(a);gl.vertexAttribPointer(a,2,gl.FLOAT,false,0,0);
+    for(const n of ['uRes','uGrid','uOff','uCell','uT','uLw','uLt','uC','uR','uGround','uPtr','uMask'])U[n]=gl.getUniformLocation(pr,n);
+    tex=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,tex);
+    for(const [k,v] of [[gl.TEXTURE_MIN_FILTER,gl.NEAREST],[gl.TEXTURE_MAG_FILTER,gl.NEAREST],[gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE],[gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE]])gl.texParameteri(gl.TEXTURE_2D,k,v);
+  }catch(e){console.warn(e);gl=null;}
+}
+let ctx2=null;
+
+function size(){
+  const r=wall.getBoundingClientRect();dpr=Math.min(window.devicePixelRatio||1,2);
+  W=Math.round(r.width*dpr);H=Math.round(r.height*dpr);
+  const cssCell=Math.max(8,Math.min(16,Math.round(r.width/96)));cell=cssCell*dpr;
+  cols=Math.floor(W/cell);rows=Math.floor(H/cell);ox=Math.round((W-cols*cell)/2);oy=Math.round((H-rows*cell)/2);
+  cv.width=W;cv.height=H;if(gl)gl.viewport(0,0,W,H);
+  drawMask();
+}
+
+const ptr={x:-99,y:-99,z:0,tz:0};
+const tiers=()=>{const hi=MID+S.gap/2,lo=MID-S.gap/2;return S.dark?{wall:lo,words:hi}:{wall:hi,words:lo};};
+function render(t){
+  const {wall:Lw,words:Lt}=tiers(), g=S.dark?10/255:248/255;
+  if(gl){
+    gl.uniform2f(U.uRes,W,H);gl.uniform2f(U.uGrid,cols,rows);gl.uniform2f(U.uOff,ox,oy);gl.uniform1f(U.uCell,cell);gl.uniform1f(U.uT,t);
+    gl.uniform1f(U.uLw,Lw);gl.uniform1f(U.uLt,Lt);gl.uniform1f(U.uC,S.chr);gl.uniform1f(U.uR,R);gl.uniform3f(U.uGround,g,g,g);gl.uniform3f(U.uPtr,ptr.x,ptr.y,ptr.z);gl.uniform1i(U.uMask,0);
+    gl.drawArrays(gl.TRIANGLES,0,3);return;
+  }
+  ctx2=ctx2||cv.getContext('2d');const c=ctx2;c.fillStyle=S.dark?'#0A0A0A':'#F8F8F8';c.fillRect(0,0,W,H);
+  for(let y=0;y<rows;y++)for(let x=0;x<cols;x++){
+    const m=maskData?maskData[(y*cols+x)*4]/255:0;
+    const n=Math.sin(x*.055+t*.21)+Math.sin(y*.075-t*.17)+Math.sin((x+y)*.04+t*.13)+Math.sin(Math.hypot(x-cols/2,y-rows/2)*.09-t*.25);
+    const dx=x-ptr.x,dy=y-ptr.y,h=t*.08+n*.9+x*.012+ptr.z*2.4*Math.exp(-(dx*dx+dy*dy)/70);
+    const k=lch(Lw+(Lt-Lw)*m,S.chr,h);c.fillStyle=`rgb(${k[0]},${k[1]},${k[2]})`;
+    c.beginPath();c.arc(ox+(x+.5)*cell,oy+(y+.5)*cell,R*cell,0,7);c.fill();}
+}
+
+function readout(){
+  const {wall:Lw,words:Lt}=tiers(),hi=Math.max(Lw,Lt),lo=Math.min(Lw,Lt),ratio=(hi**3+.05)/(lo**3+.05);
+  $('read').innerHTML=`<span class="w">Wall ${Lw.toFixed(2)} · Words ${Lt.toFixed(2)} · </span>${ratio.toFixed(1)} to 1`;
+  $('gapv').textContent=S.gap.toFixed(2);$('chrv').textContent=S.chr.toFixed(2);
+}
+
+let t0=performance.now(),dirty=true;
+const now=()=>still?12:(performance.now()-t0)/1000+12;
+function frame(){
+  ptr.z+=(ptr.tz-ptr.z)*.08;ptr.tz*=.97;
+  if(!still||dirty){render(now());dirty=false;}
+  requestAnimationFrame(frame);
+}
+
+// input
+tIn.addEventListener('input',()=>{S.text=tIn.value;drawMask();dirty=true;saveHash();});
+gapIn.addEventListener('input',()=>{S.gap=+gapIn.value;readout();dirty=true;saveHash();});
+chrIn.addEventListener('input',()=>{S.chr=+chrIn.value;readout();dirty=true;saveHash();});
+const setTheme=()=>{root.dataset.theme=S.dark?'dark':'light';readout();dirty=true;};
+$('theme').addEventListener('click',()=>{S.dark=!S.dark;setTheme();saveHash();});
+$('save').addEventListener('click',()=>{render(now());cv.toBlob(b=>{if(!b)return;const a=document.createElement('a');a.href=URL.createObjectURL(b);
+  a.download=(S.text.trim().toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'any-color')+'.png';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000);},'image/png');});
+document.addEventListener('keydown',e=>{if(e.metaKey||e.ctrlKey||e.altKey)return;const a=document.activeElement;
+  if(a&&(a.tagName==='INPUT'||a.tagName==='BUTTON'))return;if(e.key.length===1||e.key==='Backspace'){tIn.focus();const n=tIn.value.length;tIn.setSelectionRange(n,n);}});
+wall.addEventListener('pointermove',e=>{const r=wall.getBoundingClientRect();ptr.x=((e.clientX-r.left)*dpr-ox)/cell;ptr.y=((e.clientY-r.top)*dpr-oy)/cell;ptr.tz=1;dirty=true;});
+let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{size();dirty=true;},80);});
+
+initGL();setTheme();size();frame();
+if(document.fonts&&document.fonts.load)document.fonts.load('800 100px Archivo').then(()=>{drawMask();dirty=true;}).catch(()=>{});
+})();
+</script>
+</body>
+</html>

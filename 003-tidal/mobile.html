@@ -1,0 +1,412 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light}body{margin:0;font:14px system-ui}[hidden]{display:none!important}</style></head><body><title>Tidal Field Guide</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Martian+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one phone-wide column. A live water surface crosses it; the dry state of the
+   Tidal system sits above, the wet state below. The tide sets the surface, so there is
+   no light or dark theme switch: this page commits to that single look on purpose. */
+:root {
+  --paper:#FAF9F6; --surface:#F3F1EC; --raised:#FFFFFF;
+  --ink:#1E1E1C; --ink-2:#5C5955; --ink-3:#6B6761;
+  --teal:#2A8C82; --teal-ink:#1F6F67; --on-teal:#FFFFFF;
+  --sand:#D4B896; --coral:#D4706A; --on-warm:#1E1E1C; --alert:#A63F39;
+  --line:#E8E5DF; --line-2:#D5D0C8; --desk:#E8E5DF;
+  --display:'Familjen Grotesk','Avenir Next','Helvetica Neue',sans-serif;
+  --sans:'Inter',-apple-system,'Helvetica Neue',sans-serif;
+  --mono:'Martian Mono','SF Mono',Menlo,monospace;
+  --tab-h:68px;
+}
+.sheet.dry {
+  --paper:#FAF9F6; --surface:#F3F1EC; --raised:#FFFFFF;
+  --ink:#1E1E1C; --ink-2:#5C5955; --ink-3:#6B6761;
+  --teal:#2A8C82; --teal-ink:#1F6F67; --on-teal:#FFFFFF;
+  --sand:#D4B896; --coral:#D4706A; --on-warm:#1E1E1C; --alert:#A63F39;
+  --line:#E8E5DF; --line-2:#D5D0C8;
+}
+.sheet.wet {
+  --paper:#0E2A2B; --surface:#143536; --raised:#1A4041;
+  --ink:#F3F1EC; --ink-2:#B5C9C4; --ink-3:#8FA9A4;
+  --teal:#3AA89C; --teal-ink:#6FD0C2; --on-teal:#0E2A2B;
+  --sand:#E2CEAF; --coral:#E0918C; --on-warm:#0E2A2B; --alert:#F0A7A2;
+  --line:rgba(243,241,236,.14); --line-2:rgba(243,241,236,.26);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--desk);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;overflow:hidden;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+button,input{font:inherit;color:inherit}
+#phone{position:relative;width:min(100%,430px);height:100%;margin:0 auto;overflow:hidden;background:var(--paper)}
+@media (min-width:480px){#phone{border-left:1.5px solid var(--ink);border-right:1.5px solid var(--ink)}}
+#scroll,#wet,#surface{position:absolute;left:0;right:0;top:0;bottom:var(--tab-h)}
+#scroll{overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+#scroll::-webkit-scrollbar{display:none}
+#wet{overflow:hidden;pointer-events:none;background:#0E2A2B;clip-path:inset(100% 0 0 0)}
+#wetInner{position:absolute;left:0;top:0;width:100%;will-change:transform}
+#surface{width:100%;height:calc(100% - var(--tab-h));pointer-events:none}
+.sheet{background:var(--paper);color:var(--ink);min-height:100%;padding-bottom:40px}
+#dry{min-height:100%}
+.pad{padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+
+.mono{font:400 11px/1.6 var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3)}
+h1,h2,h3{font-family:var(--display);font-weight:600;letter-spacing:-.02em;line-height:1.05;text-wrap:balance}
+h1{font-size:40px}
+h2{font-size:24px}
+.top{display:flex;justify-content:space-between;gap:12px;padding-top:18px}
+.lead{color:var(--ink-2);font-size:17px;margin-top:12px;max-width:34ch}
+.blk{margin-top:36px}
+:focus-visible,.is-focus{outline:2px solid var(--teal-ink);outline-offset:3px}
+
+/* tide screen */
+.hero{min-height:58vh;display:flex;flex-direction:column;justify-content:center;padding-block:28px 8px}
+.big{font:700 min(43vw,186px)/.8 var(--display);letter-spacing:-.06em;margin:10px 0 18px -.04em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.big small{font:500 .2em/1 var(--display);letter-spacing:-.02em;margin-left:.25em;color:var(--ink-2)}
+.state{font-size:18px;color:var(--ink-2)}
+.state strong{color:var(--ink);font-weight:600}
+.curve{position:relative;height:96px;touch-action:none;cursor:ew-resize;margin-top:14px}
+.curve svg{position:absolute;inset:0 0 18px 0;width:100%;height:78px;overflow:visible}
+.curve .area{fill:var(--teal);opacity:.18}
+.curve .ln{fill:none;stroke:var(--teal-ink);stroke-width:1.75}
+.curve .hrs{position:absolute;left:0;right:0;bottom:0;height:14px;font:400 10px/14px var(--mono);color:var(--ink-3)}
+.curve .hrs span{position:absolute;transform:translateX(-50%);white-space:nowrap}
+.curve .hrs span:first-child{transform:none}
+.curve .hrs span:last-child{transform:translateX(-100%)}
+.mark{position:absolute;top:0;bottom:18px;width:2px;margin-left:-1px;background:var(--ink)}
+.mark::after{content:"";position:absolute;left:50%;top:var(--my,50%);width:18px;height:18px;border-radius:50%;background:var(--paper);border:3px solid var(--ink);transform:translate(-50%,-50%)}
+.row-between{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:48px}
+.hint{font-size:14px;color:var(--ink-3)}
+.turns{list-style:none;margin-top:12px;border-top:1.5px solid var(--ink)}
+.turns li{display:grid;grid-template-columns:92px 1fr auto;align-items:baseline;gap:8px;padding:14px 0;border-bottom:1px solid var(--line);font-size:17px}
+.turns .t{font:500 13px/1 var(--mono);font-variant-numeric:tabular-nums}
+.turns .v{font:600 20px/1 var(--display);font-variant-numeric:tabular-nums}
+.turns .past{color:var(--ink-3)}
+.shape{display:inline-block;width:10px;height:10px;margin-right:8px;border:1.5px solid var(--teal-ink)}
+.shape.hi{background:var(--teal-ink)}
+.shape.lo{border-radius:50%}
+.fine{font-size:14px;color:var(--ink-3);max-width:40ch}
+
+/* buttons, from the system */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 24px;border-radius:10px;border:1.5px solid transparent;font:600 16px/1 var(--sans);cursor:pointer;white-space:nowrap;transition:transform .12s}
+.btn svg{width:18px;height:18px}
+.btn-p{background:var(--teal-ink);color:var(--on-teal);width:100%}
+.btn-s{background:transparent;color:var(--ink);border-color:var(--line-2);min-height:44px;padding:0 16px;font-size:15px}
+.btn:active,.btn.is-press{transform:translateY(2px)}
+
+/* sites */
+.fig{margin-top:20px;border:1px solid var(--line-2);border-radius:6px;background:var(--raised);padding:8px}
+.fig svg{display:block;width:100%;height:auto}
+.sv-ground{fill:var(--surface);stroke:var(--ink);stroke-width:1.25}
+.sv-water{fill:var(--teal);opacity:.22}
+.sv-wl{stroke:var(--teal-ink);stroke-width:1.5}
+.sv-line{fill:none;stroke:var(--ink);stroke-width:1.25;stroke-linejoin:round}
+.sv-datum{stroke:var(--ink-3);stroke-width:1;stroke-dasharray:3 4}
+.sv-t{font:400 9px var(--mono);fill:var(--ink-3)}
+.sv-lv{font:500 11px var(--mono);fill:var(--teal-ink)}
+.sv-b{fill:var(--raised);stroke:var(--ink);stroke-width:1.25}
+.sv-bt{font:500 10px var(--mono);fill:var(--ink);text-anchor:middle}
+.site{display:grid;grid-template-columns:34px minmax(0,1fr);gap:4px 12px;padding:22px 0;border-bottom:1px solid var(--line)}
+.badge{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--ink);display:grid;place-items:center;font:500 12px/1 var(--mono);margin-top:2px}
+.site p{color:var(--ink-2);margin:6px 0 10px}
+.live{font-weight:600;display:flex;gap:8px;align-items:baseline}
+.live::before{content:"";width:9px;height:9px;border-radius:50%;border:1.5px solid var(--teal-ink);flex:none}
+.live.under::before{background:var(--teal-ink);border-radius:1px}
+
+/* visit */
+.wins{display:grid;gap:10px;margin-top:14px}
+.win{display:grid;grid-template-columns:22px 1fr auto;align-items:center;gap:12px;min-height:64px;padding:10px 14px;border:1.5px solid var(--line-2);border-radius:10px;background:var(--raised);text-align:left;cursor:pointer;width:100%}
+.win i{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--ink-3)}
+.win b{display:block;font:600 18px/1.2 var(--display)}
+.win span{display:block;font-size:14px;color:var(--ink-2)}
+.win em{font:500 12px/1 var(--mono);font-style:normal;color:var(--ink-3)}
+.win[aria-checked="true"]{border-color:var(--teal-ink);border-width:2.5px;padding:9px 13px}
+.win[aria-checked="true"] i{border:6px solid var(--teal-ink)}
+.field{display:grid;gap:6px;margin-top:22px}
+.field label,.lbl{font-weight:600;font-size:15px}
+.field input{width:100%;min-height:52px;padding:12px 14px;background:var(--raised);border:1.5px solid var(--line-2);border-radius:10px;font-size:17px;color:var(--ink)}
+.field input::placeholder{color:var(--ink-3);opacity:1}
+.field input:focus{outline:2px solid var(--teal-ink);outline-offset:2px;border-color:var(--teal-ink)}
+.step{display:flex;align-items:center;gap:6px;margin-top:6px}
+.step button{width:52px;height:52px;border-radius:10px;border:1.5px solid var(--line-2);background:var(--raised);font:500 24px/1 var(--display);cursor:pointer}
+.step button[disabled]{border-style:dashed;color:var(--ink-3);background:transparent}
+.step output{min-width:64px;text-align:center;font:600 28px/1 var(--display);font-variant-numeric:tabular-nums}
+.slip{margin-top:20px;border:1.5px solid var(--ink);border-radius:10px;padding:18px;background:var(--raised)}
+.slip dl{display:grid;grid-template-columns:auto 1fr;gap:8px 16px;margin:14px 0 18px;font-size:16px}
+.slip dt{font:400 11px/2 var(--mono);text-transform:uppercase;color:var(--ink-3)}
+.slip dd{font-weight:600}
+
+/* tab bar */
+#tabs{position:absolute;left:0;right:0;bottom:0;height:var(--tab-h);display:grid;grid-template-columns:repeat(3,1fr);background:#FAF9F6;border-top:1.5px solid #1E1E1C;z-index:5}
+#tabs button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:none;border:0;cursor:pointer;color:#6B6761;font:500 12px/1 var(--sans);position:relative}
+#tabs svg{width:22px;height:22px}
+#tabs button[aria-current="page"]{color:#1E1E1C;font-weight:600}
+#tabs button[aria-current="page"]::before{content:"";position:absolute;top:-1.5px;left:22%;right:22%;height:4px;background:#1F6F67}
+#tabs button:focus-visible{outline:2px solid #1F6F67;outline-offset:-4px}
+#toast{position:absolute;left:50%;bottom:calc(var(--tab-h) + 14px);transform:translate(-50%,10px);z-index:6;background:#1E1E1C;color:#FAF9F6;padding:12px 16px;border-radius:10px;font-size:14px;font-weight:500;opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;white-space:nowrap}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){*{transition-duration:.01ms!important}}
+</style>
+
+<div id="phone">
+  <div id="scroll"><main id="dry" class="sheet dry"></main></div>
+  <div id="wet" aria-hidden="true" inert><div id="wetInner" class="sheet wet"></div></div>
+  <canvas id="surface" aria-hidden="true"></canvas>
+  <nav id="tabs" aria-label="Sections">
+    <button type="button" data-tab="tide" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></svg>Tide</button>
+    <button type="button" data-tab="sites"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>Sites</button>
+    <button type="button" data-tab="visit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="m9 16 2 2 4-4"/></svg>Visit</button>
+  </nav>
+  <div id="toast" role="status" aria-live="polite"></div>
+</div>
+
+<script>
+(function(){
+'use strict';
+var $=function(s,r){return (r||document).querySelector(s)};
+var phone=$('#phone'), scroller=$('#scroll'), dry=$('#dry'), wet=$('#wet'), wetInner=$('#wetInner');
+var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- the model tide: real constituent speeds, invented amplitudes ---------- */
+var CONST=[[28.9841042,1.34,40],[30,.21,75],[28.4397295,.29,12],[15.0410686,.14,200],[13.9430356,.11,150]];
+var Z0=1.6, HMIN=-.5, HMAX=3.7, RAD=Math.PI/180, FLATS=.4;
+function tide(ms){var t=ms/3.6e6,h=Z0;for(var i=0;i<CONST.length;i++)h+=CONST[i][1]*Math.cos((CONST[i][0]*t+CONST[i][2])*RAD);return h}
+function rising(ms){return tide(ms+6e4)>tide(ms)}
+function nextTurn(ms){var up=rising(ms),t=ms;for(var i=0;i<500;i++){t+=12e4;if(rising(t)!==up)break}return {t:t,high:up}}
+function fmtT(ms){return new Date(ms).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}
+function fmtH(h){return (h<0?'-':'')+Math.abs(h).toFixed(2)}
+function dayLabel(ms){var a=new Date(ms),n=new Date();a.setHours(0,0,0,0);n.setHours(0,0,0,0);var d=Math.round((a-n)/864e5);return d===0?'Today':d===1?'Tomorrow':new Date(ms).toLocaleDateString([], {weekday:'long'})}
+function dur(ms){var m=Math.round(ms/6e4),h=Math.floor(m/60);m%=60;return (h?h+' h ':'')+m+' min'}
+
+var S={tab:'tide',win:0,party:2,name:'',sent:false};
+var live=true, tSel=Date.now(), dayStart=0, wins=[];
+function setDay(){var d=new Date(tSel);d.setHours(0,0,0,0);dayStart=d.getTime()}
+function turnsOfDay(){var out=[],up=rising(dayStart);for(var t=dayStart;t<dayStart+864e5;t+=12e4){var u=rising(t);if(u!==up){out.push({t:t,high:up,h:tide(t)});up=u}}return out}
+function findWindows(){
+  var now=Date.now(),out=[],start=null;
+  for(var t=now;t<now+96*36e5&&out.length<4;t+=12e4){
+    var bare=tide(t)<FLATS;
+    if(bare&&start===null)start=t;
+    if(!bare&&start!==null){if(t-start>=20*6e4)out.push({a:start,b:t});start=null}
+  }
+  return out;
+}
+
+/* ---------- screens: one string, rendered into both states ---------- */
+var EY=function(e){return 34+(6.5-e)/13.5*206};
+function sectionSVG(){
+  var bed=[[0,3.4],[36,3.2],[114,3.15],[135,2.6],[153,1],[180,.5],[234,.2],[264,-1.6],[291,-5.2],[312,-6.8],[360,-6.9]];
+  var g='M0,250 L'+bed.map(function(p){return p[0]+','+EY(p[1]).toFixed(1)}).join(' L')+' L360,250 Z';
+  var yb=EY(3.3), ya=EY(4.5), yd=EY(4.1);
+  var s='<svg viewBox="0 0 360 250" role="img" aria-label="Section through the shore with the three sites and the water level"><title>Shore section</title>';
+  s+='<rect class="sv-water" data-live="water" x="0" width="360" y="100" height="150"/><path class="sv-ground" d="'+g+'"/>';
+  s+='<line class="sv-datum" x1="150" x2="320" y1="'+EY(0)+'" y2="'+EY(0)+'"/><text class="sv-t" x="318" y="'+(EY(0)-4)+'" text-anchor="end">0.00 datum</text>';
+  s+='<path class="sv-line" style="fill:var(--sand);fill-opacity:.55" d="M50,'+yb+' V'+(ya-14)+' H108 V'+yb+' H103 V'+ya+' a6,6 0 0 0 -12,0 V'+yb+' H86 V'+ya+' a6,6 0 0 0 -12,0 V'+yb+' H69 V'+ya+' a6,6 0 0 0 -12,0 V'+yb+' Z"/>';
+  s+='<path class="sv-line" d="M178,'+yd+' V'+EY(.52)+' M194,'+yd+' V'+EY(.42)+' M210,'+yd+' V'+EY(.33)+'"/>';
+  s+='<path class="sv-line" style="fill:var(--teal);fill-opacity:.4" d="M172,'+yd+' H236 V'+(yd+4)+' H172 Z M180,'+yd+' V'+EY(5.7)+' L228,'+EY(6.15)+' V'+yd+' Z"/>';
+  s+='<path class="sv-line" d="M325,'+EY(-5.5)+' V'+EY(4.3)+' M329,'+EY(-5.5)+' V'+EY(4.3)+' M318,'+EY(4.3)+' H336"/>';
+  s+='<rect class="sv-line" style="fill:var(--coral);fill-opacity:.5" x="307" y="'+EY(-5.5)+'" width="40" height="'+(EY(-6.85)-EY(-5.5))+'" rx="9"/>';
+  s+='<line class="sv-wl" data-live="wl" x1="0" x2="360" y1="100" y2="100"/><text class="sv-lv" data-live="lv" x="246" y="94">0.00 m</text>';
+  [[79,ya-30,1],[204,EY(6.15)-14,2],[327,EY(4.3)-14,3]].forEach(function(b){s+='<circle class="sv-b" cx="'+b[0]+'" cy="'+b[1]+'" r="9"/><text class="sv-bt" x="'+b[0]+'" y="'+(b[1]+3.5)+'">'+b[2]+'</text>'});
+  return s+'</svg>';
+}
+function esc(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+var CHECK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
+var CLOCK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
+
+var SCREENS={
+  tide:function(){
+    setDay();
+    var p='';for(var i=0;i<=144;i++){var h=tide(dayStart+i*6e5);p+=(i?'L':'M')+(i/144*1000).toFixed(1)+','+(100-(h-HMIN)/(HMAX-HMIN)*100).toFixed(1)}
+    var now=Date.now();
+    var rows=turnsOfDay().map(function(t){return '<li class="'+(t.t<now?'past':'')+'"><span class="t">'+fmtT(t.t)+'</span><span><i class="shape '+(t.high?'hi':'lo')+'"></i>'+(t.high?'High water':'Low water')+'</span><span class="v">'+fmtH(t.h)+' m</span></li>'}).join('');
+    return '<div class="pad">'+
+      '<div class="top"><span class="mono">Tidal · Field guide</span><span class="mono" data-live="clock"></span></div>'+
+      '<section class="hero"><p class="mono">Water above datum</p>'+
+        '<h1 class="big"><span data-live="h">0.00</span><small>m</small></h1>'+
+        '<p class="state"><strong data-live="dir">Rising</strong>. <span data-live="next"></span></p></section>'+
+      '<section><div class="curve" data-curve role="slider" tabindex="0" aria-label="Time of day" aria-valuemin="0" aria-valuemax="1440" aria-valuenow="0">'+
+        '<svg viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true"><path class="area" d="'+p+' L1000,100 L0,100 Z"/><path class="ln" vector-effect="non-scaling-stroke" d="'+p+'"/></svg>'+
+        '<div class="mark" data-live="mark"></div>'+
+        '<div class="hrs"><span style="left:0">12 AM</span><span style="left:25%">6</span><span style="left:50%">Noon</span><span style="left:75%">6</span><span style="left:100%">12 AM</span></div></div>'+
+        '<div class="row-between"><span class="hint">Drag the curve to move the tide. Drag a finger through the water.</span>'+
+        '<button type="button" class="btn btn-s" data-act="now" data-live="nowbtn" hidden>'+CLOCK+'Now</button></div></section>'+
+      '<section class="blk"><h2>'+dayLabel(dayStart+432e5)+'\'s turns</h2><ul class="turns">'+rows+'</ul></section>'+
+      '<section class="blk"><p class="fine">A model tide: five real constituent speeds with invented amplitudes. It predicts nothing. Do not take a boat out on it.</p></section>'+
+    '</div>';
+  },
+  sites:function(){
+    function site(n,name,meta,text,key){return '<article class="site"><span class="badge">'+n+'</span><div><h2>'+name+'</h2><span class="mono">'+meta+'</span><p>'+text+'</p><span class="live" data-live="'+key+'"></span></div></article>'}
+    return '<div class="pad">'+
+      '<div class="top"><span class="mono">Tidal · Sites</span><span class="mono" data-live="clock"></span></div>'+
+      '<section class="blk" style="margin-top:22px"><h1>Three sites, one datum</h1><p class="lead">Every floor is measured from the same zero as the tide. The drawing follows the water.</p>'+
+      '<figure class="fig">'+sectionSVG()+'</figure></section>'+
+      '<section style="margin-top:8px">'+
+        site(1,'Dune Market Hall','Montauk, NY · Floor +3.30 m','An open-air market with sand-colored concrete arches framing the Atlantic horizon.','p1')+
+        site(2,'The Breakwater Pavilion','Cape Cod, MA · Deck +4.10 m','A cantilevered timber residence above the tidal flats of Wellfleet Harbor.','p2')+
+        site(3,'Coral Reef Observatory','Key Largo, FL · Gallery -6.00 m','An underwater viewing gallery built into the living reef.','p3')+
+      '</section></div>';
+  },
+  visit:function(){
+    wins=findWindows();
+    var head='<div class="top"><span class="mono">Tidal · Visit</span><span class="mono" data-live="clock"></span></div>';
+    if(S.sent&&wins[S.win]){
+      var w=wins[S.win];
+      return '<div class="pad">'+head+'<section class="blk" style="margin-top:22px"><h1>Boots on</h1><p class="lead">Your walk under the Breakwater Pavilion is set down for the next bare flats.</p>'+
+        '<div class="slip"><span class="mono">Visit slip · demo, nothing was sent</span><dl><dt>When</dt><dd>'+dayLabel(w.a)+', '+fmtT(w.a)+' to '+fmtT(w.b)+'</dd><dt>Dry for</dt><dd>'+dur(w.b-w.a)+'</dd><dt>Party</dt><dd>'+S.party+(S.name?', led by '+esc(S.name):'')+'</dd><dt>Leave by</dt><dd>'+fmtT(w.b-15*6e4)+', before the flood</dd></dl>'+
+        '<button type="button" class="btn btn-s" data-act="edit" data-k="edit">Change the visit</button></div></section></div>';
+    }
+    var list=wins.map(function(w,i){return '<button type="button" class="win" role="radio" aria-checked="'+(i===S.win)+'" data-act="win" data-i="'+i+'" data-k="win'+i+'"><i></i><span><b>'+fmtT(w.a)+' to '+fmtT(w.b)+'</b><span>'+dayLabel(w.a)+'</span></span><em>'+dur(w.b-w.a)+'</em></button>'}).join('');
+    return '<div class="pad">'+head+
+      '<section class="blk" style="margin-top:22px"><h1>Walk the flats</h1><p class="lead">The flats under the Breakwater Pavilion are bare when the water is below 0.40 m. Pick a window.</p>'+
+      '<div class="wins" role="radiogroup" aria-label="Dry windows">'+(list||'<p class="fine">No dry window in the next four days.</p>')+'</div></section>'+
+      '<section><div class="field"><label>Your name<input type="text" data-k="name" autocomplete="off" placeholder="e.g. Morgan Ashworth" value="'+esc(S.name)+'"></label></div>'+
+      '<div class="field"><span class="lbl">Party size</span><div class="step"><button type="button" data-act="minus" data-k="minus" aria-label="One fewer"'+(S.party<=1?' disabled':'')+'>−</button><output>'+S.party+'</output><button type="button" data-act="plus" data-k="plus" aria-label="One more"'+(S.party>=8?' disabled':'')+'>+</button></div></div>'+
+      '<div class="field"><button type="button" class="btn btn-p" data-act="send" data-k="send"'+(wins.length?'':' disabled')+'>Set the visit</button><p class="fine">The water stands back while you type.</p></div></section></div>';
+  }
+};
+
+var dryEls=[], wetEls=[];
+function render(keep,focusKey){
+  var st=scroller.scrollTop, html=SCREENS[S.tab]();
+  dry.innerHTML=html;wetInner.innerHTML=html;
+  dryEls=Array.prototype.slice.call(dry.querySelectorAll('*'));wetEls=Array.prototype.slice.call(wetInner.querySelectorAll('*'));
+  var nm=dry.querySelector('[data-k=name]');if(nm)nm.id='visit-name';
+  scroller.scrollTop=keep?st:0;
+  if(focusKey){var f=dry.querySelector('[data-k="'+focusKey+'"]');if(f&&!f.disabled)f.focus({preventScroll:true})}
+  tick();
+}
+function twin(el){var i=dryEls.indexOf(el);return i<0?null:wetEls[i]}
+function all(k){return phone.querySelectorAll('[data-live="'+k+'"]')}
+function txt(k,v){var n=all(k);for(var i=0;i<n.length;i++)if(n[i].textContent!==v)n[i].textContent=v}
+function each(k,fn){var n=all(k);for(var i=0;i<n.length;i++)fn(n[i])}
+
+function tick(){
+  var h=tide(tSel), up=rising(tSel), nx=nextTurn(tSel);
+  txt('clock',live?fmtT(tSel):fmtT(tSel)+' · by hand');
+  txt('h',fmtH(h));txt('dir',up?'Rising':'Falling');txt('next',(nx.high?'High':'Low')+' water at '+fmtT(nx.t)+'.');
+  var f=(tSel-dayStart)/864e5;
+  each('mark',function(e){e.style.left=(f*100)+'%';e.style.setProperty('--my',(100-(h-HMIN)/(HMAX-HMIN)*100)+'%')});
+  each('nowbtn',function(e){e.hidden=live});
+  var c=dry.querySelector('[data-curve]');if(c){c.setAttribute('aria-valuenow',Math.round(f*1440));c.setAttribute('aria-valuetext',fmtT(tSel)+', '+fmtH(h)+' meters, '+(up?'rising':'falling'))}
+  var c1=3.3-h;
+  txt('p1',c1>0?'Dry. Floor is '+c1.toFixed(2)+' m clear.':'Awash. '+(-c1).toFixed(2)+' m over the floor.');
+  each('p1',function(e){e.classList.toggle('under',c1<=0)});
+  txt('p2',h<FLATS?'Flats are bare. Walk under the deck.':'Piles stand in '+(h-FLATS).toFixed(2)+' m of water.');
+  txt('p3','Under. '+(h+5.5).toFixed(2)+' m over the gallery roof.');
+  each('p3',function(e){e.classList.add('under')});
+  var y=EY(h).toFixed(1);
+  each('water',function(e){e.setAttribute('y',y);e.setAttribute('height',(250-y).toFixed(1))});
+  each('wl',function(e){e.setAttribute('y1',y);e.setAttribute('y2',y)});
+  each('lv',function(e){e.setAttribute('y',(y-6).toFixed(1));e.textContent=fmtH(h)+' m'});
+}
+
+/* ---------- water: a row of springs ---------- */
+var N=56, wy=new Float32Array(N), wv=new Float32Array(N), ld=new Float32Array(N), rd=new Float32Array(N);
+var W=0,H=0,dpr=1,waterY=-1,lastSt=0,typing=false,amb=0;
+var cv=$('#surface'), ctx=cv.getContext('2d');
+function resize(){W=scroller.clientWidth;H=scroller.clientHeight;dpr=Math.min(window.devicePixelRatio||1,2);cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr)}
+function yOf(h){var top=H*.14,bot=H*.9;return top+(1-(h-HMIN)/(HMAX-HMIN))*(bot-top)}
+function surfAt(x){var f=Math.max(0,Math.min(N-1,x/W*(N-1))),i=Math.floor(f),j=Math.min(N-1,i+1),u=f-i;return waterY+wy[i]*(1-u)+wy[j]*u}
+function splash(x,vel){if(reduce)return;vel=Math.max(-22,Math.min(22,vel));var c=Math.round(x/W*(N-1));for(var j=-3;j<=3;j++){var k=c+j;if(k>=0&&k<N)wv[k]+=vel*(1-Math.abs(j)/4)}}
+function step(){
+  var i,p;
+  for(i=0;i<N;i++){wv[i]+=-.014*wy[i];wv[i]*=.972;wy[i]+=wv[i]}
+  for(p=0;p<3;p++){
+    for(i=0;i<N;i++){if(i>0){ld[i]=.16*(wy[i]-wy[i-1]);wv[i-1]+=ld[i]}if(i<N-1){rd[i]=.16*(wy[i]-wy[i+1]);wv[i+1]+=rd[i]}}
+    for(i=0;i<N;i++){if(i>0)wy[i-1]+=ld[i];if(i<N-1)wy[i+1]+=rd[i]}
+  }
+  for(i=0;i<N;i++){if(wy[i]>70)wy[i]=70;if(wy[i]<-70)wy[i]=-70}
+}
+var prev=0,lastTick=0;
+function frame(now){
+  requestAnimationFrame(frame);
+  if(document.hidden)return;
+  var dt=Math.min(64,now-prev||16);prev=now;
+  if(live)tSel=Date.now();
+  if(now-lastTick>1000){if(tSel<dayStart||tSel>=dayStart+864e5){if(S.tab==='tide')render(true);else setDay()}tick();lastTick=now}
+  var target=typing?H+40:yOf(tide(tSel));
+  waterY=(waterY<0||reduce)?target:waterY+(target-waterY)*Math.min(1,dt*.007);
+  var st=scroller.scrollTop,d=Math.max(-50,Math.min(50,st-lastSt));lastSt=st;
+  if(!reduce){
+    if(d)for(var k=0;k<N;k++)wv[k]+=d*.03*Math.cos(k/(N-1)*Math.PI);
+    step();amb+=dt*.0016;
+  }
+  wetInner.style.transform='translate3d(0,'+(-st)+'px,0)';
+  var pts=[],i,x,y,cp='polygon(';
+  for(i=0;i<N;i++){x=i/(N-1)*W;y=waterY+wy[i]+(reduce?0:1.8*Math.sin(i*.42+amb)+1.2*Math.sin(i*.19-amb*1.4));pts.push([x,y]);cp+=x.toFixed(1)+'px '+y.toFixed(1)+'px,'}
+  wet.style.clipPath=cp+W+'px '+(H+2)+'px,0px '+(H+2)+'px)';
+  ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,W,H);
+  var g=ctx.createLinearGradient(0,waterY-8,0,waterY+34);g.addColorStop(0,'rgba(3,18,19,.26)');g.addColorStop(1,'rgba(3,18,19,0)');
+  ctx.beginPath();for(i=0;i<N;i++)ctx[i?'lineTo':'moveTo'](pts[i][0],pts[i][1]);for(i=N-1;i>=0;i--)ctx.lineTo(pts[i][0],pts[i][1]+34);ctx.closePath();ctx.fillStyle=g;ctx.fill();
+  ctx.beginPath();for(i=0;i<N;i++)ctx[i?'lineTo':'moveTo'](pts[i][0],pts[i][1]+6+wy[i]*.25);ctx.strokeStyle='rgba(226,206,175,.4)';ctx.lineWidth=1;ctx.stroke();
+  ctx.beginPath();for(i=0;i<N;i++)ctx[i?'lineTo':'moveTo'](pts[i][0],pts[i][1]);ctx.strokeStyle='rgba(111,208,194,.95)';ctx.lineWidth=2;ctx.stroke();
+}
+
+/* ---------- touch ---------- */
+var lastP=null, dragCurve=null;
+function local(e){var r=scroller.getBoundingClientRect();return {x:e.clientX-r.left,y:e.clientY-r.top}}
+function setFromCurve(e){var r=dragCurve.getBoundingClientRect(),f=Math.min(.9999,Math.max(0,(e.clientX-r.left)/r.width));live=false;tSel=dayStart+f*864e5;tick()}
+scroller.addEventListener('pointerdown',function(e){
+  var c=e.target.closest('[data-curve]');
+  if(c){dragCurve=c;try{c.setPointerCapture(e.pointerId)}catch(_){}setFromCurve(e);return}
+  var p=local(e);lastP=p;
+  if(Math.abs(p.y-surfAt(p.x))<26)splash(p.x,9);
+  var b=e.target.closest('button');if(b&&twin(b))twin(b).classList.add('is-press');
+});
+scroller.addEventListener('pointermove',function(e){
+  if(dragCurve){setFromCurve(e);return}
+  var p=local(e);
+  if(lastP){var s=surfAt(p.x);if((lastP.y-s)*(p.y-s)<=0&&p.y!==lastP.y)splash(p.x,(p.y-lastP.y)*.7)}
+  lastP=p;
+});
+function up(){dragCurve=null;var n=wetInner.querySelectorAll('.is-press');for(var i=0;i<n.length;i++)n[i].classList.remove('is-press')}
+window.addEventListener('pointerup',up);window.addEventListener('pointercancel',function(){up();lastP=null});
+scroller.addEventListener('pointerleave',function(){lastP=null});
+scroller.addEventListener('keydown',function(e){
+  var c=e.target.closest('[data-curve]');if(!c)return;
+  var m={ArrowLeft:-10,ArrowDown:-10,ArrowRight:10,ArrowUp:10,PageUp:60,PageDown:-60}[e.key];if(m===undefined)return;
+  e.preventDefault();live=false;tSel=Math.min(dayStart+864e5-6e4,Math.max(dayStart,tSel+m*6e4));tick();
+});
+dry.addEventListener('focusin',function(e){
+  if(e.target.matches('input')){typing=true;return}
+  var t=twin(e.target),kb=true;try{kb=e.target.matches(':focus-visible')}catch(_){}
+  if(t&&kb)t.classList.add('is-focus');
+});
+dry.addEventListener('focusout',function(e){if(e.target.matches('input'))typing=false;var t=twin(e.target);if(t)t.classList.remove('is-focus')});
+dry.addEventListener('input',function(e){if(e.target.matches('[data-k=name]')){S.name=e.target.value;var t=twin(e.target);if(t)t.value=S.name}});
+
+var toast=$('#toast'),tt=0;
+function say(m){toast.textContent=m;toast.classList.add('on');clearTimeout(tt);tt=setTimeout(function(){toast.classList.remove('on')},2400)}
+dry.addEventListener('click',function(e){
+  var b=e.target.closest('[data-act]');if(!b||b.disabled)return;
+  var a=b.dataset.act,k=b.dataset.k;
+  if(a==='now'){live=true;tSel=Date.now();if(S.tab==='tide')render(true);tick();return}
+  if(a==='win'){S.win=+b.dataset.i;render(true,k);return}
+  if(a==='minus'){S.party=Math.max(1,S.party-1);render(true,S.party>1?'minus':'plus');return}
+  if(a==='plus'){S.party=Math.min(8,S.party+1);render(true,S.party<8?'plus':'minus');return}
+  if(a==='send'){S.sent=true;render(false,'edit');splash(W/2,-18);say('Visit set. Demo only, nothing was sent.');return}
+  if(a==='edit'){S.sent=false;render(false);return}
+});
+$('#tabs').addEventListener('click',function(e){
+  var b=e.target.closest('[data-tab]');if(!b||b.dataset.tab===S.tab)return;
+  S.tab=b.dataset.tab;
+  var n=this.querySelectorAll('button');for(var i=0;i<n.length;i++){if(n[i]===b)n[i].setAttribute('aria-current','page');else n[i].removeAttribute('aria-current')}
+  render(false);
+  var r=b.getBoundingClientRect(),pr=scroller.getBoundingClientRect();splash(r.left+r.width/2-pr.left,-16);
+  try{localStorage.setItem('tidal-tab',S.tab)}catch(_){}
+});
+
+/* keeps a viewer's place across a republish */
+function start(data){
+  if(data&&data.S){for(var k in data.S)S[k]=data.S[k]}
+  else{try{var t=localStorage.getItem('tidal-tab');if(t&&SCREENS[t])S.tab=t}catch(_){}}
+  var n=document.querySelectorAll('#tabs button');for(var i=0;i<n.length;i++){if(n[i].dataset.tab===S.tab)n[i].setAttribute('aria-current','page');else n[i].removeAttribute('aria-current')}
+  resize();setDay();render(false);requestAnimationFrame(frame);
+}
+window.addEventListener('resize',resize);
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(resize);
+var hot=window.claude&&window.claude.hot;
+if(hot&&hot.snapshot)try{hot.snapshot(function(){return {S:S}})}catch(_){}
+if(hot&&hot.ready)hot.ready(start);else start((hot&&hot.data)||{});
+})();
+</script>
+</body></html>

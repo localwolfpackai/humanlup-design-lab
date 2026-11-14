@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your Line First · HumanLup</title>
+<!-- humanlup:meta -->
+<!-- HumanLup Design Lab 20 · Anthony Lupo · humanlup.com · X @humanlup · IG humanlup.ai · anthony@humanlup.com -->
+<meta name="author" content="Anthony Lupo">
+<meta name="creator" content="Anthony Lupo">
+<meta name="publisher" content="HumanLup">
+<meta name="copyright" content="© 2026 Anthony Lupo, HumanLup">
+<link rel="author" href="https://humanlup.com">
+<link rel="me" href="https://x.com/humanlup">
+<link rel="me" href="https://www.instagram.com/humanlup.ai">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HumanLup Design Lab 20">
+<meta property="og:title" content="Your Line First · HumanLup">
+<meta property="og:description" content="Draw one line. The page lays itself out around it.">
+<meta property="og:image" content="preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@humanlup">
+<meta name="twitter:creator" content="@humanlup">
+<meta name="twitter:title" content="Your Line First · HumanLup">
+<meta name="twitter:description" content="Draw one line. The page lays itself out around it.">
+<meta name="twitter:image" content="preview.jpg">
+<!-- /humanlup:meta -->
+<meta name="description" content="Draw one line. The page lays itself out around it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;600;700&family=Gabarito:wght@500;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cyan:#00BCD4; --blue:#2196F3; --indigo:#3F51B5; --purple:#9C27B0; --magenta:#E91E63; --red:#F44336; --orange:#FF5722;
+  --bg:#f8f8f8; --surface:#fff; --ink:#000; --soft:#5c5c5c; --line:rgba(0,0,0,.12);
+  --display:"Gabarito","Avenir Next","Helvetica Neue",Arial,sans-serif;
+  --text:"Atkinson Hyperlegible Next","Atkinson Hyperlegible",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  --pad:clamp(16px,3vw,40px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+body{font-family:var(--text);font-size:17px;line-height:1.55;color:var(--ink);background:var(--bg);
+  background-image:radial-gradient(circle,rgba(0,0,0,.07) 1px,transparent 1.2px);background-size:24px 24px}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--purple);outline-offset:2px}
+::selection{background:var(--purple);color:#fff}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition-duration:.01ms!important}}
+
+/* first screen */
+.screen{height:100svh;min-height:520px;display:grid;grid-template-rows:auto minmax(0,1fr) auto}
+.top{display:flex;align-items:center;gap:20px;padding:0 var(--pad);height:56px;border-bottom:1px solid var(--line);background:var(--bg)}
+.brand{font-family:var(--display);font-weight:800;font-size:19px;letter-spacing:-.02em;text-decoration:none}
+.top .src{color:var(--soft);font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1}
+.top .more{margin-left:auto;display:inline-flex;align-items:center;gap:6px;min-height:44px;font-weight:600;font-size:15px;text-decoration:none;white-space:nowrap}
+.top .more:hover{color:var(--purple)}
+svg.ic{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+.poster{position:relative;overflow:hidden;touch-action:none;cursor:crosshair;user-select:none;-webkit-user-select:none}
+.poster canvas{position:absolute;inset:0;width:100%;height:100%}
+.poster h1{position:absolute;inset:0;font-family:var(--display);font-weight:800;pointer-events:none}
+.w{position:absolute;left:0;top:0;font-size:100px;line-height:.98;letter-spacing:-.035em;white-space:nowrap;transform-origin:0 0;will-change:transform;
+  transition:transform .55s cubic-bezier(.2,.85,.25,1)}
+.w b{font-weight:800;display:inline-block;background:#000;color:#fff;border-radius:.11em;padding:0 .2em .03em;line-height:.9;margin-top:.04em}
+.sq{position:absolute;left:0;top:0;width:100px;height:100px;border-radius:16px;transform-origin:0 0;will-change:transform;pointer-events:none;
+  box-shadow:0 8px 32px rgba(0,0,0,.08);transition:transform .55s cubic-bezier(.2,.85,.25,1)}
+.poster.live .w,.poster.live .sq{transition-duration:.12s;transition-timing-function:linear}
+.poster.cold .w,.poster.cold .sq{transition:none}
+
+.bar{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;padding:12px var(--pad);border-top:1px solid var(--line);background:var(--surface)}
+.say{flex:1 1 340px;font-size:16px;line-height:1.4;min-width:0}
+.say strong{font-weight:700}
+.say{min-height:4.2em}
+.btn.ok{background:var(--purple);border-color:var(--purple);color:#fff}
+.ctl{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+.seg{display:inline-flex;border:1.5px solid #000;border-radius:10px;overflow:hidden}
+.seg button{border:0;background:transparent;font:600 15px var(--text);padding:0 14px;min-height:44px;cursor:pointer;color:#000}
+.seg button[aria-pressed=true]{background:#000;color:#fff}
+.hand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:15px;min-height:44px}
+.hand output{min-width:3.2ch;text-align:right;font-variant-numeric:tabular-nums}
+input[type=range]{-webkit-appearance:none;appearance:none;width:150px;height:44px;background:transparent;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:2px;background:linear-gradient(90deg,var(--cyan),var(--blue),var(--indigo),var(--purple),var(--magenta),var(--red),var(--orange))}
+input[type=range]::-moz-range-track{height:4px;border-radius:2px;background:linear-gradient(90deg,var(--cyan),var(--blue),var(--indigo),var(--purple),var(--magenta),var(--red),var(--orange))}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:6px;background:#000;margin-top:-9px}
+input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:6px;background:#000;border:0}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border-radius:10px;border:1.5px solid #000;background:transparent;font:600 15px var(--text);color:#000;cursor:pointer}
+.btn:hover,.seg button:hover{background:#000;color:#fff}
+.btn.solid{background:#000;color:#fff}
+.btn.solid:hover{background:var(--purple);border-color:var(--purple)}
+[disabled]{opacity:.35;pointer-events:none}
+
+/* below */
+.wrap{max-width:1180px;margin:0 auto;padding:clamp(56px,9vw,120px) var(--pad) 0}
+h2{font-family:var(--display);font-weight:800;font-size:clamp(34px,5.4vw,64px);line-height:1.02;letter-spacing:-.035em;max-width:16ch}
+.lede{margin-top:18px;max-width:60ch;font-size:19px;color:#222}
+.steps{margin-top:clamp(32px,5vw,56px);border-top:2px solid #000}
+.step{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr) minmax(0,280px);gap:16px 40px;padding:28px 0;border-bottom:1px solid var(--line);align-items:start}
+.step h3{font-family:var(--display);font-weight:800;font-size:30px;letter-spacing:-.02em;line-height:1.1;display:flex;align-items:center;gap:12px}
+.step h3 i{width:22px;height:22px;border-radius:5px;flex:none}
+.step .does{font-size:19px;line-height:1.5}
+.step .does strong{font-weight:700;font-variant-numeric:tabular-nums}
+.step .was{color:var(--soft);font-size:15px;line-height:1.5}
+.step .was span{display:block;font-weight:700;color:#000;margin-bottom:2px}
+.reads{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px;max-width:560px}
+.read{appearance:none;border:1.5px solid var(--line);border-radius:14px;background:var(--surface);padding:10px 12px 12px;text-align:left;font:inherit;color:inherit;cursor:pointer}
+.read[aria-pressed=true]{border-color:#000;box-shadow:0 0 0 1.5px #000}
+.read svg{display:block;width:100%;height:auto;max-height:150px;background:var(--bg);border-radius:8px}
+.read span{display:block;margin-top:8px;font-size:15px;line-height:1.35}
+.read span strong{font-weight:700}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 56px;margin-top:clamp(28px,4vw,48px)}
+.two h3{font-family:var(--display);font-weight:800;font-size:24px;letter-spacing:-.02em;padding-bottom:10px;border-bottom:2px solid #000}
+.two li{list-style:none;padding:14px 0;border-bottom:1px solid var(--line);font-size:17px}
+.two li b{font-weight:700}
+.note{margin-top:28px;max-width:62ch;color:#222}
+.end{padding:clamp(72px,12vw,160px) var(--pad) clamp(40px,6vw,72px);text-align:left;max-width:1180px;margin:0 auto}
+.end p.big{font-family:var(--display);font-weight:800;font-size:clamp(48px,11vw,150px);line-height:.95;letter-spacing:-.04em}
+.end p.big b{font-weight:800;background:#000;color:#fff;border-radius:.11em;padding:0 .18em .03em;display:inline-block;line-height:.92}
+.end .by{margin-top:28px;color:var(--soft);font-size:15px;max-width:70ch}
+.row7{display:flex;gap:10px;margin-bottom:28px}
+.row7 i{width:36px;height:36px;border-radius:6px}
+.strip{height:24px;background:conic-gradient(#000 25%,var(--bg) 0 50%,#000 0 75%,var(--bg) 0) 0 0/24px 24px}
+
+@media (max-width:860px){
+  .step{grid-template-columns:minmax(0,1fr)}
+  .two{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:600px){
+  body{font-size:16px}
+  .top .src{display:none}
+  .bar{gap:10px 12px;padding:10px 16px 12px}
+  .say{flex-basis:100%;font-size:16px}
+  .ctl{width:100%;gap:4px 8px}
+  .hand{flex:1 1 100%;order:2}
+  .btn{padding:0;width:48px;justify-content:center}
+  .seg{margin-right:auto}
+  .hand input{flex:1;width:auto}
+  .btn span.long{display:none}
+  .reads{grid-template-columns:minmax(0,1fr)}
+}
+</style>
+</head>
+<body>
+
+<div class="screen">
+  <header class="top">
+    <a class="brand" href="#top" id="top">HumanLup</a>
+    <span class="src"></span>
+    <a class="more" href="#how">How it works <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg></a>
+  </header>
+
+  <section class="poster cold" id="poster" aria-label="Drawing area. Draw one line with a mouse, pen or finger and the headline and the seven squares move to fit it.">
+    <canvas id="ink" aria-hidden="true"></canvas>
+    <div id="sq" aria-hidden="true"></div>
+    <h1 id="h" aria-label="The first draft was always human.">
+      <span class="w" aria-hidden="true">The</span><span class="w" aria-hidden="true">first</span><span class="w" aria-hidden="true">draft</span><span class="w" aria-hidden="true">was</span><span class="w" aria-hidden="true">always</span><span class="w" aria-hidden="true"><b>human.</b></span>
+    </h1>
+  </section>
+
+  <div class="bar">
+    <p class="say" id="say" aria-live="polite"></p>
+    <div class="ctl">
+      <div class="seg" role="group" aria-label="Tidy the line to">
+        <button type="button" id="fS" aria-pressed="false">Straight</button>
+        <button type="button" id="fC" aria-pressed="true">Curve</button>
+      </div>
+      <label class="hand">Your hand
+        <input type="range" id="keep" min="0" max="100" step="1" value="70" aria-describedby="say">
+        <output id="keepOut" for="keep">70%</output>
+      </label>
+      <button class="btn" type="button" id="reset" aria-label="Source line"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg><span class="long">Source line</span></button>
+      <button class="btn" type="button" id="copy" aria-label="Copy link"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg><span class="long" id="copyT">Copy link</span></button>
+      <button class="btn solid" type="button" id="save" aria-label="Save PNG"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg><span class="long">Save PNG</span></button>
+    </div>
+  </div>
+</div>
+
+<main>
+  <section class="wrap" id="how">
+    <h2>Four steps, run on your line.</h2>
+    <p class="lede">Draw again and the numbers change.</p>
+
+    <div class="steps">
+      <div class="step">
+        <h3><i style="background:var(--cyan)"></i>Understand</h3>
+        <p class="does" id="d1"></p>
+        <p class="was">Learning about the project goals, constraints, and opportunities.</p>
+      </div>
+      <div class="step">
+        <h3><i style="background:var(--indigo)"></i>Explore</h3>
+        <div>
+          <p class="does" id="d2"></p>
+          <div class="reads">
+            <button type="button" class="read" id="rS" aria-pressed="false"><svg id="tS" aria-hidden="true"></svg><span id="rSt"></span></button>
+            <button type="button" class="read" id="rC" aria-pressed="true"><svg id="tC" aria-hidden="true"></svg><span id="rCt"></span></button>
+          </div>
+        </div>
+        <p class="was">Experimenting with different approaches and solutions.</p>
+      </div>
+      <div class="step">
+        <h3><i style="background:var(--magenta)"></i>Build</h3>
+        <p class="does" id="d3"></p>
+        <p class="was">Creating the solution with attention to detail and quality.</p>
+      </div>
+      <div class="step">
+        <h3><i style="background:var(--orange)"></i>Refine</h3>
+        <p class="does" id="d4"></p>
+        <p class="was">Testing, iterating, and improving based on feedback.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="end">
+    <div class="row7" aria-hidden="true"><i style="background:var(--cyan)"></i><i style="background:var(--blue)"></i><i style="background:var(--indigo)"></i><i style="background:var(--purple)"></i><i style="background:var(--magenta)"></i><i style="background:var(--red)"></i><i style="background:var(--orange)"></i></div>
+    <p class="big">Think, then <b>make.</b></p>
+    <p class="by">HumanLup. Built by Lupo. The first draft was always human.</p>
+  </div>
+  <div class="strip" aria-hidden="true"></div>
+</footer>
+
+<script>
+(() => {
+'use strict';
+const COLORS = ['#00BCD4','#2196F3','#3F51B5','#9C27B0','#E91E63','#F44336','#FF5722'];
+const WORDS = ['The','first','draft','was','always','human.'];
+const N = 64, LH = .98, SP = .22, B36 = 1295;
+const $ = s => document.querySelector(s);
+const poster = $('#poster'), ink = $('#ink'), ctx = ink.getContext('2d'), sqBox = $('#sq');
+const wordEls = [...document.querySelectorAll('#h .w')];
+const sqEls = COLORS.map(c => { const d = document.createElement('i'); d.className = 'sq'; d.style.background = c; sqBox.appendChild(d); return d; });
+const keepEl = $('#keep'), keepOut = $('#keepOut');
+const fmt = n => Math.round(n).toLocaleString('en-US');
+
+let WW = WORDS.map(w => w.length * .5);
+let S = { pts: null, k: 70, f: 'c', d: 0 };   // pts: [{x,y,m}] in 0..1 of the poster
+let live = null;                               // points of a line being drawn
+let W = 0, H = 0, R = null;                    // last result, for export
+
+/* ---------- geometry ---------- */
+const lerp = (a, b, t) => a + (b - a) * t;
+
+function resample(p) {
+  const cum = [0];
+  for (let i = 1; i < p.length; i++) cum.push(cum[i - 1] + Math.hypot(p[i].x - p[i - 1].x, p[i].y - p[i - 1].y));
+  const L = cum[cum.length - 1], out = [];
+  let j = 1;
+  for (let n = 0; n < N; n++) {
+    const d = L * n / (N - 1);
+    while (j < p.length - 1 && cum[j] < d) j++;
+    const a = p[j - 1], b = p[j], seg = (cum[j] - cum[j - 1]) || 1;
+    const u = Math.min(1, Math.max(0, (d - cum[j - 1]) / seg));
+    out.push({ x: lerp(a.x, b.x, u), y: lerp(a.y, b.y, u), t: lerp(a.t, b.t, u) });
+  }
+  const v = out.map((q, i) => { const a = out[Math.max(0, i - 2)], b = out[Math.min(N - 1, i + 2)]; return Math.hypot(b.x - a.x, b.y - a.y) / Math.max(1, b.t - a.t); });
+  const med = [...v].sort((a, b) => a - b)[N >> 1] || 1;
+  const m = v.map(x => Math.min(1.9, Math.max(.55, Math.pow(med / Math.max(x, 1e-4), .55))));
+  out.forEach((q, i) => { let s = 0, c = 0; for (let k = -3; k <= 3; k++) if (m[i + k] !== undefined) { s += m[i + k]; c++; } q.m = s / c; });
+  return { pts: out, len: L, dur: p[p.length - 1].t - p[0].t };
+}
+
+function params(r) {
+  const u = [0]; for (let i = 1; i < r.length; i++) u.push(u[i - 1] + Math.hypot(r[i].x - r[i - 1].x, r[i].y - r[i - 1].y));
+  const L = u[u.length - 1] || 1; return { u: u.map(x => x / L), L };
+}
+
+function fitLine(r, u) {
+  let mx = 0, my = 0; r.forEach(p => { mx += p.x; my += p.y; }); mx /= r.length; my /= r.length;
+  let sxx = 0, sxy = 0, syy = 0; r.forEach(p => { const dx = p.x - mx, dy = p.y - my; sxx += dx * dx; sxy += dx * dy; syy += dy * dy; });
+  const a = .5 * Math.atan2(2 * sxy, sxx - syy); let ax = Math.cos(a), ay = Math.sin(a);
+  const e = r[r.length - 1], s = r[0];
+  if ((e.x - s.x) * ax + (e.y - s.y) * ay < 0) { ax = -ax; ay = -ay; }
+  let lo = Infinity, hi = -Infinity; r.forEach(p => { const t = (p.x - mx) * ax + (p.y - my) * ay; lo = Math.min(lo, t); hi = Math.max(hi, t); });
+  const A = { x: mx + ax * lo, y: my + ay * lo }, B = { x: mx + ax * hi, y: my + ay * hi };
+  return r.map((_, i) => ({ x: lerp(A.x, B.x, u[i]), y: lerp(A.y, B.y, u[i]) }));
+}
+
+function fitCubic(r, u) {
+  const P0 = r[0], P3 = r[r.length - 1];
+  let a11 = 0, a12 = 0, a22 = 0, bx1 = 0, by1 = 0, bx2 = 0, by2 = 0;
+  r.forEach((p, i) => {
+    const t = u[i], s = 1 - t, b0 = s * s * s, b1 = 3 * s * s * t, b2 = 3 * s * t * t, b3 = t * t * t;
+    const rx = p.x - P0.x * b0 - P3.x * b3, ry = p.y - P0.y * b0 - P3.y * b3;
+    a11 += b1 * b1; a12 += b1 * b2; a22 += b2 * b2; bx1 += b1 * rx; by1 += b1 * ry; bx2 += b2 * rx; by2 += b2 * ry;
+  });
+  const det = a11 * a22 - a12 * a12;
+  let P1, P2;
+  if (Math.abs(det) < 1e-9) { P1 = { x: lerp(P0.x, P3.x, 1 / 3), y: lerp(P0.y, P3.y, 1 / 3) }; P2 = { x: lerp(P0.x, P3.x, 2 / 3), y: lerp(P0.y, P3.y, 2 / 3) }; }
+  else { P1 = { x: (bx1 * a22 - bx2 * a12) / det, y: (by1 * a22 - by2 * a12) / det }; P2 = { x: (bx2 * a11 - bx1 * a12) / det, y: (by2 * a11 - by1 * a12) / det }; }
+  return r.map((_, i) => { const t = u[i], s = 1 - t, b0 = s * s * s, b1 = 3 * s * s * t, b2 = 3 * s * t * t, b3 = t * t * t;
+    return { x: P0.x * b0 + P1.x * b1 + P2.x * b2 + P3.x * b3, y: P0.y * b0 + P1.y * b1 + P2.y * b2 + P3.y * b3 }; });
+}
+
+const gap = (a, b) => a.reduce((s, p, i) => s + Math.hypot(p.x - b[i].x, p.y - b[i].y), 0) / a.length;
+
+function along(C) {           // returns a function: fraction of length -> {x,y,m}
+  const cum = [0]; for (let i = 1; i < C.length; i++) cum.push(cum[i - 1] + Math.hypot(C[i].x - C[i - 1].x, C[i].y - C[i - 1].y));
+  const L = cum[cum.length - 1];
+  const at = f => { const d = L * f; let j = 1; while (j < C.length - 1 && cum[j] < d) j++;
+    const a = C[j - 1], b = C[j], seg = (cum[j] - cum[j - 1]) || 1, u = Math.min(1, Math.max(0, (d - cum[j - 1]) / seg));
+    return { x: lerp(a.x, b.x, u), y: lerp(a.y, b.y, u), m: lerp(a.m, b.m, u) }; };
+  return { at, L };
+}
+
+/* ---------- type that takes the room left over ---------- */
+function tryFit(s, obs, box, yOff) {
+  const lh = s * LH, sp = s * SP, out = []; let y = box.y + yOff, wi = 0;
+  while (wi < WORDS.length) {
+    if (y + lh > box.y + box.h + .5) return null;
+    const t0 = y + lh * .1, t1 = y + lh * .96;
+    let iv = [[box.x, box.x + box.w]];
+    for (const o of obs) {
+      if (o.y1 <= t0 || o.y0 >= t1) continue;
+      const nx = [];
+      for (const [a, b] of iv) {
+        if (o.x1 <= a || o.x0 >= b) { nx.push([a, b]); continue; }
+        if (o.x0 > a) nx.push([a, o.x0]);
+        if (o.x1 < b) nx.push([o.x1, b]);
+      }
+      iv = nx;
+    }
+    for (const [a, b] of iv) {
+      let x = a;
+      while (wi < WORDS.length) { const w = WW[wi] * s; if (x + w <= b) { out.push({ x, y, w }); x += w + sp; wi++; } else break; }
+      if (wi >= WORDS.length) break;
+    }
+    y += lh;
+  }
+  const ys = [...new Set(out.map(p => p.y))];
+  return { out, bottom: y, holes: Math.round((ys[ys.length - 1] - ys[0]) / lh) + 1 - ys.length };
+}
+
+function setType(obs, box) {
+  let lo = 12, hi = Math.min(box.h / LH, box.w / Math.max(...WW)), best = null, bs = lo;
+  for (let i = 0; i < 16; i++) { const mid = (lo + hi) / 2, r = tryFit(mid, obs, box, 0); if (r) { best = r; bs = mid; lo = mid; } else hi = mid; }
+  if (!best) { best = tryFit(12, obs, { x: box.x, y: box.y, w: box.w, h: 1e5 }, 0); bs = 12; }
+  if (best.holes) for (const f of [.95, .9, .85, .8, .75]) { const r = tryFit(bs * f, obs, box, 0); if (r && !r.holes) { best = r; bs *= f; break; } }
+  const spare = box.y + box.h - best.bottom;
+  if (spare > 4) { const c = tryFit(bs, obs, box, spare / 2); if (c && c.holes <= best.holes) best = c; }
+  return { s: bs, out: best.out };
+}
+
+/* ---------- one pass: line in, page out ---------- */
+function compute() {
+  const M = W < 600 ? 16 : Math.round(Math.min(40, W * .03));
+  const box = { x: M, y: M, w: W - 2 * M, h: H - 2 * M };
+  const k = S.k / 100;
+  let raw = null, src = false, C, len, dur = S.d, chord = 0, fitS = null, fitC = null, gS = 0, gC = 0, base;
+  if (live && live.len >= 24) { raw = live.pts; dur = live.dur; }
+  else if (S.pts) raw = S.pts.map(p => ({ x: p.x * W, y: p.y * H, m: p.m }));
+  if (raw) {
+    const { u, L } = params(raw); len = L;
+    chord = Math.hypot(raw[N - 1].x - raw[0].x, raw[N - 1].y - raw[0].y);
+    fitS = fitLine(raw, u); fitC = fitCubic(raw, u); gS = gap(raw, fitS); gC = gap(raw, fitC);
+    const F = S.f === 's' ? fitS : fitC;
+    C = raw.map((p, i) => ({ x: lerp(F[i].x, p.x, k), y: lerp(F[i].y, p.y, k), m: lerp(1, p.m, k) }));
+    base = Math.min(60, Math.max(34, Math.min(W, H) * .075));
+  } else {
+    src = true; base = 50;
+    const x0 = Math.max(M, W * .07) + 25, y0 = M + Math.max(25, (H - 2 * M) * .5 - 120);
+    C = Array.from({ length: N }, (_, i) => ({ x: x0 + 240 * i / (N - 1), y: y0 + 240 * i / (N - 1), m: 1 }));
+    len = 240 * Math.SQRT2;
+  }
+  const A = along(C);
+  const sq = COLORS.map((c, i) => { const p = A.at(i / 6), size = base * p.m; return { x: p.x - size / 2, y: p.y - size / 2, size, c }; });
+  const obs = sq.map(q => ({ x0: q.x - 10, y0: q.y - 10, x1: q.x + q.size + 10, y1: q.y + q.size + 10 }));
+  const n = Math.max(2, Math.ceil(A.L / 12));
+  for (let i = 0; i <= n; i++) { const p = A.at(i / n); obs.push({ x0: p.x - 11, y0: p.y - 11, x1: p.x + 11, y1: p.y + 11 }); }
+  const type = setType(obs, box);
+  return { src, raw, C, fitS, fitC, gS, gC, len, dur, chord, sq, type, base };
+}
+
+function render() {
+  if (!W || !H) return;
+  R = compute();
+  const s = R.type.s / 100;
+  R.type.out.forEach((p, i) => { wordEls[i].style.transform = `translate(${p.x.toFixed(1)}px,${p.y.toFixed(1)}px) scale(${s.toFixed(4)})`; });
+  R.sq.forEach((q, i) => { sqEls[i].style.transform = `translate(${q.x.toFixed(1)}px,${q.y.toFixed(1)}px) scale(${(q.size / 100).toFixed(4)})`; });
+  drawInk(ctx, R, live ? live.rawPts : null);
+  tell();
+}
+
+function path(c, pts) {
+  c.beginPath(); c.moveTo(pts[0].x, pts[0].y);
+  for (let i = 1; i < pts.length - 1; i++) c.quadraticCurveTo(pts[i].x, pts[i].y, (pts[i].x + pts[i + 1].x) / 2, (pts[i].y + pts[i + 1].y) / 2);
+  c.lineTo(pts[pts.length - 1].x, pts[pts.length - 1].y);
+}
+function drawInk(c, r, rawPts) {
+  const dpr = c === ctx ? (window.devicePixelRatio || 1) : 2;
+  c.setTransform(dpr, 0, 0, dpr, 0, 0);
+  if (c === ctx) c.clearRect(0, 0, W, H);
+  c.lineCap = 'round'; c.lineJoin = 'round';
+  // the tidy line the squares sit on
+  c.strokeStyle = 'rgba(0,0,0,.22)'; c.lineWidth = 1; c.setLineDash([2, 5]); path(c, r.C); c.stroke(); c.setLineDash([]);
+  // the hand
+  const hand = rawPts && rawPts.length > 1 ? rawPts : r.raw;
+  if (hand) { c.strokeStyle = 'rgba(0,0,0,.62)'; c.lineWidth = 2.4; path(c, hand); c.stroke(); }
+}
+
+/* ---------- words about it ---------- */
+function tell() {
+  const r = R, px = fmt(r.type.s), drawn = !r.src;
+  [$('#fS'), $('#fC'), keepEl].forEach(e => e.disabled = !drawn);
+  $('#reset').disabled = !drawn && !live;
+  $('#fS').setAttribute('aria-pressed', S.f === 's'); $('#fC').setAttribute('aria-pressed', S.f === 'c');
+  $('#rS').setAttribute('aria-pressed', S.f === 's'); $('#rC').setAttribute('aria-pressed', S.f === 'c');
+  $('#rS').disabled = $('#rC').disabled = !drawn;
+  keepOut.textContent = S.k + '%';
+  const straight = r.len ? Math.round(100 * r.chord / r.len) : 100;
+  const secs = r.dur ? (r.dur / 1000).toFixed(1) + ' seconds' : '';
+  if (!drawn) {
+    $('#say').innerHTML = `<strong>Draw one line anywhere on this page.</strong>`;
+    $('#d1').innerHTML = `Nothing to read yet. <strong>Seven squares</strong> on a <strong>45 degree</strong> diagonal. Nobody drew it.`;
+    $('#d2').innerHTML = `Once you draw, the page makes two tidy versions of your line, a straight one and a curved one, and shows how far each is from what your hand did.`;
+    $('#d3').innerHTML = `Seven squares go down at equal steps. Then the headline is set as large as the room left over allows. Right now that is <strong>${px} px</strong>.`;
+    $('#d4').innerHTML = `The slider in the bar sets how much of your hand stays. It has nothing to work on yet.`;
+    $('#rSt').innerHTML = `<strong>Straight</strong>`; $('#rCt').innerHTML = `<strong>Curve</strong>`;
+  } else {
+    const which = S.f === 's' ? 'straight' : 'curved';
+    $('#say').innerHTML = `<strong>Your line is ${fmt(r.len)} px long${secs ? ', drawn in ' + secs : ''}.</strong> The headline took the room it left: ${px} px. Draw again to replace it.`;
+    $('#d1').innerHTML = `Your line is <strong>${fmt(r.len)} px</strong> long${secs ? ' and took <strong>' + secs + '</strong>' : ''}. Its ends are ${fmt(r.chord)} px apart, so it is <strong>${straight}% straight</strong>. Where your hand slowed down, the square there is bigger.`;
+    $('#d2').innerHTML = `Two tidy versions of the same line. Pick the one to pull toward.`;
+    $('#rSt').innerHTML = `<strong>Straight.</strong> ${fmt(r.gS)} px from your hand on average.`;
+    $('#rCt').innerHTML = `<strong>Curve.</strong> ${fmt(r.gC)} px from your hand on average.`;
+    $('#d3').innerHTML = `Seven squares sit at equal steps along the line, ${fmt(Math.min(...r.sq.map(q => q.size)))} to ${fmt(Math.max(...r.sq.map(q => q.size)))} px wide. No word may touch the line, so the headline is set as large as the room on either side allows: <strong>${px} px</strong>.`;
+    $('#d4').innerHTML = S.k === 0
+      ? `Your hand is at <strong>0%</strong>. The squares sit exactly on the ${which} version and are all one size.`
+      : S.k === 100
+        ? `Your hand is at <strong>100%</strong>. The squares sit exactly where you drew. Nothing was tidied.`
+        : `Your hand is at <strong>${S.k}%</strong>. The squares sit ${S.k}% of the way from the ${which} version to what you drew.`;
+  }
+  thumb($('#tS'), r, r.fitS); thumb($('#tC'), r, r.fitC);
+}
+function d(pts) { return 'M' + pts.map(p => p.x.toFixed(1) + ' ' + p.y.toFixed(1)).join('L'); }
+function thumb(svg, r, fit) {
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  const sw = Math.max(W, H) / 150;
+  svg.innerHTML = r.src
+    ? `<path d="${d(r.C)}" fill="none" stroke="#000" stroke-opacity=".3" stroke-width="${sw}" stroke-dasharray="${sw * 2} ${sw * 3}"/>`
+    : `<path d="${d(r.raw)}" fill="none" stroke="#000" stroke-opacity=".3" stroke-width="${sw * 1.6}" stroke-linecap="round" stroke-linejoin="round"/><path d="${d(fit)}" fill="none" stroke="#000" stroke-width="${sw * 1.6}" stroke-linecap="round"/>`;
+}
+
+/* ---------- drawing ---------- */
+let down = false, raf = 0;
+const local = e => { const b = poster.getBoundingClientRect(); return { x: e.clientX - b.left, y: e.clientY - b.top, t: e.timeStamp }; };
+function schedule() { if (!raf) raf = requestAnimationFrame(() => { raf = 0; if (live) { const rs = resample(live.rawPts); live.pts = rs.pts; live.len = rs.len; live.dur = rs.dur; } render(); }); }
+poster.addEventListener('pointerdown', e => {
+  if (e.button) return;
+  down = true; poster.setPointerCapture(e.pointerId); poster.classList.add('live');
+  live = { rawPts: [local(e)], pts: null, len: 0, dur: 0 }; e.preventDefault();
+});
+poster.addEventListener('pointermove', e => {
+  if (!down) return;
+  const evs = e.getCoalescedEvents ? e.getCoalescedEvents() : [e];
+  (evs.length ? evs : [e]).forEach(ev => { const p = local(ev), q = live.rawPts[live.rawPts.length - 1]; if (Math.hypot(p.x - q.x, p.y - q.y) >= 1.5) live.rawPts.push(p); });
+  schedule();
+});
+function finish() {
+  if (!down) return; down = false; poster.classList.remove('live');
+  const L = live;
+  if (L.rawPts.length > 2) { const rs = resample(L.rawPts); L.pts = rs.pts; L.len = rs.len; L.dur = rs.dur; }
+  live = null;
+  if (L.len >= 40) { S.pts = L.pts.map(p => ({ x: p.x / W, y: p.y / H, m: p.m })); S.d = Math.round(L.dur); writeHash(); readHash(); }
+  render();
+  if (L.len < 40) $('#say').innerHTML = `<strong>That was a dot.</strong> Drag to draw a line.`;
+}
+poster.addEventListener('pointerup', finish);
+poster.addEventListener('pointercancel', finish);
+
+/* ---------- controls ---------- */
+function setFit(f) { S.f = f; writeHash(); render(); }
+$('#fS').onclick = $('#rS').onclick = () => setFit('s');
+$('#fC').onclick = $('#rC').onclick = () => setFit('c');
+keepEl.addEventListener('input', () => { poster.classList.add('live'); S.k = +keepEl.value; render(); });
+keepEl.addEventListener('change', () => { poster.classList.remove('live'); writeHash(); });
+$('#reset').onclick = () => { S.pts = null; S.d = 0; writeHash(); render(); };
+$('#copy').onclick = async () => {
+  let ok = true; try { await navigator.clipboard.writeText(location.href); } catch (e) { ok = false; }
+  $('#copyT').textContent = ok ? 'Copied' : 'Copy from the address bar'; $('#copy').classList.toggle('ok', ok); setTimeout(() => { $('#copyT').textContent = 'Copy link'; $('#copy').classList.remove('ok'); }, 1800);
+};
+$('#save').onclick = () => {
+  const cv = document.createElement('canvas'); cv.width = W * 2; cv.height = H * 2; const c = cv.getContext('2d');
+  c.scale(2, 2); c.fillStyle = '#f8f8f8'; c.fillRect(0, 0, W, H);
+  c.fillStyle = 'rgba(0,0,0,.09)'; for (let y = 12; y < H; y += 24) for (let x = 12; x < W; x += 24) { c.beginPath(); c.arc(x, y, 1, 0, 7); c.fill(); }
+  drawInk(c, R, null); c.setTransform(2, 0, 0, 2, 0, 0);
+  R.sq.forEach(q => { c.save(); c.shadowColor = 'rgba(0,0,0,.1)'; c.shadowBlur = q.size * .64; c.shadowOffsetY = q.size * .16; c.fillStyle = q.c; c.beginPath(); c.roundRect(q.x, q.y, q.size, q.size, q.size * .16); c.fill(); c.restore(); });
+  const s = R.type.s; c.font = `800 ${s}px Gabarito, "Avenir Next", sans-serif`; if ('letterSpacing' in c) c.letterSpacing = (-.035 * s) + 'px';
+  const fm = c.measureText('Hg'), asc = fm.fontBoundingBoxAscent || s * .8, desc = fm.fontBoundingBoxDescent || s * .2;
+  const bEl = wordEls[5].firstElementChild;
+  R.type.out.forEach((p, i) => {
+    const base = p.y + (s * LH - (asc + desc)) / 2 + asc;
+    if (i === 5) {
+      const by = p.y + bEl.offsetTop / 100 * s, bh = bEl.offsetHeight / 100 * s;
+      c.fillStyle = '#000'; c.beginPath(); c.roundRect(p.x, by, p.w, bh, s * .11); c.fill();
+      c.fillStyle = '#fff'; c.fillText(WORDS[i], p.x + s * .2, base);
+    } else { c.fillStyle = '#000'; c.fillText(WORDS[i], p.x, base); }
+  });
+  cv.toBlob(b => { const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'first-draft.png'; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 4000); window.__png = b.size; }, 'image/png');
+};
+
+/* ---------- the line in the address ---------- */
+const e2 = v => Math.round(Math.min(1, Math.max(0, v)) * B36).toString(36).padStart(2, '0');
+function writeHash() {
+  const q = [];
+  if (S.pts) { q.push('l=' + S.pts.map(p => e2((p.x + .25) / 1.5) + e2((p.y + .25) / 1.5) + Math.round((p.m - .55) / 1.35 * 35).toString(36)).join('')); if (S.d) q.push('d=' + S.d); }
+  if (S.k !== 70) q.push('k=' + S.k);
+  if (S.f !== 'c') q.push('f=' + S.f);
+  history.replaceState(null, '', q.length ? '#' + q.join('&') : location.pathname + location.search);
+}
+function readHash() {
+  const q = new URLSearchParams(location.hash.slice(1)), l = q.get('l');
+  if (l && l.length === N * 5 && /^[0-9a-z]+$/.test(l)) {
+    S.pts = Array.from({ length: N }, (_, i) => { const c = l.substr(i * 5, 5);
+      return { x: parseInt(c.slice(0, 2), 36) / B36 * 1.5 - .25, y: parseInt(c.slice(2, 4), 36) / B36 * 1.5 - .25, m: .55 + parseInt(c[4], 36) / 35 * 1.35 }; });
+    S.d = Math.max(0, parseInt(q.get('d')) || 0);
+  }
+  const k = parseInt(q.get('k')); if (k >= 0 && k <= 100) S.k = k;
+  if (q.get('f') === 's') S.f = 's';
+  keepEl.value = S.k;
+}
+
+/* ---------- start ---------- */
+function size() {
+  const b = poster.getBoundingClientRect(); W = b.width; H = b.height;
+  const dpr = window.devicePixelRatio || 1; ink.width = Math.round(W * dpr); ink.height = Math.round(H * dpr);
+  render();
+}
+readHash();
+new ResizeObserver(size).observe(poster);
+const measure = () => { WW = wordEls.map(e => e.offsetWidth / 100); render(); };
+measure();
+(document.fonts && document.fonts.load ? document.fonts.load('800 100px Gabarito').then(() => document.fonts.ready) : Promise.resolve()).then(() => {
+  measure(); requestAnimationFrame(() => requestAnimationFrame(() => poster.classList.remove('cold')));
+});
+window.__state = () => ({ S, R, W, H });
+})();
+</script>
+</body>
+</html>

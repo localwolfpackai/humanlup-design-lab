@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terrain · Five sites under their own sun</title>
+<!-- humanlup:meta -->
+<!-- HumanLup Design Lab 04 · Anthony Lupo · humanlup.com · X @humanlup · IG humanlup.ai · anthony@humanlup.com -->
+<meta name="author" content="Anthony Lupo">
+<meta name="creator" content="Anthony Lupo">
+<meta name="publisher" content="HumanLup">
+<meta name="copyright" content="© 2026 Anthony Lupo, HumanLup">
+<link rel="author" href="https://humanlup.com">
+<link rel="me" href="https://x.com/humanlup">
+<link rel="me" href="https://www.instagram.com/humanlup.ai">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HumanLup Design Lab 04">
+<meta property="og:title" content="Terrain · Five sites under their own sun">
+<meta property="og:description" content="Terrain Studio: five projects, each on its ground, lit by the sun&#x27;s real position at that latitude, date and hour.">
+<meta property="og:image" content="preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@humanlup">
+<meta name="twitter:creator" content="@humanlup">
+<meta name="twitter:title" content="Terrain · Five sites under their own sun">
+<meta name="twitter:description" content="Terrain Studio: five projects, each on its ground, lit by the sun&#x27;s real position at that latitude, date and hour.">
+<meta name="twitter:image" content="preview.jpg">
+<!-- /humanlup:meta -->
+<meta name="description" content="Terrain Studio: five projects, each on its ground, lit by the sun's real position at that latitude, date and hour.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geologica:wght@300..700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F5F3EF; --paper-2:#EDEAE4; --surface:#FAFAF9;
+  --ink:#1C1917; --ink-2:#57534E; --ink-3:#66605A;
+  --amber:#B45309; --amber-ink:#9A4407; --olive:#365314;
+  --rule:#D6D3D1; --edge:#857E77; --shade:#3F4A5A;
+  --sans:'Geologica','Avenir Next','Helvetica Neue',Arial,sans-serif;
+  --mono:'DM Mono','SF Mono',Menlo,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--paper);color:var(--ink);font:400 16px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
+button,input{font:inherit;color:inherit}
+h1,h2,h3,p,dl,dd,ul{margin:0;padding:0}
+ul{list-style:none}
+:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+/* sheet */
+.sheet{display:grid;grid-template-columns:292px minmax(0,1fr) 348px;height:100dvh;min-height:700px;padding:12px}
+.sheet>*{border:1px solid var(--ink);min-width:0;min-height:0}
+.sheet>*+*{border-left:0}
+
+/* index column */
+.index{display:flex;flex-direction:column;overflow:auto}
+.mark{padding:20px 20px 16px;border-bottom:1px solid var(--ink)}
+.mark b{display:block;font-weight:700;font-size:28px;letter-spacing:-.03em;line-height:1}
+.mark span{display:block;margin-top:6px;color:var(--ink-2);font-size:14px}
+.sites button{display:grid;grid-template-columns:34px 1fr;align-items:center;width:100%;min-height:60px;padding:8px 20px 8px 17px;background:none;border:0;border-left:3px solid transparent;border-bottom:1px solid var(--rule);text-align:left;cursor:pointer}
+.sites button:hover{background:var(--paper-2)}
+.sites .n{font-family:var(--mono);font-size:13px;color:var(--ink-2)}
+.sites .t{font-weight:500;font-size:17px;letter-spacing:-.01em;line-height:1.2}
+.sites .p{grid-column:2;font-size:14px;color:var(--ink-2)}
+.sites button[aria-current=true]{border-left-color:var(--amber);background:var(--surface)}
+.sites button[aria-current=true] .t{font-weight:700}
+.about{padding:18px 20px;flex:1}
+.about p{font-size:15px;color:var(--ink-2);margin-bottom:14px}
+.facts{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:14px}
+.facts dt{color:var(--ink-2)}
+.facts dd{font-family:var(--mono);font-size:13px;text-align:right;align-self:center}
+.foot{padding:14px 20px;border-top:1px solid var(--ink);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.foot small{font-size:13px;color:var(--ink-2);line-height:1.35}
+
+/* buttons */
+.btn{min-height:44px;padding:0 16px;border:1px solid var(--edge);background:var(--surface);border-radius:8px;cursor:pointer;font-weight:500;font-size:15px;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.btn:hover{border-color:var(--ink)}
+.btn.solid{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.seg{display:inline-flex;border:1px solid var(--edge);border-radius:8px;overflow:hidden;background:var(--surface)}
+.seg button{min-height:42px;min-width:64px;padding:0 14px;border:0;background:none;cursor:pointer;font-weight:500;font-size:15px}
+.seg button+button{border-left:1px solid var(--edge)}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--paper)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{min-height:36px;padding:0 10px;border:1px solid var(--edge);border-radius:999px;background:var(--surface);cursor:pointer;font-size:14px}
+.chips button[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* stage */
+.stage{display:grid;grid-template-rows:auto minmax(0,1fr) auto;background:var(--paper)}
+.head{padding:18px 24px 12px}
+h1{font-weight:650;font-size:clamp(34px,4.6vw,68px);letter-spacing:-.04em;line-height:.98}
+.now{margin-top:8px;font-size:clamp(16px,1.35vw,20px);color:var(--ink);max-width:46ch}
+.now b{font-weight:600;color:var(--amber-ink)}
+.model{position:relative;min-height:0;overflow:hidden}
+.model canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:manipulation;cursor:crosshair}
+.model svg.ov{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.ov text{font:500 12px var(--mono);fill:var(--ink)}
+.ov .halo{stroke:var(--paper);stroke-width:4px;paint-order:stroke;stroke-linejoin:round}
+.bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;padding:12px 24px;border-top:1px solid var(--ink)}
+.bar label{font-size:14px;color:var(--ink-2);display:flex;align-items:center;gap:8px}
+.bar .sp{flex:1}
+.hint{font-size:14px;color:var(--ink-2);display:none}
+
+/* instruments */
+.tools{overflow:auto;background:var(--surface)}
+.tools section{padding:16px 20px 18px;border-bottom:1px solid var(--ink)}
+.tools section:last-child{border-bottom:0}
+.tools h2{font-size:20px;font-weight:650;letter-spacing:-.02em;margin-bottom:2px}
+.tools .why{font-size:14px;color:var(--ink-2);margin-bottom:12px}
+.chips.tight{gap:5px;flex-wrap:nowrap}
+.chips.tight button{flex:1;padding:0 4px;white-space:nowrap}
+.path{display:block;width:100%;max-width:196px;margin:0 auto 4px;touch-action:none;cursor:grab}
+.path text{font:500 11px var(--mono);fill:var(--ink-2)}
+.row{display:grid;grid-template-columns:44px 1fr 74px;align-items:center;gap:10px;min-height:40px;font-size:14px}
+.row output{font-family:var(--mono);font-size:13px;text-align:right}
+input[type=range]{width:100%;height:28px;accent-color:var(--amber);margin:0}
+.read{display:grid;grid-template-columns:1fr auto;gap:5px 12px;font-size:14px;margin-top:12px}
+.read dt{color:var(--ink-2)}
+.read dd{font-family:var(--mono);font-size:13px;text-align:right;align-self:center}
+.line{margin-top:12px;font-size:15px}
+.h2row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:4px}
+.read.two{grid-template-columns:auto 1fr auto 1fr;gap:5px 8px}
+.read.two dt,.read.two dd{white-space:nowrap}
+.read.two dd:nth-of-type(odd){padding-right:10px;border-right:1px solid var(--rule)}
+.read.two .wide{grid-column:1/4}
+.sec{display:block;width:100%;height:auto;margin:6px 0 2px}
+.sec text{font:500 11px var(--mono);fill:var(--ink-2)}
+.key{display:flex;gap:14px;font-size:13px;color:var(--ink-2)}
+.key i{display:inline-block;width:14px;height:4px;vertical-align:middle;margin-right:6px}
+.lab{font-size:14px;color:var(--ink-2);margin:12px 0 6px}
+[hidden]{display:none!important}
+
+/* notes */
+dialog{border:1px solid var(--ink);border-radius:0;background:var(--paper);color:var(--ink);padding:0;width:min(720px,calc(100vw - 24px));max-height:calc(100dvh - 24px)}
+dialog::backdrop{background:rgba(28,25,23,.55)}
+.dl-head{display:flex;justify-content:space-between;align-items:center;padding:14px 16px 14px 24px;border-bottom:1px solid var(--ink);position:sticky;top:0;background:var(--paper)}
+.dl-head h2{font-size:24px;font-weight:650;letter-spacing:-.02em}
+.dl-body{padding:8px 24px 28px}
+.dl-body h3{font-size:14px;font-weight:600;color:var(--amber-ink);margin:22px 0 8px}
+.dl-body li{padding:10px 0;border-top:1px solid var(--rule)}
+.dl-body li b{font-weight:600}
+.dl-body li span{display:block;color:var(--ink-2);font-size:15px}
+.dl-body time{font-family:var(--mono);font-size:13px;color:var(--ink-2)}
+.dl-body a{color:var(--amber-ink)}
+
+@media (max-width:1100px){
+  .sheet{grid-template-columns:240px minmax(0,1fr) 320px}
+}
+@media (max-width:900px){
+  html,body{height:auto}
+  .sheet{display:block;height:auto;min-height:0;padding:0}
+  .sheet>*{border:0;border-bottom:1px solid var(--ink)}
+  .index{overflow:visible}
+  .mark{display:flex;align-items:baseline;justify-content:space-between;padding:16px}
+  .mark b{font-size:24px}.mark span{margin:0}
+  .sites{display:flex;overflow-x:auto;border-bottom:1px solid var(--ink);scrollbar-width:none}
+  .sites li{flex:none}
+  .sites button{grid-template-columns:auto;min-height:56px;padding:8px 16px;border-left:0;border-bottom:3px solid transparent;border-right:1px solid var(--rule)}
+  .sites .n{display:none}.sites .p{grid-column:1}
+  .sites .t{font-size:16px;font-weight:600;white-space:nowrap}
+  .sites button[aria-current=true]{border-bottom-color:var(--amber)}
+  .about{display:none}
+  .foot{border-top:0;padding:12px 16px}
+  .stage{display:block}
+  .head{padding:18px 16px 12px}
+  h1{font-size:40px;font-weight:700}
+  .now{font-size:17px}
+  .model{aspect-ratio:1/1}
+  .bar{padding:12px 16px;gap:10px}
+  .bar .sp{display:none}
+  .hint{display:block;flex-basis:100%}
+  .seg button{min-height:44px}
+  .chips button{min-height:44px;padding:0 14px}
+  .tools{overflow:visible}
+  .tools section{padding:20px 16px}
+  .row{min-height:48px;font-size:16px}
+  input[type=range]{height:44px}
+  .read,.line,.tools .why,.hint{font-size:16px}
+  .read dd,.row output,.facts dd,.key .num{font-size:14px}
+  .mobile-about{display:block!important;padding:20px 16px;border-bottom:1px solid var(--ink)}
+  .mobile-about p{color:var(--ink-2);margin-bottom:12px}
+}
+.mobile-about{display:none}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <nav class="index" aria-label="Projects">
+    <div class="mark"><b>Terrain</b><span>Built from the ground up</span></div>
+    <ul class="sites" id="sites"></ul>
+    <div class="about">
+      <p id="desc"></p>
+      <dl class="facts" id="facts"></dl>
+    </div>
+    <div class="foot">
+      <small>Ground is invented.<br>The sun is computed.</small>
+      <button class="btn" id="openNotes">Studio</button>
+    </div>
+  </nav>
+
+  <main class="stage">
+    <header class="head">
+      <h1 id="title"></h1>
+      <p class="now" id="now" aria-live="polite"></p>
+    </header>
+    <div class="model" id="model">
+      <svg class="ov" id="ov" aria-hidden="true"></svg>
+    </div>
+    <div class="bar">
+      <div class="seg" role="group" aria-label="View">
+        <button id="vPlan" aria-pressed="true">Plan</button><button id="vModel" aria-pressed="false">Model</button>
+      </div>
+      <label id="turnWrap" hidden>Turn <input type="range" id="turn" min="-180" max="180" step="5" value="30" style="width:120px"></label>
+      <div class="seg" role="group" aria-label="What a click on the ground does">
+        <button id="tWalk" aria-pressed="true">Walk</button><button id="tPlace" aria-pressed="false">Place</button>
+      </div>
+      <span class="hint" id="hint"></span>
+      <span class="sp"></span>
+      <button class="btn" id="save"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>Save PNG</button>
+    </div>
+  </main>
+
+  <aside class="tools" aria-label="Instruments">
+    <section>
+      <div class="h2row"><h2>Light</h2><button class="btn solid" id="play"><svg viewBox="0 0 24 24" aria-hidden="true" id="playIc"><polygon points="6 3 20 12 6 21 6 3"/></svg><span id="playTx">Play the day</span></button></div>
+      <p class="why">Drag the sun along today's path.</p>
+      <svg class="path" id="path" viewBox="0 0 240 240" role="img" aria-label="Sun path diagram"></svg>
+      <div class="row"><label for="time">Time</label><input type="range" id="time" min="0" max="1439" step="5"><output id="timeOut"></output></div>
+      <div class="row"><label for="day">Day</label><input type="range" id="day" min="1" max="365" step="1"><output id="dayOut"></output></div>
+      <div class="chips tight" style="margin-top:8px" id="dates">
+        <button data-d="now">Now</button><button data-d="79">Mar 20</button><button data-d="172">Jun 21</button><button data-d="265">Sep 22</button><button data-d="355">Dec 21</button>
+      </div>
+      <dl class="read two" id="lightRead"></dl>
+    </section>
+
+    <section id="walkPanel">
+      <h2>Walk</h2>
+      <p class="why">Pick two points, or drag A and B.</p>
+      <svg class="sec" id="sec" viewBox="0 0 308 116" role="img" aria-label="Section along the walk line"></svg>
+      <div class="key"><span><i style="background:var(--amber)"></i>In sun</span><span><i style="background:var(--shade)"></i>In shade</span><span id="ve" class="num"></span></div>
+      <dl class="read two" id="walkRead"></dl>
+    </section>
+
+    <section id="placePanel" hidden>
+      <h2>Place</h2>
+      <p class="why">Pick a spot and set a volume on it. The floor is leveled so cut equals fill. It casts and takes shadow like the land does.</p>
+      <p class="lab">Scale</p>
+      <div class="chips" id="scales"></div>
+      <p class="lab">Material</p>
+      <div class="chips" id="mats"></div>
+      <div class="row" style="margin-top:10px"><label for="rot">Turn</label><input type="range" id="rot" min="0" max="175" step="5" value="0"><output id="rotOut"></output></div>
+      <dl class="read" id="placeRead"></dl>
+      <p class="line" id="placeLine"></p>
+    </section>
+  </aside>
+
+  <div class="mobile-about"><p id="descM"></p><dl class="facts" id="factsM"></dl></div>
+</div>
+
+<dialog id="notes" aria-labelledby="notesH">
+  <div class="dl-head"><h2 id="notesH">Terrain Studio</h2><button class="btn" id="closeNotes" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></div>
+  <div class="dl-body">
+    <p style="margin-top:16px">Architectural visualization and spatial design. Each project begins with the land, the light, and the people who will inhabit it. This sheet lets you check all three.</p>
+    <h3>Three principles, three instruments</h3>
+    <ul>
+      <li><b>Material first.</b><span>Materials are chosen for how they age and weather. Place a volume and see what the ground asks of it: slope, cut, fill.</span></li>
+      <li><b>Light as form.</b><span>Light is structure. The shadows on every sheet come from the sun's position at that latitude, date and hour.</span></li>
+      <li><b>Human scale.</b><span>Architecture serves the body before the eye. Draw a walk and read the climb, the minutes, and where a ramp would fail.</span></li>
+    </ul>
+    <h3>Journal</h3>
+    <ul>
+      <li><time datetime="2026-02-18">February 18, 2026</time><br><b>On Impermanence in Built Form</b><span>We design for permanence but build in a world of entropy. What happens when we embrace the transformation of materials over time?</span></li>
+      <li><time datetime="2026-01-10">January 10, 2026</time><br><b>Material Palette: Q1 2026</b><span>Oxidized copper, white oak, and translucent polycarbonate. A palette of honesty and controlled imperfection.</span></li>
+      <li><time datetime="2025-12-02">December 2, 2025</time><br><b>The Space Between Walls</b><span>Architecture is not the walls themselves but the air they contain.</span></li>
+    </ul>
+    <h3>Contact</h3>
+    <p><a href="mailto:hello@terrain.studio">hello@terrain.studio</a><br>247 Water Street, Suite 4B, Brooklyn, NY 11201</p>
+    <h3>About this sheet</h3>
+    <p style="color:var(--ink-2);font-size:15px">Terrain is a fictional studio. The five landforms are generated, not surveyed. Sun positions use a standard low-precision solar formula and each site's real coordinates and time zone, and are good to about a degree.</p>
+    <p style="color:var(--ink-2);font-size:15px">Built by Lupo</p>
+  </div>
+</dialog>
+
+<script>
+'use strict';
+/* ---------- helpers ---------- */
+const $=id=>document.getElementById(id), RAD=Math.PI/180, N=512;
+const clamp=(x,a,b)=>Math.min(b,Math.max(a,x));
+const sm=(a,b,x)=>{x=clamp((x-a)/(b-a),0,1);return x*x*(3-2*x)};
+const hex=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)/255);
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const SVG=(tag,attrs,txt)=>{let s='<'+tag;for(const k in attrs)s+=' '+k+'="'+attrs[k]+'"';return s+'>'+(txt??'')+'</'+tag+'>'};
+
+function Noise(seed){
+  let s=seed>>>0;const rnd=()=>{s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
+  const a=[...Array(256).keys()];for(let i=255;i>0;i--){const j=Math.floor(rnd()*(i+1));[a[i],a[j]]=[a[j],a[i]]}
+  const p=new Uint8Array(514);for(let i=0;i<514;i++)p[i]=a[i&255];
+  const gx=[1,-1,1,-1,1,-1,0,0],gy=[1,1,-1,-1,0,0,1,-1],f=t=>t*t*t*(t*(t*6-15)+10);
+  function n(x,y){const X=Math.floor(x),Y=Math.floor(y);x-=X;y-=Y;const xi=X&255,yi=Y&255;
+    const aa=p[p[xi]+yi]&7,ab=p[p[xi]+yi+1]&7,ba=p[p[xi+1]+yi]&7,bb=p[p[xi+1]+yi+1]&7,u=f(x),v=f(y);
+    const d1=gx[aa]*x+gy[aa]*y,d2=gx[ba]*(x-1)+gy[ba]*y,d3=gx[ab]*x+gy[ab]*(y-1),d4=gx[bb]*(x-1)+gy[bb]*(y-1);
+    const l1=d1+(d2-d1)*u,l2=d3+(d4-d3)*u;return l1+(l2-l1)*v}
+  function fbm(x,y,o){let t=0,am=.5,fr=1;for(let i=0;i<o;i++){t+=am*n(x*fr,y*fr);fr*=2;am*=.5}return t}
+  return {n,fbm};
+}
+
+/* ---------- the five sites ---------- */
+const SCALES={Intimate:[6,9,3.5],Human:[12,18,7],Grand:[24,40,14],Monumental:[40,80,30]};
+const MATS={Wood:'#B98A5A',Stone:'#BDB3A2',Glass:'#A9CDD3',Steel:'#7C8790',Concrete:'#C9C6C0'};
+const SITES=[
+ {name:'The Clearing',place:'Portland, OR',year:2025,lat:45.52,lon:-122.68,tz:'America/Los_Angeles',extent:800,interval:5,seed:11,
+  desc:'A retreat center in old-growth forest, where concrete meets canopy and interior dissolves into landscape.',
+  low:'#C6D1B0',high:'#EFECDD',box:{at:[.64,.46],scale:'Grand',mat:'Concrete',rot:20},walk:[[.2,.72],[.64,.46]],
+  gen(n,u,v){let h=235+70*n.fbm(u*2.2,v*2.2,5)+60*(u-.5)+7*n.fbm(u*9+4,v*9,3);const cx=.36+.09*Math.sin(v*5.2+.6),d=u-cx;h-=58*Math.exp(-d*d/.011);const k=1-sm(.05,.14,Math.hypot(u-.64,v-.46));return h*(1-k)+262*k}},
+ {name:'Ember House',place:'Joshua Tree, CA',year:2024,lat:34.13,lon:-116.31,tz:'America/Los_Angeles',extent:1000,interval:5,seed:23,
+  desc:'A desert dwelling that channels heat and shadow. Rammed earth walls and weathering steel frame the horizon.',
+  low:'#E3C9A4',high:'#F5E9D6',box:{at:[.47,.56],scale:'Human',mat:'Steel',rot:65},walk:[[.15,.3],[.47,.56]],
+  gen(n,u,v){let h=1215+24*n.fbm(u*1.8,v*1.8,4)-16*(v-.5);const r=1-Math.abs(n.fbm(u*5+9,v*5+2,4))*2.4;h+=44*sm(.8,.99,r)*sm(-.08,.16,n.fbm(u*2+30,v*2,2));const d=(u-.3)-(v-.5)*.5+.05*Math.sin(v*9);return h-7*Math.exp(-d*d/.0012)}},
+ {name:'Canopy Walk',place:'Singapore',year:2025,lat:1.35,lon:103.82,tz:'Asia/Singapore',extent:600,interval:2,seed:37,
+  desc:'An elevated public walkway threading through tropical canopy, blurring infrastructure and ecosystem.',
+  low:'#B7CDA9',high:'#E9EBD6',box:{at:[.52,.47],scale:'Intimate',mat:'Steel',rot:125},walk:[[.2,.82],[.82,.16]],
+  gen(n,u,v){const a=(u-.5)*.75+(v-.5)*.66,t=(u-.5)*.66-(v-.5)*.75,d=a+.07*Math.sin(t*7);return 26+36*Math.exp(-d*d/.028)+16*n.fbm(u*3,v*3,5)+5*n.fbm(u*11,v*11,3)}},
+ {name:'Stone & Light',place:'Lisbon, PT',year:2024,lat:38.72,lon:-9.14,tz:'Europe/Lisbon',extent:700,interval:5,seed:53,water:true,
+  desc:'A cultural center carved from limestone, where light enters through calibrated apertures to mark the passage of seasons.',
+  low:'#E2D7BF',high:'#F7F2E5',box:{at:[.46,.36],scale:'Grand',mat:'Stone',rot:10},walk:[[.5,.8],[.46,.36]],
+  gen(n,u,v){const s=1-sm(0,.86,v+.07*n.fbm(u*3,7.3,2));let h=-6+118*Math.pow(s,.85)*(.8+.34*n.fbm(u*2.5,v*2.5,4));if(h>0){const st=7,fr=(h/st)%1,q=Math.floor(h/st)*st+st*sm(.72,1,fr);h=h*.5+q*.5}return h}},
+ {name:'Horizon Pavilion',place:'Reykjavik, IS',year:2026,lat:64.15,lon:-21.94,tz:'Atlantic/Reykjavik',extent:1500,interval:5,seed:71,water:true,
+  desc:'A viewing pavilion on volcanic terrain where glass and basalt frame the boundary between earth and sky, land and sea.',
+  low:'#B9B6B0',high:'#EAE7E1',box:{at:[.565,.5],scale:'Intimate',mat:'Glass',rot:0},walk:[[.3,.78],[.565,.5]],
+  gen(n,u,v){const base=74*(u-.3+.22*n.fbm(u*2+5,v*2,3)),r2=(u-.64)**2+(v-.5)**2;const cone=88*Math.exp(-r2/.035)-72*Math.exp(-r2/.0042);const lava=11*(1-Math.abs(n.fbm(u*7,v*7,4))*2.2)*sm(0,.25,u-.3);return base+cone+lava}}
+];
+function build(S){
+  if(S.rel)return;
+  const n=Noise(S.seed),h=new Float32Array(N*N);let lo=1e9,hi=-1e9;
+  for(let j=0;j<N;j++)for(let i=0;i<N;i++){let z=S.gen(n,i/(N-1),j/(N-1));if(S.water&&z<0)z=0;h[j*N+i]=z;if(z<lo)lo=z;if(z>hi)hi=z}
+  S.hmin=lo;S.hmax=hi;S.rel=h;for(let k=0;k<h.length;k++)h[k]=(h[k]-lo)/S.extent;
+  S.relief=(hi-lo)/S.extent;S.ymax=S.relief+34/S.extent;
+  S.b={u:S.box.at[0],v:S.box.at[1],scale:S.box.scale,mat:S.box.mat,rot:S.box.rot};
+  S.w=[S.walk[0].slice(),S.walk[1].slice()];
+}
+
+/* ---------- state ---------- */
+const st={i:0,doy:1,min:720,tool:'walk',mode:'plan',playing:false,nextPt:0};
+const view={pitch:90*RAD,yaw:0,S:1,aspect:1,R:[1,0,0],U:[0,0,-1],F:[0,-1,0],C:[.5,0,.5]};
+let S=SITES[0], sun={alt:0,az:0,dir:[0,1,0]}, dayInfo=null, boxG=null;
+
+/* ---------- ground on the CPU ---------- */
+function tex(u,v){u=clamp(u,0,1)*(N-1);v=clamp(v,0,1)*(N-1);const i=Math.min(N-2,u|0),j=Math.min(N-2,v|0),fx=u-i,fy=v-j,r=S.rel,k=j*N+i;
+  return (r[k]*(1-fx)+r[k+1]*fx)*(1-fy)+(r[k+N]*(1-fx)+r[k+N+1]*fx)*fy}
+function inBox(u,v){if(!boxG)return false;const x=u-boxG.u,y=v-boxG.v,qx=x*boxG.c+y*boxG.s,qy=-x*boxG.s+y*boxG.c;return Math.abs(qx)<boxG.hx&&Math.abs(qy)<boxG.hy}
+function H(u,v){const t=tex(u,v);return inBox(u,v)?Math.max(t,boxG.top):t}
+const meters=y=>y*S.extent+S.hmin;
+function shaded(u,v,y,dir){ if(dir[1]<=0)return true;let t=.004;const y0=y+.0015;
+  for(let i=0;i<110;i++){const x=u+dir[0]*t,z=v+dir[2]*t,yy=y0+dir[1]*t;if(x<0||x>1||z<0||z>1||yy>S.ymax)return false;if(yy<H(x,z))return true;t+=Math.max(.004,t*.06)}return false}
+function boxGeom(){
+  const b=S.b,[w,d,ht]=SCALES[b.scale],hx=w/2/S.extent,hy=d/2/S.extent,c=Math.cos(b.rot*RAD),s=Math.sin(b.rot*RAD);
+  boxG=null;let sum=0,cnt=0,cells=[];const rr=Math.hypot(hx,hy),step=1/(N-1);
+  for(let v=b.v-rr;v<=b.v+rr;v+=step)for(let u=b.u-rr;u<=b.u+rr;u+=step){const x=u-b.u,y=v-b.v;if(Math.abs(x*c+y*s)<hx&&Math.abs(-x*s+y*c)<hy){const g=tex(u,v);sum+=g;cnt++;cells.push(g)}}
+  const floor=cnt?sum/cnt:tex(b.u,b.v);let cut=0,fill=0;const cell=(w*d)/Math.max(1,cnt);
+  for(const g of cells){const dz=(g-floor)*S.extent;if(dz>0)cut+=dz*cell;else fill-=dz*cell}
+  const e=6/S.extent,sx=(tex(b.u+e,b.v)-tex(b.u-e,b.v))/(2*e),sy=(tex(b.u,b.v+e)-tex(b.u,b.v-e))/(2*e);
+  boxG={u:b.u,v:b.v,hx,hy,c,s,floor,top:floor+ht/S.extent,cut,fill,slope:Math.hypot(sx,sy)*100,aspect:(Math.atan2(-sx,sy)/RAD+360)%360,flat:Math.hypot(sx,sy)<.01};
+}
+
+/* ---------- the sun ---------- */
+function sunPos(ms,lat,lon){const d=(ms-946728000000)/86400000,g=RAD*(357.529+.98560028*d),q=280.459+.98564736*d,L=RAD*(q+1.915*Math.sin(g)+.020*Math.sin(2*g)),e=RAD*(23.439-.00000036*d);
+  const ra=Math.atan2(Math.cos(e)*Math.sin(L),Math.cos(L)),dec=Math.asin(Math.sin(e)*Math.sin(L)),gmst=18.697374558+24.06570982441908*d,ha=RAD*((gmst*15+lon)%360)-ra,la=RAD*lat;
+  const alt=Math.asin(Math.sin(la)*Math.sin(dec)+Math.cos(la)*Math.cos(dec)*Math.cos(ha)),az=Math.atan2(-Math.sin(ha),Math.tan(dec)*Math.cos(la)-Math.sin(la)*Math.cos(ha));
+  return {alt:alt/RAD,az:(az/RAD+360)%360}}
+const fmts={};
+function parts(tz,ms){const f=fmts[tz]||(fmts[tz]=new Intl.DateTimeFormat('en-US',{timeZone:tz,hourCycle:'h23',year:'numeric',month:'numeric',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'}));const o={};for(const p of f.formatToParts(ms))o[p.type]=+p.value;return o}
+function tzOff(tz,ms){const o=parts(tz,ms);return (Date.UTC(o.year,o.month-1,o.day,o.hour,o.minute,o.second)-Math.floor(ms/1000)*1000)/60000}
+const YEAR=new Date().getFullYear();
+function dayBase(doy){const g=Date.UTC(YEAR,0,doy,12),off=tzOff(S.tz,g);return Date.UTC(YEAR,0,doy)-off*60000}
+function dirOf(p){const a=p.alt*RAD,z=p.az*RAD;return [Math.sin(z)*Math.cos(a),Math.sin(a),-Math.cos(z)*Math.cos(a)]}
+function scanDay(doy){const base=dayBase(doy),pts=[];let rise=null,set=null,up=0,prev=null;
+  for(let m=0;m<=1440;m+=4){const p=sunPos(base+m*60000,S.lat,S.lon);pts.push(p);if(prev){if(prev.alt<-.83&&p.alt>=-.83&&rise===null)rise=m-4+4*(-.83-prev.alt)/(p.alt-prev.alt);if(prev.alt>=-.83&&p.alt<-.83)set=m-4+4*(prev.alt+.83)/(prev.alt-p.alt)}if(p.alt>=-.83&&m<1440)up+=4;prev=p}
+  return {base,pts,rise,set,up}}
+const clock=m=>{m=Math.round(m)%1440;const h=Math.floor(m/60),mm=String(m%60).padStart(2,'0');return ((h+11)%12+1)+':'+mm+(h<12?' am':' pm')};
+const dur=m=>Math.floor(m/60)+' h '+String(Math.round(m%60)).padStart(2,'0');
+const dateLabel=doy=>new Date(Date.UTC(YEAR,0,doy)).toLocaleDateString('en-US',{month:'short',day:'numeric',timeZone:'UTC'});
+const COMP=['north','northeast','east','southeast','south','southwest','west','northwest'],C8=['N','NE','E','SE','S','SW','W','NW'];
+const comp=(az,arr)=>arr[Math.round(az/45)%8];
+
+/* ---------- camera ---------- */
+const dot=(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2];
+function camera(){
+  const p=view.pitch,y=view.yaw,cp=Math.cos(p),sp=Math.sin(p);
+  view.F=[-Math.sin(y)*cp,-sp,-Math.cos(y)*cp];view.R=[Math.cos(y),0,-Math.sin(y)];
+  const R=view.R,F=view.F;view.U=[R[1]*F[2]-R[2]*F[1],R[2]*F[0]-R[0]*F[2],R[0]*F[1]-R[1]*F[0]];
+  const base=.05*(1-sm(60*RAD,90*RAD,p));view.base=base;
+  view.C=[.5,(S.ymax-base)/2,.5];let mx=0,my=0;
+  for(const x of[0,1])for(const yy of[-base,S.ymax])for(const z of[0,1]){const d=[x-view.C[0],yy-view.C[1],z-view.C[2]];mx=Math.max(mx,Math.abs(dot(d,view.R)));my=Math.max(my,Math.abs(dot(d,view.U)))}
+  view.S=Math.max(mx/view.aspect,my)*1.13;
+}
+function project(u,y,v){const d=[u-view.C[0],y-view.C[1],v-view.C[2]];return [(dot(d,view.R)/view.S/view.aspect*.5+.5)*cw,(1-(dot(d,view.U)/view.S*.5+.5))*ch]}
+function pick(px,py){
+  const sx=(px/cw*2-1)*view.aspect*view.S,sy=(1-py/ch*2)*view.S,R=view.R,U=view.U,F=view.F,C=view.C;
+  const o=[C[0]+R[0]*sx+U[0]*sy-F[0]*4,C[1]+R[1]*sx+U[1]*sy-F[1]*4,C[2]+R[2]*sx+U[2]*sy-F[2]*4];
+  if(Math.abs(F[1])>.9999){return o[0]>=0&&o[0]<=1&&o[2]>=0&&o[2]<=1?[o[0],o[2]]:null}
+  const t0=(S.ymax-o[1])/F[1],t1=(-.01-o[1])/F[1];let prev=t0;
+  for(let i=1;i<=400;i++){const t=t0+(t1-t0)*i/400,x=o[0]+F[0]*t,y=o[1]+F[1]*t,z=o[2]+F[2]*t;
+    if(x>=0&&x<=1&&z>=0&&z<=1&&y<H(x,z)){const tt=(prev+t)/2;return [clamp(o[0]+F[0]*tt,0,1),clamp(o[2]+F[2]*tt,0,1)]}prev=t}
+  return null}
+
+/* ---------- renderer ---------- */
+const FS=`#version 300 es
+precision highp float;
+uniform sampler2D uH;uniform vec2 uRes;uniform vec3 uR,uU,uF,uC,uSun,uLow,uHigh,uPaper,uLine,uWater,uBoxCol,uBox2;
+uniform vec4 uBox;uniform float uS,uAspect,uDay,uExtent,uHmin,uYmax,uRelief,uInterval,uSea,uBoxOn,uPlan,uBase;
+out vec4 o;
+float T(vec2 p){return texture(uH,p).r;}
+bool inBox(vec2 p){vec2 q=p-uBox.xy;q=vec2(q.x*uBox2.x+q.y*uBox2.y,-q.x*uBox2.y+q.y*uBox2.x);return uBoxOn>.5&&abs(q.x)<uBox.z&&abs(q.y)<uBox.w;}
+float H(vec2 p){float h=T(p);if(inBox(p))h=max(h,uBox2.z);return h;}
+void main(){
+  vec2 s=gl_FragCoord.xy/uRes*2.-1.;s.x*=uAspect;
+  vec3 ro=uC+uR*s.x*uS+uU*s.y*uS-uF*4.,rd=normalize(uF+vec3(1.3e-5,0.,1.7e-5));
+  vec3 col=uPaper;float hit=-1.;bool side=false;vec3 fn=vec3(0.,1.,0.);
+  if(uPlan>.5){ if(ro.x>=0.&&ro.x<=1.&&ro.z>=0.&&ro.z<=1.) hit=(ro.y-H(ro.xz))/-rd.y; }
+  else{
+    vec3 bmin=vec3(0.,-uBase,0.),bmax=vec3(1.,uYmax+.002,1.),inv=1./rd,t0=(bmin-ro)*inv,t1=(bmax-ro)*inv,tn=min(t0,t1),tf=max(t0,t1);
+    float ta=max(max(tn.x,tn.y),tn.z),tb=min(min(tf.x,tf.y),tf.z);
+    if(ta<tb){
+      vec3 p=ro+rd*ta;
+      if(p.y<H(clamp(p.xz,0.,1.))-2e-4){side=true;hit=ta;fn=ta==tn.x?vec3(-sign(rd.x),0.,0.):vec3(0.,0.,-sign(rd.z));}
+      else{float dt=(tb-ta)/150.,t=ta,prev=ta;
+        for(int i=0;i<150;i++){t+=dt;vec3 q=ro+rd*t;if(q.y<H(q.xz)){float a=prev,b=t;for(int k=0;k<7;k++){float m=.5*(a+b);vec3 r=ro+rd*m;if(r.y<H(r.xz))b=m;else a=m;}hit=b;break;}prev=t;}
+      }
+    }
+  }
+  if(hit>0.){
+    vec3 p=ro+rd*hit;vec2 uv=clamp(p.xz,0.,1.);
+    if(side){
+      float g=H(uv),hm=p.y*uExtent+uHmin,f=hm/uInterval,w=max(fwidth(f),1e-4);
+      vec3 c=mix(uLow,vec3(.11,.098,.09),.34)*(.78+.22*max(dot(fn,uSun),0.)*uDay);
+      c=mix(c,c*.7,(1.-smoothstep(0.,1.5*w,abs(fract(f-.5)-.5)))*.5);
+      if(p.y<0.)c=vec3(.11,.098,.09);
+      c=mix(vec3(.11,.098,.09),c,smoothstep(0.,.0025,g-p.y));
+      if(inBox(uv)&&p.y>T(uv))c=uBoxCol*.8;
+      col=c;
+    }else{
+      float e=1./512.,hh=H(uv);
+      vec3 n=normalize(vec3(H(uv-vec2(e,0.))-H(uv+vec2(e,0.)),2.*e,H(uv-vec2(0.,e))-H(uv+vec2(0.,e))));
+      float sh=0.;
+      if(uSun.y>.004){sh=1.;vec3 q=vec3(uv.x,hh+.0015,uv.y);float t=.003;
+        for(int i=0;i<80;i++){vec3 r=q+uSun*t;if(r.x<0.||r.x>1.||r.z<0.||r.z>1.||r.y>uYmax)break;float d=r.y-H(r.xz);if(d<0.){sh=0.;break;}sh=min(sh,40.*d/t);t+=max(.003,t*.055);}
+        sh=clamp(sh,0.,1.);}
+      float nl=max(dot(n,uSun),0.),lit=sh*clamp(nl/max(uSun.y,.3)*.84,0.,1.25);
+      bool bx=inBox(uv);
+      float hm=hh*uExtent+uHmin;bool water=uSea>.5&&hm<.02&&!bx;
+      vec3 alb=mix(uLow,uHigh,smoothstep(0.,1.,T(uv)/uRelief));
+      if(water)alb=uWater;if(bx)alb=uBoxCol;
+      vec3 shT=mix(vec3(.47,.48,.58),vec3(.60,.61,.69),smoothstep(.1,.8,uSun.y));
+      vec3 suT=mix(vec3(1.08,.93,.76),vec3(1.02),smoothstep(.04,.42,uSun.y));
+      vec3 c=alb*mix(shT,suT,clamp(lit,0.,1.))*(1.+.07*clamp(lit-1.,0.,.25)*4.);
+      c=mix(alb*vec3(.27,.30,.42),c,uDay);
+      if(!water&&!bx){
+        float f=hm/uInterval,w=max(fwidth(f),1e-4),l1=1.-smoothstep(0.,1.4*w,abs(fract(f-.5)-.5));
+        float f5=f/5.,w5=max(fwidth(f5),2e-5),l5=1.-smoothstep(0.,2.6*w5,abs(fract(f5-.5)-.5));
+        float a=max(l1*.42,l5*.85)*(1.-smoothstep(.45,1.1,w));
+        c=mix(c,mix(vec3(.78,.74,.70),uLine,uDay),a);
+      }
+      col=c;
+    }
+  }
+  o=vec4(col,1.);
+}`;
+let gl=null,canvas=document.createElement('canvas'),U={},texId=null,cw=1,ch=1,ctx2=null;
+canvas.tabIndex=0;canvas.setAttribute('role','img');
+$('model').prepend(canvas);
+(function initGL(){
+  try{gl=canvas.getContext('webgl2',{antialias:false,alpha:false,preserveDrawingBuffer:false})}catch(e){gl=null}
+  if(new URLSearchParams(location.search).has('nogl'))gl=null;
+  if(gl){
+    const mk=(t,src)=>{const s=gl.createShader(t);gl.shaderSource(s,src);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw new Error(gl.getShaderInfoLog(s));return s};
+    try{
+      const pr=gl.createProgram();gl.attachShader(pr,mk(gl.VERTEX_SHADER,'#version 300 es\nin vec2 a;void main(){gl_Position=vec4(a,0.,1.);}'));gl.attachShader(pr,mk(gl.FRAGMENT_SHADER,FS));gl.linkProgram(pr);
+      if(!gl.getProgramParameter(pr,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(pr));
+      gl.useProgram(pr);const b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+      const loc=gl.getAttribLocation(pr,'a');gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+      const nU=gl.getProgramParameter(pr,gl.ACTIVE_UNIFORMS);for(let i=0;i<nU;i++){const inf=gl.getActiveUniform(pr,i);U[inf.name]=gl.getUniformLocation(pr,inf.name)}
+      texId=gl.createTexture();
+    }catch(e){console.warn('WebGL shader failed, using the flat renderer.',e.message);gl=null}
+  }
+  if(!gl){const c2=document.createElement('canvas');c2.tabIndex=0;c2.setAttribute('role','img');canvas.replaceWith(c2);canvas=c2;ctx2=canvas.getContext('2d');$('vModel').disabled=true;$('vModel').title='Needs WebGL 2'}
+})();
+function uploadSite(){
+  if(!gl)return;
+  gl.bindTexture(gl.TEXTURE_2D,texId);gl.pixelStorei(gl.UNPACK_ALIGNMENT,1);
+  gl.texImage2D(gl.TEXTURE_2D,0,gl.R16F,N,N,0,gl.RED,gl.FLOAT,S.rel);
+  for(const [k,v] of [[gl.TEXTURE_MIN_FILTER,gl.LINEAR],[gl.TEXTURE_MAG_FILTER,gl.LINEAR],[gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE],[gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE]])gl.texParameteri(gl.TEXTURE_2D,k,v);
+}
+const dayFactor=()=>sm(-6,5,sun.alt);
+function draw(q){
+  const r=canvas.parentElement.getBoundingClientRect();cw=Math.max(1,r.width);ch=Math.max(1,r.height);view.aspect=cw/ch;camera();
+  if(gl){
+    const dpr=Math.min(2,devicePixelRatio||1)*q,W=Math.round(cw*dpr),Hh=Math.round(ch*dpr);
+    if(canvas.width!==W||canvas.height!==Hh){canvas.width=W;canvas.height=Hh}
+    gl.viewport(0,0,W,Hh);
+    const f=(n,...v)=>U[n]&&gl['uniform'+v.length+'f'](U[n],...v);
+    f('uRes',W,Hh);f('uR',...view.R);f('uU',...view.U);f('uF',...view.F);f('uC',...view.C);f('uS',view.S);f('uAspect',view.aspect);
+    const d=sun.dir;f('uSun',d[0],Math.max(d[1],0),d[2]);f('uDay',dayFactor());
+    f('uExtent',S.extent);f('uHmin',S.hmin);f('uYmax',S.ymax);f('uRelief',S.relief);f('uInterval',S.interval);f('uSea',S.water?1:0);
+    f('uLow',...hex(S.low));f('uHigh',...hex(S.high));f('uPaper',...hex('#F5F3EF'));f('uLine',...hex('#B45309'));f('uWater',...hex('#A9C0C7'));
+    f('uBox',boxG.u,boxG.v,boxG.hx,boxG.hy);f('uBox2',boxG.c,boxG.s,boxG.top);f('uBoxOn',1);f('uBoxCol',...hex(MATS[S.b.mat]));
+    f('uPlan',view.pitch>89.95*RAD?1:0);f('uBase',view.base);
+    gl.drawArrays(gl.TRIANGLES,0,3);
+  }else drawFlat();
+  overlay();
+}
+function drawFlat(){ // plan only, no WebGL
+  const M=240,side=Math.min(cw,ch);canvas.width=Math.round(cw);canvas.height=Math.round(ch);
+  const off=drawFlat.c||(drawFlat.c=Object.assign(document.createElement('canvas'),{width:M,height:M})),o=off.getContext('2d'),im=o.createImageData(M,M),d=im.data;
+  const lo=hex(S.low),hi=hex(S.high),bc=hex(MATS[S.b.mat]),day=dayFactor(),L=sun.dir,e=1/N;
+  for(let j=0;j<M;j++)for(let i=0;i<M;i++){const u=(i+.5)/M,v=(j+.5)/M,h=H(u,v),bx=inBox(u,v);
+    let nx=H(u-e,v)-H(u+e,v),ny=2*e,nz=H(u,v-e)-H(u,v+e);const nl=Math.hypot(nx,ny,nz);
+    const ndl=Math.max(0,(nx*L[0]+ny*L[1]+nz*L[2])/nl),lit=shaded(u,v,h,L)?0:clamp(ndl/Math.max(L[1],.3)*.84,0,1);
+    const k=sm(0,1,tex(u,v)/S.relief),hm=meters(h),water=S.water&&hm<.02&&!bx,f=hm/S.interval,line=!water&&!bx&&Math.abs((f+.5)%1-.5)<.09?.4:0;
+    for(let c=0;c<3;c++){let a=water?[.66,.75,.78][c]:bx?bc[c]:lo[c]+(hi[c]-lo[c])*k;let x=a*([.55,.56,.65][c]+(1.02-[.55,.56,.65][c])*lit);x=a*[.27,.3,.42][c]*(1-day)+x*day;x=x*(1-line)+[.71,.33,.04][c]*line;d[(j*M+i)*4+c]=x*255}
+    d[(j*M+i)*4+3]=255}
+  o.putImageData(im,0,0);ctx2.fillStyle='#F5F3EF';ctx2.fillRect(0,0,cw,ch);ctx2.imageSmoothingQuality='high';
+  const a=project(0,0,0),b=project(1,0,1);ctx2.drawImage(off,a[0],a[1],b[0]-a[0],b[1]-a[1]);
+}
+let raf=0,idle=0;
+function render(fast){
+  if(!raf)raf=requestAnimationFrame(()=>{raf=0;draw(fast?.5:1)});
+  clearTimeout(idle);if(fast)idle=setTimeout(()=>draw(1),170);
+}
+
+/* ---------- overlay: north, scale, walk line ---------- */
+function overlay(){
+  const g=boxG,W=S.w;let s='';
+  const gy=(u,v)=>H(u,v);
+  let pts='';for(let i=0;i<=48;i++){const u=W[0][0]+(W[1][0]-W[0][0])*i/48,v=W[0][1]+(W[1][1]-W[0][1])*i/48,p=project(u,gy(u,v),v);pts+=p[0].toFixed(1)+','+p[1].toFixed(1)+' '}
+  s+=SVG('polyline',{points:pts,fill:'none',stroke:'#F5F3EF','stroke-width':5,'stroke-linecap':'round',opacity:.8})+SVG('polyline',{points:pts,fill:'none',stroke:'#1C1917','stroke-width':2,'stroke-dasharray':'7 5'});
+  ['A','B'].forEach((l,i)=>{const p=project(W[i][0],gy(W[i][0],W[i][1]),W[i][1]);s+=SVG('circle',{cx:p[0],cy:p[1],r:7,fill:'#1C1917',stroke:'#F5F3EF','stroke-width':2})+SVG('text',{x:p[0]+12,y:p[1]+4,class:'halo'},l)});
+  const bp=project(g.u,g.top,g.v);s+=SVG('text',{x:bp[0]+14,y:bp[1]-10,class:'halo'},S.b.scale+', '+S.b.mat.toLowerCase());
+  // north arrow
+  const c=project(.5,0,.5),nn=project(.5,0,0),dx=nn[0]-c[0],dy=nn[1]-c[1],L=Math.hypot(dx,dy)||1,ux=dx/L,uy=dy/L,ox=cw-44,oy=44;
+  s+=SVG('line',{x1:ox-ux*18,y1:oy-uy*18,x2:ox+ux*18,y2:oy+uy*18,stroke:'#1C1917','stroke-width':1.5})+SVG('path',{d:`M${ox+ux*24},${oy+uy*24} L${ox+ux*10-uy*6},${oy+uy*10+ux*6} L${ox+ux*10+uy*6},${oy+uy*10-ux*6}Z`,fill:'#1C1917'})+SVG('text',{x:ox+ux*36-4,y:oy+uy*36+4,class:'halo'},'N');
+  // scale bar (true along the ground's east-west axis)
+  const e0=project(0,0,1),e1=project(1,0,1),pxPerM=Math.hypot(e1[0]-e0[0],e1[1]-e0[1])/S.extent,len=[50,100,200,250,500].find(m=>m*pxPerM>70)||500,bx=20,by=ch-14;
+  s+=SVG('path',{d:`M${bx},${by-5}V${by}H${bx+len*pxPerM}V${by-5}`,fill:'none',stroke:'#1C1917','stroke-width':1.5})+SVG('text',{x:bx+len*pxPerM+8,y:by+2,class:'halo'},len+' m · contours '+S.interval+' m');
+  $('ov').setAttribute('viewBox',`0 0 ${cw} ${ch}`);$('ov').innerHTML=s;
+}
+
+/* ---------- panels ---------- */
+function updateSun(){
+  const ms=dayInfo.base+st.min*60000,p=sunPos(ms,S.lat,S.lon);sun={alt:p.alt,az:p.az,dir:dirOf(p)};
+  $('time').value=st.min;$('timeOut').textContent=clock(st.min);$('time').setAttribute('aria-valuetext',clock(st.min));
+  const up=sun.alt>-.83;
+  let line;
+  if(up)line=`<b>${clock(st.min)}, ${dateLabel(st.doy)}.</b> The sun is ${Math.max(0,sun.alt).toFixed(0)}° up in the ${comp(sun.az,COMP)}.`;
+  else if(dayInfo.rise===null)line=`<b>${clock(st.min)}, ${dateLabel(st.doy)}.</b> The sun does not rise here today.`;
+  else line=`<b>${clock(st.min)}, ${dateLabel(st.doy)}.</b> The sun is down. ${st.min<dayInfo.rise?'It rises at '+clock(dayInfo.rise):'It set at '+clock(dayInfo.set??0)}.`;
+  $('now').innerHTML=line;
+  const sh=sun.alt>1?(1.7/Math.tan(sun.alt*RAD)):null;
+  $('lightRead').innerHTML=row('Altitude',sun.alt.toFixed(1)+'°')+row('Bearing',sun.az.toFixed(0)+'° '+comp(sun.az,C8))+row('Sunrise',dayInfo.rise===null?'none':clock(dayInfo.rise))+row('Sunset',dayInfo.set===null?'none':clock(dayInfo.set))+row('Daylight',dur(dayInfo.up))+row('Noon height',Math.max(...dayInfo.pts.map(p=>p.alt)).toFixed(0)+'°')+'<dt class="wide">A 1.7 m person casts a shadow of</dt><dd>'+(sh===null?'none':sh>200?'200 m+':sh.toFixed(1)+' m')+'</dd>';
+  sunDot();
+}
+const row=(a,b)=>`<dt>${a}</dt><dd>${b}</dd>`;
+const pol=(p,R=100)=>{const r=(90-Math.max(p.alt,0))/90*R,z=p.az*RAD;return [120+r*Math.sin(z),120-r*Math.cos(z)]};
+function arc(info,from=0,to=360){let d='',pen=false;info.pts.forEach(p=>{if(p.alt>=0){const q=pol(p);d+=(pen?'L':'M')+q[0].toFixed(1)+','+q[1].toFixed(1);pen=true}else pen=false});return d}
+function sunPath(){
+  let s=SVG('circle',{cx:120,cy:120,r:100,fill:'#F5F3EF',stroke:'#1C1917','stroke-width':1.25});
+  for(const a of[30,60])s+=SVG('circle',{cx:120,cy:120,r:(90-a)/90*100,fill:'none',stroke:'#D6D3D1'})+SVG('text',{x:123,y:120-(90-a)/90*100+11},a+'°');
+  s+=SVG('path',{d:'M120,20V220M20,120H220',stroke:'#D6D3D1'});
+  [['N',120,13],['E',231,124],['S',120,236],['W',9,124]].forEach(([t,x,y])=>s+=SVG('text',{x,y,'text-anchor':'middle',style:'fill:#1C1917'},t));
+  s+=SVG('path',{d:arc(scanDay(172)),fill:'none',stroke:'#857E77','stroke-dasharray':'3 3'})+SVG('path',{d:arc(scanDay(355)),fill:'none',stroke:'#857E77','stroke-dasharray':'3 3'});
+  s+=SVG('path',{d:arc(dayInfo),fill:'none',stroke:'#B45309','stroke-width':3,'stroke-linecap':'round'});
+  for(let h=0;h<24;h+=3){const p=dayInfo.pts[h*15];if(p.alt>3){const q=pol(p);const dx=120-q[0],dy=120-q[1],dl=Math.hypot(dx,dy)||1;s+=SVG('circle',{cx:q[0],cy:q[1],r:2.5,fill:'#F5F3EF',stroke:'#9A4407'})+SVG('text',{x:q[0]+dx/dl*13,y:q[1]+dy/dl*13+4,'text-anchor':'middle'},((h+11)%12+1)+(h<12?'a':'p'))}}
+  s+='<g id="sunDot"></g>';$('path').innerHTML=s;sunDot();
+}
+function sunDot(){const g=document.getElementById('sunDot');if(!g)return;if(sun.alt<0){g.innerHTML='';return}const q=pol(sun);g.innerHTML=SVG('circle',{cx:q[0],cy:q[1],r:11,fill:'#B45309',stroke:'#F5F3EF','stroke-width':2.5})}
+function walkPanel(){
+  const W=S.w,n=120,len=Math.hypot(W[1][0]-W[0][0],W[1][1]-W[0][1])*S.extent,hs=[],sh=[];let lo=1e9,hi=-1e9,asc=0,desc=0,steep=0,sunny=0;
+  for(let i=0;i<=n;i++){const u=W[0][0]+(W[1][0]-W[0][0])*i/n,v=W[0][1]+(W[1][1]-W[0][1])*i/n,y=H(u,v),m=meters(y);hs.push(m);lo=Math.min(lo,m);hi=Math.max(hi,m);const s=shaded(u,v,y,sun.dir);sh.push(s);if(!s)sunny++}
+  const seg=len/n;for(let i=1;i<=n;i++){const d=hs[i]-hs[i-1];if(d>0)asc+=d;else desc-=d;if(Math.abs(d)/seg>1/12)steep++}
+  const mins=len/5000*60+asc/600*60,X0=6,X1=302,Y1=96,span=Math.max(hi-lo,1),natural=(X1-X0)/Math.max(len,1),ve=[1,2,3,5].find(k=>span*natural*k>40)||5,sy=Math.min(natural*ve,74/span);
+  const P=i=>[X0+(X1-X0)*i/n,Y1-(hs[i]-lo)*sy-6];
+  let fill=`M${X0},${Y1}`;for(let i=0;i<=n;i++){const p=P(i);fill+=`L${p[0].toFixed(1)},${p[1].toFixed(1)}`}fill+=`L${X1},${Y1}Z`;
+  let s=SVG('path',{d:fill,fill:'#EDEAE4'})+SVG('line',{x1:X0,y1:Y1,x2:X1,y2:Y1,stroke:'#1C1917'});
+  let run=0;for(let i=1;i<=n+1;i++){if(i>n||sh[i]!==sh[run]){let d='';for(let k=run;k<=Math.min(i,n);k++){const p=P(k);d+=(k===run?'M':'L')+p[0].toFixed(1)+','+p[1].toFixed(1)}s+=SVG('path',{d,fill:'none',stroke:sh[run]?'#3F4A5A':'#B45309','stroke-width':3,'stroke-linecap':'round'});run=i}}
+  s+=SVG('text',{x:X0,y:112},'A '+hs[0].toFixed(0)+' m')+SVG('text',{x:X1,y:112,'text-anchor':'end'},'B '+hs[n].toFixed(0)+' m');
+  $('sec').innerHTML=s;$('ve').textContent=ve===1?'True scale':'Height ×'+ve;
+  $('walkRead').innerHTML=row('Length',len.toFixed(0)+' m')+row('On foot',Math.max(1,Math.round(mins))+' min')+row('Up',asc.toFixed(0)+' m')+row('Down',desc.toFixed(0)+' m')+row('Over 1:12',Math.round(steep/n*100)+'%')+row('In sun',Math.round(sunny/(n+1)*100)+'%');
+}
+function placePanel(){
+  const g=boxG;let lit=0,poss=0;
+  for(let i=0;i<dayInfo.pts.length-1;i++){const p=dayInfo.pts[i];if(p.alt>0){poss+=4;if(!shadedNoBox(g.u,g.v,g.top,dirOf(p)))lit+=4}}
+  $('placeRead').innerHTML=row('Floor level',meters(g.floor).toFixed(1)+' m')+row('Ground slope',g.slope.toFixed(0)+'%'+(g.flat?'':' falling '+comp(g.aspect,C8)))+row('Cut, and equal fill',Math.round(g.cut).toLocaleString('en-US')+' m³')+row('Sun on the roof, '+dateLabel(st.doy),dur(lit)+' of '+dur(poss));
+  const tot=g.cut+g.fill,[w,d]=SCALES[S.b.scale],per=tot/(w*d);
+  $('placeLine').textContent=per<.25?'The ground takes this almost as it is.':per<1.2?'A modest pad: about '+per.toFixed(1)+' m³ of earth moved per square meter of floor.':'This spot fights the building: '+per.toFixed(1)+' m³ of earth moved per square meter of floor.';
+  $('rotOut').textContent=S.b.rot+'°';$('rot').value=S.b.rot;
+  for(const b of $('scales').children)b.setAttribute('aria-pressed',b.textContent===S.b.scale);
+  for(const b of $('mats').children)b.setAttribute('aria-pressed',b.textContent===S.b.mat);
+}
+function shadedNoBox(u,v,y,dir){return shaded(u,v,y,dir)}
+
+/* ---------- transitions ---------- */
+function refreshAll(){boxGeom();walkPanel();placePanel();render(true)}
+function setDay(doy){st.doy=clamp(doy,1,365);dayInfo=scanDay(st.doy);$('day').value=st.doy;$('dayOut').textContent=dateLabel(st.doy);sunPath();updateSun();walkPanel();placePanel();render(true)}
+function setMin(m){st.min=clamp(Math.round(m),0,1439);updateSun();walkPanel();render(true)}
+function setNow(){const o=parts(S.tz,Date.now());st.min=o.hour*60+o.minute;setDay(Math.round((Date.UTC(o.year,o.month-1,o.day)-Date.UTC(o.year,0,0))/86400000))}
+function setSite(i,keepClock){
+  st.i=i;S=SITES[i];build(S);uploadSite();boxGeom();
+  [...$('sites').children].forEach((li,k)=>li.firstChild.setAttribute('aria-current',k===i));
+  $('title').textContent=S.name;document.title=S.name+' · Terrain';
+  const facts=row('Place',S.place+', '+S.year)+row('Position',Math.abs(S.lat).toFixed(2)+'° '+(S.lat<0?'S':'N')+', '+Math.abs(S.lon).toFixed(2)+'° '+(S.lon<0?'W':'E'))+row('Sheet covers',S.extent+' m square')+row('Ground',S.hmin.toFixed(0)+' to '+S.hmax.toFixed(0)+' m');
+  $('desc').textContent=$('descM').textContent=S.desc;$('facts').innerHTML=$('factsM').innerHTML=facts;
+  canvas.setAttribute('aria-label','Site model of '+S.name+', '+S.place+'. Arrow keys move the '+(st.tool==='walk'?'end of the walk line':'volume')+'.');
+  if(keepClock)setDay(st.doy);else setNow();
+}
+let anim=0;
+function setMode(m){
+  st.mode=m;$('vPlan').setAttribute('aria-pressed',m==='plan');$('vModel').setAttribute('aria-pressed',m==='model');$('turnWrap').hidden=m!=='model';
+  const p1=m==='plan'?90*RAD:34*RAD,y1=m==='plan'?0:+$('turn').value*RAD,p0=view.pitch,y0=view.yaw,t0=performance.now(),T=reduce?1:650;
+  cancelAnimationFrame(anim);
+  (function step(now){const k=clamp((now-t0)/T,0,1),e=k*k*(3-2*k);view.pitch=p0+(p1-p0)*e;view.yaw=y0+(y1-y0)*e;draw(k<1?.5:1);if(k<1)anim=requestAnimationFrame(step)})(t0+ (reduce?1:0));
+}
+function setTool(t){st.tool=t;st.nextPt=0;$('tWalk').setAttribute('aria-pressed',t==='walk');$('tPlace').setAttribute('aria-pressed',t==='place');$('walkPanel').hidden=t!=='walk';$('placePanel').hidden=t!=='place';
+  $('hint').textContent=t==='walk'?'Pick two points on the ground.':'Pick a spot on the ground.';}
+let playT=0;
+function play(on){st.playing=on;$('playTx').textContent=on?'Pause':'Play the day';$('playIc').innerHTML=on?'<rect x="14" y="4" width="4" height="16" rx="1"/><rect x="6" y="4" width="4" height="16" rx="1"/>':'<polygon points="6 3 20 12 6 21 6 3"/>';
+  cancelAnimationFrame(playT);if(!on){st.min=Math.round(st.min);return}
+  let a=Math.max(0,(dayInfo.rise??0)-30),b=Math.min(1439,(dayInfo.set??1439)+30);if(b<=a+10){a=0;b=1439}if(st.min<a||st.min>=b-5)st.min=a;let last=performance.now();
+  (function step(now){const dt=Math.min(120,now-last);last=now;const m=st.min+dt/1000*(b-a)/16;if(m>=b){setMin(b);play(false);return}st.min=m;updateSun();walkPanel();draw(.5);playT=requestAnimationFrame(step)})(last);
+}
+
+/* ---------- wiring ---------- */
+SITES.forEach((s,i)=>{const li=document.createElement('li');li.innerHTML=`<button><span class="n">0${i+1}</span><span class="t">${s.name.replace('&','&amp;')}</span><span class="p">${s.place}</span></button>`;li.firstChild.onclick=()=>{play(false);setSite(i)};$('sites').append(li)});
+for(const k in SCALES){const b=document.createElement('button');b.textContent=k;b.onclick=()=>{S.b.scale=k;refreshAll()};$('scales').append(b)}
+for(const k in MATS){const b=document.createElement('button');b.textContent=k;b.onclick=()=>{S.b.mat=k;refreshAll()};$('mats').append(b)}
+$('time').oninput=e=>{play(false);setMin(+e.target.value)};
+$('day').oninput=e=>{play(false);setDay(+e.target.value)};
+$('rot').oninput=e=>{S.b.rot=+e.target.value;refreshAll()};
+$('turn').oninput=e=>{view.yaw=+e.target.value*RAD;render(true)};
+$('dates').onclick=e=>{const d=e.target.dataset.d;if(!d)return;play(false);d==='now'?setNow():setDay(+d)};
+$('play').onclick=()=>play(!st.playing);
+$('vPlan').onclick=()=>setMode('plan');$('vModel').onclick=()=>setMode('model');
+$('tWalk').onclick=()=>{setTool('walk');setSite(st.i,true)};$('tPlace').onclick=()=>{setTool('place');setSite(st.i,true)};
+$('openNotes').onclick=()=>$('notes').showModal();$('closeNotes').onclick=()=>$('notes').close();
+$('notes').addEventListener('click',e=>{if(e.target===$('notes'))$('notes').close()});
+$('save').onclick=()=>{draw(1);const a=document.createElement('a');a.download='terrain-'+S.name.toLowerCase().replace(/[^a-z]+/g,'-')+'.png';a.href=canvas.toDataURL('image/png');a.click()};
+
+// ground pointer
+let drag=null,lastType='mouse';
+const local=e=>{const r=canvas.getBoundingClientRect();return [e.clientX-r.left,e.clientY-r.top]};
+function apply(which,uv){if(!uv)return;if(which==='box'){S.b.u=clamp(uv[0],.03,.97);S.b.v=clamp(uv[1],.03,.97);boxGeom();placePanel();walkPanel()}else{S.w[which]=uv;walkPanel()}render(true)}
+canvas.addEventListener('pointerdown',e=>{lastType=e.pointerType;if(e.pointerType!=='mouse')return;const [x,y]=local(e);
+  if(st.tool==='place'){drag='box';apply('box',pick(x,y))}
+  else{const near=S.w.map(p=>{const q=project(p[0],H(p[0],p[1]),p[1]);return Math.hypot(q[0]-x,q[1]-y)});
+    if(near[0]<16)drag=0;else if(near[1]<16)drag=1;else{const uv=pick(x,y);if(!uv)return;S.w[0]=uv;S.w[1]=uv.slice();drag=1;apply(1,uv)}}
+  canvas.setPointerCapture(e.pointerId);e.preventDefault();canvas.focus()});
+canvas.addEventListener('pointermove',e=>{if(drag===null)return;apply(drag,pick(...local(e)))});
+const endDrag=()=>{if(drag!==null&&drag!=='box'){const W=S.w;if(Math.hypot(W[1][0]-W[0][0],W[1][1]-W[0][1])<.02){W[1]=[clamp(W[0][0]+.2,0,1),W[0][1]];walkPanel();render()}}drag=null};
+canvas.addEventListener('pointerup',endDrag);canvas.addEventListener('pointercancel',endDrag);
+canvas.addEventListener('click',e=>{if(lastType==='mouse')return;const uv=pick(...local(e));if(!uv)return;if(st.tool==='place')apply('box',uv);else{apply(st.nextPt,uv);st.nextPt^=1}});
+canvas.addEventListener('keydown',e=>{const d={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]}[e.key];if(!d)return;e.preventDefault();const k=.01;
+  if(st.tool==='place')apply('box',[S.b.u+d[0]*k,S.b.v+d[1]*k]);else{const i=e.shiftKey?0:1,p=S.w[i];apply(i,[clamp(p[0]+d[0]*k,0,1),clamp(p[1]+d[1]*k,0,1)])}});
+// drag the sun
+let sunDrag=false;
+function sunFrom(e){const r=$('path').getBoundingClientRect(),x=(e.clientX-r.left)/r.width*240,y=(e.clientY-r.top)/r.height*240;let best=-1,bd=1e9;
+  dayInfo.pts.forEach((p,i)=>{if(p.alt<0||i>=360)return;const q=pol(p),d=(q[0]-x)**2+(q[1]-y)**2;if(d<bd){bd=d;best=i}});if(best>=0){play(false);setMin(best*4)}}
+$('path').addEventListener('pointerdown',e=>{sunDrag=true;$('path').setPointerCapture(e.pointerId);sunFrom(e)});
+$('path').addEventListener('pointermove',e=>{if(sunDrag)sunFrom(e)});
+$('path').addEventListener('pointerup',()=>sunDrag=false);$('path').addEventListener('pointercancel',()=>sunDrag=false);
+new ResizeObserver(()=>render(true)).observe($('model'));
+
+setTool('walk');
+setSite(0);
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>render());
+window.__terrain={st,view,SITES,sunPos,get sun(){return sun},get S(){return S},get boxG(){return boxG},pick,project,H,meters,get dayInfo(){return dayInfo},setMin,setDay,setSite,setMode,setTool,draw};
+</script>
+</body>
+</html>

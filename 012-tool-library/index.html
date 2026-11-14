@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crescent Heights Tool Library</title>
+<!-- humanlup:meta -->
+<!-- HumanLup Design Lab 12 · Anthony Lupo · humanlup.com · X @humanlup · IG humanlup.ai · anthony@humanlup.com -->
+<meta name="author" content="Anthony Lupo">
+<meta name="creator" content="Anthony Lupo">
+<meta name="publisher" content="HumanLup">
+<meta name="copyright" content="© 2026 Anthony Lupo, HumanLup">
+<link rel="author" href="https://humanlup.com">
+<link rel="me" href="https://x.com/humanlup">
+<link rel="me" href="https://www.instagram.com/humanlup.ai">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HumanLup Design Lab 12">
+<meta property="og:title" content="Crescent Heights Tool Library">
+<meta property="og:description" content="A tool library home screen that answers one question: can I have it by the day I need it?">
+<meta property="og:image" content="preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@humanlup">
+<meta name="twitter:creator" content="@humanlup">
+<meta name="twitter:title" content="Crescent Heights Tool Library">
+<meta name="twitter:description" content="A tool library home screen that answers one question: can I have it by the day I need it?">
+<meta name="twitter:image" content="preview.jpg">
+<!-- /humanlup:meta -->
+<meta name="description" content="A tool library home screen that answers one question: can I have it by the day I need it?">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders:opsz,wght@10..72,100..900&family=Instrument+Sans:wght@400..700&family=Sometype+Mono:wght@400..700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F3F1E8; --ink:#141410; --soft:#46463C; --hi:#E2FF3D; --red:#B81D0A;
+  --L:360px; --N:42; --job:4; --reserve:340px;
+  --display:"Big Shoulders","Big Shoulders Display","Arial Narrow","Helvetica Neue",sans-serif;
+  --body:"Instrument Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --mono:"Sometype Mono","SF Mono",Menlo,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.45 var(--body)}
+button,input{font:inherit;color:inherit}
+h1,h2,h3,p,ul{margin:0;padding:0}
+ul{list-style:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.page{max-width:1520px;margin:0 auto;padding:0 28px 72px}
+svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+/* top strip */
+.top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 28px;padding:18px 0 14px;border-bottom:2.5px solid var(--ink)}
+.top strong{font-weight:700}
+.top .who{display:flex;flex-wrap:wrap;gap:6px 22px;align-items:baseline}
+.top a{color:var(--red);font-weight:600;text-underline-offset:4px}
+
+/* headline */
+.ask{display:flex;flex-wrap:wrap;align-items:center;gap:.08em .22em;padding:28px 0 6px;
+  font:900 clamp(56px,7.7vw,128px)/.9 var(--display);text-transform:uppercase;letter-spacing:.005em}
+.ask .date{display:inline-flex;align-items:center;background:var(--hi);padding:.06em .14em .02em;white-space:nowrap}
+.ask .date span{min-width:5.1em;text-align:center}
+.step{display:inline-grid;place-items:center;width:.62em;height:.62em;min-width:48px;min-height:48px;border:0;background:var(--ink);color:var(--hi);border-radius:8px;cursor:pointer}
+.step:disabled{opacity:.3;cursor:default}
+.step svg{width:55%;height:55%;stroke-width:2.5}
+.step:first-child{margin-right:.14em}.step:last-child{margin-left:.14em}
+.answer{font-size:20px;line-height:1.35;max-width:46ch;padding:10px 0 26px}
+.answer b{font-weight:700}
+
+/* controls */
+.controls{display:flex;flex-wrap:wrap;gap:12px 16px;align-items:center;padding-bottom:18px}
+.search{position:relative;flex:1 1 260px;max-width:420px}
+.search svg{position:absolute;left:14px;top:14px;pointer-events:none}
+.search input{width:100%;height:48px;padding:0 14px 0 44px;border:2px solid var(--ink);border-radius:8px;background:#fff}
+.search input::placeholder{color:var(--soft)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{height:44px;padding:0 16px;border:2px solid var(--ink);border-radius:999px;background:transparent;cursor:pointer;font-weight:500}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--paper)}
+.sort{display:flex;margin-left:auto;border:2px solid var(--ink);border-radius:8px;overflow:hidden}
+.sort button{height:44px;padding:0 14px;border:0;background:transparent;cursor:pointer;font-weight:500}
+.sort button[aria-pressed=true]{background:var(--ink);color:var(--paper)}
+.sort button:focus-visible{outline-offset:-5px;outline-color:var(--hi)}
+.key{display:flex;flex-wrap:wrap;gap:8px 26px;padding:0 0 14px;font-size:14px;color:var(--soft)}
+.key span{display:inline-flex;align-items:center;gap:8px}
+.key i{display:inline-block;width:30px;height:16px;border:1.5px solid var(--ink)}
+.k-out{background:repeating-linear-gradient(-45deg,var(--ink) 0 3px,transparent 3px 8px)}
+.k-in{background:var(--hi)}
+.k-me{background:linear-gradient(var(--ink),var(--ink)) bottom/100% 7px no-repeat}
+.k-late{border:0!important;width:auto!important;height:auto!important;font:800 22px/1 var(--display);font-style:normal;color:transparent;-webkit-text-stroke:1.2px var(--ink)}
+
+/* axis */
+.axis{position:sticky;top:0;z-index:5;display:grid;grid-template-columns:var(--L) 1fr;background:var(--paper);border-top:2.5px solid var(--ink);border-bottom:2.5px solid var(--ink)}
+.axis .lead{display:flex;align-items:center;justify-content:flex-end;gap:8px;padding-right:14px;font:600 14px/1 var(--mono);text-transform:uppercase;letter-spacing:.04em}
+.cells{position:relative;display:flex;height:56px;border-left:2.5px solid var(--ink);container-type:inline-size}
+.cell{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;font:500 14px/1 var(--mono);color:var(--soft)}
+.cell.mon{box-shadow:inset 1.5px 0 0 var(--ink)}
+.cell.in{background:var(--hi);color:var(--ink)}
+.cell.job{background:var(--ink);color:var(--hi);font-weight:700}
+.cell b{font-weight:inherit}
+.axis input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize}
+.cells:has(input:focus-visible){outline:3px solid var(--ink);outline-offset:3px}
+.phonejob{display:none}
+@container (max-width:880px){.cell b{display:none}.cell.mon b,.cell.job b{display:block;white-space:nowrap}}
+@container (max-width:640px){.cell span{display:none}.cell.mon span,.cell.job span{display:block}}
+
+/* rows */
+.row{display:grid;grid-template-columns:var(--L) 1fr;border-bottom:1.5px solid var(--ink)}
+.tag{padding:16px 18px 16px 0;font-size:15px;color:var(--soft)}
+.tag .id{display:block;font:600 14px/1.2 var(--mono);color:var(--ink);letter-spacing:.03em;margin-bottom:6px}
+.tag .cat{display:block;font-weight:600;color:var(--ink)}
+.time{position:relative;border-left:2.5px solid var(--ink);min-height:118px}
+.lane{position:absolute;inset:0;overflow:hidden}
+.win{position:absolute;left:0;top:0;bottom:0;width:calc((var(--job) + 1) / var(--N) * 100%);background:var(--hi);transition:width .15s ease-out}
+.busy{position:absolute;left:0;top:0;bottom:0;width:min(calc(var(--s) / var(--N) * 100%),calc(100% - var(--reserve)))}
+.busy i{position:absolute;top:0;bottom:0;border-right:4px solid transparent;background:repeating-linear-gradient(-45deg,var(--ink) 0 4px,transparent 4px 11px) padding-box}
+.mine,.slip{position:absolute;bottom:0;height:9px}
+.mine{background:var(--ink)}
+.slip{background:repeating-linear-gradient(90deg,var(--ink) 0 5px,transparent 5px 10px);height:4px;bottom:2px}
+.what{position:relative;z-index:1;margin-left:min(calc(var(--s) / var(--N) * 100%),calc(100% - var(--reserve)));padding:12px 14px 20px 12px}
+.name{font:800 46px/1 var(--display);text-transform:uppercase;letter-spacing:.012em;white-space:nowrap}
+.row.late .name{color:transparent;-webkit-text-stroke:1.6px var(--ink)}
+.say{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-top:8px;font-size:15px;line-height:1.35}
+.say p{max-width:40ch}
+.say b{font-weight:700}
+.btn{min-height:44px;padding:0 16px;border:2px solid var(--ink);border-radius:8px;background:var(--ink);color:var(--paper);font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.btn.quiet{background:transparent;color:var(--ink)}
+.btn:hover{background:#000}.btn.quiet:hover{background:var(--ink);color:var(--paper)}
+.empty{padding:56px 0;border-bottom:1.5px solid var(--ink)}
+.empty h3{font:800 46px/1 var(--display);text-transform:uppercase}
+.empty p{margin:10px 0 16px;max-width:44ch;color:var(--soft)}
+.shown{padding:12px 0 0;font-size:14px;color:var(--soft)}
+
+/* your shelf */
+.shelfhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 20px;padding:64px 0 14px}
+.shelfhead h2{font:900 clamp(44px,5vw,76px)/.9 var(--display);text-transform:uppercase}
+.shelf{border-top:2.5px solid var(--ink);--o:var(--L);--u:calc((100% - var(--L)) / var(--N))}
+.loan{position:relative;border-bottom:1.5px solid var(--ink);min-height:132px}
+.loan::before{content:"";position:absolute;left:var(--L);top:0;bottom:0;border-left:2.5px solid var(--ink)}
+.strip{position:absolute;inset:0;overflow:hidden}
+.strip i{position:absolute;top:0;bottom:0;left:calc(var(--o) + var(--u) * var(--a));width:calc(var(--u) * var(--n));transition:left .3s,width .3s}
+.strip .nb{border-right:4px solid transparent;background:repeating-linear-gradient(-45deg,var(--ink) 0 4px,transparent 4px 11px) padding-box}
+.strip .me{top:auto;height:9px;background:var(--ink)}
+.strip .od{top:auto;height:9px;background:var(--red)}
+.strip .now{display:none}
+.loan .what{margin:0;width:calc(var(--o) + var(--u) * (var(--due) + 1));min-width:min-content;text-align:right;padding:12px 14px 22px 0;transition:width .3s}
+.loan .say{justify-content:flex-end}
+.loan .say p{max-width:36ch;background:var(--paper);box-shadow:0 0 0 3px var(--paper)}
+.loan .lid{font:600 14px/1 var(--mono);letter-spacing:.03em;margin-right:4px}
+.loan.over .name,.loan.over .say b{color:var(--red)}
+.foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px 40px;margin-top:56px;padding-top:20px;border-top:2.5px solid var(--ink);font-size:15px;color:var(--soft)}
+.foot p{max-width:46ch}
+.foot p:first-child{color:var(--ink);font-weight:500}
+
+@media (max-width:1180px){:root{--L:260px;--reserve:300px}.name{font-size:40px}}
+@media (max-width:899px){
+  :root{--reserve:0px}
+  .page{padding:0 16px 56px}
+  .ask{padding-top:20px}
+  .ask .lead{flex-basis:100%}
+  .ask .date{flex:1;justify-content:space-between}
+  .ask .date span{min-width:0}
+  .answer{font-size:18px;padding-bottom:20px}
+  .sort{margin-left:0}
+  .axis{display:block;border-top-width:2.5px;padding:8px 0 4px}
+  .axis .lead,.cells{display:none}
+  .phonejob{display:block}
+  .phonejob label{display:flex;justify-content:space-between;align-items:baseline;font-weight:600}
+  .phonejob label span{font:500 14px/1 var(--mono);color:var(--soft)}
+  .phonejob input{position:static;opacity:1;width:100%;height:44px;accent-color:var(--ink);cursor:pointer}
+  .row{display:flex;flex-direction:column;padding:16px 0 18px}
+  .time{display:contents}
+  .what{order:1;margin:0;padding:0}
+  .name{font-size:36px;white-space:normal;text-wrap:balance}
+  .say{font-size:16px}
+  .tag{order:2;padding:10px 0 0}
+  .tag .id{display:inline;margin-right:10px}.tag .cat{display:inline;margin-right:8px}
+  .lane,.strip{order:3;position:relative;inset:auto;height:20px;margin-top:12px;border:1.5px solid var(--ink)}
+  .mine,.strip .me,.strip .od{height:auto;top:0;bottom:0}
+  .slip{height:4px;top:6px}
+  .busy i{background-image:repeating-linear-gradient(-45deg,var(--ink) 0 3px,transparent 3px 7px)}
+  .strip .nb{background-image:repeating-linear-gradient(-45deg,var(--ink) 0 3px,transparent 3px 7px)}
+  .shelf{--o:calc(100% / 6);--u:calc(100% / var(--N))}
+  .loan{display:flex;flex-direction:column;min-height:0;padding:16px 0 18px}
+  .loan::before{display:none}
+  .loan .what{width:auto;text-align:left;padding:0}
+  .loan .say{justify-content:flex-start}
+  .strip .now{display:block;left:var(--o);width:0;border-left:2px solid var(--ink)}
+  .strip .me{opacity:.38}
+  .shelfhead{padding-top:44px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="top">
+    <p><strong>Crescent Heights Tool Library</strong></p>
+    <p class="who"><span>412 Maple Ave. Open today until 7 pm.</span><span>Sam A., member 214</span><a href="#your-shelf" id="owe"></a></p>
+  </header>
+
+  <main>
+    <h1 class="ask" id="ask">
+      <span class="lead">I need it by</span>
+      <span class="date">
+        <button class="step" id="prev" type="button" aria-label="One day earlier"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+        <span id="bigdate"></span>
+        <button class="step" id="next" type="button" aria-label="One day later"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+      </span>
+    </h1>
+    <p class="answer" id="answer" role="status"></p>
+
+    <div class="controls">
+      <div class="search">
+        <label class="sr" for="q">Search tools</label>
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        <input id="q" type="search" placeholder="Name, number or job. Try ladder" autocomplete="off">
+      </div>
+      <div class="chips" id="chips" role="group" aria-label="Filter by category"></div>
+      <div class="sort" role="group" aria-label="Order">
+        <button type="button" data-sort="soon" aria-pressed="true">Soonest</button>
+        <button type="button" data-sort="shelf" aria-pressed="false">By shelf</button>
+      </div>
+    </div>
+
+    <div class="key" aria-label="How to read the rows">
+      <span><i class="k-in"></i>In time</span>
+      <span><i class="k-out"></i>With a neighbor</span>
+      <span><i class="k-me"></i>Yours</span>
+      <span><i class="k-late">ABC</i>Too late</span>
+    </div>
+
+    <div class="axis">
+      <div class="lead" id="todaylead"></div>
+      <div class="cells" id="cells"></div>
+      <div class="phonejob">
+        <label for="jobp">Need it by <span id="jobplabel"></span></label>
+      </div>
+    </div>
+
+    <ul id="list" aria-label="Tools"></ul>
+    <p class="shown" id="shown" role="status"></p>
+
+    <section id="your-shelf" aria-labelledby="sh">
+      <div class="shelfhead"><h2 id="sh">Your shelf</h2><p id="shelfsay"></p></div>
+      <ul class="shelf" id="shelf"></ul>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>Every tool here was donated by a neighbor. Bring it back clean, charged and on time. Someone else has plans for it.</p>
+    <p>Reservations hold a tool at the front desk for two days. Loans run one week and renew once if nobody's waiting.</p>
+    <p>Turn dates are estimates. They assume every neighbor ahead of you picks up and returns on time. Sample data.</p>
+    <p>Built by Lupo</p>
+  </footer>
+  <p class="sr" aria-live="polite" id="live"></p>
+</div>
+
+<script>
+(() => {
+const N = 42, DAY = 864e5;
+const CATS = ["All","Power tools","Garden","Ladders","Painting","Plumbing"];
+// status: shelf | out | wait. `due` is days from today. A loan is 7 days; pickup is the day after a return.
+const TOOLS = [
+  {id:"DRL-041",name:"Cordless drill kit",detail:"18V, two batteries, bit set included",cat:"Power tools",status:"shelf"},
+  {id:"SAW-012",name:"Circular saw, 7¼ in",detail:"Fresh blade fitted in June",cat:"Power tools",status:"out",due:1},
+  {id:"PWR-100",name:"Pressure washer",detail:"Electric, 2,000 PSI, 25 ft hose",cat:"Power tools",status:"wait",waiting:2,due:2},
+  {id:"GRD-019",name:"Hedge trimmer",detail:"Corded, 22 in blade",cat:"Garden",status:"shelf"},
+  {id:"GRD-004",name:"Lawn aerator",detail:"Manual core aerator. Good workout",cat:"Garden",status:"wait",waiting:3,due:4},
+  {id:"GRD-023",name:"Wheelbarrow",detail:"6 cu ft, flat-free tire",cat:"Garden",status:"shelf"},
+  {id:"LAD-003",name:"Extension ladder, 24 ft",detail:"Fiberglass. Bring a friend to carry it",cat:"Ladders",status:"shelf"},
+  {id:"LAD-007",name:"Step ladder, 6 ft",detail:"Aluminum, folds flat",cat:"Ladders",status:"out",due:0},
+  {id:"PNT-008",name:"Paint sprayer",detail:"Airless. Clean it well or lose your deposit",cat:"Painting",status:"shelf"},
+  {id:"PNT-002",name:"Wallpaper steamer",detail:"Works on stubborn 1970s glue",cat:"Painting",status:"out",due:5},
+  {id:"PLM-005",name:"Pipe wrench set",detail:"10, 14 and 18 in",cat:"Plumbing",status:"shelf"},
+  {id:"PLM-011",name:"Drain auger, 25 ft",detail:"Hand crank. Gloves recommended",cat:"Plumbing",status:"shelf"},
+];
+const LOANS = [
+  {id:"SND-014",name:"Orbital sander",due:3,renewable:true},
+  {id:"GRD-011",name:"Post hole digger",due:1,waiting:2},
+  {id:"DRL-088",name:"Stud finder",due:-3},
+];
+const LOAN = 7, CYCLE = LOAN + 1, HOLD = 2, FEE = 0.5;
+
+const qs = new URLSearchParams(location.search);
+const today = (() => { const p = qs.get("today"); const d = p ? new Date(p + "T12:00:00") : new Date(); d.setHours(12,0,0,0); return d; })();
+const at = n => new Date(today.getTime() + n * DAY);
+const fmt = (n, o) => at(n).toLocaleDateString("en-US", o);
+const long = n => fmt(n, {weekday:"short", month:"short", day:"numeric"});
+const short = n => fmt(n, {month:"short", day:"numeric"});
+const wd = n => fmt(n, {weekday:"short"});
+const rel = n => n === 0 ? "today" : n === 1 ? "tomorrow" : long(n);
+const plural = (n, w) => n + " " + w + (n === 1 ? "" : "s");
+const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const $ = id => document.getElementById(id);
+
+const defaultJob = (() => { const k = (6 - today.getDay() + 7) % 7; return k === 0 ? 7 : k; })(); // the coming Saturday
+const S = { job: Math.min(N - 1, Math.max(0, parseInt(qs.get("by") ?? defaultJob, 10) || 0)), q: "", cat: "All", sort: "soon", reserved: {}, joined: {}, renewed: {} };
+
+const ahead = t => t.status === "wait" ? t.waiting : 0;
+const start = t => t.status === "shelf" ? 0 : t.due + ahead(t) * CYCLE + 1;
+const latest = t => t.status === "shelf" ? 0 : t.due + ahead(t) * (CYCLE + HOLD) + 1;
+
+function sentence(t) {
+  const s = start(t), late = s > S.job;
+  const tail = late ? ` <b>${plural(s - S.job, "day")} too late.</b>` : "";
+  if (t.status === "shelf") {
+    return S.reserved[t.id] ? `<b>Reserved.</b> At the desk until ${wd(HOLD)} 6 pm.` : "On the shelf.";
+  }
+  if (t.status === "out") {
+    const head = S.joined[t.id] ? "<b>You're number 1 in line.</b>" : `Due back ${rel(t.due)}.`;
+    return `${head} Yours from ${long(s)}.${tail}`;
+  }
+  const head = S.joined[t.id] ? `<b>You're number ${t.waiting + 1} in line.</b>` : `${plural(t.waiting, "person").replace("persons","people")} waiting.`;
+  return `${head} Your turn comes around ${short(s)}, or ${short(latest(t))} if holds run long.${tail}`;
+}
+function action(t) {
+  const undo = `<button class="btn quiet" data-act="undo" data-id="${t.id}" type="button"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5a5.5 5.5 0 0 1-5.5 5.5H11"/></svg>Undo<span class="sr"> for ${esc(t.name)}</span></button>`;
+  if (S.reserved[t.id] || S.joined[t.id]) return undo;
+  return t.status === "shelf"
+    ? `<button class="btn" data-act="reserve" data-id="${t.id}" type="button">Reserve<span class="sr"> ${esc(t.name)}</span></button>`
+    : `<button class="btn" data-act="join" data-id="${t.id}" type="button">Join line<span class="sr"> for ${esc(t.name)}</span></button>`;
+}
+function lane(t) {
+  const s = start(t); let h = '<span class="win"></span>';
+  if (s > 0) {
+    // one block for whoever has it now, one per neighbor ahead of you
+    const cuts = [0, t.due + 1]; for (let k = 1; k <= ahead(t); k++) cuts.push(t.due + 1 + k * CYCLE);
+    h += '<span class="busy">' + cuts.slice(1).map((c, k) => `<i style="left:${cuts[k] / s * 100}%;width:${(c - cuts[k]) / s * 100}%"></i>`).join("") + "</span>";
+  }
+  const pct = n => n / N * 100;
+  if (latest(t) > s) h += `<span class="slip" style="left:${pct(s)}%;width:${pct(latest(t) - s)}%"></span>`;
+  if (S.reserved[t.id]) h += `<span class="mine" style="left:0;width:${pct(HOLD + 1)}%"></span>`;
+  if (S.joined[t.id]) h += `<span class="mine" style="left:${pct(s)}%;width:${pct(LOAN)}%"></span>`;
+  return h;
+}
+
+function visible() {
+  const q = S.q.trim().toLowerCase();
+  const v = TOOLS.filter(t => (S.cat === "All" || t.cat === S.cat) &&
+    (!q || [t.name, t.detail, t.id, t.cat].some(x => x.toLowerCase().includes(q))));
+  if (S.sort === "soon") v.sort((a, b) => start(a) - start(b) || TOOLS.indexOf(a) - TOOLS.indexOf(b));
+  return v;
+}
+function renderList() {
+  const v = visible(), list = $("list");
+  if (!v.length) {
+    list.innerHTML = `<li class="empty"><h3>Nothing matches “${esc(S.q)}”.</h3><p>Try a shorter word, or ask at the front desk. We take requests and buy a few new tools every month.</p><button class="btn" data-act="clear" type="button">Clear search</button></li>`;
+  } else {
+    list.innerHTML = v.map(t => `<li class="row" data-id="${t.id}" style="--s:${start(t)}">
+      <div class="tag"><span class="id">${t.id}</span><span class="cat">${t.cat}</span> ${esc(t.detail)}</div>
+      <div class="time"><div class="lane" aria-hidden="true">${lane(t)}</div>
+        <div class="what"><h3 class="name">${esc(t.name)}</h3><div class="say"><p></p>${action(t)}</div></div></div></li>`).join("");
+  }
+  $("shown").textContent = v.length === TOOLS.length ? "" : `${v.length} of ${TOOLS.length} tools shown.`;
+  paintJob();
+}
+function paintJob() {
+  document.documentElement.style.setProperty("--job", S.job);
+  $("bigdate").textContent = fmt(S.job, {weekday:"short"}) + ", " + short(S.job);
+  $("prev").disabled = S.job === 0; $("next").disabled = S.job === N - 1;
+  document.querySelectorAll("input[data-job]").forEach(r => { r.value = S.job; r.setAttribute("aria-valuetext", long(S.job)); });
+  $("jobplabel").textContent = long(S.job);
+  [...$("cells").querySelectorAll(".cell")].forEach((c, n) => { c.classList.toggle("job", n === S.job); c.classList.toggle("in", n < S.job); });
+  const can = TOOLS.filter(t => start(t) <= S.job).length;
+  $("answer").innerHTML = `<b>${can} of ${TOOLS.length} tools</b> can be in your hands by then.` + (can < TOOLS.length ? " The hollow names can't." : "");
+  document.querySelectorAll("#list .row").forEach(li => {
+    const t = TOOLS.find(x => x.id === li.dataset.id);
+    li.classList.toggle("late", start(t) > S.job);
+    li.querySelector(".say p").innerHTML = sentence(t);
+  });
+}
+function setJob(n) { n = Math.min(N - 1, Math.max(0, n)); if (n !== S.job) { S.job = n; paintJob(); } }
+
+function renderShelf() {
+  $("shelf").innerHTML = LOANS.map(l => {
+    const due = l.due + (S.renewed[l.id] ? LOAN : 0), over = due < 0;
+    let say, btn = "", bars = `<i class="me" style="--a:${due - LOAN + 1};--n:${LOAN}"></i><i class="now"></i>`;
+    if (over) {
+      say = `<b>${plural(-due, "day")} overdue.</b> Late fees are 50¢ a day, $${(-due * FEE).toFixed(2)} so far. Drop it off any time we're open, no appointment needed.`;
+      bars += `<i class="od" style="--a:${due + 1};--n:${-due}"></i>`;
+    } else if (l.waiting) {
+      say = `Due ${rel(due)}. Can't renew: ${plural(l.waiting, "neighbor")} are waiting for it.`;
+      for (let k = 0; k < l.waiting; k++) bars += `<i class="nb" style="--a:${due + 1 + k * CYCLE};--n:${CYCLE}"></i>`;
+    } else if (S.renewed[l.id]) {
+      say = `<b>Renewed.</b> Now due ${long(due)}.`;
+      btn = `<button class="btn quiet" data-act="unrenew" data-id="${l.id}" type="button">Undo<span class="sr"> renewal of ${l.name}</span></button>`;
+    } else {
+      say = `Due ${rel(due)}.`;
+      btn = `<button class="btn" data-act="renew" data-id="${l.id}" type="button">Renew<span class="sr"> ${l.name} for a week</span></button>`;
+    }
+    return `<li class="loan${over ? " over" : ""}" data-id="${l.id}" style="--due:${due}">
+      <div class="strip" aria-hidden="true">${bars}</div>
+      <div class="what"><h3 class="name">${l.name}</h3><div class="say"><p><span class="lid">${l.id}</span> ${say}</p>${btn}</div></div></li>`;
+  }).join("");
+  const late = LOANS.filter(l => l.due < 0).length;
+  const words = ["None","One","Two","Three"];
+  $("shelfsay").textContent = `${words[LOANS.length]} out, ${words[late].toLowerCase()} running late.`;
+  $("owe").textContent = `${plural(LOANS.length, "tool")} out, ${late} overdue`;
+}
+
+function say(msg) { $("live").textContent = ""; requestAnimationFrame(() => $("live").textContent = msg); }
+function refocus(scope, id) { const b = document.querySelector(`${scope} [data-id="${id}"] button`); if (b) b.focus({preventScroll:true}); }
+
+// axis
+$("todaylead").textContent = "Today, " + long(0);
+$("cells").innerHTML = Array.from({length:N}, (_, n) => {
+  const d = at(n);
+  return `<div class="cell${d.getDay() === 1 ? " mon" : ""}"><span>${"SMTWTFS"[d.getDay()]}</span><b>${d.getDate()}</b></div>`;
+}).join("") + `<label class="sr" for="job">Need it by</label><input id="job" data-job type="range" min="0" max="${N - 1}" step="1">`;
+document.querySelector(".phonejob").insertAdjacentHTML("beforeend", `<input id="jobp" data-job type="range" min="0" max="${N - 1}" step="1">`);
+document.querySelectorAll("input[data-job]").forEach(r => r.addEventListener("input", () => setJob(+r.value)));
+$("prev").onclick = () => setJob(S.job - 1);
+$("next").onclick = () => setJob(S.job + 1);
+
+$("chips").innerHTML = CATS.map(c => `<button class="chip" type="button" aria-pressed="${c === S.cat}">${c}</button>`).join("");
+$("chips").addEventListener("click", e => {
+  const b = e.target.closest(".chip"); if (!b) return;
+  S.cat = b.textContent; [...$("chips").children].forEach(x => x.setAttribute("aria-pressed", x === b)); renderList();
+});
+document.querySelector(".sort").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  S.sort = b.dataset.sort; document.querySelectorAll(".sort button").forEach(x => x.setAttribute("aria-pressed", x === b)); renderList();
+});
+$("q").addEventListener("input", e => { S.q = e.target.value; renderList(); });
+
+$("list").addEventListener("click", e => {
+  const b = e.target.closest("[data-act]"); if (!b) return;
+  const t = TOOLS.find(x => x.id === b.dataset.id), a = b.dataset.act;
+  if (a === "clear") { S.q = ""; $("q").value = ""; renderList(); $("q").focus(); return; }
+  if (a === "reserve") { S.reserved[t.id] = true; say(`${t.name} is reserved for you. We'll hold it at the desk until ${fmt(HOLD, {weekday:"long"})} at 6 pm.`); }
+  if (a === "join") { S.joined[t.id] = true; say(`You're number ${ahead(t) + 1} in line for the ${t.name}. We'll email you when it's your turn, around ${long(start(t))}.`); }
+  if (a === "undo") { delete S.reserved[t.id]; delete S.joined[t.id]; say(`Undone. ${t.name} is no longer held for you.`); }
+  renderList(); refocus("#list", t.id);
+});
+$("shelf").addEventListener("click", e => {
+  const b = e.target.closest("[data-act]"); if (!b) return;
+  const l = LOANS.find(x => x.id === b.dataset.id);
+  // change in place so the name slides to its new date
+  const li = b.closest(".loan");
+  S.renewed[l.id] = b.dataset.act === "renew";
+  const due = l.due + (S.renewed[l.id] ? LOAN : 0);
+  li.style.setProperty("--due", due);
+  li.querySelector(".me").style.setProperty("--a", due - LOAN + 1);
+  li.querySelector(".say").innerHTML = S.renewed[l.id]
+    ? `<p><span class="lid">${l.id}</span> <b>Renewed.</b> Now due ${long(due)}.</p><button class="btn quiet" data-act="unrenew" data-id="${l.id}" type="button">Undo<span class="sr"> renewal of ${l.name}</span></button>`
+    : `<p><span class="lid">${l.id}</span> Due ${rel(due)}.</p><button class="btn" data-act="renew" data-id="${l.id}" type="button">Renew<span class="sr"> ${l.name} for a week</span></button>`;
+  say(S.renewed[l.id] ? `${l.name} renewed. It's now due ${fmt(due, {weekday:"long", month:"long", day:"numeric"})}.` : `Renewal undone. ${l.name} is due ${long(due)}.`);
+  refocus("#shelf", l.id);
+});
+
+renderShelf(); renderList();
+window.__lib = { S, start, latest, TOOLS, LOANS };
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Taste Report, Vol. I No. 04</title>
+<!-- humanlup:meta -->
+<!-- HumanLup Design Lab 06 · Anthony Lupo · humanlup.com · X @humanlup · IG humanlup.ai · anthony@humanlup.com -->
+<meta name="author" content="Anthony Lupo">
+<meta name="creator" content="Anthony Lupo">
+<meta name="publisher" content="HumanLup">
+<meta name="copyright" content="© 2026 Anthony Lupo, HumanLup">
+<link rel="author" href="https://humanlup.com">
+<link rel="me" href="https://x.com/humanlup">
+<link rel="me" href="https://www.instagram.com/humanlup.ai">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HumanLup Design Lab 06">
+<meta property="og:title" content="The Taste Report, Vol. I No. 04">
+<meta property="og:description" content="An essay about restraint that you can cut down to five percent of itself.">
+<meta property="og:image" content="preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@humanlup">
+<meta name="twitter:creator" content="@humanlup">
+<meta name="twitter:title" content="The Taste Report, Vol. I No. 04">
+<meta name="twitter:description" content="An essay about restraint that you can cut down to five percent of itself.">
+<meta name="twitter:image" content="preview.jpg">
+<!-- /humanlup:meta -->
+<meta name="description" content="An essay about restraint that you can cut down to five percent of itself." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23141414'/%3E%3Cpath d='M11 7v15h10' fill='none' stroke='%23F5F5F3' stroke-width='2.5' stroke-linecap='square'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400..900;1,400..900&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #f5f5f3;
+    --paper-2: #ebebe8;
+    --ink: #141414;
+    --ash: #666666;
+    --faint: #cdcdc8;
+    --cut: #b0001f;            /* one job: it marks what was cut */
+    --sans: "Schibsted Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --mono: "Spline Sans Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --gut: clamp(16px, 2.6vw, 36px);
+    --small: 14px;
+    color-scheme: light dark;
+  }
+  @media (min-width: 900px) { :root { --small: 12px; } }
+  @media (prefers-color-scheme: dark) {
+    :root { --paper:#131313; --paper-2:#1e1e1e; --ink:#f0f0ee; --ash:#a0a0a0; --faint:#363636; --cut:#ff4d63; }
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: var(--sans); font-size: 17px; line-height: 1.5;
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  }
+  button, input { font: inherit; color: inherit; }
+  :focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+  .page { min-height: 100dvh; display: flex; flex-direction: column; padding: 0 var(--gut); }
+
+  /* masthead */
+  .mast {
+    display: flex; justify-content: space-between; align-items: center; gap: 8px 24px; flex-wrap: wrap;
+    padding: 12px 0 10px; border-bottom: 1.5px solid var(--ink);
+    font-family: var(--mono); font-size: var(--small); letter-spacing: .06em; text-transform: uppercase;
+  }
+  .mast .mark { display: inline-flex; align-items: center; gap: 9px; font-weight: 500; }
+  .mast .mark svg { width: 18px; height: 18px; flex: none; }
+  .mast .ed { display: flex; gap: 6px 22px; flex-wrap: wrap; color: var(--ash); }
+  .mast .ed b { font-weight: 500; color: var(--ink); }
+  .mast time { display: none; }
+
+  /* headline */
+  .head {
+    display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px 40px; align-items: end;
+    padding: clamp(18px, 3vw, 30px) 0 clamp(14px, 2vw, 22px);
+    border-bottom: 1px solid var(--faint);
+  }
+  h1 {
+    margin: 0; font-weight: 500; font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: .98; letter-spacing: -.04em; text-wrap: balance;
+  }
+  h1 .struck { position: relative; color: var(--ash); white-space: nowrap; }
+  h1 .struck::after {
+    content: ""; position: absolute; left: -.06em; right: -.06em; top: 54%; height: .085em;
+    background: var(--cut); transform-origin: left center; animation: strike .7s cubic-bezier(.2,.8,.2,1) .7s both;
+  }
+  @keyframes strike { from { transform: scaleX(0); } }
+  h1 .kept { font-weight: 800; }
+  .by {
+    margin: 0; font-family: var(--mono); font-size: var(--small); line-height: 1.6;
+    letter-spacing: .03em; text-transform: uppercase; color: var(--ash);
+  }
+  .by b { display: block; font-weight: 500; color: var(--ink); }
+  @media (min-width: 900px) {
+    .head { grid-template-columns: minmax(0, 1fr) 250px; }
+  }
+
+  /* the sheet */
+  .sheet { position: relative; flex: 1; padding: 18px 0 22px; }
+  .flow {
+    --w: 400; --lh: 1.5; --ls: 0em;
+    font-size: 17px; font-weight: var(--w); line-height: var(--lh); letter-spacing: var(--ls);
+    column-width: 19em; column-gap: 2.2em; column-rule: 1px solid var(--faint);
+    hyphens: manual; overflow-wrap: break-word;
+  }
+  .flow p { margin: 0 0 .72em; }
+  .flow .lede { font-weight: calc(var(--w) + 160); }
+  .flow h3 {
+    margin: .95em 0 .38em; font-size: 1.16em; font-weight: 800; letter-spacing: -.02em; line-height: 1.12;
+    break-after: avoid;
+  }
+  .flow blockquote {
+    margin: .9em 0; padding-left: .8em; border-left: max(2px, .07em) solid var(--ink);
+    font-weight: calc(var(--w) + 120); break-inside: avoid;
+  }
+  .flow blockquote p { margin: 0; }
+  .flow blockquote .q::before { content: "\201C"; }
+  .flow blockquote .q::after { content: "\201D"; }
+  .lab {
+    display: block; margin: .3em 0 0; font-family: var(--mono); font-weight: 400;
+    font-size: max(var(--small), .56em); line-height: 1.5; letter-spacing: .08em; text-transform: uppercase; color: var(--ash);
+  }
+  .box { margin: 1.1em 0 0; border-top: max(1.5px, .05em) solid var(--ink); padding-top: .45em; }
+  .box h4 { margin: .2em 0 .45em; font-size: 1.08em; font-weight: 700; line-height: 1.15; letter-spacing: -.015em; }
+  .box ol, .box ul { list-style: none; margin: .35em 0 0; padding: 0; }
+  .box li {
+    position: relative; padding: .42em 0 .42em 2.9em; border-top: 1px solid var(--faint);
+    line-height: min(var(--lh), 1.4); break-inside: avoid;
+  }
+  .box li .n {
+    position: absolute; left: 0; top: .5em; font-family: var(--mono); font-size: max(var(--small), .78em); color: var(--ash); letter-spacing: 0;
+  }
+  .box.figs li { padding-left: 3.6em; }
+  .box.figs li .n { top: .34em; font-family: var(--sans); font-size: 1.12em; font-weight: 800; color: var(--ink); letter-spacing: -.03em; }
+
+  /* units: every sentence can be cut */
+  .u {
+    text-decoration: line-through; text-decoration-color: transparent;
+    text-decoration-thickness: max(1.5px, .065em);
+    transition: color .2s, text-decoration-color .2s; border-radius: 2px;
+  }
+  .u.x, .u.going { color: var(--ash); text-decoration-color: var(--cut); }
+  .u.gone, .dep.gone, .blk.empty { display: none; }
+  .u.coming { animation: come .4s ease-out; }
+  @keyframes come { from { opacity: 0; } }
+  .dep.x { opacity: .55; }
+  .proof .u { cursor: pointer; }
+  @media (hover: hover) { .proof .u:hover { background: var(--paper-2); } }
+
+  .blank {
+    position: absolute; inset: 0; margin: 0; display: none; place-items: center; text-align: center;
+    font-family: var(--mono); font-size: var(--small); letter-spacing: .1em; text-transform: uppercase; color: var(--ash);
+    min-height: 40vh;
+  }
+  .is-blank .blank { display: grid; }
+
+  /* the bar */
+  .bar {
+    position: sticky; bottom: 0; z-index: 5; background: var(--paper);
+    border-top: 1.5px solid var(--ink); margin: 0 calc(var(--gut) * -1); padding: 8px var(--gut) calc(6px + env(safe-area-inset-bottom));
+    display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; align-items: center;
+  }
+  .read { display: contents; }
+  .read .big { grid-column: 1; grid-row: 1; }
+  .read .sub { grid-column: 1 / -1; grid-row: 2; }
+  .acts { grid-column: 2; grid-row: 1; }
+  .read .big { display: block; white-space: nowrap; font-size: 26px; line-height: 1; font-weight: 700; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+  .read .big small { font-family: var(--mono); font-size: var(--small); font-weight: 400; letter-spacing: .03em; color: var(--ash); margin-left: .5em; }
+  .read .sub { display: block; margin-top: 0; font-size: 14px; line-height: 1.3; color: var(--ash); min-height: 1.3em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .read .sub.hit { color: var(--ink); font-weight: 600; }
+  .acts { display: flex; gap: 8px; align-items: center; }
+  .btn {
+    height: 44px; min-width: 44px; padding: 0 12px; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    background: transparent; border: 1px solid var(--ink); border-radius: 8px; cursor: pointer;
+    font-family: var(--mono); font-size: var(--small); letter-spacing: .05em; text-transform: uppercase;
+    transition: background .15s, color .15s;
+  }
+  .btn svg { width: 16px; height: 16px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  @media (hover: hover) { .btn:hover { background: var(--ink); color: var(--paper); } }
+  .btn .t { display: none; }
+  .seg { display: inline-flex; border: 1px solid var(--ink); border-radius: 8px; overflow: hidden; }
+  .seg button { border: 0; border-radius: 0; padding: 0 12px; }
+  .seg button + button { border-left: 1px solid var(--ink); }
+  .seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+  [hidden] { display: none !important; }
+
+  .ruler { grid-column: 1 / -1; position: relative; height: 62px; --p: 1; }
+  .ruler input {
+    -webkit-appearance: none; appearance: none; position: relative; z-index: 2; display: block;
+    width: 100%; height: 44px; margin: 0; background: transparent; cursor: ew-resize; touch-action: pan-y;
+  }
+  .ruler input::-webkit-slider-runnable-track { height: 44px; background: transparent; }
+  .ruler input::-moz-range-track { height: 44px; background: transparent; }
+  .ruler input::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 16px; height: 36px; margin-top: 4px; border-radius: 4px;
+    background: var(--ink); border: 2px solid var(--paper); box-shadow: 0 0 0 1px var(--ink);
+  }
+  .ruler input::-moz-range-thumb {
+    width: 12px; height: 32px; border-radius: 4px; background: var(--ink); border: 2px solid var(--paper); box-shadow: 0 0 0 1px var(--ink);
+  }
+  .ruler input:focus-visible { outline: none; }
+  .ruler input:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 1px var(--ink), 0 0 0 4px var(--paper), 0 0 0 6px var(--ink); }
+  .ruler .lost, .ruler .kept, .ruler .ticks { position: absolute; left: 8px; pointer-events: none; }
+  .ruler .lost { right: 8px; top: 21px; height: 2px; background: var(--cut); }
+  .ruler .kept { top: 17px; height: 10px; width: calc((100% - 16px) * var(--p)); background: var(--ink); }
+  .ruler .ticks {
+    right: 8px; top: 41px; height: 7px; border-right: 1px solid var(--ash);
+    background: repeating-linear-gradient(to right, var(--ash) 0 1px, transparent 1px 5%);
+  }
+  .ruler .mk {
+    position: absolute; top: 46px; transform: translateX(-50%); pointer-events: none;
+    font-family: var(--mono); font-size: var(--small); line-height: 16px; color: var(--ash);
+    left: calc(8px + (100% - 16px) * var(--at));
+  }
+  .ruler .mk.goal { color: var(--cut); font-weight: 500; }
+  .ruler .mk.goal::before { content: ""; position: absolute; left: 50%; top: -9px; width: 2px; height: 12px; margin-left: -1px; background: var(--cut); }
+  .ruler .mk.end { transform: translateX(-100%); left: 100%; }
+
+  @media (min-width: 900px) {
+    .bar { grid-template-columns: 250px minmax(0, 1fr) auto; gap: 0 28px; padding-top: 12px; padding-bottom: 12px; }
+    .mast time { display: inline; }
+    .read { display: block; min-width: 0; }
+    .ruler { grid-column: 2; grid-row: 1; height: 70px; }
+    .ruler .ticks { top: 46px; }
+    .ruler .mk { top: 52px; line-height: 18px; }
+    .acts { grid-column: 3; }
+    .read .big { font-size: 40px; }
+    .read .sub { font-size: 13px; margin-top: 5px; }
+    .btn { height: 40px; }
+    .btn .t { display: inline; }
+  }
+
+  /* fit mode: one screen, the type grows as the words go */
+  html.fit, html.fit body { height: 100%; overflow: hidden; }
+  html.fit .page { height: 100dvh; min-height: 0; }
+  html.fit .sheet { min-height: 0; overflow: hidden; }
+  html.fit .flow { height: 100%; column-fill: auto; overflow: hidden; scrollbar-width: thin; scrollbar-color: var(--ash) transparent; }
+  html.fit .sheet.over .flow { overflow-x: auto; overscroll-behavior-x: contain; padding-bottom: 6px;
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 72px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 72px), transparent); }
+  html.fit .sheet.over.atend .flow { -webkit-mask-image: none; mask-image: none; }
+  html.fit .bar { position: static; }
+  html.fit .blank { min-height: 0; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  }
+  @media print {
+    .bar, .blank { display: none !important; }
+    html.fit, html.fit body, html.fit .page, html.fit .flow { height: auto; overflow: visible; }
+    body { background: #fff; color: #000; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="mast">
+    <span class="mark">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" fill="var(--ink)"/><path d="M11 7v15h10" fill="none" stroke="var(--paper)" stroke-width="2.6" stroke-linecap="square"/></svg>
+      The Taste Report
+    </span>
+    <span class="ed">
+      <span>Vol. I <b>No. 04</b></span>
+      <time datetime="2026-04-21">21 April 2026</time>
+      <span>Built by <b>Lupo</b></span>
+    </span>
+  </header>
+
+  <section class="head">
+    <h1>The quiet return of <span class="struck"><span class="sr">not </span>output</span> <span class="kept">taste</span> as a creative discipline.</h1>
+    <p class="by"><b>By A. Lupo</b>Reporting from the studio floor, New York. Type only, no photographs.</p>
+  </section>
+
+  <main class="sheet" id="sheet">
+    <article class="flow" id="flow" aria-label="Cover essay">
+
+      <p class="blk lede">
+        <span class="u" data-u="d1">In a year when every studio shipped a generator, the scarce asset stopped being output.</span>
+        <span class="u" data-u="d2">It became the judgment that decides what <em>not</em> to publish.</span>
+        <span class="u" data-u="d3">This is a report from inside that shift.</span>
+      </p>
+
+      <p class="blk">
+        <span class="u" data-u="a1">Somewhere between the third and fourth wave of generative tools, a strange thing happened in the studios that keep track of these things.</span>
+        <span class="u" data-u="a2">The conversation stopped being about the model and started being about the person pointing at the model.</span>
+        <span class="u" data-u="a3">Raw capability (draft a film, compose a jingle, ship a brand in an afternoon) had become an ambient utility, roughly as novel as spellcheck.</span>
+        <span class="u" data-u="a4">What had not become ambient, and what suddenly mattered more than the engine itself, was the old, unfashionable, difficult-to-teach muscle called taste.</span>
+      </p>
+      <p class="blk">
+        <span class="u" data-u="b1">This report describes that shift without lapsing into the familiar genres of hype or alarm.</span>
+        <span class="u" data-u="b2">It is based on six months of conversations with founders, creative directors, type designers, editors, and one very patient barista, conducted across three cities and two coasts.</span>
+        <span class="u" data-u="b3">The people interviewed rarely used the word "AI" without first sighing.</span>
+        <span class="u" data-u="b4">They used the words craft, intention, and discernment a great deal.</span>
+      </p>
+
+      <h3 class="blk"><span class="u" data-u="H1" data-head="s1">A surplus of drafts, a scarcity of decisions.</span></h3>
+      <p class="blk" data-sec="s1">
+        <span class="u" data-u="c1">The economics of making have inverted in under two years.</span>
+        <span class="u" data-u="c2">Where a single illustration once cost a week and a mood board, it now costs a prompt and a coffee.</span>
+        <span class="u" data-u="c3">The bottleneck has migrated.</span>
+        <span class="u" data-u="c4">It used to live in execution.</span>
+        <span class="u" data-u="c5">It now lives in the quieter, lonelier moment of looking at fifty acceptable options and choosing the one that is, specifically, right.</span>
+        <span class="u" data-u="c6">The studios thriving in this environment have a disproportionate number of people on staff whose entire job is to say, calmly and often, <em>not this one</em>.</span>
+      </p>
+      <p class="blk" data-sec="s1">
+        <span class="u" data-u="e1">There is a temptation to frame this as a return to the old guard: the art director with an unerring eye, the editor who kills her darlings.</span>
+        <span class="u" data-u="e2">The truth is closer to the opposite.</span>
+        <span class="u" data-u="e3">The new practitioners are younger than expected, and their fluency is hybrid.</span>
+        <span class="u" data-u="e4">They can brief a model the way a director briefs a cinematographer.</span>
+        <span class="u" data-u="e5">They can also look at the resulting forty frames and, without sentiment, pick the three that earn their keep.</span>
+      </p>
+
+      <h3 class="blk"><span class="u" data-u="H2" data-head="s2">Craft is what happens after the first draft.</span></h3>
+      <p class="blk" data-sec="s2">
+        <span class="u" data-u="f1">A studio in Brooklyn described their process as "the long second draft."</span>
+        <span class="u" data-u="f2">The machine produces a first pass in minutes.</span>
+        <span class="u" data-u="f3">The team then spends two weeks removing things.</span>
+        <span class="u" data-u="f4">Removing sentences, removing frames, removing entire subplots the model had cheerfully invented.</span>
+        <span class="u" data-u="f5">The output is shorter, stranger, and more specific than anything the tool would have produced on its own.</span>
+        <span class="u" data-u="f6">It is also, they point out, the thing clients are willing to pay for.</span>
+      </p>
+      <p class="blk" data-sec="s2">
+        <span class="u" data-u="g1">What the machine cannot do, and shows no sign of learning, is to be restrained on your behalf.</span>
+        <span class="u" data-u="g2">Restraint is the signature of a point of view.</span>
+        <span class="u" data-u="g3">The studios that understood this early stopped competing on volume and started competing on the ratio of shipped work to generated work.</span>
+        <span class="u" data-u="g4">A good ratio, one creative director told us, is below five percent.</span>
+        <span class="u" data-u="g5">The rest is rehearsal.</span>
+      </p>
+
+      <blockquote class="blk">
+        <p><span class="q"><span class="u" data-u="q1">The machine will happily make you a thousand almost-right things.</span>
+        <span class="u" data-u="q2">The craft, now, is knowing which one is the right one, and having the nerve to throw the other nine hundred and ninety-nine away.</span></span></p>
+        <cite class="dep lab" data-any="q1 q2">M. Reyes, Creative Director, Studio Half-Light, Brooklyn</cite>
+      </blockquote>
+
+      <h3 class="blk"><span class="u" data-u="H3" data-head="s3">The brief is the new canvas.</span></h3>
+      <p class="blk" data-sec="s3">
+        <span class="u" data-u="h1">If making has shifted toward editing, briefing has shifted toward writing.</span>
+        <span class="u" data-u="h2">The brief, once a throwaway document of bullet points and deadlines, has become the most consequential artifact in the creative process.</span>
+        <span class="u" data-u="h3">It is the only place where a human can still bend the output before the generation begins.</span>
+        <span class="u" data-u="h4">Studios that treat briefs as literature are producing work that looks different from studios that treat briefs as tickets.</span>
+      </p>
+      <p class="blk" data-sec="s3">
+        <span class="u" data-u="i1">This is not a metaphor.</span>
+        <span class="u" data-u="i2">One founder keeps a shared document titled <em>Brief-Writing: A House Style.</em></span>
+        <span class="u" data-u="i3">It runs to forty pages.</span>
+        <span class="u" data-u="i4">It contains no prompts, no model names, no tool comparisons.</span>
+        <span class="u" data-u="i5">It is entirely about sentence construction, reference discipline, and the discipline of saying what a thing is not.</span>
+        <span class="u" data-u="i6">Her studio's work, accordingly, has a voice.</span>
+        <span class="u" data-u="i7">Most studios' work does not.</span>
+      </p>
+      <p class="blk" data-sec="s3">
+        <span class="u" data-u="j1">The old creative director stood at the end of the pipeline and caught things.</span>
+        <span class="u" data-u="j2">The new one stands at the beginning and sets the conditions under which the pipeline can produce anything worth catching at all.</span>
+        <span class="u" data-u="j3">It is a quieter job.</span>
+        <span class="u" data-u="j4">It is also, increasingly, the only one that cannot be outsourced to the machine.</span>
+      </p>
+
+      <section class="blk box figs" aria-label="Figures of note">
+        <span class="dep lab" data-any="s1 s2 s3 s4">Figures of note. Compiled from 42 studio interviews, Q1 2026.</span>
+        <ul>
+          <li class="blk"><span class="u" data-u="s1"><span class="n">5%</span>Average ratio of shipped work to generated drafts among top studios.</span></li>
+          <li class="blk"><span class="u" data-u="s2"><span class="n">3.4×</span>Increase in time spent editing versus executing, year over year.</span></li>
+          <li class="blk"><span class="u" data-u="s3"><span class="n">68%</span>Of creative directors report hiring for taste, not tools, in the last six months.</span></li>
+          <li class="blk"><span class="u" data-u="s4"><span class="n">$0</span>Marginal cost of a rough draft. Down from roughly $4,200 in 2022.</span></li>
+        </ul>
+      </section>
+
+      <section class="blk box" aria-label="Field notes">
+        <span class="dep lab" data-any="n1 n2 n3 n4 n5 n6 n7">Field notes, off the record</span>
+        <h4 class="dep" data-all="n1 n2 n3 n4 n5 n6 n7">Seven small observations from the studio floor.</h4>
+        <ol>
+          <li class="blk"><span class="u" data-u="n1"><span class="n">01</span>The best briefs now read like poetry. The worst read like tickets.</span></li>
+          <li class="blk"><span class="u" data-u="n2"><span class="n">02</span>Everyone is using the same three tools. No one is using them the same way.</span></li>
+          <li class="blk"><span class="u" data-u="n3"><span class="n">03</span>Type choice is back to being a moral position, not a technical one.</span></li>
+          <li class="blk"><span class="u" data-u="n4"><span class="n">04</span>Craft has migrated from making to editing. Editing is the new drawing.</span></li>
+          <li class="blk"><span class="u" data-u="n5"><span class="n">05</span>Clients stopped asking how long it took. They started asking why it is the way it is.</span></li>
+          <li class="blk"><span class="u" data-u="n6"><span class="n">06</span>The studios that hired junior generalists are outpacing the ones that hired specialists.</span></li>
+          <li class="blk"><span class="u" data-u="n7"><span class="n">07</span>Silence on the page is back. Nothing in a model's instinct wants to leave a page empty.</span></li>
+        </ol>
+      </section>
+
+    </article>
+    <p class="blank" aria-hidden="true">This page intentionally left blank</p>
+  </main>
+
+  <footer class="bar" aria-label="The cut">
+    <div class="read" aria-live="polite">
+      <span class="big"><span id="count">0</span><small id="of"></small></span>
+      <span class="sub" id="sub"></span>
+    </div>
+    <div class="acts">
+      <button class="btn" id="play" type="button" aria-label="Play the edit">
+        <svg viewBox="0 0 24 24" aria-hidden="true" id="playIcon"><polygon points="6 3 20 12 6 21 6 3"/></svg><span class="t" id="playT">Play</span>
+      </button>
+      <div class="seg" role="group" aria-label="View">
+        <button class="btn" id="vFinal" type="button" aria-pressed="true">Final</button>
+        <button class="btn" id="vProof" type="button" aria-pressed="false">Proof</button>
+      </div>
+      <button class="btn" id="reset" type="button" aria-label="Undo my own cuts" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg><span class="t">Reset</span>
+      </button>
+      <button class="btn" id="copy" type="button" aria-label="Copy what is left">
+        <svg viewBox="0 0 24 24" aria-hidden="true" id="copyIcon"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg><span class="t" id="copyT">Copy</span>
+      </button>
+    </div>
+    <div class="ruler" id="ruler">
+      <span class="lost"></span><span class="kept"></span><span class="ticks"></span>
+      <input id="dial" type="range" min="0" max="1000" step="1" value="1000" aria-label="How much of the draft to keep, in percent" />
+      <span class="mk goal" style="--at:.05">5</span>
+      <span class="mk" style="--at:.25">25</span>
+      <span class="mk" style="--at:.5">50</span>
+      <span class="mk" style="--at:.75">75</span>
+      <span class="mk end">100%</span>
+    </div>
+  </footer>
+</div>
+
+<script>
+(() => {
+  // Keep order, most essential first. The dial cuts from the far end.
+  // This order is an edit, made by reading the essay. Proof view lets you overrule it.
+  const ORDER = ('g2 d1 d2 g1 g3 g4 g5 c3 c5 c4 a2 f2 f3 j1 j2 h1 H2 a3 a4 c6 q1 q2 f5 f6 h2 h3 ' +
+    'c1 c2 n7 H1 H3 j3 j4 f1 f4 e3 e4 e5 n4 n5 n3 h4 i2 i3 i4 i5 i6 i7 s1 s3 s2 s4 a1 e1 e2 b1 d3 ' +
+    'b3 b4 n1 n2 n6 i1 b2').split(' ');
+
+  const $ = id => document.getElementById(id);
+  const root = document.documentElement, flow = $('flow'), sheet = $('sheet'), dial = $('dial'), ruler = $('ruler');
+  const words = s => s.split(/\s+/).filter(w => /[\w$%]/.test(w)).length;
+  const still = matchMedia('(prefers-reduced-motion: reduce)');
+
+  const U = {};
+  flow.querySelectorAll('.u').forEach(el => {
+    const sec = el.closest('[data-sec]');
+    U[el.dataset.u] = { id: el.dataset.u, el, n: words(el.textContent), head: el.dataset.head || null, sec: sec ? sec.dataset.sec : null, kept: true };
+  });
+  ORDER.forEach((id, i) => { if (!U[id]) console.error('unknown unit', id); else U[id].rank = i; });
+  Object.values(U).forEach(u => { if (u.rank === undefined) console.error('unranked unit', u.id); });
+  const deps = [...flow.querySelectorAll('.dep')].map(el => ({
+    el, n: words(el.textContent), all: !!el.dataset.all, ids: (el.dataset.any || el.dataset.all).split(' '), kept: true
+  }));
+  const blocks = [...flow.querySelectorAll('.blk')].reverse();   // inner blocks first
+  const TOTAL = Object.values(U).reduce((a, u) => a + u.n, 0) + deps.reduce((a, d) => a + d.n, 0);
+  const cum = []; ORDER.reduce((a, id, i) => cum[i] = a + U[id].n, 0);
+  const UNIT_TOTAL = cum[cum.length - 1];
+
+  const S = { p: 100, view: 'final', force: {}, shown: TOTAL };
+
+  // percent on the dial that leaves exactly the first k units of ORDER
+  const pFor = k => k <= 0 ? 0 : Math.ceil(cum[k - 1] / UNIT_TOTAL * 1000) / 10;
+  // the tightest edit that is still under five percent of the draft
+  let GOAL_K = 0; while (GOAL_K < ORDER.length && cum[GOAL_K] / TOTAL <= .05) GOAL_K++;
+
+  function decide() {
+    const budget = S.p >= 100 ? Infinity : S.p / 100 * UNIT_TOTAL + 1e-6;
+    ORDER.forEach((id, i) => { const u = U[id]; u.auto = cum[i] <= budget; u.kept = id in S.force ? S.force[id] : u.auto; });
+    Object.values(U).forEach(u => {
+      if (u.head && u.kept) u.kept = Object.values(U).some(v => v.sec === u.head && v.kept);
+    });
+    deps.forEach(d => { d.kept = d.all ? d.ids.every(i => U[i].kept) : d.ids.some(i => U[i].kept); });
+    S.shown = Object.values(U).reduce((a, u) => a + (u.kept ? u.n : 0), 0) + deps.reduce((a, d) => a + (d.kept ? d.n : 0), 0);
+  }
+
+  function tidy() {
+    blocks.forEach(b => {
+      const live = b.querySelector('.u:not(.gone)');
+      b.classList.toggle('empty', !live);
+    });
+    sheet.classList.toggle('is-blank', S.view === 'final' && !flow.querySelector('.u:not(.gone)'));
+  }
+
+  function paint(instant) {
+    const proof = S.view === 'proof';
+    instant = instant || still.matches;
+    flow.classList.toggle('proof', proof);
+    Object.values(U).forEach(u => {
+      const el = u.el, c = el.classList;
+      el.setAttribute('aria-pressed', String(!u.kept));
+      if (proof) {
+        clearTimeout(el._t); c.remove('gone', 'going', 'coming'); c.toggle('x', !u.kept);
+        el.tabIndex = 0; el.setAttribute('role', 'button');
+        return;
+      }
+      c.remove('x'); el.removeAttribute('tabindex'); el.removeAttribute('role'); el.removeAttribute('aria-pressed');
+      if (u.kept) {
+        clearTimeout(el._t); el._t = 0;
+        if (c.contains('gone')) { c.remove('gone'); if (!instant) { c.add('coming'); setTimeout(() => c.remove('coming'), 420); } }
+        c.remove('going');
+      } else if (!c.contains('gone')) {
+        if (instant) { clearTimeout(el._t); c.remove('going'); c.add('gone'); }
+        else if (!c.contains('going')) {
+          c.add('going');
+          el._t = setTimeout(() => { c.remove('going'); c.add('gone'); tidy(); wantFit(); }, 240);
+        }
+      }
+    });
+    deps.forEach(d => {
+      d.el.classList.toggle('gone', !proof && !d.kept);
+      d.el.classList.toggle('x', proof && !d.kept);
+    });
+    tidy(); wantFit(); readout();
+  }
+
+  // ---------- type that fills the sheet ----------
+  let fitMode = false;
+  const clamp = (a, x, b) => Math.max(a, Math.min(b, x));
+  function setF(f) {
+    flow.style.fontSize = f + 'px';
+    flow.style.setProperty('--w', Math.round(clamp(400, 372 + f * 3.3, 700)));
+    flow.style.setProperty('--lh', clamp(1.04, 1.5 - (f - 15) * .0078, 1.5).toFixed(3));
+    flow.style.setProperty('--ls', (-clamp(0, f - 15, 100) / 100 * .04).toFixed(4) + 'em');
+  }
+  const spills = () => flow.scrollWidth > flow.clientWidth + 1 || flow.scrollHeight > flow.clientHeight + 1;
+  const BASE = 16;
+  function atEnd() { sheet.classList.toggle('atend', flow.scrollLeft + flow.clientWidth >= flow.scrollWidth - 8); }
+  function search() {
+    let lo = BASE, hi = Math.min(170, flow.clientHeight * .5);
+    sheet.classList.remove('over');
+    setF(lo);
+    if (spills()) {                    // the draft runs over the page: it scrolls sideways until you cut it
+      sheet.classList.add('over'); flow.tabIndex = 0; atEnd(); return false;
+    }
+    flow.removeAttribute('tabindex'); flow.scrollLeft = 0;
+    for (let i = 0; i < 9; i++) { const m = (lo + hi) / 2; setF(m); if (spills()) hi = m; else lo = m; }
+    setF(Math.floor(lo * 4) / 4);
+    if (spills()) setF(Math.floor(lo * 4) / 4 - .5);
+    return true;
+  }
+  function fit0() {
+    fitQueued = false;
+    if (fitMode) { if (flow.querySelector('.u:not(.gone)')) search(); else sheet.classList.remove('over'); return; }
+    const vis = S.view === 'proof' ? TOTAL : Math.max(S.shown, 1);
+    const cap = Math.min(76, flow.clientWidth * .112);
+    setF(Math.round(clamp(17, 17 * Math.pow(TOTAL / vis, .44), Math.max(17, cap)) * 2) / 2);
+  }
+  function fit() { fit0(); readout(); }
+  let fitQueued = false;
+  function wantFit() { if (!fitQueued) { fitQueued = true; requestAnimationFrame(fit); } }
+  function chooseMode() {
+    const can = innerWidth >= 900 && innerHeight >= 620;
+    root.classList.toggle('fit', can);
+    fitMode = can;
+    if (!can) { sheet.classList.remove('over', 'atend'); flow.removeAttribute('tabindex'); }
+    fit();
+  }
+  flow.addEventListener('scroll', atEnd, { passive: true });
+  flow.addEventListener('wheel', e => {
+    if (!fitMode || !sheet.classList.contains('over') || Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+    flow.scrollLeft += e.deltaY; e.preventDefault();
+  }, { passive: false });
+
+  // ---------- readout, dial ----------
+  const fmt = n => n.toLocaleString('en-US');
+  function readout() {
+    const pct = S.shown / TOTAL * 100;
+    $('count').textContent = fmt(S.shown);
+    $('of').textContent = S.shown === TOTAL ? 'words' : 'of ' + fmt(TOTAL);
+    const sub = $('sub');
+    let t, hit = false;
+    if (S.view === 'proof') t = (matchMedia('(hover: hover)').matches ? 'Click' : 'Tap') + ' a sentence to cut it or bring it back.';
+    else if (S.shown === TOTAL) t = fitMode && sheet.classList.contains('over') ? 'Runs over the page. Drag left to cut.' : 'The full draft. Drag left to cut.';
+    else if (fitMode && sheet.classList.contains('over')) t = Math.round(pct) + '% shipped. Still runs over the page.';
+    else if (S.shown === 0) t = 'Nothing shipped.';
+    else if (pct <= 5) { t = pct.toFixed(1) + '%. The rest is rehearsal.'; hit = true; }
+    else t = (pct < 10 ? pct.toFixed(1) : Math.round(pct)) + '% of the draft shipped.';
+    sub.textContent = t; sub.classList.toggle('hit', hit);
+    ruler.style.setProperty('--p', (S.p / 100).toFixed(4));
+    dial.setAttribute('aria-valuetext', fmt(S.shown) + ' of ' + fmt(TOTAL) + ' words');
+    $('reset').hidden = !Object.keys(S.force).length;
+    saveSoon();
+  }
+  function setP(p, instant) {
+    S.p = clamp(0, p, 100);
+    dial.value = Math.round(S.p * 10);
+    decide(); paint(instant);
+  }
+  dial.addEventListener('input', () => { stop(); setP(dial.value / 10); });
+
+  // ---------- play the edit ----------
+  let raf = 0;
+  const ICON = { play: '<polygon points="6 3 20 12 6 21 6 3"/>', pause: '<rect x="14" y="4" width="4" height="16" rx="1"/><rect x="6" y="4" width="4" height="16" rx="1"/>',
+    copy: '<rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>', check: '<path d="M20 6 9 17l-5-5"/>' };
+  function stop() {
+    if (!raf) return; cancelAnimationFrame(raf); raf = 0;
+    $('playIcon').innerHTML = ICON.play; $('playT').textContent = 'Play'; $('play').setAttribute('aria-label', 'Play the edit');
+  }
+  function play() {
+    if (raf) return stop();
+    if (S.view !== 'final') setView('final');
+    const end = pFor(GOAL_K), from = S.p > end + .5 ? S.p : 100, dur = 13000 * Math.log(from / end) / Math.log(100 / end);
+    if (from === 100) setP(100, true);
+    $('playIcon').innerHTML = ICON.pause; $('playT').textContent = 'Pause'; $('play').setAttribute('aria-label', 'Pause the edit');
+    const t0 = performance.now() + 500;
+    const step = now => {
+      const k = clamp(0, (now - t0) / dur, 1);
+      setP(from * Math.pow(end / from, k));
+      if (k < 1) raf = requestAnimationFrame(step); else { setP(end); stop(); }
+    };
+    raf = requestAnimationFrame(step);
+  }
+  $('play').addEventListener('click', play);
+
+  // ---------- views, your own cuts ----------
+  function setView(v) {
+    S.view = v;
+    $('vFinal').setAttribute('aria-pressed', v === 'final'); $('vProof').setAttribute('aria-pressed', v === 'proof');
+    decide(); paint(true);
+  }
+  $('vFinal').addEventListener('click', () => setView('final'));
+  $('vProof').addEventListener('click', () => { stop(); setView('proof'); });
+  function toggle(el) {
+    if (S.view !== 'proof') return;
+    const u = U[el.dataset.u]; if (!u) return;
+    const want = !(u.id in S.force ? S.force[u.id] : u.auto);
+    if (want === u.auto) delete S.force[u.id]; else S.force[u.id] = want;
+    decide(); paint(true);
+  }
+  flow.addEventListener('click', e => { const el = e.target.closest('.u'); if (el) toggle(el); });
+  flow.addEventListener('keydown', e => {
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('u')) { e.preventDefault(); toggle(e.target); }
+  });
+  $('reset').addEventListener('click', () => { S.force = {}; decide(); paint(true); });
+
+  // ---------- copy what is left ----------
+  $('copy').addEventListener('click', async () => {
+    const out = [];
+    flow.querySelectorAll('p.blk, h3.blk, li.blk, blockquote.blk').forEach(b => {
+      if (b.closest('blockquote') && b.tagName === 'P') return;
+      const t = [...b.querySelectorAll('.u')].filter(el => U[el.dataset.u].kept)
+        .map(el => { const n = el.querySelector('.n'); return (n ? n.textContent + ' ' : '') + [...el.childNodes].filter(c => c !== n).map(c => c.textContent).join('').replace(/\s+/g, ' ').trim(); }).join(' ');
+      if (!t) return;
+      out.push(b.tagName === 'BLOCKQUOTE' ? '“' + t + '”\n' + b.querySelector('cite').textContent : t);
+    });
+    const text = out.join('\n\n');
+    let ok = true;
+    try { await navigator.clipboard.writeText(text); }
+    catch (_) {
+      const ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select(); try { ok = document.execCommand('copy'); } catch (e) { ok = false; } ta.remove();
+    }
+    $('copyIcon').innerHTML = ok ? ICON.check : ICON.copy; $('copyT').textContent = ok ? 'Copied' : 'Blocked';
+    setTimeout(() => { $('copyIcon').innerHTML = ICON.copy; $('copyT').textContent = 'Copy'; }, 1600);
+  });
+
+  // ---------- the cut lives in the address ----------
+  let saveT = 0;
+  function saveSoon() {
+    clearTimeout(saveT);
+    saveT = setTimeout(() => {
+      const f = Object.entries(S.force).map(([id, k]) => (k ? '+' : '-') + id).join('.');
+      const h = S.p >= 100 && !f ? '' : '#p=' + (Math.round(S.p * 10) / 10) + (f ? '&e=' + f : '');
+      try { history.replaceState(null, '', h || location.pathname + location.search); } catch (_) {}
+    }, 350);
+  }
+  function load() {
+    const m = /p=([\d.]+)/.exec(location.hash), e = /e=([^&]+)/.exec(location.hash);
+    if (e) e[1].split('.').forEach(t => { const id = t.slice(1); if (U[id] && /[+-]/.test(t[0])) S.force[id] = t[0] === '+'; });
+    return m ? clamp(0, parseFloat(m[1]) || 0, 100) : 100;
+  }
+
+  // ---------- start ----------
+  const p0 = load();
+  setP(p0, true);
+  chooseMode();
+  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(chooseMode);
+  let rz = 0;
+  addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(chooseMode, 120); });
+
+  window.__cut = { S, U, ORDER, TOTAL, cum, pFor, goal: () => GOAL_K, setP, isFit: () => fitMode };
+})();
+</script>
+</body>
+</html>

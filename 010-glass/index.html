@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Glass, Poured</title>
+<!-- humanlup:meta -->
+<!-- HumanLup Design Lab 10 · Anthony Lupo · humanlup.com · X @humanlup · IG humanlup.ai · anthony@humanlup.com -->
+<meta name="author" content="Anthony Lupo">
+<meta name="creator" content="Anthony Lupo">
+<meta name="publisher" content="HumanLup">
+<meta name="copyright" content="© 2026 Anthony Lupo, HumanLup">
+<link rel="author" href="https://humanlup.com">
+<link rel="me" href="https://x.com/humanlup">
+<link rel="me" href="https://www.instagram.com/humanlup.ai">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HumanLup Design Lab 10">
+<meta property="og:title" content="Glass, Poured">
+<meta property="og:description" content="Glass you can pour, tint and drag across a sheet of type.">
+<meta property="og:image" content="preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@humanlup">
+<meta name="twitter:creator" content="@humanlup">
+<meta name="twitter:title" content="Glass, Poured">
+<meta name="twitter:description" content="Glass you can pour, tint and drag across a sheet of type.">
+<meta name="twitter:image" content="preview.jpg">
+<!-- /humanlup:meta -->
+<meta name="description" content="Glass you can pour, tint and drag across a sheet of type.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sans:"Funnel Display","Avenir Next","Helvetica Neue",system-ui,sans-serif;
+  --mono:"JetBrains Mono","SF Mono",Menlo,monospace;
+  --bg:#111110; --ink:#EEEEE8; --ink2:#B5B5AF; --line:rgba(238,238,232,.16);
+  --hot:#E8C468; --hot-ink:#1A1A18; --field:rgba(238,238,232,.08);
+}
+[data-theme="light"]{
+  --bg:#FAF8F5; --ink:#1A1A1A; --ink2:#4a4a47; --line:rgba(26,26,26,.18);
+  --hot:#1B55D6; --hot-ink:#fff; --field:rgba(26,26,26,.07);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+body{touch-action:none;overscroll-behavior:none}
+canvas#gl{position:fixed;inset:0;width:100%;height:100%;display:block;cursor:default}
+canvas#gl.grab{cursor:grab} canvas#gl.grabbing{cursor:grabbing}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--hot);outline-offset:2px}
+
+header{position:fixed;left:40px;top:28px;max-width:520px;pointer-events:none;z-index:2}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)}
+h1{font-weight:600;font-size:34px;line-height:1.05;letter-spacing:-.02em;margin:10px 0 8px}
+header p{font-size:16px;line-height:1.4;color:var(--ink2);max-width:46ch;font-weight:400}
+
+#lamp{position:fixed;z-index:3;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;border:1px solid var(--line);
+  background:var(--hot);color:var(--hot-ink);display:grid;place-items:center;cursor:grab;touch-action:none;
+  box-shadow:0 0 0 6px color-mix(in srgb,var(--hot) 18%,transparent),0 0 40px 6px color-mix(in srgb,var(--hot) 35%,transparent)}
+#lamp:active{cursor:grabbing}
+svg.i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+#tag{position:fixed;z-index:2;font:500 12px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:6px 8px;border-radius:6px;
+  background:var(--ink);color:var(--bg);transform:translate(-50%,-100%);pointer-events:none;white-space:nowrap;transition:opacity .2s}
+
+#panel{position:fixed;z-index:4;right:24px;top:24px;bottom:24px;width:328px;border-radius:26px;padding:20px 20px 18px;
+  display:flex;flex-direction:column;gap:10px;overflow:auto;scrollbar-width:none;touch-action:pan-y}
+#panel::-webkit-scrollbar{display:none}
+#panel>*{flex:none}
+.nogl #panel{background:color-mix(in srgb,var(--bg) 86%,var(--ink));border:1px solid var(--line)}
+.lab{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)}
+.pieces{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.pieces button{height:44px;border-radius:12px;border:1px solid var(--line);background:var(--field);font-size:14px;font-weight:500;cursor:pointer}
+.pieces button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.row{display:grid;grid-template-columns:78px 1fr 58px;align-items:center;gap:10px;height:36px}
+.row label{font-size:15px;font-weight:500}
+.row output{font:400 13px/1 var(--mono);text-align:right;color:var(--ink2)}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:38px;background:transparent;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:3px;border-radius:2px;background:var(--line)}
+input[type=range]::-moz-range-track{height:3px;border-radius:2px;background:var(--line)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--ink);margin-top:-7.5px;border:0}
+input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--ink);border:0}
+input[type=range]:disabled{opacity:.35;cursor:not-allowed}
+.tints{display:flex;gap:8px;align-items:center}
+.tints button{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);cursor:pointer;position:relative}
+.tints button[aria-pressed="true"]{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--ink)}
+.tints .lab{margin-right:auto}
+pre{font:400 11.5px/1.5 var(--mono);white-space:pre;overflow-x:auto;flex:none;background:var(--field);border:1px solid var(--line);border-radius:14px;padding:12px 14px;color:var(--ink);min-height:0}
+pre .c{color:var(--ink2)}
+.hint{font-size:14px;line-height:1.35;color:var(--ink2)}
+.acts{display:flex;gap:8px;margin-top:auto;padding-top:4px}
+.acts button{height:44px;border-radius:12px;border:1px solid var(--line);background:var(--field);padding:0 14px;display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:500;cursor:pointer}
+.acts button.pri{background:var(--hot);color:var(--hot-ink);border-color:transparent;flex:1;justify-content:center}
+.acts #theme{width:44px;padding:0;justify-content:center}
+#nogl{display:none;position:fixed;left:40px;bottom:32px;z-index:5;font-size:15px;max-width:44ch;background:var(--ink);color:var(--bg);padding:12px 14px;border-radius:12px}
+.nogl #nogl{display:block}
+.nogl #lamp,.nogl #tag{display:none}
+
+@media (max-width:820px){
+  header{left:20px;right:20px;top:18px;max-width:none}
+  h1{font-size:26px;margin:8px 0 6px}
+  header p{font-size:15px}
+  #panel{left:10px;right:10px;top:auto;bottom:10px;width:auto;height:286px;border-radius:24px;padding:16px 16px 14px;gap:10px}
+  .pieces button{font-size:13px}
+  .hint{display:none}
+  .tints button{width:44px;height:44px}
+  .row{height:44px} input[type=range]{height:44px}
+  .acts{position:sticky;bottom:-14px;margin:0 -16px -14px;padding:10px 16px 14px;background:linear-gradient(transparent,color-mix(in srgb,var(--bg) 80%,transparent) 30%)}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<canvas id="gl" aria-hidden="true"></canvas>
+
+<header>
+  <span class="eyebrow">Built by Lupo</span>
+  <h1>Glass, Poured</h1>
+  <p>Drag a piece across the sheet. Move the lamp.</p>
+</header>
+
+<section class="sr" aria-label="What the sheet under the glass says">
+  <h2>The sheet</h2>
+  <p>Glass Almanac and Glass Catalog.</p>
+  <p>Almanac colors: Bone #FAF8F5, Ink #1A1A1A, Graphite #6B6B6B, Cerulean #2B7CE9, Ember #D4582A. Catalog colors: Surface #FAFAF8, Ink #1A1A18, Accent #2563EB, Muted #A3A39E, Highlight #E8C468.</p>
+  <ul id="srfind"></ul>
+</section>
+
+<button id="lamp" aria-label="Lamp. Drag it, or use the arrow keys, to move the light."><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" /> <path d="M9 18h6" /> <path d="M10 22h4" /></svg></button>
+<div id="tag" aria-hidden="true"></div>
+
+<aside id="panel" aria-label="Glass controls">
+  <div class="lab" id="plab">Piece</div>
+  <div class="pieces" role="group" aria-labelledby="plab" id="pieces"></div>
+  <div id="rows"></div>
+  <div class="tints" id="tints" role="group" aria-label="Tint"><span class="lab">Tint</span></div>
+  <div class="lab">Nearest CSS</div>
+  <pre id="css" aria-live="off"></pre>
+  <p class="hint">Arrow keys nudge the chosen piece. The lamp moves too.</p>
+  <div class="acts">
+    <button class="pri" id="copy"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /> <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></svg><span>Copy CSS</span></button>
+    <button id="pour"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z" /> <path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97" /></svg><span>Pour</span></button>
+    <button id="theme" aria-label="Switch sheet"><span id="ticon"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" /> <path d="M12 2v2" /> <path d="M12 20v2" /> <path d="m4.93 4.93 1.41 1.41" /> <path d="m17.66 17.66 1.41 1.41" /> <path d="M2 12h2" /> <path d="M20 12h2" /> <path d="m6.34 17.66-1.41 1.41" /> <path d="m19.07 4.93-1.41 1.41" /></svg></span></button>
+  </div>
+</aside>
+<div id="nogl">WebGL 2 is off in this browser, so the glass cannot be drawn. This is the sheet on its own.</div>
+
+<script id="fs" type="x-shader/x-fragment">#version 300 es
+precision highp float;
+#define N 5
+uniform sampler2D uSheet;
+uniform vec2 uRes;
+uniform vec4 uBox[N];   // cx, cy, half w, half h
+uniform vec4 uShp[N];   // radius, depth, bevel, lift
+uniform vec4 uOpt[N];   // ior, frost px, split, absorb
+uniform vec3 uTint[N];
+uniform vec3 uLamp;     // x, y, height
+uniform vec3 uVeil;
+uniform float uDark;
+out vec4 o;
+
+float sdRB(vec2 p, vec2 b, float r){ vec2 q=abs(p)-b+r; return length(max(q,0.))+min(max(q.x,q.y),0.)-r; }
+float prof(float t){ t=clamp(t,0.,1.); float u=1.-t; float par=1.-u*u; return mix(par, sqrt(max(par,0.)), .55); }
+float hOf(int i, vec2 p, out float d){
+  d = sdRB(p-uBox[i].xy, uBox[i].zw, uShp[i].x);
+  if(uShp[i].y<=0.) return 0.;
+  return uShp[i].y*prof(-d/max(uShp[i].z,1.));
+}
+float Hs(vec2 p){ float h=0.,d; for(int i=0;i<N;i++) h+=hOf(i,p,d); return h; }
+float ign(vec2 p){ return fract(52.9829189*fract(dot(p,vec2(.06711056,.00583715)))); }
+
+// light that reaches the sheet at q: shadow and a bright rim on the far side
+vec3 lit(vec2 q){
+  vec3 m=vec3(1.); vec3 add=vec3(0.);
+  for(int i=0;i<N;i++){
+    float T=uShp[i].y; if(T<=0.) continue;
+    float z=uShp[i].w+T*.5;
+    vec2 s=q+(uLamp.xy-q)*z/uLamp.z;
+    float d=sdRB(s-uBox[i].xy,uBox[i].zw,uShp[i].x);
+    float soft=2.+z*mix(.5,.22,uDark);
+    float sh=1.-smoothstep(-soft,soft,d);
+    vec3 trans=exp(-uOpt[i].w*(1.-uTint[i])*T/40.);
+    float dens=.10+.008*T+.02*uOpt[i].y;
+    m*=mix(vec3(1.),mix(vec3(1.),trans,mix(.7,1.,uDark))*(1.-clamp(dens,0.,.6)*mix(.5,1.,uDark)),sh);
+    vec2 away=normalize(q-uLamp.xy+1e-3), out_=normalize(s-uBox[i].xy+1e-3);
+    float w=max(uShp[i].z*.45,3.);
+    float rim=exp(-pow((d+w)/w,2.))*max(dot(away,out_),0.);
+    add+=rim*trans*(.10+.006*T)*(1.-uOpt[i].y/40.);
+  }
+  return m+min(add,vec3(.35))*mix(.6,1.4,uDark);
+}
+
+void main(){
+  vec2 p=vec2(gl_FragCoord.x, uRes.y-gl_FragCoord.y);
+  float H=0., cov=0., ior=0., frost=0., split=0., lift=0.; vec3 A=vec3(0.);
+  for(int i=0;i<N;i++){
+    float d; float h=hOf(i,p,d);
+    float c=clamp(.5-d,0.,1.)*step(.001,uShp[i].y);
+    cov=max(cov,c);
+    float w=h+c*.001;
+    H+=h; ior+=w*uOpt[i].x; split+=w*uOpt[i].z; lift+=w*uShp[i].w;
+    frost=max(frost,uOpt[i].y*c*smoothstep(0.,.25,uShp[i].y/8.));
+    A+=uOpt[i].w*(1.-uTint[i])*h/40.;
+  }
+  vec3 base=texture(uSheet,p/uRes).rgb*lit(p);
+  if(cov<=0.){ o=vec4(base,1.); return; }
+  float ws=max(H+cov*.001,1e-4); ior/=ws; split/=ws; lift/=ws;
+
+  float e=1.25;
+  vec2 g=vec2(Hs(p+vec2(e,0.))-Hs(p-vec2(e,0.)), Hs(p+vec2(0.,e))-Hs(p-vec2(0.,e)))/(2.*e);
+  vec3 n=normalize(vec3(-g,1.));
+  vec3 I=vec3(0.,0.,-1.);
+  float depth=H+lift;
+  float lod=log2(max(frost*.55,1.));
+  float rot=ign(gl_FragCoord.xy)*6.2832;
+  vec3 acc=vec3(0.), wsum=vec3(0.);
+  vec2 mid=p;
+  for(int k=0;k<12;k++){
+    float wl=(float((k*5)%12)+.5)/12.;
+    float eta=1./max(ior+split*(wl*2.-1.),1.0001);
+    vec3 R=refract(I,n,eta);
+    vec2 off=R.xy/max(-R.z,.25)*depth;
+    float a=float(k)*2.39996+rot; float rr=frost*sqrt((float(k)+.5)/12.);
+    vec2 q=p+off+vec2(cos(a),sin(a))*rr;
+    if(k==6) mid=p+off;
+    vec3 wv=vec3(clamp(1.-2.*wl,0.,1.), 1.-abs(2.*wl-1.), clamp(2.*wl-1.,0.,1.));
+    wv=wv*wv*(3.-2.*wv)+.02;
+    acc+=textureLod(uSheet,clamp(q/uRes,0.,1.),lod).rgb*wv; wsum+=wv;
+  }
+  vec3 col=acc/wsum;
+  col*=mix(vec3(1.),lit(mid),.45);
+  col*=exp(-A);
+  float veil=clamp(frost/28.,0.,1.)*.5;
+  col=mix(col,uVeil,veil);
+
+  vec3 L=normalize(vec3(uLamp.xy-p,uLamp.z));
+  vec3 V=vec3(0.,0.,1.);
+  float ndh=max(dot(n,normalize(L+V)),0.);
+  float F=.04+.96*pow(1.-n.z,5.);
+  vec3 Rf=reflect(-V,n);
+  float sky=smoothstep(-.3,1.,dot(Rf,L));
+  vec3 env=mix(mix(vec3(.62,.63,.66),vec3(.10,.11,.13),uDark),vec3(.95,.96,1.),sky);
+  col=mix(col,env,clamp(F*.75,0.,.85));
+  float rough=1.-clamp(frost/28.,0.,1.)*.8;
+  col+=(pow(ndh,220.)*1.6*rough+pow(ndh,28.)*.10)*vec3(1.,.97,.9);
+  // a hair of surface sheen on the flat so clear glass still reads as a thing
+  col+=mix(.012,.02,uDark)*smoothstep(0.,1.,H/20.);
+  o=vec4(mix(base,col,cov),1.);
+}
+</script>
+
+<script>
+(() => {
+'use strict';
+const $ = s => document.querySelector(s);
+const root = document.documentElement, cv = $('#gl'), panel = $('#panel'), lampEl = $('#lamp'), tagEl = $('#tag');
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const phone = () => innerWidth <= 820;
+
+/* ---- what the two sources said, and what a count of them says ---- */
+const ALM = [['Bone','#FAF8F5'],['Ink','#1A1A1A'],['Graphite','#6B6B6B'],['Cerulean','#2B7CE9'],['Ember','#D4582A']];
+const CAT = [['Surface','#FAFAF8'],['Ink','#1A1A18'],['Accent','#2563EB'],['Muted','#A3A39E'],['Highlight','#E8C468']];
+const FIND = [
+  ['Clear', 'Bends whatever sits under it'],
+  ['Frosted', 'Turn frost up and the type goes soft'],
+  ['Tinted', 'Four dyes, or none'],
+  ['Split', 'The edge pulls the colors apart'],
+  ['Lit', 'One lamp. Drag it'],
+];
+const SPACE = [4,8,12,16,24,32,48,64,96];
+$('#srfind').innerHTML = FIND.map(f => `<li>${f[0]}. ${f[1]}</li>`).join('');
+
+const THEMES = {
+  dark:  { bg:'#111110', ink:'#EEEEE8', soft:'rgba(238,238,232,.72)', hair:'rgba(238,238,232,.10)', edge:'rgba(238,238,232,.35)', veil:[.17,.17,.18] },
+  light: { bg:'#FAF8F5', ink:'#1A1A1A', soft:'rgba(26,26,26,.74)',   hair:'rgba(26,26,26,.09)',   edge:'rgba(26,26,26,.35)',   veil:[1,1,1] },
+};
+let theme = 'dark';
+
+/* ---- pieces: every number here is a token ---- */
+const hex3 = h => [1,3,5].map(i => parseInt(h.slice(i,i+2),16)/255);
+const TINTS = [['Clear','#FFFFFF'],['Cerulean','#2B7CE9'],['Ember','#D4582A'],['Highlight','#E8C468'],['Graphite','#6B6B6B']];
+const P = [
+  { id:'panel', name:'Panel', fixed:true, r:26, depth:14, bevel:18, lift:6,  ior:1.45, frost:22, split:.01, absorb:.9, tint:4 },
+  { id:'pane',  name:'Pane',  fx:.21, fy:.665, m:[.26,.86], w:300, h:176, r:30, depth:20, bevel:26, lift:10, ior:1.5,  frost:0,  split:.02, absorb:0,  tint:0 },
+  { id:'lens',  name:'Lens',  fx:.50, fy:.34, m:[.56,.15], w:230, h:230, r:115,depth:64, bevel:115,lift:46, ior:1.5,  frost:0,  split:.015,absorb:0,  tint:0 },
+  { id:'pill',  name:'Pill',  fx:.80, fy:.42, m:[.70,.49], w:270, h:100, r:50, depth:38, bevel:50, lift:10, ior:1.52, frost:0,  split:.02, absorb:1.5,tint:2 },
+  { id:'prism', name:'Prism', fx:.185,fy:.34, m:[.115,.17], w:92,  h:300, r:12, depth:34, bevel:46, lift:26, ior:1.62, frost:0,  split:.16, absorb:0,  tint:0 },
+];
+const DEF = JSON.parse(JSON.stringify(P));
+P.forEach(p => { p.fill = 0; p.x = 0; p.y = 0; if(!p.fixed) p.d=[p.fx,p.fy]; });
+let mode='';
+let sel = 2;
+const ROWS = [
+  ['depth','Depth',2,90,1, v=>v+' px'],
+  ['bevel','Bevel',2,120,1, v=>v+' px'],
+  ['r','Corner',0,150,1, v=>v+' px'],
+  ['lift','Lift',0,120,1, v=>v+' px'],
+  ['ior','Bend',1,2.2,.01, v=>(+v).toFixed(2)],
+  ['split','Split',0,.25,.005, v=>(+v).toFixed(3)],
+  ['frost','Frost',0,28,.5, v=>(+v).toFixed(1)+' px'],
+  ['absorb','Dye',0,3,.05, v=>(+v).toFixed(2)],
+];
+
+/* ---- layout ---- */
+let W=0,H=0,dpr=1,U={x0:0,y0:0,x1:0,y1:0},scale=1, lamp={fx:.63,fy:.06,x:0,y:0};
+function measure(){
+  W=innerWidth; H=innerHeight; dpr=Math.min(devicePixelRatio||1,2);
+  const md=phone()?'m':'d'; if(md!==mode){ mode=md; for(const p of P){ if(!p.fixed){ [p.fx,p.fy]= md==='m'?p.m:p.d; } } lamp.fx= md==='m'?.92:.63; lamp.fy= md==='m'?.30:.06; }
+  if(phone()){ const hb=$('header').getBoundingClientRect().bottom; U={x0:20,x1:W-20,y0:hb+14,y1:H-286-10-14}; }
+  else { U={x0:40,x1:W-328-24-36,y0:24,y1:H-24}; }
+  scale = phone()? Math.max(.42,Math.min(.62,(U.x1-U.x0)/680)) : Math.max(.6,Math.min(1.15,Math.min((U.x1-U.x0)/1016,(U.y1-U.y0)/852)));
+  for(const p of P){ if(p.fixed) continue; p.x=U.x0+p.fx*(U.x1-U.x0); p.y=U.y0+p.fy*(U.y1-U.y0); }
+  lamp.x=U.x0+lamp.fx*(U.x1-U.x0); lamp.y=U.y0+lamp.fy*(U.y1-U.y0);
+}
+function boxOf(p){
+  if(p.fixed){ const r=panel.getBoundingClientRect(); return {x:r.left+r.width/2,y:r.top+r.height/2,hw:r.width/2,hh:r.height/2,r:Math.min(p.r,r.width/2,r.height/2),s:1}; }
+  const hw=p.w*scale/2, hh=p.h*scale/2;
+  return {x:p.x,y:p.y,hw,hh,r:Math.min(p.r*scale,hw,hh),s:scale};
+}
+
+/* ---- the sheet: a 2D canvas, used as the texture ---- */
+const sheet=document.createElement('canvas'), sx=sheet.getContext('2d');
+function drawSheet(){
+  const t=THEMES[theme]; sheet.width=Math.round(W*dpr); sheet.height=Math.round(H*dpr);
+  sx.setTransform(dpr,0,0,dpr,0,0); sx.fillStyle=t.bg; sx.fillRect(0,0,W,H);
+  const uw=U.x1-U.x0, uh=U.y1-U.y0, ph=phone();
+  // twelve columns, the Catalog's "structural backbone"
+  sx.strokeStyle=t.hair; sx.lineWidth=1;
+  for(let i=0;i<=12;i++){ const x=Math.round(U.x0+uw*i/12)+.5; sx.beginPath(); sx.moveTo(x,0); sx.lineTo(x,H); sx.stroke(); }
+  // the word
+  sx.fillStyle=t.ink; sx.textBaseline='alphabetic';
+  sx.font=`800 100px "Funnel Display", "Helvetica Neue", sans-serif`;
+  const m=sx.measureText('GLASS'); const fs=Math.min(100*uw/(m.width*1.0), ph? uh*.42 : uh*.40);
+  sx.font=`800 ${fs}px "Funnel Display", "Helvetica Neue", sans-serif`;
+  const mm=sx.measureText('GLASS'); const cap=mm.actualBoundingBoxAscent||fs*.7;
+  const top = ph? U.y0+4 : U.y0+Math.max(150, uh*.185);
+  const base=top+cap; sx.fillText('GLASS',U.x0-(mm.actualBoundingBoxLeft||0)*-0 - fs*.035,base);
+  let y=base+ (ph?20:30);
+  sx.strokeStyle=t.edge; sx.beginPath(); sx.moveTo(U.x0,y+.5); sx.lineTo(U.x1,y+.5); sx.stroke();
+  sx.font=`500 ${ph?11:12}px "JetBrains Mono", Menlo, monospace`; sx.fillStyle=t.soft;
+  y+=ph?18:22; spaced(sx, ph?'TEN COLORS, ONE LAMP':'FOUR PIECES, TEN COLORS, ONE LAMP', U.x0, y, 1);
+  y+=ph?16:30;
+  // ten colors
+  const bw = ph? uw : uw*.44, bh = ph? 30 : Math.max(40,Math.min(58,uh*.066)), gap=6, cw=(bw-gap*4)/5;
+  const rowsY=y;
+  [ALM,CAT].forEach((set,ri)=>{
+    const ry=rowsY+ri*(bh+(ph?22:30));
+    set.forEach((c,i)=>{ const x=U.x0+i*(cw+gap); sx.fillStyle=c[1]; rr(sx,x,ry,cw,bh,6); sx.fill(); sx.strokeStyle=t.edge; sx.lineWidth=1; rr(sx,x+.5,ry+.5,cw-1,bh-1,6); sx.stroke();
+      sx.fillStyle=t.soft; sx.font=`400 ${ph?10:12}px "JetBrains Mono", Menlo, monospace`; sx.fillText(ph?c[1]:c[1]+'  '+c[0].toUpperCase().slice(0, cw>150?12:0), x, ry+bh+ (ph?13:17)); });
+  });
+  const barsBottom=rowsY+2*(bh+(ph?22:30));
+  // said / counted
+  const fx0 = ph? U.x0 : U.x0+uw*.5, fw = ph? uw : uw*.5;
+  let fy = ph? barsBottom+10 : rowsY+4; const fmax = ph? U.y1 : U.y1-128*Math.min(1,uh/852);
+  const s1=ph?16:19, s2=ph?12.5:14;
+  for(const f of FIND){
+    sx.font=`400 ${s2}px "JetBrains Mono", Menlo, monospace`;
+    const lines=wrap(sx,f[1],fw);
+    const need=s1+5+lines.length*s2*1.45+ (ph?10:11);
+    if(fy+need>fmax+8) break;
+    sx.font=`600 ${s1}px "Funnel Display", "Helvetica Neue", sans-serif`; sx.fillStyle=t.ink; sx.fillText(f[0],fx0,fy+s1*.8);
+    sx.font=`400 ${s2}px "JetBrains Mono", Menlo, monospace`; sx.fillStyle=t.soft;
+    lines.forEach((l,i)=>sx.fillText(l,fx0,fy+s1+6+s2+i*s2*1.45));
+    fy+=need;
+  }
+  // the spacing scale as squares on a baseline
+  if(!ph && uh>640){
+    const by=U.y1-26; let x=U.x0;
+    sx.strokeStyle=t.edge; sx.beginPath(); sx.moveTo(U.x0,by+.5); sx.lineTo(U.x1,by+.5); sx.stroke();
+    sx.font=`400 12px "JetBrains Mono", Menlo, monospace`;
+    const k=Math.min(1,uh/852);
+    for(const s of SPACE){ const q=s*k; sx.fillStyle=t.ink; sx.fillRect(x,by-q,q,q); sx.fillStyle=t.soft; sx.fillText(String(s),x,by+18); x+=q+Math.max(28,q*.3)+8; }
+    sx.fillStyle=t.soft; sx.textAlign='right'; sx.fillText('SPACING SCALE, PX',U.x1,by+18); sx.textAlign='left';
+  }
+}
+function spaced(c,str,x,y,ls){ for(const ch of str){ c.fillText(ch,x,y); x+=c.measureText(ch).width+ls; } }
+function rr(c,x,y,w,h,r){ c.beginPath(); c.roundRect(x,y,w,h,r); }
+function wrap(c,str,w){ const out=[]; let line=''; for(const word of str.split(' ')){ const t=line?line+' '+word:word; if(c.measureText(t).width>w && line){ out.push(line); line=word; } else line=t; } if(line) out.push(line); return out; }
+
+/* ---- WebGL ---- */
+const gl=cv.getContext('webgl2',{antialias:false,alpha:false,preserveDrawingBuffer:true});
+let prog,loc={},tex,ok=!!gl;
+function initGL(){
+  const vs=`#version 300 es\nvoid main(){ vec2 p=vec2(float((gl_VertexID<<1)&2),float(gl_VertexID&2)); gl_Position=vec4(p*2.-1.,0.,1.); }`;
+  const sh=(t,s)=>{ const o=gl.createShader(t); gl.shaderSource(o,s); gl.compileShader(o); if(!gl.getShaderParameter(o,gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(o)); return o; };
+  prog=gl.createProgram(); gl.attachShader(prog,sh(gl.VERTEX_SHADER,vs)); gl.attachShader(prog,sh(gl.FRAGMENT_SHADER,$('#fs').textContent.trim()));
+  gl.linkProgram(prog); if(!gl.getProgramParameter(prog,gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(prog));
+  gl.useProgram(prog);
+  for(const n of ['uSheet','uRes','uBox','uShp','uOpt','uTint','uLamp','uVeil','uDark']) loc[n]=gl.getUniformLocation(prog,n);
+  tex=gl.createTexture(); gl.bindVertexArray(gl.createVertexArray());
+}
+function upload(){
+  gl.bindTexture(gl.TEXTURE_2D,tex);
+  gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA8,gl.RGBA,gl.UNSIGNED_BYTE,sheet);
+  gl.generateMipmap(gl.TEXTURE_2D);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+}
+const fB=new Float32Array(20), fS=new Float32Array(20), fO=new Float32Array(20), fT=new Float32Array(15);
+let dirty=true, raf=0;
+function ask(){ dirty=true; if(!raf) raf=requestAnimationFrame(frame); }
+function draw(){
+  if(!ok) return;
+  P.forEach((p,i)=>{
+    const b=boxOf(p), s=b.s, f=p.fill;
+    fB.set([b.x*dpr,b.y*dpr,b.hw*dpr,b.hh*dpr],i*4);
+    fS.set([b.r*dpr, p.depth*s*f*dpr, Math.min(p.bevel*s,Math.min(b.hw,b.hh))*dpr, p.lift*s*(.4+.6*f)*dpr],i*4);
+    fO.set([p.ior, p.frost*s*dpr*Math.min(1,f*1.5), p.split, p.absorb],i*4);
+    let t=hex3(TINTS[p.tint][1]);
+    if(p.fixed && p.tint===4 && theme==='light') t=[.93,.93,.92];
+    fT.set(t,i*3);
+  });
+  gl.viewport(0,0,cv.width,cv.height);
+  gl.uniform1i(loc.uSheet,0); gl.uniform2f(loc.uRes,cv.width,cv.height);
+  gl.uniform4fv(loc.uBox,fB); gl.uniform4fv(loc.uShp,fS); gl.uniform4fv(loc.uOpt,fO); gl.uniform3fv(loc.uTint,fT);
+  gl.uniform3f(loc.uLamp,lamp.x*dpr,lamp.y*dpr,(phone()?300:460)*dpr);
+  gl.uniform3fv(loc.uVeil,THEMES[theme].veil); gl.uniform1f(loc.uDark,theme==='dark'?1:0);
+  gl.drawArrays(gl.TRIANGLES,0,3);
+}
+
+/* ---- pour ---- */
+let pourT0=-1;
+function pour(){ if(reduce){ P.forEach(p=>p.fill=1); ask(); return; } P.forEach(p=>p.fill=0); pourT0=performance.now(); ask(); }
+const ease=t=>{ t=Math.max(0,Math.min(1,t)); const c=1.9; return 1+ (c+1)*Math.pow(t-1,3)+c*Math.pow(t-1,2); };
+function frame(now){
+  raf=0;
+  if(pourT0>=0){
+    let live=false; const order=[1,4,2,3,0];
+    order.forEach((pi,k)=>{ const t=(now-pourT0-k*170)/1100; P[pi].fill=Math.max(0,ease(t)); if(t<1) live=true; });
+    if(!live){ pourT0=-1; P.forEach(p=>p.fill=1); }
+    dirty=true;
+  }
+  if(dirty){ dirty=false; draw(); place(); }
+  if(pourT0>=0) raf=requestAnimationFrame(frame);
+}
+
+/* ---- DOM that follows the scene ---- */
+function place(){
+  lampEl.style.left=lamp.x+'px'; lampEl.style.top=lamp.y+'px';
+  const p=P[sel];
+  if(p.fixed||phone()){ tagEl.style.opacity=0; return; }
+  const b=boxOf(p); tagEl.textContent=p.name; tagEl.style.opacity=1;
+  tagEl.style.left=b.x+'px'; tagEl.style.top=Math.max(34,b.y-b.hh-10)+'px';
+}
+
+/* ---- panel ---- */
+const piecesEl=$('#pieces'), rowsEl=$('#rows'), tintsEl=$('#tints'), cssEl=$('#css');
+const ORDER=[1,2,3,4,0];
+ORDER.forEach(i=>{ const b=document.createElement('button'); b.textContent=P[i].name; b.dataset.i=i; b.setAttribute('aria-pressed','false');
+  b.addEventListener('click',()=>select(i));
+  b.addEventListener('keydown',e=>{ const d={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]}[e.key]; if(!d||P[i].fixed) return; e.preventDefault(); select(i); moveTo(P[i],P[i].x+d[0]*(e.shiftKey?32:8),P[i].y+d[1]*(e.shiftKey?32:8)); ask(); });
+  piecesEl.append(b); });
+ROWS.forEach(([k,name,min,max,step])=>{ const d=document.createElement('div'); d.className='row';
+  d.innerHTML=`<label for="r-${k}">${name}</label><input id="r-${k}" type="range" min="${min}" max="${max}" step="${step}"><output for="r-${k}"></output>`;
+  d.querySelector('input').addEventListener('input',e=>{ P[sel][k]=+e.target.value; sync(false); ask(); }); rowsEl.append(d); });
+TINTS.forEach((t,i)=>{ const b=document.createElement('button'); b.style.background=i? t[1] : 'transparent'; b.setAttribute('aria-label',t[0]); b.title=t[0]; b.setAttribute('aria-pressed','false');
+  if(!i) b.style.backgroundImage='linear-gradient(135deg,transparent 46%,var(--ink2) 47%,var(--ink2) 53%,transparent 54%)';
+  b.addEventListener('click',()=>{ const p=P[sel]; p.tint=i; if(i&&p.absorb<.3) p.absorb=1.4; if(!i) p.absorb=0; sync(true); ask(); }); tintsEl.append(b); });
+function select(i){ sel=i; sync(true); ask(); }
+function sync(all){
+  const p=P[sel];
+  piecesEl.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed', String(+b.dataset.i===sel)));
+  ROWS.forEach(([k,,, ,,fmt])=>{ const inp=$('#r-'+k); if(all) inp.value=p[k]; inp.nextElementSibling.textContent=fmt(k==='split'||k==='ior'||k==='absorb'||k==='frost'? p[k] : Math.round(p[k])); });
+  tintsEl.querySelectorAll('button').forEach((b,i)=>b.setAttribute('aria-pressed',String(i===p.tint)));
+  cssEl.innerHTML=cssFor(p,true);
+}
+function cssFor(p,html){
+  const t=hex3(TINTS[p.tint][1]).map(v=>Math.round(v*255)), dark=theme==='dark';
+  const a = p.tint? Math.min(.8, .12+p.absorb*.16) : (p.frost>0? .08 : .04);
+  const base = p.tint? t : (dark?[255,255,255]:[255,255,255]);
+  const blur=Math.round(p.frost*1.1), sat=(1+p.absorb*.15+ (p.frost>0?.2:0)).toFixed(2);
+  const L=[];
+  L.push(`.${p.id} {`);
+  L.push(`  border-radius: ${Math.round(p.r)}px;`);
+  L.push(`  background: rgb(${base.join(' ')}/${a.toFixed(2).replace(/^0/,'')});`);
+  if(blur>0) L.push(`  backdrop-filter: blur(${blur}px) saturate(${sat});`);
+  L.push(`  box-shadow:`);
+  L.push(`  inset 0 1px 0 rgb(255 255 255/${dark?'.35':'.8'}),`);
+  L.push(`  inset 0 0 ${Math.round(p.bevel*.6)}px rgb(255 255 255/${dark?'.08':'.35'}),`);
+  L.push(`  0 ${Math.round((p.depth+p.lift)*.35)}px ${Math.round((p.depth+p.lift)*.9)}px rgb(0 0 0/${dark?'.45':'.16'});`);
+  L.push(`}`);
+  const miss=[`bend ${p.ior.toFixed(2)}`]; if(p.split>0) miss.push(`split ${p.split.toFixed(3)}`); if(p.lift>0) miss.push(`lift ${Math.round(p.lift)}px`);
+  const c1=`/* No CSS for:\n   ${miss.join(', ')}.`, c2=blur>0?`   It can blur what is behind.\n   It cannot bend it. */`:`   With no frost, CSS has\n   nothing left to do here. */`;
+  return html? L.join('\n')+`\n<span class="c">${c1}\n${c2}</span>` : L.join('\n')+'\n'+c1+'\n'+c2+'\n';
+}
+$('#copy').addEventListener('click',async()=>{
+  const txt=cssFor(P[sel],false), lab=$('#copy span');
+  try{ await navigator.clipboard.writeText(txt); lab.textContent='Copied'; }catch(e){ const r=document.createRange(); r.selectNodeContents(cssEl); const s=getSelection(); s.removeAllRanges(); s.addRange(r); lab.textContent='Selected'; }
+  setTimeout(()=>lab.textContent='Copy CSS',1400);
+});
+$('#pour').addEventListener('click',pour);
+const SUN=`<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" /> <path d="M12 2v2" /> <path d="M12 20v2" /> <path d="m4.93 4.93 1.41 1.41" /> <path d="m17.66 17.66 1.41 1.41" /> <path d="M2 12h2" /> <path d="M20 12h2" /> <path d="m6.34 17.66-1.41 1.41" /> <path d="m19.07 4.93-1.41 1.41" /></svg>`, MOON=`<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" /></svg>`;
+$('#theme').addEventListener('click',()=>{ theme=theme==='dark'?'light':'dark'; root.dataset.theme=theme; $('#ticon').innerHTML=theme==='dark'?SUN:MOON;
+  $('#theme').setAttribute('aria-label',theme==='dark'?'Switch to the light sheet':'Switch to the dark sheet'); drawSheet(); if(ok) upload(); sync(false); ask(); });
+
+/* ---- pointer ---- */
+function sd(p,x,y){ const b=boxOf(p), qx=Math.abs(x-b.x)-b.hw+b.r, qy=Math.abs(y-b.y)-b.hh+b.r; return Math.hypot(Math.max(qx,0),Math.max(qy,0))+Math.min(Math.max(qx,qy),0)-b.r; }
+function hit(x,y){ let best=-1,bd=0; for(let i=1;i<P.length;i++){ const d=sd(P[i],x,y); if(d<0 && (best<0||d>bd)){ best=i; bd=d; } } return best; }
+function moveTo(p,x,y){ const b=boxOf(p); const xmax=phone()?W:U.x1+36; p.x=Math.max(b.hw*.3,Math.min(xmax-b.hw*.3,x)); p.y=Math.max(b.hh*.3,Math.min((phone()?U.y1+20:H)-b.hh*.3,y));
+  p.fx=(p.x-U.x0)/(U.x1-U.x0); p.fy=(p.y-U.y0)/(U.y1-U.y0); }
+let drag=null;
+cv.addEventListener('pointerdown',e=>{ const i=hit(e.clientX,e.clientY); if(i<0) return; cv.setPointerCapture(e.pointerId); select(i); drag={i,dx:e.clientX-P[i].x,dy:e.clientY-P[i].y}; cv.className='grabbing'; });
+cv.addEventListener('pointermove',e=>{ if(drag){ moveTo(P[drag.i],e.clientX-drag.dx,e.clientY-drag.dy); ask(); } else cv.className=hit(e.clientX,e.clientY)>0?'grab':''; });
+const end=()=>{ drag=null; cv.className=''; }; cv.addEventListener('pointerup',end); cv.addEventListener('pointercancel',end);
+let ld=null;
+function lampTo(x,y){ lamp.x=Math.max(22,Math.min(W-22,x)); lamp.y=Math.max(22,Math.min(H-22,y)); lamp.fx=(lamp.x-U.x0)/(U.x1-U.x0); lamp.fy=(lamp.y-U.y0)/(U.y1-U.y0); ask(); }
+lampEl.addEventListener('pointerdown',e=>{ lampEl.setPointerCapture(e.pointerId); ld={dx:e.clientX-lamp.x,dy:e.clientY-lamp.y}; });
+lampEl.addEventListener('pointermove',e=>{ if(ld) lampTo(e.clientX-ld.dx,e.clientY-ld.dy); });
+lampEl.addEventListener('pointerup',()=>ld=null); lampEl.addEventListener('pointercancel',()=>ld=null);
+lampEl.addEventListener('keydown',e=>{ const d={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]}[e.key]; if(!d) return; e.preventDefault(); const s=e.shiftKey?48:12; lampTo(lamp.x+d[0]*s,lamp.y+d[1]*s); });
+panel.addEventListener('scroll',()=>{},{passive:true});
+
+/* ---- go ---- */
+function resize(){ measure(); cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr); drawSheet(); if(ok) upload(); else show2d(); ask(); place(); }
+function show2d(){ const c=cv.getContext('2d'); if(c){ c.drawImage(sheet,0,0); } else { document.body.style.backgroundImage=`url(${sheet.toDataURL()})`; document.body.style.backgroundSize='100% 100%'; cv.style.display='none'; } }
+try{ if(ok) initGL(); }catch(err){ console.warn(err); ok=false; }
+if(!ok){ document.body.classList.add('nogl'); }
+let rt=0; addEventListener('resize',()=>{ clearTimeout(rt); rt=setTimeout(resize,80); });
+sync(true); measure(); P.forEach(p=>p.fill=reduce?1:0); resize();
+const fonts=[document.fonts.load('800 100px "Funnel Display"'),document.fonts.load('600 20px "Funnel Display"'),document.fonts.load('400 14px "JetBrains Mono"'),document.fonts.load('500 12px "JetBrains Mono"')];
+Promise.race([Promise.all(fonts),new Promise(r=>setTimeout(r,2500))]).then(()=>{ resize(); pour(); });
+window.__glass={P,lamp,pour,select,get U(){return U},get ok(){return ok},settle(){ pourT0=-1; P.forEach(p=>p.fill=1); ask(); },hit,boxOf};
+})();
+</script>
+</body>
+</html>

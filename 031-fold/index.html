@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fold · HumanLup</title>
+<!-- humanlup:meta -->
+<!-- HumanLup Design Lab 31 · Anthony Lupo · humanlup.com · X @humanlup · IG humanlup.ai · anthony@humanlup.com -->
+<meta name="author" content="Anthony Lupo">
+<meta name="creator" content="Anthony Lupo">
+<meta name="publisher" content="HumanLup">
+<meta name="copyright" content="© 2026 Anthony Lupo, HumanLup">
+<link rel="author" href="https://humanlup.com">
+<link rel="me" href="https://x.com/humanlup">
+<link rel="me" href="https://www.instagram.com/humanlup.ai">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HumanLup Design Lab 31">
+<meta property="og:title" content="Fold · HumanLup">
+<meta property="og:description" content="A sheet of paper. Drag it and it folds.">
+<meta property="og:image" content="preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@humanlup">
+<meta name="twitter:creator" content="@humanlup">
+<meta name="twitter:title" content="Fold · HumanLup">
+<meta name="twitter:description" content="A sheet of paper. Drag it and it folds.">
+<meta name="twitter:image" content="preview.jpg">
+<!-- /humanlup:meta -->
+<meta name="description" content="A sheet of paper. Drag it and it folds.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400..900&display=swap" rel="stylesheet">
+<style>
+:root{--g:#dfe3e0;--ink:#111512;--paper:#fbfaf5;--back:#11845b}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;overflow:hidden;background:var(--g);color:var(--ink);font-family:'Schibsted Grotesk',-apple-system,'Helvetica Neue',Arial,sans-serif;-webkit-font-smoothing:antialiased}
+canvas{position:fixed;inset:0;width:100%;height:100%;touch-action:none;cursor:grab;display:block}
+canvas.drag{cursor:grabbing}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.name,.ro,.by{position:fixed;z-index:2;font-size:15px;font-weight:600;letter-spacing:-.01em;pointer-events:none}
+.name{left:28px;top:24px;font-weight:800;font-size:17px}
+.ro{right:28px;top:26px;font-weight:500;font-variant-numeric:tabular-nums}
+.by{right:28px;bottom:34px;font-weight:500;font-size:14px}
+.bar{position:fixed;z-index:2;left:0;right:0;bottom:30px;display:flex;flex-direction:column;align-items:center;gap:14px;pointer-events:none}
+.bar p{margin:0;font-size:17px;font-weight:500;letter-spacing:-.01em}
+.pills{display:flex;gap:8px;pointer-events:auto}
+button{font:inherit;font-size:15px;font-weight:600;height:44px;padding:0 18px;border-radius:22px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;transition:background .15s,color .15s,transform .15s}
+button:hover{background:var(--ink);color:var(--g)}
+button:active{transform:scale(.96)}
+button:focus-visible{outline:3px solid var(--back);outline-offset:3px}
+button[disabled]{opacity:.35;cursor:default;background:transparent;color:var(--ink)}
+button.go{background:var(--ink);color:var(--g)}
+button.go:hover{background:var(--back);border-color:var(--back);color:#fff}
+.ck{position:fixed;z-index:2;left:0;right:0;bottom:0;height:12px;background:conic-gradient(var(--ink) 25%,var(--g) 0 50%,var(--ink) 0 75%,var(--g) 0) 0 0/24px 24px}
+@media (max-width:700px){
+  .name{left:18px;top:18px}.ro{right:18px;top:20px;font-size:14px}
+  .by{left:0;right:0;bottom:20px;text-align:center;font-size:13px}
+  .bar{bottom:48px;gap:12px}.bar p{font-size:16px}
+  button{padding:0 13px;font-size:14px}.pills{gap:6px}
+}
+@media (max-height:560px){.bar p{display:none}}
+</style>
+</head>
+<body>
+<h1 class="vh">Fold</h1>
+<canvas id="c" role="img" aria-label="A square sheet of paper with the word Fold on it. Drag it to fold it."></canvas>
+<div class="name">HumanLup</div>
+<div class="ro" id="ro" aria-live="polite"></div>
+<div class="bar">
+  <p>Drag the paper.</p>
+  <div class="pills">
+    <button class="go" id="bF">Fold</button>
+    <button id="bU">Unfold</button>
+    <button id="bN">New sheet</button>
+    <button id="bS">Save</button>
+  </div>
+</div>
+<div class="by">Built by Lupo</div>
+<div class="ck"></div>
+<script>
+(()=>{
+const cv=document.getElementById('c'),ctx=cv.getContext('2d'),ro=document.getElementById('ro');
+const bF=document.getElementById('bF'),bU=document.getElementById('bU'),bN=document.getElementById('bN'),bS=document.getElementById('bS');
+const css=getComputedStyle(document.documentElement),G=css.getPropertyValue('--g').trim(),INK=css.getPropertyValue('--ink').trim(),PAPER=css.getPropertyValue('--paper').trim(),BACK=css.getPropertyValue('--back').trim();
+const FONT="'Schibsted Grotesk','Helvetica Neue',Arial,sans-serif",A=1000,MAXF=12,MAXFACES=260;
+const still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let W=0,H=0,D=1,S=1,ox=0,oy=0,dirty=true,wordSize=300,wordX=0;
+const sheet=()=>[{poly:[[0,0],[1,0],[1,1],[0,1]],T:[1,0,0,1,0,0],flip:false}];
+let faces=sheet(),hist=[],creases=[],drag=null,preview=null,anim=null,msg='',msgT=0;
+
+const mul=(m,n)=>[m[0]*n[0]+m[2]*n[1],m[1]*n[0]+m[3]*n[1],m[0]*n[2]+m[2]*n[3],m[1]*n[2]+m[3]*n[3],m[0]*n[4]+m[2]*n[5]+m[4],m[1]*n[4]+m[3]*n[5]+m[5]];
+const ap=(m,p)=>[m[0]*p[0]+m[2]*p[1]+m[4],m[1]*p[0]+m[3]*p[1]+m[5]];
+const inv=m=>{const d=m[0]*m[3]-m[1]*m[2];return [m[3]/d,-m[1]/d,-m[2]/d,m[0]/d,(m[2]*m[5]-m[3]*m[4])/d,(m[1]*m[4]-m[0]*m[5])/d]};
+const refl=(p0,n,k)=>{const s=1-k,c=p0[0]*n[0]+p0[1]*n[1];return [1-s*n[0]*n[0],-s*n[0]*n[1],-s*n[0]*n[1],1-s*n[1]*n[1],s*c*n[0],s*c*n[1]]};
+const side=(p,p0,n)=>(p[0]-p0[0])*n[0]+(p[1]-p0[1])*n[1];
+const area=q=>{let a=0;for(let i=0;i<q.length;i++){const p=q[i],r=q[(i+1)%q.length];a+=p[0]*r[1]-r[0]*p[1]}return Math.abs(a)/2};
+function clip(poly,p0,n,sg){const out=[];for(let i=0;i<poly.length;i++){const a=poly[i],b=poly[(i+1)%poly.length],da=sg*side(a,p0,n),db=sg*side(b,p0,n);if(da>=0)out.push(a);if((da>0&&db<0)||(da<0&&db>0)){const t=da/(da-db);out.push([a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t])}}return out.length>2&&area(out)>1e-6?out:null}
+function inside(poly,p){let s=0;for(let i=0;i<poly.length;i++){const a=poly[i],b=poly[(i+1)%poly.length],c=(b[0]-a[0])*(p[1]-a[1])-(b[1]-a[1])*(p[0]-a[0]);if(Math.abs(c)<1e-9)continue;if(s&&Math.sign(c)!==s)return false;s=Math.sign(c)}return true}
+const onPaper=(fs,p)=>fs.some(f=>inside(f.poly,p));
+
+// fold everything on a's side of the line halfway between a and b. k is the cosine of the turn: 1 flat, -1 folded over.
+function foldState(base,a,b,k){
+  const dx=b[0]-a[0],dy=b[1]-a[1],L=Math.hypot(dx,dy);if(L<.02)return null;
+  const n=[dx/L,dy/L],p0=[(a[0]+b[0])/2,(a[1]+b[1])/2],M=refl(p0,n,k),stay=[],mov=[],marks=[];let split=0;
+  for(const f of base){
+    const s=clip(f.poly,p0,n,1),m=clip(f.poly,p0,n,-1);
+    if(s)stay.push({poly:s,T:f.T,flip:f.flip});
+    if(m)mov.push({poly:m.map(p=>ap(M,p)),T:mul(M,f.T),flip:k<0?!f.flip:f.flip,lift:1-Math.abs(k)});
+    if(s&&m){split++;const on=s.filter(p=>Math.abs(side(p,p0,n))<1e-7);if(on.length>=2){const iT=inv(f.T);marks.push([ap(iT,on[0]),ap(iT,on[on.length-1])])}}
+  }
+  if(!split)return null;
+  if(k<0)mov.reverse();
+  return {faces:stay.concat(mov),marks};
+}
+function thick(fs){let m=1;for(const f of fs){let cx=0,cy=0;for(const p of f.poly){cx+=p[0];cy+=p[1]}cx/=f.poly.length;cy/=f.poly.length;let c=0;for(const g of fs)if(inside(g.poly,[cx,cy]))c++;if(c>m)m=c}return m}
+
+function size(){
+  D=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*D;cv.height=H*D;
+  const phone=W<=700,top=phone?64:70,bot=phone?170:150;
+  S=Math.max(140,Math.min(W*(phone?.6:.42),(H-top-bot)*.72));
+  ox=W/2-S/2;oy=top+(H-top-bot)/2-S/2;dirty=true;
+}
+function measure(){ctx.save();ctx.setTransform(1,0,0,1,0,0);ctx.font='800 300px '+FONT;const w=ctx.measureText('Fold').width||600;ctx.restore();wordSize=300*800/w;wordX=100}
+function art(back){
+  ctx.fillStyle=back?BACK:PAPER;ctx.fillRect(-2,-2,A+4,A+4);
+  ctx.save();if(back){ctx.translate(A,0);ctx.scale(-1,1)}
+  ctx.font='800 '+wordSize+'px '+FONT;ctx.textBaseline='alphabetic';ctx.fillStyle=back?'rgba(255,255,255,.2)':INK;
+  ctx.fillText('Fold',wordX-wordSize*.03,900);
+  if(!back){ctx.beginPath();ctx.arc(845,165,58,0,7);ctx.fillStyle=BACK;ctx.fill()}
+  ctx.restore();
+  ctx.lineCap='round';
+  for(const c of creases){
+    ctx.beginPath();ctx.moveTo(c[0][0]*A,c[0][1]*A);ctx.lineTo(c[1][0]*A,c[1][1]*A);
+    ctx.lineWidth=3.2;ctx.strokeStyle=back?'rgba(0,0,0,.16)':'rgba(17,21,18,.10)';ctx.stroke();
+    ctx.lineWidth=1.2;ctx.strokeStyle=back?'rgba(255,255,255,.22)':'rgba(255,255,255,.9)';ctx.stroke();
+  }
+}
+function path(f){ctx.beginPath();f.poly.forEach((p,i)=>{const x=ox+p[0]*S,y=oy+p[1]*S;i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.closePath()}
+function draw(fs,c=ctx,ground=false){
+  ctx.setTransform(D,0,0,D,0,0);
+  if(ground){ctx.fillStyle=G;ctx.fillRect(0,0,W,H)}else ctx.clearRect(0,0,W,H);
+  for(const f of fs){
+    const l=f.lift||0;
+    ctx.save();path(f);
+    ctx.shadowColor='rgba(16,28,22,'+(.2+.1*l)+')';ctx.shadowBlur=(7+30*l)*D;ctx.shadowOffsetY=(2+14*l)*D;
+    ctx.fillStyle=f.flip?BACK:PAPER;ctx.fill();
+    ctx.shadowColor='transparent';ctx.clip();
+    ctx.translate(ox,oy);ctx.scale(S,S);ctx.transform(f.T[0],f.T[1],f.T[2],f.T[3],f.T[4],f.T[5]);ctx.scale(1/A,1/A);
+    art(f.flip);
+    if(l>.01){ctx.setTransform(D,0,0,D,0,0);ctx.fillStyle='rgba(8,14,11,'+(.3*l)+')';ctx.fillRect(0,0,W,H)}
+    ctx.restore();
+    path(f);ctx.lineWidth=.75;ctx.strokeStyle=f.flip?'rgba(0,0,0,.2)':'rgba(17,21,18,.14)';ctx.stroke();
+  }
+}
+function say(){
+  const n=hist.length;
+  if(msg&&performance.now()<msgT){ro.textContent=msg;return}
+  ro.textContent=n?n+(n===1?' fold':' folds')+' · '+thick(faces)+' thick':'One sheet';
+  bU.disabled=!n;bN.disabled=!n&&!creases.length;
+}
+function note(t){msg=t;msgT=performance.now()+2200;say();setTimeout(say,2300)}
+const r3=v=>Math.round(v*1000)/1000;
+function setHash(){const h=hist.map(x=>[x.a[0],x.a[1],x.b[0],x.b[1]].map(v=>Math.round(v*1000)).join(',')).join(';');try{history.replaceState(null,'',h?'#'+h:location.pathname+location.search)}catch(e){}}
+function full(){if(hist.length>=MAXF||faces.length>MAXFACES){note('That is as thick as it gets');return true}return false}
+function commit(a,b){
+  a=a.map(r3);b=b.map(r3);const r=foldState(faces,a,b,-1);if(!r)return false;
+  hist.push({faces,a,b});faces=r.faces.map(f=>({poly:f.poly,T:f.T,flip:f.flip}));
+  for(const m of r.marks)creases.push(m);if(creases.length>500)creases=creases.slice(-500);
+  setHash();say();dirty=true;return true;
+}
+function run(base,a,b,from,to,done){
+  if(still){done();dirty=true;return}
+  anim={base,a,b,from,to,t0:performance.now(),dur:620,done};
+}
+function autoFold(a,b){
+  if(anim||full())return;a=a.map(r3);b=b.map(r3);
+  if(!foldState(faces,a,b,-1))return;
+  run(faces,a,b,1,-1,()=>commit(a,b));
+}
+function randomFold(){
+  if(anim||full())return;
+  let cx=0,cy=0,n=0;const vs=[];for(const f of faces)for(const p of f.poly){cx+=p[0];cy+=p[1];n++;vs.push(p)}cx/=n;cy/=n;
+  for(let i=0;i<40;i++){
+    const v=vs[Math.random()*vs.length|0],t=.55+Math.random()*.5,j=.22;
+    const a=[v[0]+(cx-v[0])*.04,v[1]+(cy-v[1])*.04],b=[v[0]+(cx-v[0])*t+(Math.random()-.5)*j,v[1]+(cy-v[1])*t+(Math.random()-.5)*j];
+    if(Math.hypot(b[0]-a[0],b[1]-a[1])<.18)continue;
+    if(foldState(faces,a.map(r3),b.map(r3),-1)){autoFold(a,b);return}
+  }
+}
+function unfold(){
+  if(anim||!hist.length)return;const h=hist.pop(),cur=faces;
+  const fin=()=>{faces=h.faces;setHash();say();dirty=true};
+  if(still){fin();return}
+  faces=h.faces;run(h.faces,h.a,h.b,-1,1,()=>{say();dirty=true});setHash();
+}
+function fresh(){if(anim)return;faces=sheet();hist=[];creases=[];setHash();say();dirty=true}
+function save(){
+  draw(faces,ctx,true);
+  cv.toBlob(b=>{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='fold.png';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000);dirty=true},'image/png');
+}
+const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+function frame(now){
+  if(anim){
+    const t=Math.min(1,(now-anim.t0)/anim.dur),k=anim.from+(anim.to-anim.from)*ease(t);
+    const r=foldState(anim.base,anim.a,anim.b,Math.abs(k)<.004?.004:k);
+    draw(r?r.faces:anim.base);
+    if(t>=1){const d=anim.done;anim=null;d();dirty=true}
+  }else if(dirty){dirty=false;draw(drag&&preview?preview.faces:faces)}
+  requestAnimationFrame(frame);
+}
+const world=e=>[(e.clientX-ox)/S,(e.clientY-oy)/S];
+cv.addEventListener('pointerdown',e=>{
+  if(anim)return;const p=world(e);if(!onPaper(faces,p))return;
+  if(hist.length>=MAXF||faces.length>MAXFACES){note('That is as thick as it gets');return}
+  drag={a:p,b:p};preview=null;cv.setPointerCapture(e.pointerId);cv.classList.add('drag');
+});
+cv.addEventListener('pointermove',e=>{
+  if(!drag){cv.style.cursor=onPaper(faces,world(e))?'grab':'default';return}
+  drag.b=world(e);preview=foldState(faces,drag.a,drag.b,-1);dirty=true;
+});
+const up=()=>{if(!drag)return;const d=drag;drag=null;cv.classList.remove('drag');if(preview)commit(d.a,d.b);preview=null;dirty=true};
+cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',()=>{drag=null;preview=null;cv.classList.remove('drag');dirty=true});
+bF.onclick=randomFold;bU.onclick=unfold;bN.onclick=fresh;bS.onclick=save;
+addEventListener('keydown',e=>{
+  if(e.metaKey||e.ctrlKey||e.altKey)return;const k=e.key.toLowerCase();
+  if(k==='f')randomFold();else if(k==='u'||k==='backspace'||(k==='z'))unfold();else if(k==='n')fresh();else if(k==='s')save();
+});
+addEventListener('resize',size);
+function start(){
+  measure();
+  const h=location.hash.slice(1);let ok=false;
+  if(h){for(const part of h.split(';').slice(0,MAXF)){const v=part.split(',').map(Number);if(v.length===4&&v.every(isFinite)){if(commit([v[0]/1000,v[1]/1000],[v[2]/1000,v[3]/1000]))ok=true}}}
+  say();dirty=true;
+  if(!ok)setTimeout(()=>{if(!hist.length&&!drag)autoFold([.99,.01],[.7,.33])},700);
+}
+size();say();requestAnimationFrame(frame);
+(document.fonts&&document.fonts.load?document.fonts.load("800 100px 'Schibsted Grotesk'").catch(()=>{}):Promise.resolve()).then(start);
+setTimeout(()=>{measure();dirty=true},2500);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<!--
+  Field Notes on the LLM Wiki, as a wiki. HumanLup Design Lab 16.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Field Notes on the LLM Wiki</title>
+<!-- humanlup:meta -->
+<!-- HumanLup Design Lab 16 · Anthony Lupo · humanlup.com · X @humanlup · IG humanlup.ai · anthony@humanlup.com -->
+<meta name="author" content="Anthony Lupo">
+<meta name="creator" content="Anthony Lupo">
+<meta name="publisher" content="HumanLup">
+<meta name="copyright" content="© 2026 Anthony Lupo, HumanLup">
+<link rel="author" href="https://humanlup.com">
+<link rel="me" href="https://x.com/humanlup">
+<link rel="me" href="https://www.instagram.com/humanlup.ai">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HumanLup Design Lab 16">
+<meta property="og:title" content="Field Notes on the LLM Wiki">
+<meta property="og:description" content="Notes on Karpathy&#x27;s LLM Wiki gist and its thread, as {{NPAGES}} linked pages on a ring, with backlinks and a lint report.">
+<meta property="og:image" content="preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@humanlup">
+<meta name="twitter:creator" content="@humanlup">
+<meta name="twitter:title" content="Field Notes on the LLM Wiki">
+<meta name="twitter:description" content="Notes on Karpathy&#x27;s LLM Wiki gist and its thread, as {{NPAGES}} linked pages on a ring, with backlinks and a lint report.">
+<meta name="twitter:image" content="preview.jpg">
+<!-- /humanlup:meta -->
+<meta name="description" content="Notes on Karpathy's LLM Wiki gist and its thread, as {{NPAGES}} linked pages on a ring, with backlinks and a lint report.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%232238f5'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@500&family=Sofia+Sans:ital,wght@0,400;0,600;0,800;1,400&family=Sofia+Sans+Condensed:wght@400..900&family=Sofia+Sans+Extra+Condensed:wght@800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f2f2ef; --ink:#101012; --dim:#55565b; --rule:#cfcfca; --blue:#2238f5; --bluetext:#2238f5;
+  --red:#cf1f0f; --card:#fff;
+  --sans:"Sofia Sans","Avenir Next","Helvetica Neue",Arial,sans-serif;
+  --cond:"Sofia Sans Condensed","Avenir Next Condensed","Arial Narrow",sans-serif;
+  --xcond:"Sofia Sans Extra Condensed","Sofia Sans Condensed","Avenir Next Condensed","Arial Narrow",sans-serif;
+  --mono:"Inconsolata",ui-monospace,Menlo,monospace;
+  --ease:cubic-bezier(.2,.8,.2,1);
+  color-scheme:light;
+}
+:root[data-theme="dark"]{
+  --paper:#0e0f12; --ink:#ededea; --dim:#a4a5aa; --rule:#34353b; --bluetext:#9aa5ff; --red:#ff7262; --card:#17181c;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.45 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--bluetext);outline-offset:2px}
+#disc :focus-visible{outline-color:#fff}
+svg.ic{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+code{font:500 .95em var(--mono)}
+h1,h2,h3,p,ul,ol{margin:0}
+ul,ol{padding:0;list-style:none}
+
+/* ---------- shell ---------- */
+#app{display:grid;min-height:100vh;min-height:100dvh}
+#left,#right{padding:26px 24px 18px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.brand{display:inline-flex;align-items:center;gap:9px;font:600 15px var(--cond);letter-spacing:.02em;text-decoration:none;min-height:44px}
+.brand svg{width:26px;height:26px}
+h1{font:800 clamp(52px,5.2vw,76px)/.86 var(--xcond);text-transform:uppercase;letter-spacing:-.005em}
+h1 em{font-style:normal;color:var(--bluetext)}
+.intro{display:flex;flex-direction:column;gap:14px}
+.legend{display:none}
+.deck{font-size:16px;line-height:1.4}
+.what{font-size:15px;color:var(--dim)}
+.what b{color:var(--ink);font-weight:600}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border:1.5px solid var(--ink);border-radius:999px;font:600 15px var(--cond);letter-spacing:.01em}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.find{display:flex;align-items:center;gap:8px;border-bottom:2px solid var(--ink);min-height:46px}
+.find input{flex:1;min-width:0;border:0;background:none;color:inherit;font:400 17px var(--sans);outline:0;padding:8px 0}
+.find input::placeholder{color:var(--dim)}
+.find:focus-within{border-color:var(--bluetext)}
+.lbl{font:600 14px var(--cond);color:var(--dim);letter-spacing:.02em}
+#results a{display:flex;justify-content:space-between;gap:10px;align-items:baseline;padding:7px 0;text-decoration:none;border-bottom:1px solid var(--rule);font:600 17px var(--cond)}
+#results a span{font:400 14px var(--cond);color:var(--dim);white-space:nowrap}
+#results a:hover{color:var(--bluetext)}
+.foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;font:400 15px var(--cond)}
+.foot a{min-height:44px;display:inline-flex;align-items:center}
+.tog{width:44px;height:44px;display:inline-grid;place-items:center;border-radius:50%}
+.tog:hover{background:var(--ink);color:var(--paper)}
+:root[data-theme="dark"] .tog .moon, :root:not([data-theme="dark"]) .tog .sun{display:none}
+
+#right h2{font:800 44px/.9 var(--xcond);text-transform:uppercase;margin-top:9px}
+#right>p{font-size:15px;color:var(--dim)}
+#lint li{border-top:1px solid var(--rule)}
+#lint li:last-child{border-bottom:1px solid var(--rule)}
+#lint button{display:grid;grid-template-columns:34px 1fr 18px;gap:6px;align-items:baseline;width:100%;text-align:left;padding:9px 0;min-height:44px;font:400 16px/1.2 var(--cond)}
+#lint button b{font:800 24px/1 var(--xcond);color:var(--red)}
+#lint li.ok button b{color:var(--ink)}
+#lint button svg{align-self:center;transition:transform .2s}
+#lint button[aria-expanded="true"] svg{transform:rotate(180deg)}
+#lint button:hover{color:var(--bluetext)}
+#lint .det{display:none;padding:0 0 12px 40px;font-size:14.5px;line-height:1.4}
+#lint li.exp .det{display:block}
+#lint .det a{display:inline-block;font:600 15px var(--cond);color:var(--bluetext);margin:6px 10px 0 0;text-underline-offset:3px}
+
+/* ---------- stage ---------- */
+#stage{position:relative;width:var(--S);height:var(--S);align-self:center;justify-self:center}
+#ring{position:absolute;inset:0;width:100%;height:100%;overflow:visible;font-family:var(--cond)}
+#ring text{fill:var(--ink);cursor:pointer;transition:opacity .25s,fill .25s}
+#ring .hd text{fill:var(--dim);cursor:default;font-weight:500;letter-spacing:.09em;text-transform:uppercase}
+#ring .hd line{stroke:var(--dim);stroke-width:1}
+#ring .hitbox{fill:transparent;cursor:pointer}
+#ring .mk{fill:var(--dim);opacity:.5;transition:r .2s,opacity .2s}
+#ring a{text-decoration:none;outline:0}
+#ring a:hover text,#ring a:focus-visible text{fill:var(--bluetext)}
+#ring a:focus-visible .hitbox{stroke:var(--bluetext);stroke-width:1.5}
+#ring .miss text{fill:var(--red)}
+#ring .miss .mk{fill:none;stroke:var(--red);stroke-dasharray:2 2;opacity:1}
+#chords path{fill:none;stroke:var(--bluetext);stroke-width:1;opacity:.42;transition:opacity .2s}
+#chords path.miss{stroke:var(--red);stroke-dasharray:3 3;opacity:.9}
+#chords.hov path{opacity:.05}
+#chords.hov path.o{opacity:1;stroke-width:1.6}
+#chords.hov path.i{opacity:1;stroke:var(--ink);stroke-width:1.6}
+.open #chords{opacity:0;transition:opacity .3s}
+/* neighborhood and focus states */
+#ring.sel a:not(.out):not(.in):not(.cur):not(.hit) text{opacity:.46}
+#ring.sel .hd{opacity:.5}
+#ring a.out text{fill:var(--bluetext);font-weight:800}
+#ring a.in text{font-weight:800}
+#ring a.out .mk{fill:var(--bluetext);opacity:1;r:4.5px}
+#ring a.in .mk{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;opacity:1;r:4px}
+#ring a.in.out .mk{fill:var(--bluetext)}
+#ring .pill{fill:none}
+#ring a.cur .pill{fill:var(--blue)}
+#ring a.cur.miss .pill{fill:var(--red)}
+#ring a.cur text{fill:#fff;font-weight:800;opacity:1}
+#ring a.cur .mk{opacity:0}
+#ring a.hit text{fill:var(--ink);font-weight:800;opacity:1}
+#ring a.hit .mk{fill:var(--red);opacity:1;r:4.5px;stroke:none}
+#ring a.hov text{fill:var(--bluetext)}
+
+#hub,#disc{position:absolute;left:50%;top:50%;border-radius:50%;color:#fff}
+#hub{width:var(--H);height:var(--H);margin:calc(var(--H)/-2) 0 0 calc(var(--H)/-2);background:var(--blue);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 22px;transition:transform .45s var(--ease),opacity .2s}
+#hub b{font:800 calc(var(--H)*.46)/.8 var(--xcond);letter-spacing:-.01em}
+#hub .cap{font:600 17px/1.15 var(--cond);margin-top:6px}
+#hub .was{font:400 15px/1.2 var(--cond);opacity:.92;margin-top:4px}
+#hub a{font:600 15px var(--cond);min-height:44px;display:inline-flex;align-items:center;text-underline-offset:3px}
+#hub .pv{display:none}
+#hub.pv>*{display:none}
+#hub.pv .pv{display:block}
+#hub .pv strong{display:block;font:800 30px/1 var(--cond);margin-bottom:8px}
+#hub .pv span{font:400 16px/1.25 var(--cond)}
+.open #hub{transform:scale(1.9);opacity:0;pointer-events:none}
+#disc{width:var(--D);height:var(--D);margin:calc(var(--D)/-2) 0 0 calc(var(--D)/-2);background:var(--blue);transform:scale(.5);opacity:0;pointer-events:none;transition:transform .5s var(--ease),opacity .22s,background .3s}
+.open #disc{transform:none;opacity:1;pointer-events:auto}
+#disc.missing{background:var(--red)}
+:root[data-theme="dark"] #disc.missing{background:#b3200f}
+.close{position:absolute;left:50%;top:10px;margin-left:-22px;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;z-index:2}
+.close:hover{background:#fff;color:var(--blue)}
+.lens{height:100%;overflow:hidden;font-size:var(--fs,16px);line-height:1.36}
+.fl,.fr{width:50%;height:100%}
+.fl{float:left;shape-outside:radial-gradient(farthest-side at right,transparent calc(100% - 26px),#000 0)}
+.fr{float:right;shape-outside:radial-gradient(farthest-side at left,transparent calc(100% - 26px),#000 0)}
+.pg .k{font:600 .9em var(--cond);letter-spacing:.09em;text-transform:uppercase;text-align:center;opacity:.92}
+.pg h2{font:800 1.95em/1 var(--cond);text-align:center;margin:.2em 0 .25em;text-wrap:balance}
+.pg .cr{font:400 .95em/1.2 var(--cond);text-align:center;margin-bottom:.6em}
+.pg .body p{margin-bottom:.55em;text-wrap:pretty}
+.pg .body p:last-child{margin-bottom:0}
+.pg.q .body p{font:600 1.45em/1.12 var(--cond);text-align:center;text-wrap:balance}
+.pg .pull{font:600 1.08em/1.2 var(--cond);margin-top:.55em;text-align:center;text-wrap:balance}
+.pg .note{margin-top:.55em;font-style:italic}
+.pg .more{font:400 .92em/1.25 var(--cond);margin-top:.6em;text-align:center;text-wrap:balance}
+.pg .more a{white-space:nowrap}
+.pg a{color:#fff;text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:2.5px}
+.pg a.wl{font-weight:600}
+.pg a:hover{background:#fff;color:var(--blue);text-decoration:none}
+.pg a.red{text-decoration-style:dashed}
+.pg .tags{font:400 .92em/1.3 var(--cond);text-align:center;margin-top:.5em}
+#disc.long .fl,#disc.long .fr{display:none}
+#disc.long .lens{overflow-y:auto;padding:64px 17% 15%;scrollbar-width:thin}
+#disc.long .sp{display:none}
+
+#nbrs,#index,#bar{display:none}
+.strip{height:10px;background:conic-gradient(var(--ink) 25%,var(--paper) 0 50%,var(--ink) 0 75%,var(--paper) 0) 0 0/10px 10px}
+noscript article{max-width:640px;margin:0 auto;padding:16px;border-top:1px solid var(--rule)}
+
+/* ---------- ring mode: three zones, one screen ---------- */
+@media (min-width:1260px){
+  #app{--S:clamp(752px,min(100vh - 26px,100vw - 520px),1000px);grid-template-columns:minmax(0,1fr) var(--S) minmax(0,1fr);grid-template-rows:1fr 10px}
+  #left{padding-right:8px;max-height:calc(100vh - 10px);overflow:hidden}
+  h1{font-size:clamp(52px,4.2vw,66px)}
+  .open .what:not(.legend){display:none}.open .legend{display:block}
+  #right{padding-left:8px;overflow-y:auto;max-height:calc(100vh - 10px)}
+  .strip{grid-column:1/-1}
+  #left{max-width:330px;justify-self:start;width:100%}
+  #right{max-width:330px;justify-self:end;width:100%}
+}
+/* ---------- flat mode: a page you scroll ---------- */
+@media (max-width:1259.98px){
+  #app{display:flex;flex-direction:column;--S:min(100vw - 32px,360px)}
+  #bar{display:flex;position:sticky;top:0;z-index:5;background:var(--paper);border-bottom:1px solid var(--rule);padding:0 8px 0 16px;align-items:center;justify-content:space-between;min-height:52px}
+  #bar nav{display:flex;align-items:center}
+  #bar nav a{font:600 16px var(--cond);min-height:44px;padding:0 10px;display:inline-flex;align-items:center;text-underline-offset:3px}
+  #left .brand,#left .foot .tog{display:none}
+  #left,#right,#index,#nbrs{padding:22px 16px;max-width:680px;width:100%;margin:0 auto}
+  h1{font-size:clamp(56px,17vw,96px)}
+  #stage{margin:6px auto 18px;order:2}
+  #left{order:1}#right{order:4}#index{order:5;display:block}#nbrs{order:3}
+  .strip{order:9}
+  #ring a,#ring .hd{display:none}
+  #replay{display:none}
+  .open #left .intro,.open #ring,.open #hub{display:none}
+  .open #stage{order:0;width:auto;height:auto;margin:14px 16px 0;max-width:648px;align-self:center;width:calc(100% - 32px)}
+  .open #nbrs{order:1;display:block}
+  .open #right,.open #index{display:none}
+  .open #left{order:2}
+  #disc{position:relative;left:auto;top:auto;margin:0;width:auto;height:auto;border-radius:22px;transform:none;display:none;transition:none}
+  .open #disc{display:block}
+  .lens{height:auto;overflow:visible;padding:58px 22px 26px;font-size:17px;line-height:1.42}
+  .fl,.fr,.sp{display:none}
+  .close{left:auto;right:8px;top:8px;margin:0}
+  .pg .k,.pg h2,.pg .cr,.pg .more,.pg .tags,.pg .pull{text-align:left}
+  .pg.q .body p{text-align:left}
+  .pg .more a{display:inline-flex;min-height:44px;align-items:center}
+  .pg .body a,.pg .pull a,.pg .note a{padding:6px 0}
+  #nbrs h3,#index h3{font:800 30px/1 var(--xcond);text-transform:uppercase;margin:18px 0 6px}
+  #nbrs h3:first-child,#index h3:first-child{margin-top:0}
+  #nbrs a,#index a{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px;border-bottom:1px solid var(--rule);text-decoration:none;font:600 18px var(--cond)}
+  #nbrs a span,#index a span{font:400 15px var(--cond);color:var(--dim);white-space:nowrap}
+  #nbrs p{color:var(--dim);font-size:15px}
+  #results a{min-height:48px;align-items:center}
+  #lint .det a{min-height:44px;display:inline-flex;align-items:center;margin-top:0}
+  .foot{margin-top:6px}
+}
+@media (min-width:760px) and (max-width:1259.98px){
+  h1{font-size:88px}
+}
+
+/* ---------- ingest replay ---------- */
+@keyframes lin{from{opacity:0}to{opacity:1}}
+@keyframes draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+#ring.ingest a,#ring.ingest .hd{opacity:0;animation:lin .35s forwards;animation-delay:calc(var(--i)*13ms)}
+#ring.ingest #chords path{stroke-dasharray:1;stroke-dashoffset:1;animation:draw .8s var(--ease) forwards;animation-delay:calc(1050ms + var(--i)*13ms)}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="bar">
+    <a class="brand" href="#" aria-label="Field Notes, home"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="16" fill="var(--blue)"/><path d="M11 7v15h10" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="square"/></svg>Field Notes</a>
+    <nav><a href="#" id="homelink">Home</a><button class="tog" aria-label="Switch between light and dark"><svg class="ic moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg><svg class="ic sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></button></nav>
+  </div>
+
+  <header id="left">
+    <a class="brand" href="#"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="16" fill="var(--blue)"/></svg>HumanLup · Field Notes</a>
+    <div class="intro">
+      <h1>Field Notes on the <em>LLM Wiki</em></h1>
+      <p class="deck">A wiki of the wiki. The core idea, the sharp dissents, the working implementations and a playbook, distilled from Karpathy's gist and the threads it set off.</p>
+      <p class="what"><b>{{NPAGES}} pages</b> on a ring. A name that has a page is a link, and every page shows what links to it.</p>
+      <p class="what legend">Blue names with a dot: this page links to them. Bold names with a ring: they link here. The arrow keys step round the ring.</p>
+      <div><button class="btn" id="replay"><svg class="ic" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>Draw it again</button></div>
+    </div>
+    <div>
+      <label class="find"><svg class="ic" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg><input id="q" type="search" placeholder="Search the wiki" autocomplete="off" spellcheck="false" aria-label="Search the wiki"></label>
+      <p class="lbl" id="reslbl" style="margin-top:12px">Most linked</p>
+      <ol id="results"></ol>
+    </div>
+    <p class="foot"><a href="#about">About</a><button class="tog" aria-label="Switch between light and dark"><svg class="ic moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg><svg class="ic sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></button></p>
+  </header>
+
+  <main id="stage">
+    <svg id="ring" role="navigation" aria-label="All pages"></svg>
+    <div id="hub"><b id="nlinks">{{NLINKS}}</b><span class="cap">links between {{NPAGES}} pages</span><a href="#the-pitch">Start reading</a><div class="pv"><strong></strong><span></span></div></div>
+    <article id="disc" aria-live="polite"><button class="close" aria-label="Close this page"><svg class="ic" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button><div class="lens"><i class="fl"></i><i class="fr"></i><div class="sp"></div><div class="pg"></div></div></article>
+  </main>
+
+  <nav id="nbrs" aria-label="Links to and from this page"></nav>
+
+  <aside id="right">
+    <h2>Lint</h2>
+    <p>A wiki should get scanned now and then for contradictions, stale claims, orphans and missing links. So I ran that on this one.</p>
+    <ul id="lint"></ul>
+  </aside>
+
+  <nav id="index" aria-label="Every page"></nav>
+  <div class="strip" aria-hidden="true"></div>
+</div>
+<noscript><div style="max-width:640px;margin:0 auto;padding:16px"><p>This page draws itself with JavaScript. Without it, here is every page in order.</p></div>
+<!--STATIC-->
+</noscript>
+<script>
+const D = /*DATA*/;
+const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const pages = D.pages, by = {}, out = {}, inn = {};
+pages.forEach(p => { by[p.id] = p; out[p.id] = []; inn[p.id] = []; });
+by.about = D.about; out.about = []; inn.about = [];
+D.links.forEach(([a, b]) => { out[a].push(b); inn[b].push(a); });
+const real = pages.filter(p => !p.missing);
+const ONE = {Start:'Start', Ideas:'Idea', Themes:'Theme', Projects:'Project', Tools:'Tool', Uses:'Use', Tensions:'Tension', Quotes:'Quote', Playbook:'Playbook', About:'About'};
+const ARROW = '<svg class="ic" viewBox="0 0 24 24" style="width:.95em;height:.95em;vertical-align:-.1em"><path d="M7 7h10v10M7 17 17 7"/></svg>';
+const CHEV = '<svg class="ic" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>';
+const app = $('#app'), ring = $('#ring'), disc = $('#disc'), hub = $('#hub'), root = document.documentElement;
+const mqRing = matchMedia('(min-width:1260px)'), calm = matchMedia('(prefers-reduced-motion:reduce)');
+let cur = null, focus = null, G = null;
+
+/* ---------- ring ---------- */
+const slots = [];
+D.kinds.forEach(k => { slots.push({head: k}); pages.filter(p => p.kind === k).forEach(p => slots.push(p)); });
+const cv = document.createElement('canvas').getContext('2d');
+function buildRing() {
+  const S = $('#stage').getBoundingClientRect().width, n = slots.length, labeled = mqRing.matches;
+  let fs = 16.5, L, R;
+  for (let k = 0; k < 3; k++) {
+    cv.font = `800 ${fs}px "Sofia Sans Condensed"`;
+    L = labeled ? Math.max(...slots.map(s => cv.measureText(s.head ? s.head.toUpperCase() + '  ' : s.label).width)) + 8 : 6;
+    R = S / 2 - L - 2;
+    const sp = 2 * Math.PI * R / n;
+    fs = Math.max(14, Math.min(16.5, sp - 3.2));
+  }
+  const sp = 2 * Math.PI * R / n;
+  G = {S, R, L, fs};
+  app.style.setProperty('--D', 2 * (R - 15) + 'px');
+  app.style.setProperty('--H', Math.max(150, Math.min(250, R * .86)) + 'px');
+  ring.setAttribute('viewBox', `${-S/2} ${-S/2} ${S} ${S}`);
+  const ang = i => -90 + (i + .5) * 360 / n, pt = (i, r) => { const a = ang(i) * Math.PI / 180; return [r * Math.cos(a), r * Math.sin(a)]; };
+  const pos = {};
+  slots.forEach((s, i) => { if (!s.head) pos[s.id] = i; });
+  cv.font = `800 ${fs}px "Sofia Sans Condensed"`;
+  let h = '<g id="chords">';
+  const rc = R - 12;
+  D.links.forEach(([a, b]) => {
+    const [x1, y1] = pt(pos[a], rc), [x2, y2] = pt(pos[b], rc), k = .1;
+    h += `<path pathLength="1" data-a="${esc(a)}" data-b="${esc(b)}" style="--i:${pos[a]}"${by[b].missing ? ' class="miss"' : ''} d="M${x1.toFixed(1)} ${y1.toFixed(1)}Q${((x1+x2)/2*k).toFixed(1)} ${((y1+y2)/2*k).toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}"/>`;
+  });
+  h += '</g>';
+  slots.forEach((s, i) => {
+    const a = ang(i), flip = a > 90 && a < 270;
+    const t = flip ? `transform="translate(${R} 0) rotate(180)" text-anchor="end"` : `transform="translate(${R} 0)"`;
+    if (s.head) {
+      h += `<g class="hd" style="--i:${i}" transform="rotate(${a.toFixed(2)})"><line x1="${R - 12}" x2="${R - 3}"/><text ${t} dy=".34em" font-size="${Math.min(fs, 14.5)}">${esc(s.head)}</text></g>`;
+    } else {
+      const w = 400 + Math.round(Math.min(inn[s.id].length, 8) / 8 * 8) * 50;
+      h += `<a href="#${esc(s.id)}" data-id="${esc(s.id)}" style="--i:${i}" class="${s.missing ? 'miss' : ''}" aria-label="${esc(s.label)}${s.missing ? ', page missing' : ''}"><g transform="rotate(${a.toFixed(2)})"><rect class="hitbox" x="${R - 13}" y="${-sp/2}" width="${L + 13}" height="${sp}" rx="3"/><rect class="pill" x="${R - 13}" y="${-sp/2 + .5}" width="${cv.measureText(s.label).width + 24}" height="${sp - 1}" rx="${sp/2}"/><circle class="mk" cx="${R - 7}" r="1.8"/><text ${t} dy=".34em" font-size="${fs}" font-weight="${w}">${esc(s.label)}</text></g></a>`;
+    }
+  });
+  cv.font = `800 ${fs}px "Sofia Sans Condensed"`;
+  ring.innerHTML = h;
+  $$('a', ring).forEach(a => {
+    a.addEventListener('pointerenter', () => hover(a.dataset.id));
+    a.addEventListener('pointerleave', () => hover(null));
+    a.addEventListener('focus', () => hover(a.dataset.id));
+    a.addEventListener('blur', () => hover(null));
+  });
+  paint();
+}
+function hover(id) {
+  if (!mqRing.matches) return;
+  const ch = $('#chords');
+  $$('a.hov', ring).forEach(a => a.classList.remove('hov'));
+  if (!id || cur) { ch.classList.remove('hov'); hub.classList.remove('pv'); return; }
+  ch.classList.add('hov');
+  $$('path', ch).forEach(p => { p.classList.toggle('o', p.dataset.a === id); p.classList.toggle('i', p.dataset.b === id); });
+  const p = by[id];
+  $('.pv strong', hub).textContent = p.label;
+  $('.pv span', hub).textContent = p.missing ? 'This page does not exist. 1 page links to it.' : `Links to ${out[id].length}. Linked from ${inn[id].length}.`;
+  hub.classList.add('pv');
+}
+function paint() {
+  const sel = cur || focus;
+  ring.classList.toggle('sel', !!sel);
+  $$('a', ring).forEach(a => {
+    const id = a.dataset.id;
+    a.classList.toggle('cur', id === cur);
+    a.classList.toggle('out', !focus && !!cur && out[cur].includes(id));
+    a.classList.toggle('in', !focus && !!cur && inn[cur].includes(id));
+    a.classList.toggle('hit', !!focus && focus.has(id));
+    if (id === cur) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+  });
+}
+
+/* ---------- a page ---------- */
+function pageHTML(p) {
+  let h = `<p class="k">${ONE[p.kind]}${p.kind === 'Projects' ? ' ' + p.num + ' of 12' : ''}</p>`;
+  if (p.missing) {
+    return h.replace('Idea', 'Missing page') + `<h2>sources/foo</h2><div class="body"><p>This page does not exist. The name is the example in the paragraph about made-up citations.</p></div><p class="more">Linked from <a class="wl" href="#citation-grounding">Citation grounding</a></p>`;
+  }
+  if (p.title) h += `<h2>${esc(p.title)}</h2>`;
+  if (p.credit && !p.quote) h += `<p class="cr">${p.creditHtml || esc(p.credit)}</p>`;
+  h += `<div class="body">${p.stub ? `<p>No text yet. It comes up ×${p.count} in the thread.</p>` : p.html}</div>`;
+  if (p.quote) h += `<p class="cr" style="margin-top:.7em">${p.creditHtml || esc(p.credit)}</p>`;
+  if (p.pull) h += `<p class="pull">${p.pull}</p>`;
+  if (p.note) h += `<p class="note">${p.note}</p>`;
+  if (p.tags) h += `<p class="tags">${p.tags.map(esc).join(' · ')}</p>`;
+  const more = [];
+  if (p.count && !p.stub) more.push(`Comes up ×${p.count} as “${esc(p.chip)}”.`);
+  const see = (p.see || []).filter(i => by[i]);
+  if (see.length) more.push((p.kind === 'Playbook' ? 'Next: ' : 'See also: ') + see.map(i => `<a class="wl" href="#${i}">${esc(by[i].label)}</a>`).join(', '));
+  if (p.url) more.push(`<a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '').replace(/^(.{34}).+/, '$1…'))} ${ARROW}</a>`);
+  if (more.length) h += `<p class="more">${more.join('<br>')}</p>`;
+  return h;
+}
+function fitDisc() {
+  const lens = $('.lens', disc), pg = $('.pg', disc), sp = $('.sp', disc);
+  disc.classList.remove('long'); lens.scrollTop = 0;
+  if (!mqRing.matches) { lens.style.removeProperty('--fs'); return; }
+  const Dm = disc.offsetWidth;
+  let ok = false;
+  for (const fs of [17.5, 16.5, 15.5, 14.5, 14]) {
+    lens.style.setProperty('--fs', fs + 'px');
+    let top = Dm * .15;
+    for (let k = 0; k < 5; k++) { sp.style.height = top + 'px'; top = Math.max(Dm * .135, (Dm - pg.offsetHeight) / 2 - Dm * .012); }
+    sp.style.height = top + 'px';
+    if (top + pg.offsetHeight <= Dm * .885 && pg.scrollWidth <= pg.clientWidth + 1) { ok = true; break; }
+  }
+  if (!ok) { disc.classList.add('long'); lens.style.setProperty('--fs', '15.5px'); }
+}
+function trim() {
+  const l = $('#left'), lis = $$('#results li'); lis.forEach(li => li.hidden = false);
+  if (!mqRing.matches) return;
+  let i = lis.length; while (i > 1 && l.scrollHeight > l.clientHeight + 1) lis[--i].hidden = true;
+}
+function listRow(i, extra) { const p = by[i]; return `<a href="#${esc(i)}">${esc(p.label)}<span>${extra || ONE[p.kind]}</span></a>`; }
+function show(id) {
+  const p = id && by[id];
+  cur = p ? id : null;
+  app.classList.toggle('open', !!cur);
+  hub.classList.remove('pv'); $('#chords') && $('#chords').classList.remove('hov');
+  if (cur) {
+    disc.classList.toggle('missing', !!p.missing);
+    const pg = $('.pg', disc);
+    pg.className = 'pg' + (p.quote ? ' q' : '');
+    pg.innerHTML = pageHTML(p);
+    fitDisc();
+    const o = out[id], n = inn[id];
+    $('#nbrs').innerHTML = p.off ? '' :
+      `<h3>Links to ${o.length}</h3>` + (o.length ? o.map(i => listRow(i)).join('') : '<p>This page links to nothing.</p>') +
+      `<h3>Linked from ${n.length}</h3>` + (n.length ? n.map(i => listRow(i)).join('') : '<p>Nothing links here.</p>');
+    document.title = (p.title || p.label) + ' · Field Notes on the LLM Wiki';
+    if (!mqRing.matches) scrollTo(0, 0);
+  } else {
+    document.title = 'Field Notes on the LLM Wiki';
+  }
+  $('#homelink').style.visibility = cur ? 'visible' : 'hidden';
+  trim();
+  paint();
+}
+const route = () => show(decodeURIComponent(location.hash.slice(1)));
+addEventListener('hashchange', route);
+$('.close', disc).addEventListener('click', () => { location.hash = ''; });
+addEventListener('keydown', e => {
+  if (e.target.matches('input')) { if (e.key === 'Escape') { e.target.value = ''; search(''); } return; }
+  if (e.key === 'Escape') { if (focus) { setFocus(null); closeLint(); } else if (cur) location.hash = ''; }
+  if (cur && by[cur] && !by[cur].off && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) {
+    const i = pages.indexOf(by[cur]), j = (i + (e.key === 'ArrowRight' ? 1 : -1) + pages.length) % pages.length;
+    location.hash = pages[j].id;
+  }
+});
+
+/* ---------- query ---------- */
+const INDEX = new Map();
+real.forEach(p => new Set(p.text.split(/\s+/).filter(w => w.length > 1)).forEach(w => { if (!INDEX.has(w)) INDEX.set(w, []); INDEX.get(w).push(p.id); }));
+const KEYS = [...INDEX.keys()];
+function setFocus(set) { focus = set && set.size ? set : null; paint(); }
+function search(q) {
+  const words = q.toLowerCase().replace(/[^a-z0-9 ]/g, ' ').split(/\s+/).filter(Boolean), res = $('#results'), lbl = $('#reslbl');
+  if (!words.length) {
+    lbl.textContent = 'Most linked';
+    res.innerHTML = real.slice().sort((a, b) => inn[b.id].length - inn[a.id].length).slice(0, 5).map(p => `<li>${listRow(p.id, 'from ' + inn[p.id].length)}</li>`).join('');
+    setFocus(null); trim(); return;
+  }
+  const score = new Map();
+  words.forEach(w => {
+    const seen = new Set();
+    KEYS.forEach(k => { if (k.startsWith(w)) INDEX.get(k).forEach(id => seen.add(id)); });
+    seen.forEach(id => score.set(id, (score.get(id) || 0) + 1 + (by[id].label.toLowerCase().includes(w) ? 2 : 0)));
+  });
+  const hits = [...score].filter(([, s]) => s >= words.length).sort((a, b) => b[1] - a[1] || inn[b[0]].length - inn[a[0]].length).map(x => x[0]);
+  lbl.textContent = hits.length ? `${hits.length} ${hits.length === 1 ? 'page' : 'pages'}` : 'No page has that word';
+  res.innerHTML = hits.slice(0, 7).map(id => `<li>${listRow(id)}</li>`).join('');
+  closeLint(); setFocus(new Set(hits)); trim();
+}
+$('#q').addEventListener('input', e => search(e.target.value));
+
+/* ---------- lint ---------- */
+const lint = $('#lint');
+lint.innerHTML = D.lint.map((f, i) => `<li class="${f.ok ? 'ok' : ''}"><button aria-expanded="false" aria-controls="ld${i}"><b>${f.n}</b><span>${esc(f.name)}</span>${CHEV}</button><div class="det" id="ld${i}"><p>${esc(f.text)}</p>${f.pages.map(id => `<a href="#${esc(id)}">${esc(by[id].label)}</a>`).join('')}</div></li>`).join('');
+function closeLint() { $$('li.exp', lint).forEach(li => { li.classList.remove('exp'); $('button', li).setAttribute('aria-expanded', 'false'); }); }
+$$('li', lint).forEach((li, i) => $('button', li).addEventListener('click', () => {
+  const was = li.classList.contains('exp');
+  closeLint();
+  if (was) { setFocus(null); return; }
+  li.classList.add('exp'); $('button', li).setAttribute('aria-expanded', 'true');
+  $('#q').value = ''; search('');
+  const ids = new Set(D.lint[i].pages); if (D.lint[i].key === 'missing') ids.add('sources/foo');
+  setFocus(ids);
+}));
+
+/* ---------- index (flat mode) ---------- */
+$('#index').innerHTML = D.kinds.map(k => `<h3>${k}</h3>` + real.filter(p => p.kind === k).map(p => listRow(p.id, 'from ' + inn[p.id].length)).join('')).join('');
+
+/* ---------- theme, replay, start ---------- */
+if (matchMedia('(prefers-color-scheme:dark)').matches) root.dataset.theme = 'dark';
+$$('.tog').forEach(b => b.addEventListener('click', () => { root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark'; }));
+let tick = 0;
+function ingest() {
+  if (calm.matches) return;
+  ring.classList.remove('ingest'); void ring.getBoundingClientRect(); ring.classList.add('ingest');
+  const el = $('#nlinks'), N = D.links.length, t0 = performance.now(), me = ++tick;
+  (function step(t) {
+    if (me !== tick) return;
+    const u = Math.min(1, Math.max(0, (t - t0 - 1050) / 1500));
+    el.textContent = Math.round(N * (1 - Math.pow(1 - u, 3)));
+    if (u < 1) requestAnimationFrame(step); else setTimeout(() => me === tick && ring.classList.remove('ingest'), 600);
+  })(t0);
+}
+$('#replay').addEventListener('click', () => { if (cur) location.hash = ''; ingest(); });
+let rz;
+addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { buildRing(); if (cur) fitDisc(); trim(); }, 120); });
+search('');
+(document.fonts && document.fonts.ready || Promise.resolve()).then(() => {
+  buildRing(); route();
+  trim();
+  if (!cur) ingest();
+  window.__ready = true;
+});
+</script>
+</body>
+</html>

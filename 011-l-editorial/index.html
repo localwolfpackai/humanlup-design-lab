@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en" data-cut="tailored">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>/L Editorial, Issue No. 04: Rare Form</title>
+<!-- humanlup:meta -->
+<!-- HumanLup Design Lab 11 · Anthony Lupo · humanlup.com · X @humanlup · IG humanlup.ai · anthony@humanlup.com -->
+<meta name="author" content="Anthony Lupo">
+<meta name="creator" content="Anthony Lupo">
+<meta name="publisher" content="HumanLup">
+<meta name="copyright" content="© 2026 Anthony Lupo, HumanLup">
+<link rel="author" href="https://humanlup.com">
+<link rel="me" href="https://x.com/humanlup">
+<link rel="me" href="https://www.instagram.com/humanlup.ai">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HumanLup Design Lab 11">
+<meta property="og:title" content="/L Editorial, Issue No. 04: Rare Form">
+<meta property="og:description" content="One issue of /L Editorial, cut four ways. Six type-only pages on a twelve-column grid, with one dial for imbalance.">
+<meta property="og:image" content="preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@humanlup">
+<meta name="twitter:creator" content="@humanlup">
+<meta name="twitter:title" content="/L Editorial, Issue No. 04: Rare Form">
+<meta name="twitter:description" content="One issue of /L Editorial, cut four ways. Six type-only pages on a twelve-column grid, with one dial for imbalance.">
+<meta name="twitter:image" content="preview.jpg">
+<!-- /humanlup:meta -->
+<meta name="description" content="One issue of /L Editorial, cut four ways. Six type-only pages on a twelve-column grid, with one dial for imbalance.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..150,100..900&family=Albert+Sans:wght@400;500;600&family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --desk:#e6e3de; --bar:#f5f3ef; --bar-ink:#1a1816; --bar-mute:#6b6860; --bar-line:#c4c1ba;
+  --top:56px; --foot:88px;
+  --display:"Anybody","Helvetica Neue",Arial,sans-serif;
+  --text:"Albert Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --mono:"Chivo Mono","SF Mono",Menlo,monospace;
+  --ar:.75; --gap:28px;
+  --pw:calc(min(100dvh - var(--top) - var(--foot) - 48px, 800px) * var(--ar));
+  --t:.25;
+  --ease:cubic-bezier(.2,.7,.1,1);
+}
+/* The four cuts. Same pages, same words, same grid. */
+[data-cut="tailored"]{--wd:75%;--wg:500;--fill:.8;--hwd:75%;--hwg:600;--hz:1;--nwd:75%;--case:none;--trk:-.012em;--sg:.6;--tw:400;
+  --paper:#f5f3ef;--ink:#1a1816;--mute:#6b6860;--accent:#8b7355;--rule:#c4c1ba}
+[data-cut="street"]{--wd:150%;--wg:900;--fill:.82;--hwd:125%;--hwg:800;--hz:.8;--nwd:100%;--case:uppercase;--trk:-.03em;--sg:1.2;--tw:500;
+  --paper:#ffffff;--ink:#0a0a0a;--mute:#555350;--accent:#c42d38;--rule:#0a0a0a}
+[data-cut="minimal"]{--wd:100%;--wg:300;--fill:.5;--hwd:100%;--hwg:300;--hz:.62;--nwd:100%;--case:lowercase;--trk:0em;--sg:.3;--tw:400;
+  --paper:#fafaf8;--ink:#1a1816;--mute:#6b6860;--accent:#8a8780;--rule:#dddad5}
+[data-cut="hype"]{--wd:50%;--wg:800;--fill:.92;--hwd:50%;--hwg:700;--hz:1.3;--nwd:62%;--case:uppercase;--trk:0em;--sg:1;--tw:400;
+  --paper:#0a0a0a;--ink:#e8e6e1;--mute:#8a8780;--accent:#e63946;--rule:#333333}
+
+html{-webkit-text-size-adjust:none;text-size-adjust:none}
+body{background:var(--desk);color:var(--bar-ink);font-family:var(--text);font-size:16px;line-height:1.45;min-height:100dvh;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button,input{font:inherit;color:inherit}
+button{background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--bar-ink);outline-offset:2px}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+/* top */
+.top{position:fixed;inset:0 0 auto 0;height:var(--top);display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:5;background:var(--desk)}
+.mark{font-family:var(--display);font-stretch:100%;font-weight:800;font-size:20px;letter-spacing:-.01em;display:flex;gap:8px;align-items:baseline}
+.mark span{font-family:var(--mono);font-weight:400;font-size:14px;letter-spacing:.08em;text-transform:uppercase}
+.top p{font-family:var(--mono);font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--bar-mute)}
+
+/* the run of pages */
+.run{position:fixed;inset:var(--top) 0 var(--foot) 0;display:flex;align-items:center;gap:var(--gap);padding:0 48px;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;scrollbar-color:var(--bar-line) transparent}
+.run::after{content:"";flex:none;width:20px;height:1px}
+.pg{flex:none;scroll-margin-top:calc(var(--top) + 8px);width:var(--pw);height:calc(var(--pw) / var(--ar));container-type:size;position:relative;overflow:hidden;background:var(--paper);color:var(--ink);
+  box-shadow:0 1px 0 rgba(26,24,22,.06),0 18px 40px -22px rgba(26,24,22,.35);transition:background-color .5s,color .5s}
+.pg-in{position:absolute;inset:0;padding:7cqw;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:repeat(16,minmax(0,1fr));--col:7.1667cqw}
+.b{grid-column:var(--c);grid-row:var(--r);min-width:0;
+  transform:translate(calc(var(--t) * var(--dx,0) * var(--col)),calc(var(--t) * var(--dy,0) * var(--col))) scale(calc(1 + var(--t) * var(--ds,0) * var(--sg)));
+  transform-origin:var(--o,0 0);transition:transform .7s var(--ease)}
+.live .b{transition:none}
+
+.fit{font-family:var(--display);font-stretch:var(--wd);font-weight:var(--wg);font-size:calc(var(--fz,12) * 1cqw);line-height:.88;letter-spacing:var(--trk);text-transform:var(--case);
+  display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
+  transition:transform .7s var(--ease),font-stretch .7s var(--ease),font-weight .7s var(--ease),font-size .7s var(--ease)}
+.fit .ln{display:block;white-space:nowrap}
+.fit-m{position:absolute;left:0;top:0;visibility:hidden;white-space:nowrap;font-family:var(--display);font-size:100px;font-stretch:var(--wd);font-weight:var(--wg);letter-spacing:var(--trk);text-transform:var(--case);transition:none}
+.head{font-family:var(--display);font-stretch:var(--hwd);font-weight:var(--hwg);font-size:calc(var(--s,6) * var(--hz) * 1cqw);line-height:1.02;letter-spacing:var(--trk);text-transform:var(--case);text-wrap:balance;
+  transition:transform .7s var(--ease),font-stretch .7s var(--ease),font-weight .7s var(--ease),font-size .7s var(--ease)}
+.note{font-family:var(--display);font-stretch:var(--nwd);font-weight:var(--hwg);font-size:max(14px,3.5cqw);line-height:1.1;text-transform:var(--case);transition:font-stretch .7s var(--ease),font-weight .7s var(--ease)}
+.body{font-family:var(--text);font-weight:var(--tw);font-size:max(16px,3cqw);line-height:1.45;text-wrap:pretty}
+.lab{font-family:var(--mono);font-size:max(14px,2.6cqw);line-height:1.35;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);transition:color .5s}
+.lab b{font-weight:500;color:var(--ink)}
+.r{text-align:right}.c{text-align:center}.end{align-self:end}.mid{align-self:center}
+.acc{color:var(--accent);transition:color .5s}
+.story .head{font-size:max(16px,calc(var(--s,6) * var(--hz) * 1cqw))}
+.plan .story .head{font-size:calc(var(--s,6) * var(--hz) * 1cqw)}
+.plan .body{font-size:3cqw}.plan .lab{font-size:2.6cqw}.plan .note{font-size:3.5cqw}
+@container (max-width:470px){
+  html:not(.plan) .deck{--r:11/14!important}html:not(.plan) .ct{--r:3/11!important}
+  html:not(.plan) .f1{--c:1/13!important;--r:15!important;text-align:center}html:not(.plan) .f2{--c:1/13!important;text-align:center}
+  html:not(.plan) .wide{--c:2/12!important}
+  html:not(.plan) .pg-in{--col:4.4cqw}
+}
+
+.look{display:flex;flex-direction:column;gap:1.2cqw;justify-content:center;align-items:center;text-align:center}
+.sw{display:flex;height:4.6cqw;width:62%}
+.sw i{flex:1;background:var(--k);box-shadow:inset 0 0 0 1px rgba(128,128,128,.28)}
+.story{display:flex;flex-direction:column;gap:1cqw;justify-content:center;text-align:center}
+.list{list-style:none;display:flex;flex-direction:column;justify-content:space-between}
+.list li{display:flex;gap:2.4cqw;align-items:baseline;border-top:1px solid var(--rule);padding-top:1.4cqw;transition:border-color .5s}
+.list .lab{flex:none}
+.spec{white-space:pre;justify-self:center;border-top:1px solid var(--rule);padding-top:2cqw;transition:border-color .5s}
+
+/* fitting: columns, tags, balance mark */
+.cols{position:absolute;inset:7cqw;pointer-events:none;opacity:0;transition:opacity .3s;
+  background-image:linear-gradient(to right,var(--accent) 1px,transparent 1px);background-size:calc(100% / 12) 100%;border-right:1px solid var(--accent)}
+.fitting .cols{opacity:.3}
+.over{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .3s}
+.fitting .over{opacity:1}
+.reg{position:absolute;left:50%;top:0;bottom:0;width:0;border-left:1px dashed var(--accent)}
+.plumb{position:absolute;top:0;width:2px;margin-left:-1px;background:var(--accent)}
+.bob{position:absolute;width:2.6cqw;height:2.6cqw;margin:-1.3cqw 0 0 -1.3cqw;border-radius:50%;background:var(--accent)}
+.tag{position:absolute;font-family:var(--mono);font-size:14px;line-height:1;padding:4px 6px;background:var(--ink);color:var(--paper);white-space:nowrap;letter-spacing:0;transform:translateY(-100%)}
+.tag.hang{background:var(--accent);color:#fff;transform:none}
+.plan .tag{display:none}
+
+/* flat plan */
+.plan{--pw:calc(min((100dvh - var(--top) - var(--foot) - 64px) / 2 * var(--ar), (100vw - 96px - 2 * var(--gap)) / 3));--gap:24px}
+.plan .run{flex-wrap:wrap;justify-content:center;align-content:center;overflow:hidden;padding:0 max(48px,calc((100vw - 3 * var(--pw) - 2 * var(--gap)) / 2 - 1px))}
+.plan .run::after{display:none}
+.plan .pg{cursor:pointer}
+.plan .pg:hover{outline:2px solid var(--bar-ink);outline-offset:4px}
+.pgn{position:absolute;left:0;right:0;bottom:1.6cqw;text-align:center;font-family:var(--mono);font-size:2.4cqw;color:var(--mute);opacity:0}
+.plan .pgn{opacity:1}
+
+/* bar */
+.bar{position:fixed;inset:auto 0 0 0;height:var(--foot);z-index:5;background:var(--bar);border-top:1px solid var(--bar-line);display:flex;align-items:center;gap:28px;padding:0 24px}
+.grp{display:flex;align-items:center;gap:12px}
+.k{font-family:var(--mono);font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--bar-mute)}
+.seg{display:flex;border:1px solid var(--bar-ink)}
+.seg button{height:44px;padding:0 16px;font-weight:500;font-size:16px;border-right:1px solid var(--bar-ink)}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:var(--bar-ink);color:var(--bar)}
+.seg button:not([aria-pressed="true"]):hover{background:var(--desk)}
+.dial{flex:1;min-width:0;max-width:440px}
+.dial input{flex:1;min-width:60px;height:44px;appearance:none;-webkit-appearance:none;background:transparent;cursor:ew-resize}
+.dial input::-webkit-slider-runnable-track{height:1px;background:var(--bar-ink)}
+.dial input::-moz-range-track{height:1px;background:var(--bar-ink)}
+.dial input::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:28px;margin-top:-14px;background:var(--bar-ink);border:0;border-radius:0}
+.dial input::-moz-range-thumb{width:14px;height:28px;background:var(--bar-ink);border:0;border-radius:0}
+.dial output{font-family:var(--mono);font-size:16px;width:3ch;text-align:right}
+.hangs{font-family:var(--mono);font-size:14px;color:var(--bar-mute);white-space:nowrap;margin-right:auto}
+.tool{height:44px;padding:0 14px;display:flex;align-items:center;gap:8px;border:1px solid var(--bar-ink);font-weight:500;white-space:nowrap}
+.tool svg{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tool[aria-pressed="true"]{background:var(--bar-ink);color:var(--bar)}
+.tool:not([aria-pressed="true"]):hover{background:var(--desk)}
+
+@media (max-width:1180px){.hangs{display:none}.bar{gap:16px}.dial{margin-right:auto}}
+@media (max-width:760px){
+  :root{--top:52px;--foot:124px;--ar:.66;--pw:calc(100vw - 32px);--gap:16px}
+  .top{padding:0 16px}.top p{display:none}
+  .run{position:static;flex-direction:column;overflow:visible;padding:calc(var(--top) + 8px) 16px calc(var(--foot) + 24px)}
+  .run::after{display:none}
+  .bar{flex-wrap:wrap;gap:8px 8px;padding:8px 12px;align-content:center}
+  .bar .grp:first-child{width:100%}.bar .grp:first-child .k{display:none}
+  .seg{width:100%}.seg button{flex:1;padding:0 4px;font-size:15px}
+  .dial{flex:1;margin:0}.dial .k{display:none}
+  .tool span{display:none}.tool{padding:0 12px}
+  .pg-in{--col:3.6cqw}
+  .lab{letter-spacing:.02em}
+  .plan{--pw:calc((100vw - 32px - 12px) / 2);--gap:12px}
+  .plan .run{flex-direction:row;padding:calc(var(--top) + 8px) 16px calc(var(--foot) + 24px)}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important}}
+::view-transition-group(*){animation-duration:.55s;animation-timing-function:cubic-bezier(.2,.7,.1,1)}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="mark">/L <span>Editorial</span></div>
+  <p>Issue No. 04 · Rare Form · Spring / Summer 2026</p>
+</header>
+
+<main class="run" id="run" aria-label="Issue No. 04, six pages">
+
+  <article class="pg" data-name="Cover" style="view-transition-name:pg1"><div class="cols"></div><div class="pg-in">
+    <p class="b lab" style="--c:1/7;--r:1"><b>/L Editorial</b></p>
+    <p class="b lab r" style="--c:7/13;--r:1">Issue No. 04</p>
+    <h1 class="b fit ct" data-tag style="--c:1/13;--r:3/13;--dx:-.5;--dy:.4;--ds:.3;--o:0 60%"><span class="ln">Rare</span><span class="ln">Form</span></h1>
+    <p class="b body c end deck" data-tag style="--c:3/11;--r:13/16;--dx:-2;--dy:.3">One issue, cut four ways. A reference for people and agents who set type.</p>
+    <p class="b lab end f1" style="--c:1/7;--r:16">Spring / Summer 2026</p>
+    <p class="b lab r end f2" style="--c:6/13;--r:16">Paris, Milan, New York</p>
+  </div><div class="over"></div><span class="pgn">1</span></article>
+
+  <article class="pg" data-name="Director's notes" style="view-transition-name:pg2"><div class="cols"></div><div class="pg-in">
+    <p class="b lab c" style="--c:1/13;--r:1;--dx:-3.6">Director's notes</p>
+    <blockquote class="b head c mid" data-tag style="--c:2/12;--r:2/8;--s:9.4;--dx:-1;--dy:-.6;--ds:.3">Clothes as atmosphere, not ornament.</blockquote>
+    <p class="b body wide" data-tag style="--c:3/11;--r:8/15;--dx:2;--dy:.8">The composition rejects symmetry in favor of pacing, interruption, and lingering whitespace. A restrained frame disrupted by exaggerated scale and fractured alignment. The page reads like a magazine cover pulled apart and rebuilt as a digital object.</p>
+    <p class="b lab c end" style="--c:1/13;--r:16;--dx:1.6">/L Creative Direction, HumanLup</p>
+  </div><div class="over"></div><span class="pgn">2</span></article>
+
+  <article class="pg" data-name="Lookbook" style="view-transition-name:pg3"><div class="cols"></div><div class="pg-in">
+    <p class="b lab c" style="--c:1/13;--r:1;--dx:-3.9">Lookbook</p>
+    <h2 class="b head mid c" data-tag style="--c:1/13;--r:2/5;--s:8.6;--ds:.15;--dx:-.8;--dy:-.2">Season defined</h2>
+    <div class="b look" style="--c:1/13;--r:5/9;--dx:-2.4">
+      <p class="lab">Look <b>01</b></p><p class="note" data-tag>Structured layering / tonal earth</p>
+      <div class="sw" aria-hidden="true"><i style="--k:#3b2f25"></i><i style="--k:#6b4f36"></i><i style="--k:#8b7355"></i><i style="--k:#c4a882"></i></div>
+    </div>
+    <div class="b look" style="--c:1/13;--r:9/13;--dx:2.8">
+      <p class="lab">Look <b>02</b></p><p class="note">Union of contrasts / Copenhagen tailoring</p>
+      <div class="sw" aria-hidden="true"><i style="--k:#0a0a0a"></i><i style="--k:#ffffff"></i><i style="--k:#0a0a0a"></i><i style="--k:#c42d38"></i></div>
+    </div>
+    <div class="b look" style="--c:1/13;--r:13/16;--dx:-.7;--dy:.3">
+      <p class="lab">Look <b>03</b></p><p class="note">Coastal ease / elevated casual</p>
+      <div class="sw" aria-hidden="true"><i style="--k:#5d7f8f"></i><i style="--k:#9fb4bd"></i><i style="--k:#d9d2c0"></i><i style="--k:#f0ebe0"></i></div>
+    </div>
+    <p class="b lab c end" style="--c:1/13;--r:16;--dx:1.4;--dy:.5">Swatches read from the notes</p>
+  </div><div class="over"></div><span class="pgn">3</span></article>
+
+  <article class="pg" data-name="Manifesto" style="view-transition-name:pg4"><div class="cols"></div><div class="pg-in">
+    <p class="b lab c" style="--c:1/13;--r:1;--dx:-4">Manifesto</p>
+    <h2 class="b fit" data-tag style="--c:1/13;--r:2/9;--dx:-.6;--dy:-.2;--ds:.18"><span class="ln">Minimal structure,</span><span class="ln">then deliberate</span><span class="ln acc">imbalance.</span></h2>
+    <ul class="b list body" data-tag style="--c:1/7;--r:10/16;--dy:-.3">
+      <li><span class="lab">01</span>One type family, two axes.</li>
+      <li><span class="lab">02</span>Twelve columns under every page.</li>
+      <li><span class="lab">03</span>Imbalance after structure.</li>
+    </ul>
+    <ul class="b list body" style="--c:7/13;--r:10/16;--dx:.5;--dy:1.1;padding-left:3cqw">
+      <li><span class="lab">04</span>Whitespace counts as content.</li>
+      <li><span class="lab">05</span>One issue, four cuts.</li>
+      <li><span class="lab">06</span>Every block carries its measure.</li>
+    </ul>
+  </div><div class="over"></div><span class="pgn">4</span></article>
+
+  <article class="pg" data-name="Story heads" style="view-transition-name:pg5"><div class="cols"></div><div class="pg-in">
+    <p class="b lab c" style="--c:1/13;--r:1;--dx:-3.8">Story heads</p>
+    <div class="b story" style="--c:2/12;--r:2/7;--dx:-1.6">
+      <p class="lab acc">Style</p><h3 class="head" data-tag style="--s:5.2">The New Formal: Suiting Without the Stiffness</h3>
+      <p class="body">What dressing up means in 2026.</p>
+    </div>
+    <div class="b story" style="--c:2/12;--r:7/11;--dx:1.7;--ds:.1">
+      <p class="lab acc">Culture</p><h3 class="head" style="--s:5.2">From Runway to Repository: Design Systems for AI</h3>
+      <p class="body">A visual language machines can reference and people can admire.</p>
+    </div>
+    <div class="b story" style="--c:2/12;--r:11/16;--dx:-.5;--dy:.3">
+      <p class="lab acc">Hype art</p><h3 class="head" style="--s:5.2">Objects of Desire: When Drops Become Art</h3>
+      <p class="body">Scarcity, design and community in the modern drop.</p>
+    </div>
+  </div><div class="over"></div><span class="pgn">5</span></article>
+
+  <article class="pg" data-name="For agents" style="view-transition-name:pg6"><div class="cols"></div><div class="pg-in">
+    <p class="b lab c" style="--c:1/13;--r:1;--dx:-3.9">For agents</p>
+    <h2 class="b head mid c" data-tag style="--c:1/13;--r:2/6;--s:8.6;--ds:.2;--dx:-.6">The mess is the method.</h2>
+    <p class="b body wide" data-tag style="--c:3/11;--r:6/10;--dx:2">Observe the tension between structured grids and deliberate asymmetry. Typography carries the voice.</p>
+    <p class="b lab spec end" id="spec" style="--c:3/11;--r:10/16;--dx:-2;--dy:.3" aria-live="off"></p>
+  </div><div class="over"></div><span class="pgn">6</span></article>
+
+</main>
+
+<footer class="bar" aria-label="Controls">
+  <div class="grp"><span class="k" id="kcut">Cut</span>
+    <div class="seg" role="group" aria-labelledby="kcut">
+      <button data-cut-btn="tailored">Tailored</button><button data-cut-btn="street">Streetwear</button><button data-cut-btn="minimal">Minimal</button><button data-cut-btn="hype">Hype Art</button>
+    </div>
+  </div>
+  <label class="grp dial"><span class="k">Imbalance</span><input id="dial" type="range" min="0" max="100" step="1" value="25"><output id="dialo" for="dial">25</output></label>
+  <p class="hangs" id="hangs" aria-live="polite"></p>
+  <button class="tool" id="bfit" aria-pressed="false" aria-label="Fitting"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></svg><span>Fitting</span></button>
+  <button class="tool" id="bplan" aria-pressed="false" aria-label="Flat plan"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg><span>Flat plan</span></button>
+  <button class="tool" id="bcopy" aria-label="Copy spec"><svg viewBox="0 0 24 24" aria-hidden="true" id="icopy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg><span id="tcopy">Copy spec</span></button>
+</footer>
+<p class="vh" id="say" aria-live="polite"></p>
+
+<script>
+(() => {
+'use strict';
+const root = document.documentElement, run = document.getElementById('run');
+const pages = [...document.querySelectorAll('.pg')];
+const CUTS = {
+  tailored:{label:'Tailored', t:.25},
+  street:{label:'Streetwear', t:.6},
+  minimal:{label:'Minimal', t:.4},
+  hype:{label:'Hype Art', t:.85}
+};
+const state = {cut:'tailored', t:.25, fitting:false, plan:false};
+const m = /^#(tailored|street|minimal|hype)-(\d{1,3})$/.exec(location.hash);
+if (m) { state.cut = m[1]; state.t = Math.min(100, +m[2]) / 100; }
+
+const $ = id => document.getElementById(id);
+const dial = $('dial'), dialo = $('dialo'), hangs = $('hangs'), spec = $('spec');
+const num = (el, p) => parseFloat(getComputedStyle(el).getPropertyValue(p)) || 0;
+const sgn = v => (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(1);
+
+/* ---- fit display type to its grid area, once per cut ---- */
+function fitAll() {
+  for (const pg of pages) for (const el of pg.querySelectorAll('.fit')) {
+    const aw = el.offsetWidth, ah = el.offsetHeight, pw = pg.offsetWidth;
+    if (!aw || !pw) continue;
+    const lines = [...el.querySelectorAll('.ln')];
+    const probe = document.createElement('span'); probe.className = 'fit-m'; pg.appendChild(probe);
+    let widest = 1;
+    for (const l of lines) { probe.textContent = l.textContent; widest = Math.max(widest, probe.getBoundingClientRect().width); }
+    const fill = num(el, '--fill') || 1;
+    probe.remove();
+    const size = Math.min(aw * fill / (widest / 100), ah * .82 / (lines.length * .88));
+    el.style.setProperty('--fz', (size / pw * 100).toFixed(3));
+  }
+}
+
+/* ---- where the type hangs: centre of mass of the ink on each page ---- */
+const range = document.createRange();
+function weigh(pg) {
+  const pr = pg.getBoundingClientRect();
+  let W = 0, X = 0, Y = 0; const boxes = new Map();
+  const add = (r, d, owner) => {
+    const l = Math.max(r.left, pr.left), rt = Math.min(r.right, pr.right), t = Math.max(r.top, pr.top), b = Math.min(r.bottom, pr.bottom);
+    if (rt <= l || b <= t) return;
+    const a = (rt - l) * (b - t) * d; W += a; X += a * (l + rt) / 2; Y += a * (t + b) / 2;
+    if (owner) { const o = boxes.get(owner); if (!o) boxes.set(owner, {l:r.left, t:r.top}); else { o.l = Math.min(o.l, r.left); o.t = Math.min(o.t, r.top); } }
+  };
+  const walk = document.createTreeWalker(pg.querySelector('.pg-in'), NodeFilter.SHOW_TEXT);
+  let n;
+  while ((n = walk.nextNode())) {
+    if (!n.nodeValue.trim()) continue;
+    const p = n.parentElement, cs = getComputedStyle(p);
+    const d = (+cs.fontWeight || 400) / 900 * .5;
+    const owner = p.closest('[data-tag]');
+    range.selectNodeContents(n);
+    for (const r of range.getClientRects()) add(r, d, owner);
+  }
+  for (const s of pg.querySelectorAll('.sw i')) add(s.getBoundingClientRect(), .6, null);
+  const cx = pr.left + pr.width / 2, cy = pr.top + pr.height / 2;
+  const dx = W ? (X / W - cx) : 0, dy = W ? (Y / W - cy) : 0;
+  return {pr, dx, dy, x:dx / pr.width * 100, y:dy / pr.width * 100, boxes};
+}
+
+function mark(pg, w) {
+  const over = pg.querySelector('.over');
+  if (!over.firstChild) over.innerHTML = '<i class="reg"></i><i class="plumb"></i><i class="bob"></i><span class="tag hang"></span>';
+  const [, plumb, bob, hang] = over.children;
+  bob.style.left = plumb.style.left = (50 + w.x) + '%';
+  bob.style.top = plumb.style.height = (50 + w.dy / w.pr.height * 100) + '%';
+  hang.textContent = Math.abs(w.x) < .3 ? 'hangs true' : `hangs ${Math.abs(w.x).toFixed(1)}% ${w.x < 0 ? 'left' : 'right'}`;
+  hang.style.left = '0'; hang.style.bottom = '0'; hang.style.top = 'auto';
+  if (!state.fitting || state.plan) return;
+  /* a care label for every measured block */
+  const pin = pg.querySelector('.pg-in');
+  for (const el of pg.querySelectorAll('[data-tag]')) {
+    let tag = el._tag; if (!tag) { tag = el._tag = document.createElement('span'); tag.className = 'tag'; over.appendChild(tag); }
+    const box = w.boxes.get(el), cs = getComputedStyle(el), blk = el.closest('.b');
+    if (!box) { tag.style.display = 'none'; continue; }
+    tag.style.display = '';
+    const disp = cs.fontFamily.includes('Anybody');
+    let s = disp ? `${Math.round(parseFloat(cs.fontStretch))}/${Math.round(cs.fontWeight)}` : `text ${cs.fontWeight}`;
+    s += ` · ${Math.round(parseFloat(cs.fontSize) * new DOMMatrix(getComputedStyle(blk).transform).a)}px`;
+    const dx = num(blk, '--dx') * state.t, dy = num(blk, '--dy') * state.t;
+    if (Math.abs(dx) >= .05 || Math.abs(dy) >= .05) s += ` · ${sgn(dx)}, ${sgn(dy)} col`;
+    tag.textContent = s;
+    const tw = tag.offsetWidth, th = tag.offsetHeight;
+    const x = Math.max(0, Math.min(w.pr.width - tw, box.l - w.pr.left));
+    const y = Math.max(th, Math.min(w.pr.height, box.t - w.pr.top - 2));
+    tag.style.left = x + 'px'; tag.style.top = y + 'px';
+  }
+}
+
+let lastHang = 0, weights = [];
+function measure() {
+  weights = pages.map(pg => { const w = weigh(pg); mark(pg, w); return w; });
+  lastHang = weights.reduce((s, w) => s + Math.abs(w.x), 0) / weights.length;
+  hangs.textContent = lastHang < .3 ? 'Type hangs true' : `Type hangs ${lastHang.toFixed(1)}% off axis`;
+  writeSpec();
+}
+let until = 0, raf = 0;
+function track(ms) {
+  until = Math.max(until, performance.now() + ms);
+  if (raf) return;
+  const tick = () => { measure(); raf = performance.now() < until ? requestAnimationFrame(tick) : 0; };
+  raf = requestAnimationFrame(tick);
+}
+
+/* ---- the spec, on the last page and on the clipboard ---- */
+function tokens() {
+  const cs = getComputedStyle(root), g = p => cs.getPropertyValue(p).trim();
+  return {cut:CUTS[state.cut].label, wd:parseFloat(g('--wd')), wg:+g('--wg'), hwd:parseFloat(g('--hwd')), hwg:+g('--hwg'), tw:+g('--tw'),
+    paper:g('--paper'), ink:g('--ink'), accent:g('--accent')};
+}
+function writeSpec() {
+  const k = tokens(), row = (a, b) => a.padEnd(11) + b;
+  spec.textContent = [
+    row('cut', k.cut), row('display', `Anybody ${k.wd}/${k.wg}`), row('head', `Anybody ${k.hwd}/${k.hwg}`), row('text', `Albert Sans ${k.tw}`),
+    row('grid', '12 col, 16 row'), row('imbalance', state.t.toFixed(2)), row('hang', lastHang.toFixed(1) + '% off axis'),
+    row('paper', k.paper), row('ink', k.ink), row('accent', k.accent)
+  ].join('\n');
+}
+function specJSON() {
+  const k = tokens();
+  return JSON.stringify({
+    issue:'/L Editorial, Issue No. 04, Rare Form', cut:k.cut, imbalance:+state.t.toFixed(2),
+    type:{display:{family:'Anybody', wdth:k.wd, wght:k.wg}, head:{family:'Anybody', wdth:k.hwd, wght:k.hwg}, text:{family:'Albert Sans', wght:k.tw}, label:{family:'Chivo Mono', wght:400}},
+    color:{paper:k.paper, ink:k.ink, accent:k.accent},
+    grid:{columns:12, rows:16, margin:'7% of page width', page:'3:4'},
+    rule:'shift = imbalance x offset, in columns; scale = 1 + imbalance x gain x ' + num(root, '--sg'),
+    pages:pages.map((pg, i) => ({
+      name:pg.dataset.name,
+      hang:{x:+weights[i].x.toFixed(1), unit:'% of page width, from the center axis, right is positive'},
+      blocks:[...pg.querySelectorAll('.b')].map(b => {
+        const cs = getComputedStyle(b), v = p => cs.getPropertyValue(p).trim();
+        return {role:b.classList.contains('fit') ? 'display' : b.classList.contains('head') ? 'head' : b.classList.contains('lab') ? 'label' : b.classList.contains('body') ? 'text' : 'group',
+          text:(b.classList.contains('fit') ? [...b.querySelectorAll('.ln')].map(l => l.textContent).join(' ') : b.textContent.replace(/\s+/g, ' ').trim()).slice(0, 48), columns:v('--c'), rows:v('--r'),
+          offset:[num(b, '--dx'), num(b, '--dy')], gain:num(b, '--ds')};
+      })
+    }))
+  }, null, 2);
+}
+
+/* ---- state ---- */
+function apply(why) {
+  root.dataset.cut = state.cut;
+  root.style.setProperty('--t', state.t.toFixed(3));
+  root.classList.toggle('fitting', state.fitting);
+  root.classList.toggle('plan', state.plan);
+  document.querySelectorAll('[data-cut-btn]').forEach(b => b.setAttribute('aria-pressed', b.dataset.cutBtn === state.cut));
+  $('bfit').setAttribute('aria-pressed', state.fitting); $('bplan').setAttribute('aria-pressed', state.plan);
+  const v = Math.round(state.t * 100); dial.value = v; dialo.textContent = v;
+  if (why !== 'init') history.replaceState(null, '', '#' + state.cut + '-' + v);
+  pages.forEach(p => { if (state.plan) { p.tabIndex = 0; p.setAttribute('role', 'button'); p.setAttribute('aria-label', 'Open page ' + p.dataset.name); } else { p.removeAttribute('tabindex'); p.removeAttribute('role'); p.removeAttribute('aria-label'); } });
+  if (why === 'cut' || why === 'init') fitAll();
+  track(why === 'dial' ? 60 : 900);
+}
+document.querySelectorAll('[data-cut-btn]').forEach(b => b.addEventListener('click', () => {
+  state.cut = b.dataset.cutBtn; state.t = CUTS[state.cut].t; apply('cut');
+  $('say').textContent = `${CUTS[state.cut].label} cut, imbalance ${Math.round(state.t * 100)}`;
+}));
+dial.addEventListener('input', () => { root.classList.add('live'); state.t = dial.value / 100; apply('dial'); });
+const settle = () => root.classList.remove('live');
+dial.addEventListener('change', settle); dial.addEventListener('pointerup', settle); dial.addEventListener('keyup', settle);
+$('bfit').addEventListener('click', () => { state.fitting = !state.fitting; apply('fit'); });
+
+function vt(fn) { if (document.startViewTransition && !matchMedia('(prefers-reduced-motion: reduce)').matches) document.startViewTransition(fn); else fn(); }
+function setPlan(on, open) {
+  vt(() => {
+    state.plan = on; apply('plan');
+    if (!on && open) { if (matchMedia('(max-width:760px)').matches) open.scrollIntoView({block:'start'}); else run.scrollLeft = open.offsetLeft - 48; }
+    if (on) { run.scrollLeft = 0; if (matchMedia('(max-width:760px)').matches) scrollTo(0, 0); }
+    fitAll();
+  });
+}
+$('bplan').addEventListener('click', () => setPlan(!state.plan));
+pages.forEach(p => {
+  p.addEventListener('click', () => { if (state.plan) setPlan(false, p); });
+  p.addEventListener('keydown', e => { if (state.plan && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); setPlan(false, p); } });
+});
+
+$('bcopy').addEventListener('click', async () => {
+  const text = specJSON(); let ok = true;
+  try { await navigator.clipboard.writeText(text); }
+  catch (e) { const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); try { ok = document.execCommand('copy'); } catch (_) { ok = false; } ta.remove(); }
+  $('tcopy').textContent = ok ? 'Copied' : 'Copy failed'; $('say').textContent = ok ? 'Spec copied' : 'Copy failed';
+  if (ok) $('icopy').innerHTML = '<path d="M20 6 9 17l-5-5"/>';
+  setTimeout(() => { $('tcopy').textContent = 'Copy spec'; $('icopy').innerHTML = '<rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>'; }, 1600);
+});
+
+/* ---- moving along the run ---- */
+run.addEventListener('wheel', e => {
+  if (state.plan || run.scrollWidth <= run.clientWidth) return;
+  if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) { run.scrollLeft += e.deltaY; e.preventDefault(); }
+}, {passive:false});
+run.addEventListener('scroll', () => { if (state.fitting) track(60); }, {passive:true});
+addEventListener('scroll', () => { if (state.fitting) track(60); }, {passive:true});
+addEventListener('keydown', e => {
+  if (state.plan || e.target.matches('input,button') || e.metaKey || e.ctrlKey || e.altKey) return;
+  if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+  const step = pages[0].offsetWidth + 28;
+  run.scrollBy({left:e.key === 'ArrowRight' ? step : -step, behavior:'smooth'}); e.preventDefault();
+});
+let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { fitAll(); track(300); }, 80); });
+
+apply('init');
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { fitAll(); track(900); });
+window.__L = {state, apply, weigh, specJSON, fitAll, measure};
+})();
+</script>
+</body>
+</html>

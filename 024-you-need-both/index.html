@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What if a brand could grow? · HumanLup</title>
+<!-- humanlup:meta -->
+<!-- HumanLup Design Lab 24 · Anthony Lupo · humanlup.com · X @humanlup · IG humanlup.ai · anthony@humanlup.com -->
+<meta name="author" content="Anthony Lupo">
+<meta name="creator" content="Anthony Lupo">
+<meta name="publisher" content="HumanLup">
+<meta name="copyright" content="© 2026 Anthony Lupo, HumanLup">
+<link rel="author" href="https://humanlup.com">
+<link rel="me" href="https://x.com/humanlup">
+<link rel="me" href="https://www.instagram.com/humanlup.ai">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HumanLup Design Lab 24">
+<meta property="og:title" content="What if a brand could grow? · HumanLup">
+<meta property="og:description" content="A concept for a creative studio. Eight colors, three typefaces and more flowers than it needs.">
+<meta property="og:image" content="preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@humanlup">
+<meta name="twitter:creator" content="@humanlup">
+<meta name="twitter:title" content="What if a brand could grow? · HumanLup">
+<meta name="twitter:description" content="A concept for a creative studio. Eight colors, three typefaces and more flowers than it needs.">
+<meta name="twitter:image" content="preview.jpg">
+<!-- /humanlup:meta -->
+<meta name="description" content="A concept for a creative studio. Eight colors, three typefaces and more flowers than it needs.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#18181b;--text:#3f3f46;--soft:#5b5b63;--line:#e4e4e7;--paper:#fff;
+  --red:#C13820;--amber:#E5AE63;--yellow:#E8D44D;--sage:#D5EBB6;--teal:#2B9E8F;--softblue:#A0C8DB;--blue:#2563EB;--bluedeep:#1D4ED8;
+  --o:1;--g:1;--gap:24px;
+  --head:Poppins,"Avenir Next","Helvetica Neue",sans-serif;
+  --body:Inter,-apple-system,"Helvetica Neue",sans-serif;
+  --mono:"IBM Plex Mono","SF Mono",Menlo,monospace;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{background:var(--paper);-webkit-text-size-adjust:100%}
+body{margin:0;color:var(--text);font:400 17px/1.55 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+#cv{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+main,footer{position:relative;z-index:1}
+.wrap{max-width:1248px;margin:0 auto;padding:0 24px}
+.row{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap)}
+h1,h2,h3{font-family:var(--head);color:var(--ink);margin:0}
+p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.mono{font:400 14px/1.4 var(--mono);color:var(--soft)}
+
+/* top bar */
+.nav{position:fixed;top:0;left:0;right:0;z-index:10;background:var(--paper);border-bottom:1px solid var(--line)}
+.nav .wrap{height:56px;display:flex;align-items:center;gap:12px}
+.nav b{font:700 15px/1 var(--head);color:var(--ink)}
+.nav .mono{margin-right:auto}
+.navdial{display:flex;align-items:center;gap:10px;width:230px;opacity:0;visibility:hidden;transition:opacity .25s}
+.navdial.on{opacity:1;visibility:visible}
+.navdial label{font:500 14px/1 var(--mono);color:var(--soft)}
+
+/* slider */
+input[type=range]{-webkit-appearance:none;appearance:none;background:none;width:100%;height:44px;margin:0;cursor:pointer;display:block}
+input[type=range]::-webkit-slider-runnable-track{height:2px;background:var(--ink)}
+input[type=range]::-moz-range-track{height:2px;background:var(--ink)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:32px;height:32px;margin-top:-15px;background:var(--ink);border:0;border-radius:calc(2px + 14px*var(--o))}
+input[type=range]::-moz-range-thumb{width:32px;height:32px;background:var(--ink);border:0;border-radius:calc(2px + 14px*var(--o))}
+.navdial input::-webkit-slider-thumb{width:22px;height:22px;margin-top:-10px;border-radius:calc(2px + 9px*var(--o))}
+.navdial input::-moz-range-thumb{width:22px;height:22px;border-radius:calc(2px + 9px*var(--o))}
+
+/* hero */
+.hero{position:relative;min-height:max(100vh,860px);padding:104px 0 0;border-bottom:2px solid var(--ink)}
+.bed{cursor:crosshair}
+.hero .bed{position:absolute;inset:0}
+.hero .wrap{position:relative;pointer-events:none}
+.heroText{grid-column:1/8;pointer-events:auto;padding-bottom:56px}
+.eyebrow{font:500 14px/1.4 var(--mono);color:var(--soft);margin-bottom:22px}
+h1{font-weight:800;font-size:clamp(40px,5vw,74px);line-height:.98;letter-spacing:-.035em}
+h1 span{display:block}
+.lede{margin-top:26px;max-width:33em;font-size:18px}
+.dial{margin-top:30px;max-width:560px;display:grid;grid-template-columns:96px 1fr;gap:6px 24px;align-items:center}
+.dial svg{width:96px;height:96px;display:block}
+.stops{display:flex;justify-content:space-between;margin-top:-2px}
+.stops button{min-height:44px;min-width:64px;padding:0 14px;border:1.5px solid var(--ink);background:var(--paper);border-radius:999px;font:600 15px/1 var(--head);color:var(--ink)}
+.stops button[aria-pressed=true]{background:var(--ink);color:#fff}
+.say{grid-column:1/-1;margin-top:10px;font-size:16px;color:var(--text)}
+.say b{color:var(--ink);font-weight:600}
+.hint{grid-column:1/-1;margin-top:14px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;font-size:15px;color:var(--soft)}
+.text{min-height:44px;padding:0 2px;border:0;background:none;font:600 15px/1 var(--body);color:var(--ink);text-decoration:underline;text-underline-offset:4px}
+
+/* sections */
+.sec{padding-top:112px}
+.sec .bed{align-self:stretch;min-height:340px;border-bottom:2px solid var(--ink)}
+h2{text-wrap:balance;font-weight:700;font-size:clamp(30px,3.4vw,46px);line-height:1.04;letter-spacing:-.03em}
+.sec .intro{margin-top:14px;max-width:30em}
+.num{font:500 14px/1 var(--mono);color:var(--soft);margin-bottom:14px}
+
+#colors .copy{grid-column:1/6}
+#colors .bed{grid-column:6/13}
+.sws{list-style:none;margin:28px 0 0;padding:0}
+.sws li{border-top:1px solid rgb(228 228 231/calc(.25 + .75*var(--g)))}
+.sw{width:100%;min-height:56px;display:grid;grid-template-columns:30px 1fr auto;gap:2px 14px;align-items:center;text-align:left;padding:8px 0;border:0;background:none}
+.sw i{grid-row:1/3;width:30px;height:30px;background:var(--c);border-radius:calc(2px + 13px*var(--o))}
+.sw b{font:600 17px/1.2 var(--head);color:var(--ink)}
+.sw small{grid-column:2;font-size:14px;color:var(--soft);line-height:1.3}
+.sw code{grid-row:1/3;grid-column:3;font:500 14px/1 var(--mono);color:var(--ink);background:var(--paper);padding:5px 0 5px 8px}
+.sw:hover code{text-decoration:underline;text-underline-offset:4px}
+.sw b:only-of-type:last-of-type{grid-row:1/3}
+
+#type .copy{grid-column:1/9}
+#type .bed{grid-column:10/13}
+.faces{margin-top:30px}
+.face{padding:22px 0 20px;border-top:1px solid rgb(228 228 231/calc(.25 + .75*var(--g)))}
+.face .big{color:var(--ink);line-height:1;letter-spacing:-.03em;font-size:clamp(44px,7.4vw,104px)}
+.f1 .big{font-family:var(--head);font-weight:800}
+.f2 .big{font-family:var(--body);font-weight:500;font-size:clamp(40px,6vw,84px)}
+.f3 .big{font-family:var(--mono);font-weight:400;letter-spacing:-.04em;font-size:clamp(28px,4.4vw,62px)}
+.face p{margin-top:10px;font-size:16px}
+
+#voice .bed{grid-column:1/5}
+#voice .copy{grid-column:6/13}
+.voice{margin:26px 0 0;padding:0}
+.voice div{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,8fr);gap:var(--gap);padding:18px 0;border-top:1px solid rgb(228 228 231/calc(.25 + .75*var(--g)));align-items:baseline}
+.voice dt{font:600 clamp(24px,2.6vw,34px)/1.05 var(--head);color:var(--ink);letter-spacing:-.02em}
+.voice dd{margin:0}
+.pair{margin-top:26px;display:grid;gap:18px}
+.pair p{padding-left:18px;border-left:4px solid var(--ink);font-size:18px;line-height:1.45;color:var(--ink)}
+.pair p.no{border-left-color:var(--line);color:var(--soft)}
+.pair b{display:block;font:500 14px/1.6 var(--mono);color:var(--soft)}
+
+#rest .a{grid-column:1/8}
+#rest .b{grid-column:9/13}
+.icons{list-style:none;margin:26px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:12px 28px}
+.icons li{display:flex;align-items:center;gap:10px;font-size:16px;color:var(--ink)}
+svg.ic{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.out{list-style:none;margin:22px 0 0;padding:0}
+.out li{display:flex;gap:12px;padding:11px 0;border-top:1px solid rgb(228 228 231/calc(.25 + .75*var(--g)));line-height:1.4}
+.out svg{color:var(--red);margin-top:1px}
+h3{font-weight:700;font-size:24px;letter-spacing:-.02em}
+
+footer{margin-top:128px}
+footer .wrap{padding-top:28px;padding-bottom:36px;border-top:2px solid var(--ink)}
+footer .row{row-gap:20px}
+footer .l{grid-column:1/8;font-size:15px}
+footer .r{grid-column:9/13;font-size:15px}
+footer b{color:var(--ink)}
+footer code{font:400 14px/1.4 var(--mono)}
+.strip{height:12px;background:conic-gradient(var(--ink) 25%,transparent 0 50%,var(--ink) 0 75%,transparent 0) 0 0/24px 24px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+
+@media (max-width:860px){
+  :root{--gap:16px}
+  .wrap{padding:0 16px}
+  .nav .mono{display:none}
+  .nav b{margin-right:auto}
+  .navdial{width:150px}
+  .navdial label{display:none}
+  .hero{min-height:0;padding-top:88px;border-bottom:0;display:flex;flex-direction:column}
+  .hero .wrap{width:100%}
+  .hero .bed{position:relative;inset:auto;order:2;height:330px;margin:0 16px;border-bottom:2px solid var(--ink)}
+  .heroText,#colors .copy,#colors .bed,#type .copy,#type .bed,#voice .bed,#voice .copy,#rest .a,#rest .b,footer .l,footer .r{grid-column:1/-1}
+  .heroText{padding-bottom:8px}
+  .dial{grid-template-columns:72px 1fr;gap:6px 16px}
+  .dial svg{width:72px;height:72px}
+  .stops button{min-width:0;padding:0 13px}
+  .sec{padding-top:80px}
+  .sec .bed{min-height:260px;height:260px;margin-top:28px}
+  #voice .bed{order:2}
+  #rest .b{margin-top:56px}
+  .voice div{grid-template-columns:1fr;gap:6px}
+  footer{margin-top:88px}
+}
+</style>
+</head>
+<body>
+<canvas id="cv" aria-hidden="true"></canvas>
+
+<header class="nav">
+  <div class="wrap">
+    <svg width="22" height="22" viewBox="0 0 48 48" fill="none" aria-hidden="true"><rect x="4" y="4" width="28" height="28" rx="2" fill="#18181b"/><rect x="16" y="16" width="28" height="28" rx="14" stroke="#18181b" stroke-width="2.5"/></svg>
+    <b>HumanLup</b>
+    <span class="mono">brand system</span>
+    <div class="navdial" id="navdial">
+      <label for="r2">Texture</label>
+      <input id="r2" type="range" min="0" max="100" step="1" value="50" tabindex="-1">
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="wrap"><div id="gridref"></div></div>
+
+<section class="hero" id="top">
+  <div class="bed" data-bed="hero" data-n="13" data-nm="6" data-s="1.5" data-avoid="heroText"></div>
+  <div class="wrap"><div class="row">
+    <div class="heroText" id="heroText">
+      <h1><span>What if a brand</span><span>could grow?</span></h1>
+      <p class="lede">A concept for a creative studio, made on a slow afternoon. It has eight colors, three typefaces and more flowers than it needs.</p>
+      <div class="dial">
+        <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><rect id="lgA" x="4" y="4" width="28" height="28" rx="2" fill="#18181b"/><rect id="lgB" x="16" y="16" width="28" height="28" rx="14" stroke="#18181b" stroke-width="2.5"/></svg>
+        <div>
+          <label class="sr" for="r1">How much texture, from all structure to all texture</label>
+          <input id="r1" type="range" min="0" max="100" step="1" value="50">
+          <div class="stops">
+            <button type="button" data-t="0">Cold</button>
+            <button type="button" data-t="50">Both</button>
+            <button type="button" data-t="100">Chaos</button>
+          </div>
+        </div>
+        <p class="say" id="say" aria-live="polite"></p>
+        <p class="hint"><span>Click the grid to plant one more.</span><button type="button" class="text" id="plant">Plant one</button></p>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<section class="sec wrap" id="colors"><div class="row">
+  <div class="copy">
+    <p class="num">Colors</p>
+    <h2>Eight colors, warm to cool</h2>
+    <p class="intro">Each color is one plant. Click a color to copy its hex.</p>
+    <ul class="sws" id="sws">
+      <li><button class="sw" type="button" data-hex="#C13820" style="--c:var(--red)"><i></i><b>Red</b><small>Alerts, warmth accent</small><code>#C13820</code></button></li>
+      <li><button class="sw" type="button" data-hex="#E5AE63" style="--c:var(--amber)"><i></i><b>Amber</b><small>Warnings, highlights</small><code>#E5AE63</code></button></li>
+      <li><button class="sw" type="button" data-hex="#E8D44D" style="--c:var(--yellow)"><i></i><b>Yellow</b><code>#E8D44D</code></button></li>
+      <li><button class="sw" type="button" data-hex="#D5EBB6" style="--c:var(--sage)"><i></i><b>Sage</b><small>Success, natural accent</small><code>#D5EBB6</code></button></li>
+      <li><button class="sw" type="button" data-hex="#2B9E8F" style="--c:var(--teal)"><i></i><b>Teal</b><small>Secondary actions, data</small><code>#2B9E8F</code></button></li>
+      <li><button class="sw" type="button" data-hex="#A0C8DB" style="--c:var(--softblue)"><i></i><b>Soft Blue</b><small>Backgrounds, surfaces</small><code>#A0C8DB</code></button></li>
+      <li><button class="sw" type="button" data-hex="#2563EB" style="--c:var(--blue)"><i></i><b>Blue</b><small>Primary actions, links</small><code>#2563EB</code></button></li>
+      <li><button class="sw" type="button" data-hex="#1D4ED8" style="--c:var(--bluedeep)"><i></i><b>Blue Deep</b><code>#1D4ED8</code></button></li>
+    </ul>
+  </div>
+  <div class="bed" data-bed="colors" data-pal="0,1,2,3,4,5,6,7" data-order data-s="1.3"></div>
+</div></section>
+
+<section class="sec wrap" id="type"><div class="row">
+  <div class="copy">
+    <p class="num">Type</p>
+    <h2>Three typefaces, three jobs</h2>
+    <div class="faces">
+      <div class="face f1"><div class="big">Poppins</div><p>Headings. Weights 400 to 800.</p></div>
+      <div class="face f2"><div class="big">Inter</div><p>Body and interface text. Weights 400 to 600.</p></div>
+      <div class="face f3"><div class="big">IBM Plex Mono</div><p>Code, data and tokens. Weights 400 and 500.</p></div>
+    </div>
+  </div>
+  <div class="bed" data-bed="type" data-n="3" data-ink data-s="1.2"></div>
+</div></section>
+
+<section class="sec wrap" id="voice"><div class="row">
+  <div class="bed" data-bed="voice" data-pal="0,1,4,6" data-order data-s="1.25"></div>
+  <div class="copy">
+    <p class="num">Voice</p>
+    <h2>How it talks</h2>
+    <dl class="voice">
+      <div><dt>Direct</dt><dd>Start with what matters. Cut the preamble. Respect people's time and intelligence.</dd></div>
+      <div><dt>Transparent</dt><dd>Name the friction. Acknowledge trade-offs. Confidence comes from honesty, not polish.</dd></div>
+      <div><dt>Accessible</dt><dd>No jargon without a plain-English definition. Technical rigor, human delivery.</dd></div>
+      <div><dt>Warm</dt><dd>Serious about craft, never cold. The work is rigorous. The way we talk about it is not.</dd></div>
+    </dl>
+    <div class="pair">
+      <p class="no"><b>Avoid</b>"We leverage cutting-edge AI-powered solutions to synergize cross-functional creative workflows and unlock unprecedented value."</p>
+      <p><b>Use</b>"We build with AI. Not as a buzzword, as a material. The same way a carpenter uses a lathe."</p>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec wrap" id="rest"><div class="row">
+  <div class="a">
+    <p class="num">Icons</p>
+    <h2>Icons sit beside words</h2>
+    <p class="intro">Lucide, 1.5 px stroke, 24 px. An icon never carries the meaning alone.</p>
+    <ul class="icons">
+      <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg>layers</li>
+      <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>palette</li>
+      <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></svg>code</li>
+      <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5a3 3 0 1 1 3 3m-3-3a3 3 0 1 0-3 3m3-3v1M9 8a3 3 0 1 0 3 3M9 8h1m5 0a3 3 0 1 1-3 3m3-3h-1m-2 3v-1"/><circle cx="12" cy="8" r="2"/><path d="M12 10v12"/><path d="M12 22c4.2 0 7-1.667 7-5-4.2 0-7 1.667-7 5Z"/><path d="M12 22c-4.2 0-7-1.667-7-5 4.2 0 7 1.667 7 5Z"/></svg>flower</li>
+      <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>leaf</li>
+      <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></svg>grid</li>
+      <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.707 21.293a1 1 0 0 1-1.414 0l-1.586-1.586a1 1 0 0 1 0-1.414l5.586-5.586a1 1 0 0 1 1.414 0l1.586 1.586a1 1 0 0 1 0 1.414z"/><path d="m18 13-1.375-6.874a1 1 0 0 0-.746-.776L3.235 2.028a1 1 0 0 0-1.207 1.207L5.35 15.879a1 1 0 0 0 .776.746L13 18"/><path d="m2.3 2.3 7.286 7.286"/><circle cx="11" cy="11" r="2"/></svg>pen</li>
+      <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg>terminal</li>
+    </ul>
+  </div>
+  <div class="b">
+    <h3>Five things to leave out</h3>
+    <ul class="out">
+      <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>Grain, noise or turbulence overlays</li>
+      <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>Equal-width column grids as the default</li>
+      <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>The same corner radius on everything</li>
+      <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>The generic card with a shadow</li>
+      <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>Purple as a primary or accent color</li>
+    </ul>
+  </div>
+</div></section>
+</main>
+
+<footer>
+  <div class="wrap"><div class="row">
+    <p class="l">@humanlup</p>
+    <p>Built by Lupo</p>
+  </div></div>
+  <div class="strip" aria-hidden="true"></div>
+</footer>
+
+<script>
+(() => {
+'use strict';
+const INK = '#18181b', U = 8, TAU = Math.PI * 2;
+const SP = [
+  {hex:'#C13820', n:5,  rho:1, L:5,   W:2.2, d:3.2, c:INK},
+  {hex:'#E5AE63', n:8,  rho:1, L:3,   W:2.6, d:2.7, c:INK},
+  {hex:'#E8D44D', n:12, rho:2, L:4.6, W:1.3, d:3.4, c:INK},
+  {hex:'#D5EBB6', n:3,  rho:1, L:4.2, W:3.2, d:2.5, c:'#2B9E8F', leafy:true, leaf:'#2B9E8F'},
+  {hex:'#2B9E8F', n:6,  rho:1, L:4,   W:2.4, d:2.9, c:'#E8D44D'},
+  {hex:'#A0C8DB', n:4,  rho:1, L:4,   W:4,   d:2.8, c:INK},
+  {hex:'#2563EB', n:7,  rho:1, L:4.4, W:1.8, d:3.1, c:'#E8D44D', ring:true},
+  {hex:'#1D4ED8', n:9,  rho:2, L:3.6, W:1.4, d:2.9, c:'#E5AE63'}
+];
+const cv = document.getElementById('cv'), ctx = cv.getContext('2d');
+const root = document.documentElement;
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const lerp = (a, b, k) => a + (b - a) * k;
+const smooth = x => x * x * (3 - 2 * x);
+const rng = seed => { let a = seed >>> 0; return () => { a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; };
+const hash = s => { let h = 2166136261; for (const ch of s) h = Math.imul(h ^ ch.charCodeAt(0), 16777619); return h >>> 0; };
+
+/* cells on a square ring, in angle order, for the all-structure end */
+const RING = {};
+for (const rho of [1, 2]) {
+  const cells = [];
+  for (let y = -rho; y <= rho; y++) for (let x = -rho; x <= rho; x++) if (Math.max(Math.abs(x), Math.abs(y)) === rho) cells.push([x, y, (Math.atan2(y, x) + TAU) % TAU]);
+  RING[rho] = cells.sort((a, b) => a[2] - b[2]);
+}
+
+let W = 0, H = 0, DPR = 1, t = .5, o = 1, w = 0, g = 1;
+let hot = -1, grid = null, beds = [], plants = [], extras = [], raf = 0, born = performance.now(), phone = false, nextSp = 0;
+
+function mk(x, gy, h, spi, seed, s, opt) {
+  const R = rng(seed), sp = SP[spi];
+  const n = Math.max(2, Math.round(h / (32 * s))), step = h / n, goff = [0], ox = [0];
+  const A = (1.5 + R() * 3) * U * s, f = .5 + R() * .7, ph = R() * TAU, drift = (R() - .5) * 8 * U * s;
+  let off = 0;
+  for (let i = 1; i <= n; i++) {
+    if (i > 1 && i < n && R() < .4) { const d = (R() < .5 ? -1 : 1) * 2 * U * s * (R() < .3 ? 2 : 1); if (Math.abs(off + d) <= 4 * U * s) off += d; }
+    goff.push(off);
+    const u = i / n; ox.push(A * Math.pow(u, 1.2) * Math.sin(i * f + ph) + drift * u * u);
+  }
+  const leaves = [];
+  for (let i = 1; i < n; i++) if (R() < (sp.leafy ? .95 : .62)) leaves.push({i, side: (i % 2 ? 1 : -1) * (R() < .85 ? 1 : -1), len: 3.4 + R() * 2.4, ang: .5 + R() * .5});
+  const phi = R() * TAU, jit = Array.from({length: sp.n}, () => (R() - .5) * .16);
+  return Object.assign({x, gy, h, sp, n, step, goff, ox, leaves, phi, jit, ph, s, ring: sp.ring || R() < .22, thr: 0, delay: 0, t0: born, ink: false}, opt);
+}
+
+function layout() {
+  DPR = Math.min(2, window.devicePixelRatio || 1); W = window.innerWidth; H = window.innerHeight;
+  cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR);
+  phone = W <= 860;
+  const sy = window.scrollY, ref = document.getElementById('gridref').getBoundingClientRect();
+  const NC = phone ? 4 : 12, G = phone ? 16 : 24, cw = (ref.width - (NC - 1) * G) / NC, lines = [];
+  for (let c = 0; c < NC; c++) { lines.push(ref.left + c * (cw + G)); lines.push(ref.left + c * (cw + G) + cw); }
+  grid = {lines};
+  beds = []; plants = [];
+  document.querySelectorAll('.bed').forEach(el => {
+    const r = el.getBoundingClientRect(), d = el.dataset;
+    const bed = {el, key: d.bed, x: r.left, y: r.top + sy, w: r.width, h: r.height, ground: r.bottom + sy, s: +(d.s || 1.2) * (phone ? .8 : 1), ink: 'ink' in d, cand: lines.filter(x => x > r.left + 22 && x < r.right - 22)};
+    const av = d.avoid && document.getElementById(d.avoid).getBoundingClientRect();
+    bed.ceil = x => (av && x > av.left - 30 && x < av.right + 30 && av.bottom + sy > bed.y && av.top + sy < bed.ground) ? av.bottom + sy + 28 : bed.y + (bed.key === 'hero' && !phone ? 110 : 30);
+    bed.cand = bed.cand.filter(x => bed.ground - bed.ceil(x) > 190);
+    beds.push(bed);
+    const R = rng(hash(bed.key) + (phone ? 7 : 0));
+    const pal = (d.pal || '0,1,2,3,4,5,6,7').split(',').map(Number), ordered = 'order' in d;
+    const n = ordered ? pal.length : Math.min(bed.cand.length, phone && d.nm ? +d.nm : +(d.n || pal.length));
+    let xs = [], ms = Math.max(40, bed.w / (n * 1.5));
+    const pool = bed.cand.slice().sort(() => R() - .5);
+    while (xs.length < n && ms > 6) { xs = []; for (const x of pool) { if (xs.length < n && xs.every(q => Math.abs(q - x) >= ms)) xs.push(x); } ms *= .8; }
+    if (ordered && bed.cand.length < pal.length) xs = pal.map((_, j) => r.left + r.width * (j + .5) / pal.length);
+    else if (ordered) { xs = []; for (let j = 0; j < n; j++) { const want = r.left + r.width * (j + .5) / n, free = bed.cand.filter(x => !xs.includes(x)); xs.push(free.reduce((a, b) => Math.abs(b - want) < Math.abs(a - want) ? b : a, free[0])); } }
+    xs.sort((a, b) => a - b);
+    const order = xs.map((_, i) => i).sort(() => R() - .5), po = Math.floor(R() * pal.length);
+    xs.forEach((x, j) => {
+      const spi = ordered ? pal[j % pal.length] : pal[(j + po) % pal.length];
+      plants.push(grow(bed, x, null, spi, hash(bed.key + j), R, {thr: ordered ? 0 : order[j] / n, delay: reduced ? 0 : 150 + R() * 700}));
+    });
+  });
+  for (const e of extras) { const bed = beds.find(b => b.key === e.key); if (bed) plants.push(grow(bed, bed.x + e.fx * bed.w, e.fh * bed.h, e.spi, e.seed, rng(e.seed), {thr: 0, delay: 0, t0: e.t0})); }
+  kick();
+}
+function grow(bed, x, wantH, spi, seed, R, opt) {
+  const sp = SP[spi], avail = Math.max(70, bed.ground - bed.ceil(x)), s = clamp(avail / 300, .7, bed.s), head = (sp.d + sp.L / 2) * U * s;
+  const h = wantH == null ? Math.max(44, (avail - head) * (.42 + .58 * R())) : clamp(wantH, 44, Math.max(44, bed.h - 20));
+  return mk(x, bed.ground, h, spi, seed, s, Object.assign({ink: bed.ink, key: bed.key, spi}, opt));
+}
+
+function rr(cx, cy, wd, ht, rot, rad) {
+  ctx.save(); ctx.translate(cx, cy); if (rot) ctx.rotate(rot);
+  ctx.beginPath(); rad = Math.max(0, Math.min(rad, wd / 2, ht / 2));
+  if (ctx.roundRect) ctx.roundRect(-wd / 2, -ht / 2, wd, ht, rad);
+  else { const x = -wd / 2, y = -ht / 2; ctx.moveTo(x + rad, y); ctx.arcTo(x + wd, y, x + wd, y + ht, rad); ctx.arcTo(x + wd, y + ht, x, y + ht, rad); ctx.arcTo(x, y + ht, x, y, rad); ctx.arcTo(x, y, x + wd, y, rad); ctx.closePath(); }
+  ctx.restore();
+}
+function stem(pts, r) {
+  ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]);
+  for (let i = 1; i < pts.length - 1; i++) {
+    const a = pts[i - 1], b = pts[i], c = pts[i + 1];
+    const v1x = a[0] - b[0], v1y = a[1] - b[1], v2x = c[0] - b[0], v2y = c[1] - b[1], l1 = Math.hypot(v1x, v1y), l2 = Math.hypot(v2x, v2y);
+    if (l1 < .5 || l2 < .5) { ctx.lineTo(b[0], b[1]); continue; }
+    const cos = clamp((v1x * v2x + v1y * v2y) / (l1 * l2), -1, 1), turn = Math.PI - Math.acos(cos), tn = Math.tan(turn / 2);
+    if (tn < .02) { ctx.lineTo(b[0], b[1]); continue; }
+    const dist = lerp(Math.min(r * tn, l1 / 2, l2 / 2), Math.min(l1, l2) / 2, w);
+    ctx.arcTo(b[0], b[1], b[0] + v2x / l2 * dist * 2, b[1] + v2y / l2 * dist * 2, dist / tn);
+  }
+  const z = pts[pts.length - 1]; ctx.lineTo(z[0], z[1]); ctx.stroke();
+}
+
+function drawPlant(p, now, dens) {
+  const sprout = p.thr <= 0 ? 1 : smooth(clamp((dens - p.thr) * 12 + .5));
+  const age = reduced ? 1 : clamp((now - p.t0 - p.delay) / 1100), k = Math.min(sprout, 1 - Math.pow(1 - age, 3));
+  if (k < .02) return;
+  const s = p.s, sp = p.sp, hs = k * (1 + .22 * w), live = reduced ? 0 : 1;
+  const N = [];
+  for (let i = 0; i <= p.n; i++) {
+    const u = i / p.n, sway = live * w * Math.sin(now * .0011 + p.ph + i * .35) * Math.pow(u, 1.5) * 16 * s;
+    N.push([lerp(p.x + p.goff[i], p.x + p.ox[i] * (1 + .5 * w), w) + sway, p.gy - i * p.step * hs]);
+  }
+  const pts = [N[0]];
+  for (let i = 1; i <= p.n; i++) { if (p.goff[i] !== p.goff[i - 1]) pts.push([lerp(p.x + p.goff[i - 1], N[i][0], w), N[i][1]]); pts.push(N[i]); }
+  const q = 2 * U * s * k, kk = Math.min(1, k * 1.2);
+
+  /* leaves */
+  ctx.globalCompositeOperation = 'multiply';
+  for (const l of p.leaves) {
+    const b = N[l.i], len = l.len * U * s * kk, wd = 1.7 * U * s * kk;
+    const ang = -Math.PI / 2 + l.side * (l.ang + live * o * .06 * Math.sin(now * .0013 + p.ph + l.i));
+    const cx = lerp(b[0] + l.side * (q / 2 + 2.5 * s), b[0] + Math.cos(ang) * len / 2, o), cy = lerp(b[1] - q / 2, b[1] + Math.sin(ang) * len / 2, o);
+    rr(cx, cy, lerp(q - 2, len, o), lerp(q - 2, wd, o), ang * o, lerp(2 * s, wd / 2, o));
+    if (p.ink) { ctx.globalCompositeOperation = 'source-over'; ctx.fillStyle = '#fff'; ctx.fill(); ctx.strokeStyle = INK; ctx.lineWidth = 1.5 * s; ctx.stroke(); }
+    else { ctx.fillStyle = sp.leaf || '#D5EBB6'; ctx.fill(); }
+  }
+  /* stem */
+  ctx.globalCompositeOperation = 'source-over';
+  ctx.strokeStyle = INK; ctx.lineWidth = 2.5 * s * (.6 + .4 * k); ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  stem(pts, lerp(lerp(1.5, 7, o), 40, w) * s);
+
+  /* flower */
+  const c = N[p.n], fs = s * k * (1 + .7 * w) * (hot === p.spi && p.key === 'colors' ? 1.22 : 1), breath = 1 + live * o * .05 * Math.sin(now * .0016 + p.ph);
+  const cells = RING[sp.rho], reach = (sp.d + sp.L / 2) * U * fs;
+  if (p.ring) {
+    const sz = lerp(q * (2 * sp.rho + 1) - 2, reach * 1.9, o), offp = lerp(q / 2, sz * .16, o);
+    rr(c[0] + offp, c[1] + offp, sz, sz, 0, lerp(2 * s, sz / 2, o)); ctx.strokeStyle = INK; ctx.lineWidth = 2 * s; ctx.stroke();
+  }
+  ctx.globalCompositeOperation = p.ink ? 'source-over' : 'multiply';
+  ctx.globalAlpha = p.ink ? 1 : lerp(1, .84, o);
+  for (let j = 0; j < sp.n; j++) {
+    const a = p.phi + j * TAU / sp.n + p.jit[j] * o, an = ((a % TAU) + TAU) % TAU;
+    const cell = cells[Math.round((p.phi % TAU + TAU) % TAU / TAU * cells.length + j * cells.length / sp.n) % cells.length];
+    const r0 = Math.round(an / (Math.PI / 2)) * (Math.PI / 2);
+    const dd = sp.d * U * fs * breath;
+    rr(lerp(c[0] + cell[0] * q, c[0] + Math.cos(a) * dd, o), lerp(c[1] + cell[1] * q, c[1] + Math.sin(a) * dd, o),
+       lerp(q - 2, sp.L * U * fs, o), lerp(q - 2, sp.W * U * fs, o), lerp(r0, an, o), lerp(2 * s, sp.W * U * fs / 2, o));
+    if (p.ink) { ctx.fillStyle = '#fff'; ctx.fill(); ctx.strokeStyle = INK; ctx.lineWidth = 1.75 * s; ctx.stroke(); }
+    else { ctx.fillStyle = sp.hex; ctx.fill(); }
+  }
+  ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
+  const cs = lerp(q - 2, 2.3 * U * fs, o);
+  rr(c[0], c[1], cs, cs, 0, lerp(2 * s, cs / 2, o)); ctx.fillStyle = p.ink ? INK : sp.c; ctx.fill();
+}
+
+function draw(now) {
+  const sy = window.scrollY;
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0); ctx.clearRect(0, 0, W, H);
+  if (g > .01) {
+    ctx.lineWidth = 1; ctx.strokeStyle = `rgba(24,24,27,${.11 * g})`; ctx.beginPath();
+    for (const x of grid.lines) { const X = Math.round(x) + .5; ctx.moveTo(X, 0); ctx.lineTo(X, H); }
+    ctx.stroke();
+    ctx.strokeStyle = `rgba(24,24,27,${.055 * g})`; ctx.beginPath();
+    const x0 = grid.lines[0], x1 = grid.lines[grid.lines.length - 1];
+    for (let y = -(sy % 64); y < H; y += 64) { ctx.moveTo(x0, Math.round(y) + .5); ctx.lineTo(x1, Math.round(y) + .5); }
+    ctx.stroke();
+  }
+  ctx.translate(0, -sy);
+  const dens = .45 + .55 * t; let growing = false;
+  for (const p of plants) {
+    if (!reduced && now - p.t0 - p.delay < 1150) growing = true;
+    if (p.gy < sy - 40 || p.gy - p.h * 1.3 - 200 > sy + H) continue;
+    drawPlant(p, now, dens);
+  }
+  return growing;
+}
+function frame(now) { raf = 0; const growing = draw(now); if (growing || (!reduced && o > 0 && !document.hidden)) raf = requestAnimationFrame(frame); }
+function kick() { if (!raf) raf = requestAnimationFrame(frame); }
+
+/* the dial */
+const r1 = document.getElementById('r1'), r2 = document.getElementById('r2'), say = document.getElementById('say');
+const lgA = document.getElementById('lgA'), lgB = document.getElementById('lgB');
+const SAY = [
+  ['All structure.', 'A grid, squares and labels.'],
+  ['Mostly structure.', 'The squares are starting to round off.'],
+  ['Both.', 'A straight skeleton with a round skin, the way the logo draws it: one square, one circle.'],
+  ['Mostly texture.', 'The stems are leaving the grid lines.'],
+  ['All texture.', 'The grid is gone and nothing lines up.']
+];
+let bucket = -1, hashTimer = 0;
+function setT(v, from) {
+  t = clamp(v); o = smooth(clamp(t / .5)); w = smooth(clamp((t - .5) / .5)); g = 1 - w;
+  root.style.setProperty('--o', o.toFixed(3)); root.style.setProperty('--g', g.toFixed(3));
+  lgA.setAttribute('rx', (2 + 12 * w).toFixed(2)); lgB.setAttribute('rx', (2 + 12 * o).toFixed(2));
+  const pc = Math.round(t * 100);
+  if (from !== r1) r1.value = pc; if (from !== r2) r2.value = pc;
+  r1.setAttribute('aria-valuetext', pc + ' percent texture'); r2.setAttribute('aria-valuetext', pc + ' percent texture');
+  document.querySelectorAll('.stops button').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.t === pc)));
+  const b = t < .12 ? 0 : t < .4 ? 1 : t <= .6 ? 2 : t < .88 ? 3 : 4;
+  if (b !== bucket) { bucket = b; say.innerHTML = '<b>' + SAY[b][0] + '</b> ' + SAY[b][1]; }
+  clearTimeout(hashTimer); hashTimer = setTimeout(() => { try { history.replaceState(null, '', pc === 50 ? location.pathname + location.search : '#t=' + pc); } catch (e) {} }, 250);
+  kick();
+}
+r1.addEventListener('input', () => setT(r1.value / 100, r1));
+r2.addEventListener('input', () => setT(r2.value / 100, r2));
+let glide = 0;
+function glideTo(target) {
+  cancelAnimationFrame(glide);
+  if (reduced) return setT(target);
+  const from = t, start = performance.now();
+  const step = now => { const k = clamp((now - start) / 700); setT(lerp(from, target, smooth(k))); if (k < 1) glide = requestAnimationFrame(step); };
+  glide = requestAnimationFrame(step);
+}
+document.querySelectorAll('.stops button').forEach(b => b.addEventListener('click', () => glideTo(+b.dataset.t / 100)));
+
+/* the small slider in the bar shows once the big one is off screen */
+const navdial = document.getElementById('navdial');
+new IntersectionObserver(es => { const on = !es[0].isIntersecting; navdial.classList.toggle('on', on); r2.tabIndex = on ? 0 : -1; }, {rootMargin: '-56px 0px 0px 0px'}).observe(r1);
+
+/* planting */
+function plantAt(bed, x, wantH) {
+  const near = bed.cand.reduce((a, b) => Math.abs(b - x) < Math.abs(a - x) ? b : a, bed.cand[0]);
+  if (near == null) return;
+  const pal = (bed.el.dataset.pal || '0,1,2,3,4,5,6,7').split(',').map(Number), spi = pal[nextSp++ % pal.length], seed = (Math.random() * 1e9) | 0;
+  const e = {key: bed.key, fx: (near - bed.x) / bed.w, fh: wantH / bed.h, spi, seed, t0: performance.now()};
+  extras.push(e); if (extras.length > 30) { const old = extras.shift(); plants = plants.filter(p => p.t0 !== old.t0); }
+  plants.push(grow(bed, near, wantH, spi, seed, rng(seed), {thr: 0, delay: 0, t0: e.t0}));
+  kick();
+}
+document.querySelectorAll('.bed').forEach(el => el.addEventListener('click', ev => {
+  const bed = beds.find(b => b.el === el); if (!bed) return;
+  plantAt(bed, ev.clientX, bed.ground - (ev.clientY + window.scrollY));
+}));
+document.getElementById('plant').addEventListener('click', () => {
+  const bed = beds.find(b => b.key === 'hero'); if (!bed || !bed.cand.length) return;
+  const x = bed.cand[Math.floor(Math.random() * bed.cand.length)], room = bed.ground - bed.ceil(x);
+  plantAt(bed, x, room * (.35 + Math.random() * .5));
+});
+
+/* copy a hex */
+document.getElementById('sws').addEventListener('click', ev => {
+  const b = ev.target.closest('.sw'); if (!b) return;
+  const code = b.querySelector('code'), hex = b.dataset.hex;
+  const done = () => { code.textContent = 'Copied'; clearTimeout(b._t); b._t = setTimeout(() => code.textContent = hex, 1300); };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(hex).then(done, fallback); else fallback();
+  function fallback() { const ta = document.createElement('textarea'); ta.value = hex; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); done(); } catch (e) {} ta.remove(); }
+});
+
+/* point at a color and its plant opens up */
+document.querySelectorAll('.sw').forEach((b, i) => {
+  const on = () => { hot = i; kick(); }, off = () => { if (hot === i) { hot = -1; kick(); } };
+  b.addEventListener('pointerenter', on); b.addEventListener('focus', on); b.addEventListener('pointerleave', off); b.addEventListener('blur', off);
+});
+
+const m = /t=(\d{1,3})/.exec(location.hash);
+setT(m ? clamp(+m[1] / 100) : .5);
+let rz = 0;
+const relayout = () => { clearTimeout(rz); rz = setTimeout(layout, 120); };
+window.addEventListener('resize', relayout);
+window.addEventListener('scroll', kick, {passive: true});
+document.addEventListener('visibilitychange', kick);
+layout();
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+window.addEventListener('load', layout);
+if ('ResizeObserver' in window) new ResizeObserver(relayout).observe(document.querySelector('main'));
+})();
+</script>
+</body>
+</html>
