@@ -4,7 +4,7 @@ Twenty-nine small web pieces. Each one is a single HTML file you can open in a b
 
 Made by Anthony Lupo · [humanlup.com](https://humanlup.com) · X [@humanlup](https://x.com/humanlup) · IG [@humanlup.ai](https://www.instagram.com/humanlup.ai) · anthony@humanlup.com
 
-Start at `showcase/index.html`. It flips through all of them.
+Live: [humanlup-design-lab.vercel.app](https://humanlup-design-lab.vercel.app). Start at `showcase/index.html`. It flips through all of them.
 
 ## The pieces
 
@@ -56,6 +56,13 @@ Start at `showcase/index.html`. It flips through all of them.
 
 ## How these were made
 
-I gave Claude (Fable 5.2) a folder of my old experiments and one standing prompt, and let it run on a schedule. It picked a file, made something new from the idea, checked its own work and wrote down what it learned. I steered between runs.
+This is an automated build. I gave Claude (Fable 5.2) a folder of my old experiments and one standing prompt, and it ran every hour on a schedule. Over 47 runs, November 9 to 14, 2026, each run:
+
+- picked one old file and read all of it
+- made something new from the idea, as one HTML file
+- checked it in a real browser at desktop and phone size before saving
+- wrote down what it got wrong and what the next run should do better
+
+My taste notes became rules it followed from then on. 31 pieces came out of it; 29 are here and two stayed private. I steered between runs and picked what shipped.
 
 © 2026 Anthony Lupo. Fonts load from Google Fonts.
